@@ -1,0 +1,64 @@
+# Local dev stack: Postgres + Redis + the Tally API. Everything runs with the
+# mock integration adapters, so NO real API keys are needed.
+#
+#   docker compose up
+#
+# The API waits for Postgres, applies migrations, seeds demo data, then serves
+# on http://localhost:4000/api.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tally
+      POSTGRES_PASSWORD: tally
+      POSTGRES_DB: tally
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tally"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://tally:tally@postgres:5432/tally?schema=public
+      REDIS_URL: redis://redis:6379
+      API_PORT: 4000
+      JWT_SECRET: dev-only-change-me
+      PAYMENTS_PROVIDER: mock
+      SMS_PROVIDER: mock
+      WHATSAPP_PROVIDER: mock
+      LLM_PROVIDER: mock
+    ports:
+      - "4000:4000"
+    command: >
+      sh -c "pnpm --filter './packages/*' build &&
+             pnpm --filter @tally/db push &&
+             pnpm --filter @tally/db seed &&
+             pnpm --filter @tally/api dev"
+
+volumes:
+  pgdata:

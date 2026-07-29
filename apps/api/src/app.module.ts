@@ -1,0 +1,33 @@
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { PrismaModule } from "./prisma/prisma.module.js";
+import { IntegrationsModule } from "./integrations/integrations.module.js";
+import { AuthModule } from "./modules/auth/auth.module.js";
+import { UsersModule } from "./modules/users/users.module.js";
+import { JobsModule } from "./modules/jobs/jobs.module.js";
+import { EscrowModule } from "./modules/escrow/escrow.module.js";
+import { AttendanceModule } from "./modules/attendance/attendance.module.js";
+import { ScoringModule } from "./modules/scoring/scoring.module.js";
+import { LendingModule } from "./modules/lending/lending.module.js";
+import { PaymentsModule } from "./modules/payments/payments.module.js";
+import { ChannelsModule } from "./modules/channels/channels.module.js";
+import { HealthController } from "./health.controller.js";
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
+    IntegrationsModule,
+    AuthModule,
+    UsersModule,
+    JobsModule,
+    EscrowModule,
+    AttendanceModule,
+    ScoringModule,
+    LendingModule,
+    PaymentsModule,
+    ChannelsModule,
+  ],
+  controllers: [HealthController],
+})
+export class AppModule {}
