@@ -11,6 +11,11 @@ export class UsersController {
     return this.users.get(id);
   }
 
+  @Get(":id/dashboard")
+  dashboard(@Param("id") id: string) {
+    return this.users.workerDashboard(id);
+  }
+
   @Patch(":id")
   update(
     @Param("id") id: string,

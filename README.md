@@ -21,6 +21,7 @@ Monorepo (pnpm workspaces + Turborepo):
 ```
 apps/
   api/          NestJS backend (module-per-domain)
+  web/          Next.js App Router frontend (marketing + worker dashboard)
 packages/
   db/           Prisma schema + client + seed
   core/         Pure domain logic: reliability score engine + job matching (unit-tested)
@@ -73,6 +74,22 @@ pnpm --filter @tally/core test    # run the score-engine unit tests
 ```
 
 ---
+
+## Frontend (Next.js)
+
+```bash
+cp apps/web/.env.example apps/web/.env.local   # points at http://localhost:4000/api
+pnpm --filter @tally/web dev                    # http://localhost:3000
+```
+
+Routes:
+- `/` — marketing site
+- `/login` — phone-first OTP sign-in (mock SMS shows the code on screen in dev)
+- `/worker` — worker dashboard: reliability score + tier progress, wallet,
+  active jobs with the **4-digit attendance-confirm** widget, jobs nearby, and
+  score-gated loan offers. One aggregate call: `GET /api/users/:id/dashboard`.
+
+Sign in with the seeded worker `+2348010000001` to see it populated.
 
 ## Try the core flows (mock mode)
 
