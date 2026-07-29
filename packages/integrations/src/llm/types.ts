@@ -3,7 +3,7 @@
 // on. Behind this interface sits a mock (keyword rules) locally, or a real
 // LLM provider in production.
 
-export type Language = "EN" | "PCM" | "YO" | "HA" | "IG";
+import type { Language } from "../common.js";
 
 export type Intent =
   | "signup"

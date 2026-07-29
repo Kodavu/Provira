@@ -1,10 +1,10 @@
 import {
   Intent,
-  Language,
   LlmProvider,
   UnderstandInput,
   UnderstandResult,
 } from "./types.js";
+import type { Language } from "../common.js";
 
 // Deterministic keyword-based NLU so multi-channel flows are testable offline.
 // Recognizes intent phrases across English/Pidgin and a few Yoruba/Hausa/Igbo

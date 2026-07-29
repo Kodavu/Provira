@@ -25,21 +25,21 @@ export class ChannelsController {
   ) {}
 
   @Post("sms/inbound")
-  sms(@Headers() headers: Record<string, string>, @Body() body: unknown) {
+  smsInbound(@Headers() headers: Record<string, string>, @Body() body: unknown) {
     return this.router.handleInbound(
       this.sms.parseInbound(headers, JSON.stringify(body)),
     );
   }
 
   @Post("whatsapp/inbound")
-  whatsapp(@Headers() headers: Record<string, string>, @Body() body: unknown) {
+  whatsappInbound(@Headers() headers: Record<string, string>, @Body() body: unknown) {
     return this.router.handleInbound(
       this.whatsapp.parseInbound(headers, JSON.stringify(body)),
     );
   }
 
   @Post("ivr/inbound")
-  ivr(@Headers() headers: Record<string, string>, @Body() body: unknown) {
+  ivrInbound(@Headers() headers: Record<string, string>, @Body() body: unknown) {
     return this.router.handleInbound(
       this.voice.parseInbound(headers, JSON.stringify(body)),
     );

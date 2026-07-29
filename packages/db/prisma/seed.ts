@@ -4,6 +4,7 @@
 // channel locally. Idempotent-ish: clears core tables then re-inserts.
 
 import { PrismaClient } from "@prisma/client";
+import { computeScore, ScoreEventInput } from "@tally/core";
 
 const prisma = new PrismaClient();
 
@@ -137,14 +138,29 @@ async function main() {
     },
   });
 
-  // Give the worker a small score history so they qualify for matching/loans.
+  // Give the worker a real score HISTORY (append-only events), then derive the
+  // cached profile from the same engine the API uses — so the cached score and
+  // the event log agree and stay coherent as new jobs are completed.
+  const history: ScoreEventInput[] = [];
+  for (let i = 0; i < 10; i++) {
+    history.push({ type: "JOB_COMPLETED" });
+    if (i < 9) history.push({ type: "JOB_ON_TIME" }); // 9/10 on time
+  }
+  history.push({ type: "LOAN_REPAID_ON_TIME" });
+
+  await prisma.scoreEvent.createMany({
+    data: history.map((e) => ({ userId: worker.id, type: e.type, refType: "seed" })),
+  });
+
+  const computed = computeScore(history);
   await prisma.scoreProfile.create({
     data: {
       userId: worker.id,
-      score: 280,
-      tier: "EMERGING",
-      jobsCompleted: 8,
-      onTimeRate: 0.9,
+      score: computed.score,
+      tier: computed.tier,
+      jobsCompleted: computed.jobsCompleted,
+      onTimeRate: computed.onTimeRate,
+      salesCount: computed.salesCount,
     },
   });
 

@@ -1,4 +1,11 @@
 import "reflect-metadata";
+
+// Money is stored as BigInt (kobo). JSON.stringify can't serialize BigInt, so
+// emit it as a string in API responses — preserving exact values (no float loss).
+(BigInt.prototype as unknown as { toJSON: () => string }).toJSON = function () {
+  return this.toString();
+};
+
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { AppModule } from "./app.module.js";

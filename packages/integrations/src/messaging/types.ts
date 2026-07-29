@@ -2,8 +2,7 @@
 // normalizes its own webhook payloads into InboundMessage so the backend's
 // channel router handles one shape regardless of transport.
 
-export type Channel = "SMS" | "IVR" | "WHATSAPP";
-export type Language = "EN" | "PCM" | "YO" | "HA" | "IG";
+import type { Channel, Language } from "../common.js";
 
 export interface OutboundMessage {
   to: string; // msisdn or wa_id

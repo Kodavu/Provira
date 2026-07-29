@@ -2,6 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { PAYMENT_PROVIDER } from "../../integrations/integrations.module.js";
 import type { PaymentProvider } from "@tally/integrations";
+import type { PaymentIntent } from "@tally/db";
 
 /**
  * Payments orchestrates external money movement through the provider-neutral
@@ -21,7 +22,7 @@ export class PaymentsService {
     amount: bigint;
     destination: { bankCode?: string; accountNumber?: string; walletId?: string };
     reference: string;
-  }) {
+  }): Promise<PaymentIntent> {
     const intent = await this.prisma.paymentIntent.create({
       data: {
         direction: "OUTBOUND",
