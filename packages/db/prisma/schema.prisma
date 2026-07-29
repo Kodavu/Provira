@@ -1,0 +1,728 @@
+// Tally — economic identity infrastructure for Nigeria's informal economy
+// Prisma schema (STAGE 1 — for review before backend scaffolding)
+//
+// Conventions:
+// - All money is stored as BigInt in the currency's MINOR unit (kobo for NGN).
+//   Never floats. currency defaults to NGN.
+// - Every user-facing string that can be localized is resolved at the channel
+//   layer, not stored per-row; we store a `language` preference on the user.
+// - Financial movements go through a minimal double-entry ledger
+//   (Account + LedgerTransaction + LedgerEntry). Wallet/escrow balances are
+//   cached on Account.balance and must always equal the sum of their entries.
+// - Third-party providers (payments, whatsapp, sms/voice, llm) are NOT modeled
+//   here — they live behind adapter interfaces. We only persist the artifacts
+//   they produce (PaymentIntent, InboundMessage, etc.).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Language {
+  EN // English
+  PCM // Nigerian Pidgin
+  YO // Yoruba
+  HA // Hausa
+  IG // Igbo
+}
+
+enum RoleType {
+  WORKER
+  TRADER
+  EMPLOYER
+}
+
+enum UserStatus {
+  PENDING // signed up, not yet verified
+  ACTIVE
+  SUSPENDED
+}
+
+enum KycLevel {
+  NONE
+  BASIC // phone + name
+  BVN_VERIFIED // BVN/NIN checked — required for higher payout/loan limits
+  FULL
+}
+
+enum Channel {
+  WEB
+  WHATSAPP
+  SMS
+  IVR // phone call / DTMF
+  USSD // reserved for future
+}
+
+// --- Jobs ---
+
+enum JobStatus {
+  DRAFT
+  OPEN // published, accepting/matching workers
+  FILLED // worker assigned, escrow funded
+  IN_PROGRESS
+  COMPLETED // attendance confirmed, pay released
+  CANCELLED
+  EXPIRED
+}
+
+enum AssignmentStatus {
+  MATCHED // surfaced by matching engine
+  INVITED // employer/worker invited
+  ACCEPTED // worker accepted
+  DECLINED
+  WITHDRAWN
+  CONFIRMED // attendance confirmed via code
+  COMPLETED
+  NO_SHOW
+}
+
+enum AttendanceStatus {
+  PENDING
+  CONFIRMED
+  DISPUTED
+  NO_SHOW
+}
+
+// --- Ledger / payments ---
+
+enum AccountType {
+  EMPLOYER_FUNDING // employer's top-up wallet
+  JOB_ESCROW // per-job holding account
+  WORKER_PAYOUT // worker's balance / payout wallet
+  TRADER_SETTLEMENT // trader's settlement wallet
+  PLATFORM_FEE
+  PLATFORM_CASH // Tally's own cash / lending pool
+  LOAN_RECEIVABLE // outstanding loan principal owed to Tally
+  SUSPENSE // external-in/out clearing
+}
+
+enum EntryDirection {
+  DEBIT
+  CREDIT
+}
+
+enum LedgerTxnType {
+  ESCROW_FUND
+  ESCROW_RELEASE
+  ESCROW_REFUND
+  PAYOUT
+  TRADER_SETTLEMENT
+  FEE
+  LOAN_DISBURSEMENT
+  LOAN_REPAYMENT
+  ADJUSTMENT
+}
+
+enum LedgerTxnStatus {
+  PENDING
+  POSTED
+  FAILED
+  REVERSED
+}
+
+enum PaymentDirection {
+  INBOUND // money into Tally (employer funding, card sale)
+  OUTBOUND // money out of Tally (worker payout, loan disbursement)
+}
+
+enum PaymentStatus {
+  CREATED
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  REVERSED
+}
+
+// --- Scoring ---
+
+enum ScoreTier {
+  BUILDING
+  EMERGING
+  TRUSTED
+  ESTABLISHED
+}
+
+enum ScoreEventType {
+  JOB_COMPLETED
+  JOB_ON_TIME
+  JOB_NO_SHOW
+  SALE_LOGGED
+  LOAN_REPAID_ON_TIME
+  LOAN_DEFAULT
+  DISPUTE_RAISED
+  MANUAL_ADJUSTMENT
+}
+
+// --- Lending ---
+
+enum LoanApplicationStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  WITHDRAWN
+}
+
+enum LoanStatus {
+  ACTIVE
+  REPAID
+  DELINQUENT
+  DEFAULTED
+  WRITTEN_OFF
+}
+
+enum RepaymentStatus {
+  SCHEDULED
+  PAID
+  PARTIAL
+  MISSED
+  WAIVED
+}
+
+// ---------------------------------------------------------------------------
+// Identity & auth
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String     @id @default(cuid())
+  phone         String     @unique // E.164, the primary identifier
+  email         String?    @unique // rare for this user base
+  fullName      String?
+  language      Language   @default(EN)
+  status        UserStatus @default(PENDING)
+  kycLevel      KycLevel   @default(NONE)
+  bvnHash       String? // hashed BVN/NIN, never stored raw
+  hasSmartphone Boolean    @default(false) // drives channel defaults
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  roles           UserRole[]
+  workerProfile   WorkerProfile?
+  traderProfile   TraderProfile?
+  employerProfile EmployerProfile?
+
+  channelIdentities ChannelIdentity[]
+  otpChallenges     OtpChallenge[]
+  accounts          Account[]
+  scoreProfile      ScoreProfile?
+  scoreEvents       ScoreEvent[]
+  loanApplications  LoanApplication[]
+  loans             Loan[]
+  inboundMessages   InboundMessage[]
+  conversations     ConversationState[]
+
+  @@index([status])
+}
+
+// A user may hold more than one role over time (e.g. worker who also trades).
+model UserRole {
+  id       String   @id @default(cuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     RoleType
+  isActive Boolean  @default(true)
+  addedAt  DateTime @default(now())
+
+  @@unique([userId, role])
+  @@index([role])
+}
+
+// Maps an external channel identity (whatsapp id, msisdn, caller id) to a user.
+model ChannelIdentity {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel     Channel
+  externalId  String // whatsapp wa_id / phone number / caller id
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@unique([channel, externalId])
+  @@index([userId])
+}
+
+// OTP challenge for phone-first auth. Codes stored hashed, short TTL.
+model OtpChallenge {
+  id          String    @id @default(cuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  phone       String
+  codeHash    String
+  channel     Channel   @default(SMS)
+  purpose     String    @default("login") // login | signup | payout_confirm
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(5)
+  expiresAt   DateTime
+  consumedAt  DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([phone, purpose])
+}
+
+// ---------------------------------------------------------------------------
+// Role profiles
+// ---------------------------------------------------------------------------
+
+model WorkerProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  skills      WorkerSkill[]
+  languages   Language[] // languages the worker speaks
+  location    Location?     @relation(fields: [locationId], references: [id])
+  locationId  String?
+  assignments JobAssignment[]
+
+  @@index([locationId])
+}
+
+model TraderProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName String?
+  marketName   String?
+  location     Location? @relation(fields: [locationId], references: [id])
+  locationId   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sales SaleRecord[]
+
+  @@index([locationId])
+}
+
+model EmployerProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName String?
+  location     Location? @relation(fields: [locationId], references: [id])
+  locationId   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  jobs Job[]
+
+  @@index([locationId])
+}
+
+// ---------------------------------------------------------------------------
+// Reference data: skills & locations
+// ---------------------------------------------------------------------------
+
+model Skill {
+  id      String        @id @default(cuid())
+  slug    String        @unique // e.g. "bricklaying", "tailoring"
+  name    String
+  workers WorkerSkill[]
+  jobs    JobSkill[]
+}
+
+model WorkerSkill {
+  id          String        @id @default(cuid())
+  workerId    String
+  worker      WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  skillId     String
+  skill       Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  yearsExp    Int           @default(0)
+
+  @@unique([workerId, skillId])
+}
+
+// Lightweight geo model; lat/lng enable radius matching without PostGIS for now.
+model Location {
+  id        String   @id @default(cuid())
+  label     String? // "Balogun Market", "Ikeja"
+  state     String? // Lagos, Kano...
+  lga       String? // local government area
+  lat       Float?
+  lng       Float?
+  createdAt DateTime @default(now())
+
+  workers   WorkerProfile[]
+  traders   TraderProfile[]
+  employers EmployerProfile[]
+  jobs      Job[]
+}
+
+// ---------------------------------------------------------------------------
+// Job marketplace
+// ---------------------------------------------------------------------------
+
+model Job {
+  id           String    @id @default(cuid())
+  employerId   String
+  employer     EmployerProfile @relation(fields: [employerId], references: [id])
+  title        String
+  description  String?
+  status       JobStatus @default(DRAFT)
+  payAmount    BigInt // kobo, total pay for the job
+  currency     String    @default("NGN")
+  locationId   String?
+  location     Location? @relation(fields: [locationId], references: [id])
+  languages    Language[] // languages acceptable for the job
+  startAt      DateTime?
+  endAt        DateTime?
+  headcount    Int       @default(1) // number of workers needed
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  skills      JobSkill[]
+  assignments JobAssignment[]
+  escrow      EscrowAccount?
+  attendances Attendance[]
+
+  @@index([status])
+  @@index([locationId])
+  @@index([employerId])
+}
+
+model JobSkill {
+  id      String @id @default(cuid())
+  jobId   String
+  job     Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  skillId String
+  skill   Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, skillId])
+}
+
+// One row per worker considered/assigned to a job. Carries the match score.
+model JobAssignment {
+  id         String           @id @default(cuid())
+  jobId      String
+  job        Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  workerId   String
+  worker     WorkerProfile    @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  status     AssignmentStatus @default(MATCHED)
+  matchScore Float? // ranking score from matching engine
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  attendance Attendance?
+
+  @@unique([jobId, workerId])
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+// Attendance & confirmation code
+// ---------------------------------------------------------------------------
+
+model Attendance {
+  id             String           @id @default(cuid())
+  jobId          String
+  job            Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  assignmentId   String           @unique
+  assignment     JobAssignment    @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  status         AttendanceStatus @default(PENDING)
+  confirmCodeHash String // 4-digit code, hashed; employer/worker exchange to confirm
+  confirmedAt    DateTime?
+  confirmedVia   Channel?
+  createdAt      DateTime         @default(now())
+
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+// Ledger, escrow & payments
+// ---------------------------------------------------------------------------
+
+model Account {
+  id        String      @id @default(cuid())
+  type      AccountType
+  ownerId   String? // userId for user wallets; null for platform accounts
+  owner     User?       @relation(fields: [ownerId], references: [id])
+  currency  String      @default("NGN")
+  balance   BigInt      @default(0) // cached kobo balance; = sum of entries
+  createdAt DateTime    @default(now())
+
+  entries LedgerEntry[]
+  escrow  EscrowAccount?
+
+  @@index([type])
+  @@index([ownerId])
+}
+
+model EscrowAccount {
+  id        String   @id @default(cuid())
+  jobId     String   @unique
+  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  accountId String   @unique
+  account   Account  @relation(fields: [accountId], references: [id])
+  amount    BigInt // required funding amount, kobo
+  currency  String   @default("NGN")
+  fundedAt  DateTime?
+  releasedAt DateTime?
+  refundedAt DateTime?
+  createdAt DateTime @default(now())
+}
+
+// A balanced group of ledger entries. Sum of DEBITs == sum of CREDITs.
+model LedgerTransaction {
+  id            String          @id @default(cuid())
+  type          LedgerTxnType
+  status        LedgerTxnStatus @default(PENDING)
+  reference     String? // human-readable ref
+  idempotencyKey String?        @unique // prevents double-posting
+  metadata      Json?
+  createdAt     DateTime        @default(now())
+  postedAt      DateTime?
+
+  entries  LedgerEntry[]
+  payments PaymentIntent[]
+}
+
+model LedgerEntry {
+  id            String            @id @default(cuid())
+  transactionId String
+  transaction   LedgerTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  accountId     String
+  account       Account           @relation(fields: [accountId], references: [id])
+  direction     EntryDirection
+  amount        BigInt // kobo, always positive
+  createdAt     DateTime          @default(now())
+
+  @@index([accountId])
+  @@index([transactionId])
+}
+
+// Artifact of a provider-neutral PaymentProvider adapter call. Links external
+// money movement (funding, payout, disbursement) to an internal ledger txn.
+model PaymentIntent {
+  id            String           @id @default(cuid())
+  direction     PaymentDirection
+  status        PaymentStatus    @default(CREATED)
+  amount        BigInt // kobo
+  currency      String           @default("NGN")
+  provider      String // adapter name, e.g. "mock", "paystack"
+  providerRef   String? // provider-side transaction id
+  idempotencyKey String?         @unique
+  transactionId String?
+  transaction   LedgerTransaction? @relation(fields: [transactionId], references: [id])
+  metadata      Json?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  webhookEvents PaymentWebhookEvent[]
+
+  @@index([status])
+  @@index([providerRef])
+}
+
+// Raw inbound webhook from a payment provider, stored for audit/idempotency.
+model PaymentWebhookEvent {
+  id              String        @id @default(cuid())
+  provider        String
+  eventType       String
+  providerEventId String?       @unique
+  paymentIntentId String?
+  paymentIntent   PaymentIntent? @relation(fields: [paymentIntentId], references: [id])
+  payload         Json
+  processedAt     DateTime?
+  createdAt       DateTime      @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Trader sales
+// ---------------------------------------------------------------------------
+
+model SaleRecord {
+  id          String   @id @default(cuid())
+  traderId    String
+  trader      TraderProfile @relation(fields: [traderId], references: [id], onDelete: Cascade)
+  amount      BigInt // kobo
+  currency    String   @default("NGN")
+  method      String   @default("card") // card | cash | transfer
+  reference   String? // POS/provider reference
+  occurredAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@index([traderId])
+  @@index([occurredAt])
+}
+
+// ---------------------------------------------------------------------------
+// Reliability score engine
+// ---------------------------------------------------------------------------
+
+// Current score snapshot per user (fast reads for gating). Recomputed by the
+// scoring worker from the append-only ScoreEvent log.
+model ScoreProfile {
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score         Int       @default(0) // 0..1000 (tunable range)
+  tier          ScoreTier @default(BUILDING)
+  jobsCompleted Int       @default(0)
+  onTimeRate    Float     @default(0) // 0..1
+  salesCount    Int       @default(0)
+  lastComputedAt DateTime @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Append-only log of scoring signals. The engine is a pure function of these.
+model ScoreEvent {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      ScoreEventType
+  weight    Float          @default(0) // delta contribution, set by engine config
+  refType   String? // "job" | "loan" | "sale"
+  refId     String?
+  metadata  Json?
+  createdAt DateTime       @default(now())
+
+  @@index([userId])
+  @@index([type])
+}
+
+// ---------------------------------------------------------------------------
+// Micro-lending (Tally as lender of record, behind a Lender abstraction)
+// ---------------------------------------------------------------------------
+
+model Lender {
+  id        String   @id @default(cuid())
+  name      String
+  isPlatform Boolean @default(true) // Tally itself vs a partner lender
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  products         LoanProduct[]
+  loans            Loan[]
+  loanApplications LoanApplication[]
+}
+
+model LoanProduct {
+  id             String   @id @default(cuid())
+  lenderId       String
+  lender         Lender   @relation(fields: [lenderId], references: [id])
+  name           String
+  minAmount      BigInt // kobo
+  maxAmount      BigInt // kobo
+  interestBps    Int // interest in basis points for the term
+  termDays       Int
+  minScore       Int // score threshold to qualify
+  minTier        ScoreTier @default(EMERGING)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  applications LoanApplication[]
+  loans        Loan[]
+}
+
+model LoanApplication {
+  id         String                @id @default(cuid())
+  userId     String
+  user       User                  @relation(fields: [userId], references: [id])
+  productId  String
+  product    LoanProduct           @relation(fields: [productId], references: [id])
+  lenderId   String
+  lender     Lender                @relation(fields: [lenderId], references: [id])
+  amount     BigInt // requested, kobo
+  status     LoanApplicationStatus @default(SUBMITTED)
+  scoreAtApply Int? // snapshot for audit
+  decisionReason String?
+  decidedAt  DateTime?
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+
+  loan Loan?
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Loan {
+  id             String     @id @default(cuid())
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  lenderId       String
+  lender         Lender     @relation(fields: [lenderId], references: [id])
+  productId      String
+  product        LoanProduct @relation(fields: [productId], references: [id])
+  applicationId  String?    @unique
+  application    LoanApplication? @relation(fields: [applicationId], references: [id])
+  principal      BigInt // kobo
+  interestBps    Int
+  currency       String     @default("NGN")
+  status         LoanStatus @default(ACTIVE)
+  disbursedAt    DateTime?
+  dueAt          DateTime?
+  closedAt       DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  repayments RepaymentInstallment[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model RepaymentInstallment {
+  id         String          @id @default(cuid())
+  loanId     String
+  loan       Loan            @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  sequence   Int // 1..n
+  dueAt      DateTime
+  amountDue  BigInt // kobo (principal + interest portion)
+  amountPaid BigInt          @default(0)
+  status     RepaymentStatus @default(SCHEDULED)
+  paidAt     DateTime?
+
+  @@unique([loanId, sequence])
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+// Multi-channel messaging (bot / SMS / IVR)
+// ---------------------------------------------------------------------------
+
+// Persisted inbound message from any channel, after adapter normalization.
+model InboundMessage {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  channel     Channel
+  externalId  String? // sender's channel id
+  rawBody     String? // text, transcript, or DTMF sequence
+  detectedLanguage Language?
+  intent      String? // resolved by LLM/NLU adapter, e.g. "accept_job"
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([channel])
+}
+
+// Tracks a multi-step conversation/IVR flow state per user+channel.
+model ConversationState {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  channel   Channel
+  externalId String
+  flow      String // "signup" | "accept_job" | "confirm_attendance"
+  step      String
+  context   Json? // accumulated slot values
+  expiresAt DateTime?
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@unique([channel, externalId])
+  @@index([userId])
+}
