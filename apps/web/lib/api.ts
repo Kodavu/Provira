@@ -60,6 +60,37 @@ export interface WorkerDashboard {
   }>;
 }
 
+export interface TraderDashboard {
+  user: {
+    id: string;
+    fullName: string | null;
+    phone: string;
+    businessName: string | null;
+    marketName: string | null;
+  };
+  score: { value: number; tier: Tier; salesCount: number };
+  totals: { allTime: string; thisWeek: string; count: number };
+  sales: Array<{ id: string; amount: string; method: string; occurredAt: string }>;
+  loanOffers: WorkerDashboard["loanOffers"];
+}
+
+export interface EmployerDashboard {
+  user: { id: string; fullName: string | null; businessName: string | null };
+  employerProfileId: string;
+  stats: { activeJobs: number; committed: string; released: string };
+  jobs: Array<{
+    id: string;
+    title: string;
+    status: string;
+    payAmount: string;
+    headcount: number;
+    location: string | null;
+    skills: string[];
+    applicants: number;
+    escrow: { amount: string; funded: boolean; released: boolean } | null;
+  }>;
+}
+
 export const api = {
   requestOtp: (phone: string) =>
     request<{ sent: boolean; devCode?: string }>("/auth/otp/request", {
@@ -73,6 +104,11 @@ export const api = {
       { method: "POST", body: JSON.stringify({ phone, code }) },
     ),
 
+  getUser: (userId: string) =>
+    request<{ id: string; fullName: string | null; roles: Array<{ role: string }> }>(
+      `/users/${userId}`,
+    ),
+
   workerDashboard: (userId: string) =>
     request<WorkerDashboard>(`/users/${userId}/dashboard`),
 
@@ -81,6 +117,38 @@ export const api = {
       `/attendance/assignment/${assignmentId}/confirm`,
       { method: "POST", body: JSON.stringify({ code, via: "WEB" }) },
     ),
+
+  // Trader
+  traderDashboard: (userId: string) =>
+    request<TraderDashboard>(`/traders/${userId}/dashboard`),
+
+  logSale: (userId: string, amount: string, method: string) =>
+    request<{ id: string }>(`/traders/${userId}/sales`, {
+      method: "POST",
+      body: JSON.stringify({ amount, method }),
+    }),
+
+  // Employer
+  employerDashboard: (userId: string) =>
+    request<EmployerDashboard>(`/employers/${userId}/dashboard`),
+
+  createJob: (input: {
+    employerId: string;
+    title: string;
+    payAmount: string;
+    skillSlugs?: string[];
+    languages?: string[];
+  }) =>
+    request<{ id: string }>("/jobs", {
+      method: "POST",
+      body: JSON.stringify(input),
+    }),
+
+  publishJob: (jobId: string) =>
+    request<{ id: string }>(`/jobs/${jobId}/publish`, { method: "POST" }),
+
+  fundJob: (jobId: string) =>
+    request<{ jobId: string }>(`/jobs/${jobId}/fund`, { method: "POST" }),
 };
 
 /** Format kobo (minor units, as string) into naira for display. */

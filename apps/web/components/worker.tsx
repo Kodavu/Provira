@@ -1,80 +1,147 @@
 "use client";
 
 import { useState } from "react";
-import { api, formatNaira, WorkerDashboard } from "@/lib/api";
-import { Button, Card, TierBadge } from "@/components/ui";
+import { api, WorkerDashboard } from "@/lib/api";
+import {
+  Button,
+  Card,
+  Input,
+  Pill,
+  ProgressBar,
+  SectionHeader,
+  StatCard,
+  TierBadge,
+  formatNaira,
+} from "@/components/ui";
 
 const TIER_ORDER = ["BUILDING", "EMERGING", "TRUSTED", "ESTABLISHED"];
-// Lower bound of each tier on the 0–1000 score scale (mirrors core config).
 const TIER_MIN: Record<string, number> = {
   BUILDING: 0,
   EMERGING: 250,
   TRUSTED: 500,
   ESTABLISHED: 750,
 };
+const cap = (s: string) => s[0] + s.slice(1).toLowerCase();
 
-export function ScoreCard({ score }: { score: WorkerDashboard["score"] }) {
+export function StandingCard({ score }: { score: WorkerDashboard["score"] }) {
   const idx = TIER_ORDER.indexOf(score.tier);
   const nextTier = TIER_ORDER[idx + 1];
-  const nextAt = nextTier ? TIER_MIN[nextTier] : null;
-  const pct = Math.min(100, (score.value / 1000) * 100);
+  const pts = nextTier ? Math.max(0, TIER_MIN[nextTier] - score.value) : 0;
+  const base = TIER_MIN[score.tier];
+  const span = nextTier ? TIER_MIN[nextTier] - base : 1;
+  const pct = nextTier ? ((score.value - base) / span) * 100 : 100;
 
   return (
-    <Card>
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-sm font-medium text-neutral-500">Reliability score</p>
-          <p className="mt-1 text-4xl font-extrabold text-neutral-900">
-            {score.value}
-            <span className="text-lg font-medium text-neutral-400"> / 1000</span>
-          </p>
+    <Card className="flex h-full flex-col p-6">
+      <div className="flex flex-1 flex-col items-center justify-center py-4 text-center">
+        <p className="font-display text-6xl font-semibold text-ember">{score.value}</p>
+        <div className="mt-3">
+          <TierBadge tier={score.tier} />
         </div>
-        <TierBadge tier={score.tier} />
       </div>
 
-      <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-neutral-100">
-        <div
-          className="h-full rounded-full bg-brand-500 transition-all"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-      {nextAt !== null && (
-        <p className="mt-2 text-sm text-neutral-500">
-          {nextAt - score.value > 0
-            ? `${nextAt - score.value} points to ${nextTier[0] + nextTier.slice(1).toLowerCase()}`
-            : `You've reached ${score.tier[0] + score.tier.slice(1).toLowerCase()}`}
+      <div className="rounded-xl bg-canvas p-4">
+        <div className="flex items-center justify-between text-sm">
+          <span className="font-semibold text-ink">
+            {nextTier ? `Next: ${cap(nextTier)}` : "Top tier reached"}
+          </span>
+          {nextTier && <span className="text-ink-muted">{pts} pts to go</span>}
+        </div>
+        <div className="mt-2">
+          <ProgressBar pct={pct} />
+        </div>
+        <p className="mt-3 text-sm text-ink-soft">
+          {nextTier
+            ? `${score.jobsCompleted} shifts done · ${Math.round(
+                score.onTimeRate * 100,
+              )}% on time. Keep showing up to reach ${cap(nextTier)}.`
+            : "You're at the highest reliability tier. Keep it up."}
         </p>
-      )}
-
-      <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-        <div className="rounded-xl bg-neutral-50 p-3">
-          <div className="font-semibold text-neutral-900">{score.jobsCompleted}</div>
-          <div className="text-neutral-500">Jobs completed</div>
-        </div>
-        <div className="rounded-xl bg-neutral-50 p-3">
-          <div className="font-semibold text-neutral-900">
-            {Math.round(score.onTimeRate * 100)}%
-          </div>
-          <div className="text-neutral-500">On-time rate</div>
-        </div>
       </div>
     </Card>
   );
 }
 
-export function WalletCard({ wallet }: { wallet: WorkerDashboard["wallet"] }) {
-  // Own container (not <Card>) so the brand background isn't overridden by
-  // Card's bg-white in Tailwind's source order.
+export function HustleStats({
+  score,
+  assignments,
+  wallet,
+}: {
+  score: WorkerDashboard["score"];
+  assignments: WorkerDashboard["assignments"];
+  wallet: WorkerDashboard["wallet"];
+}) {
+  const confirmed = assignments.filter(
+    (a) => a.attendance?.status === "CONFIRMED",
+  );
+  const earned = confirmed.reduce((s, a) => s + Number(a.job.payAmount), 0);
+
   return (
-    <div className="rounded-2xl bg-brand-700 p-5 text-white shadow-sm">
-      <p className="text-sm font-medium text-brand-100">Wallet balance</p>
-      <p className="mt-1 text-4xl font-extrabold text-white">
-        {formatNaira(wallet.balance)}
-      </p>
-      <p className="mt-2 text-sm text-brand-100">
-        Paid out same-day when a job is confirmed.
-      </p>
-    </div>
+    <Card className="p-6">
+      <p className="eyebrow">This week</p>
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="font-display text-2xl font-semibold text-ink">
+          Your hustle, counted
+        </h2>
+        <Pill>Mon — Sun</Pill>
+      </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <StatCard
+          label="Earnings"
+          value={formatNaira(earned)}
+          caption={earned ? `From ${confirmed.length} confirmed shift(s).` : "No earnings yet this week."}
+        />
+        <StatCard
+          label="Shifts"
+          value={confirmed.length}
+          caption={confirmed.length ? "Confirmed & paid." : "No shifts completed yet."}
+          accent="amber"
+        />
+        <StatCard label="Average rating" value="—" caption="No reviews yet." />
+        <StatCard
+          label="Wallet"
+          value={formatNaira(wallet.balance)}
+          caption="Available to withdraw."
+          accent="amber"
+        />
+      </div>
+    </Card>
+  );
+}
+
+export function NextGoal({ done, target }: { done: number; target: number }) {
+  return (
+    <Card className="bg-brand-50/60 p-6">
+      <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-start gap-4">
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-700 text-white">
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.7}>
+              <path d="M3 8h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8Zm5 0V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <div>
+            <p className="eyebrow text-brand-700">Your next goal</p>
+            <p className="mt-1 max-w-md font-medium text-ink">
+              Finish {target} paid shifts this month to unlock the streak badge.
+            </p>
+            <p className="mt-0.5 text-sm text-ink-soft">Streak badge plus bonus payout.</p>
+          </div>
+        </div>
+        <div className="md:text-right">
+          <div className="flex gap-1.5 md:justify-end">
+            {Array.from({ length: target }).map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 w-6 rounded-full ${i < done ? "bg-brand-600" : "bg-brand-100"}`}
+              />
+            ))}
+          </div>
+          <p className="mt-2 text-sm text-ink-soft">
+            {done} of {target} jobs
+          </p>
+        </div>
+      </div>
+    </Card>
   );
 }
 
@@ -87,9 +154,9 @@ export function AssignmentsList({
 }) {
   if (assignments.length === 0)
     return (
-      <Card>
-        <p className="text-sm text-neutral-500">
-          No active jobs yet. Accept a job below to get started.
+      <Card className="p-6">
+        <p className="text-sm text-ink-muted">
+          No active jobs yet. Apply to a job nearby to get started.
         </p>
       </Card>
     );
@@ -97,22 +164,25 @@ export function AssignmentsList({
   return (
     <div className="space-y-3">
       {assignments.map((a) => (
-        <Card key={a.id}>
-          <div className="flex items-center justify-between">
+        <Card key={a.id} className="flex items-center justify-between gap-4 p-4">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-canvas text-ink-muted">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
+                <path d="M3 8h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8Zm5 0V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
             <div>
-              <p className="font-semibold text-neutral-900">{a.job.title}</p>
-              <p className="text-sm text-neutral-500">
-                {formatNaira(a.job.payAmount)} · {a.status}
+              <p className="font-semibold text-ink">{a.job.title}</p>
+              <p className="text-sm text-ink-muted">
+                {formatNaira(a.job.payAmount)} · {a.status.toLowerCase()}
               </p>
             </div>
-            {a.attendance?.status === "CONFIRMED" ? (
-              <span className="rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">
-                Confirmed · paid
-              </span>
-            ) : (
-              <ConfirmForm assignmentId={a.id} onConfirmed={onConfirmed} />
-            )}
           </div>
+          {a.attendance?.status === "CONFIRMED" ? (
+            <Pill tone="green">Confirmed · paid</Pill>
+          ) : (
+            <ConfirmForm assignmentId={a.id} onConfirmed={onConfirmed} />
+          )}
         </Card>
       ))}
     </div>
@@ -146,14 +216,15 @@ function ConfirmForm({
   return (
     <div className="text-right">
       <div className="flex items-center gap-2">
-        <input
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          placeholder="4-digit code"
-          inputMode="numeric"
-          maxLength={4}
-          className="w-28 rounded-xl border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-brand-500"
-        />
+        <div className="w-28">
+          <Input
+            value={code}
+            onChange={setCode}
+            placeholder="4-digit code"
+            inputMode="numeric"
+            maxLength={4}
+          />
+        </div>
         <Button onClick={submit} disabled={loading || code.length !== 4}>
           {loading ? "…" : "Confirm"}
         </Button>
@@ -166,26 +237,28 @@ function ConfirmForm({
 export function JobsNearby({ jobs }: { jobs: WorkerDashboard["openJobs"] }) {
   if (jobs.length === 0)
     return (
-      <Card>
-        <p className="text-sm text-neutral-500">No open jobs nearby right now.</p>
+      <Card className="p-6">
+        <p className="text-sm text-ink-muted">No open jobs nearby right now.</p>
       </Card>
     );
   return (
-    <div className="space-y-3">
+    <div className="grid gap-3 sm:grid-cols-2">
       {jobs.map((j) => (
-        <Card key={j.id}>
-          <div className="flex items-center justify-between">
+        <Card key={j.id} className="p-4">
+          <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="font-semibold text-neutral-900">{j.title}</p>
-              <p className="text-sm text-neutral-500">
+              <p className="font-semibold text-ink">{j.title}</p>
+              <p className="mt-0.5 text-sm text-ink-muted">
                 {j.location?.label ?? "Nearby"}
-                {j.skills.length > 0 &&
-                  ` · ${j.skills.map((s) => s.skill.name).join(", ")}`}
+                {j.skills.length > 0 && ` · ${j.skills.map((s) => s.skill.name).join(", ")}`}
               </p>
             </div>
-            <div className="text-right">
-              <p className="font-bold text-brand-700">{formatNaira(j.payAmount)}</p>
-            </div>
+            <p className="whitespace-nowrap font-display text-lg font-semibold text-brand-700">
+              {formatNaira(j.payAmount)}
+            </p>
+          </div>
+          <div className="mt-3">
+            <Button variant="outline" size="sm">Apply</Button>
           </div>
         </Card>
       ))}
@@ -195,23 +268,25 @@ export function JobsNearby({ jobs }: { jobs: WorkerDashboard["openJobs"] }) {
 
 export function LoanOffers({ offers }: { offers: WorkerDashboard["loanOffers"] }) {
   return (
-    <div className="space-y-3">
+    <div className="grid gap-3 sm:grid-cols-2">
       {offers.map((o) => (
-        <Card key={o.productId}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-semibold text-neutral-900">{o.name}</p>
-              <p className="text-sm text-neutral-500">
-                Up to {formatNaira(o.maxAmount)} · needs score {o.minScore}+
-              </p>
-            </div>
-            {o.eligible ? (
-              <Button>Apply</Button>
-            ) : (
-              <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-500">
-                Keep building
-              </span>
-            )}
+        <Card key={o.productId} className="p-5">
+          <div className="flex items-start justify-between">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-700">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
+                <path d="M3 10 12 4l9 6M5 10v9h14v-9M9 19v-5h6v5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            {o.eligible ? <Pill tone="green">Eligible</Pill> : <Pill>Locked</Pill>}
+          </div>
+          <p className="mt-3 font-semibold text-ink">{o.name}</p>
+          <p className="text-sm text-ink-muted">
+            Up to {formatNaira(o.maxAmount)} · needs score {o.minScore}+
+          </p>
+          <div className="mt-4">
+            <Button disabled={!o.eligible} size="sm">
+              {o.eligible ? "Request" : "Keep building"}
+            </Button>
           </div>
         </Card>
       ))}

@@ -14,6 +14,36 @@ export class EscrowService {
     private readonly ledger: LedgerService,
   ) {}
 
+  /**
+   * Fund escrow from an external source (the employer paying money in). Models
+   * the inbound leg as SUSPENSE -> job escrow so the demo doesn't require the
+   * employer to pre-load a wallet. Idempotent per job.
+   */
+  async fundFromExternal(jobId: string) {
+    const escrow = await this.prisma.escrowAccount.findUnique({
+      where: { jobId },
+    });
+    if (!escrow) throw new BadRequestException("No escrow for job");
+    if (escrow.fundedAt) return escrow;
+
+    const suspense = await this.ledger.getOrCreatePlatformAccount("SUSPENSE");
+    await this.ledger.post({
+      type: "ESCROW_FUND",
+      reference: `escrow-fund:${jobId}`,
+      idempotencyKey: `escrow-fund:${jobId}`,
+      legs: [
+        { accountId: suspense, direction: "DEBIT", amount: escrow.amount },
+        { accountId: escrow.accountId, direction: "CREDIT", amount: escrow.amount },
+      ],
+    });
+
+    await this.prisma.job.update({ where: { id: jobId }, data: { status: "FILLED" } });
+    return this.prisma.escrowAccount.update({
+      where: { jobId },
+      data: { fundedAt: new Date() },
+    });
+  }
+
   /** Create a holding account for a job (called when a job is published). */
   async createForJob(jobId: string, amount: bigint) {
     const account = await this.prisma.account.create({

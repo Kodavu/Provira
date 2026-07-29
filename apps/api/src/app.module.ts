@@ -11,6 +11,8 @@ import { ScoringModule } from "./modules/scoring/scoring.module.js";
 import { LendingModule } from "./modules/lending/lending.module.js";
 import { PaymentsModule } from "./modules/payments/payments.module.js";
 import { ChannelsModule } from "./modules/channels/channels.module.js";
+import { TradersModule } from "./modules/traders/traders.module.js";
+import { EmployersModule } from "./modules/employers/employers.module.js";
 import { HealthController } from "./health.controller.js";
 
 @Module({
@@ -27,6 +29,8 @@ import { HealthController } from "./health.controller.js";
     LendingModule,
     PaymentsModule,
     ChannelsModule,
+    TradersModule,
+    EmployersModule,
   ],
   controllers: [HealthController],
 })

@@ -1,10 +1,14 @@
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { JobsService } from "./jobs.service.js";
+import { EscrowService } from "../escrow/escrow.service.js";
 import type { Language } from "@tally/db";
 
 @Controller("jobs")
 export class JobsController {
-  constructor(private readonly jobs: JobsService) {}
+  constructor(
+    private readonly jobs: JobsService,
+    private readonly escrow: EscrowService,
+  ) {}
 
   @Post()
   create(
@@ -31,6 +35,12 @@ export class JobsController {
   @Post(":id/match")
   match(@Param("id") id: string) {
     return this.jobs.match(id);
+  }
+
+  // Employer funds the job's escrow holding account before work starts.
+  @Post(":id/fund")
+  fund(@Param("id") id: string) {
+    return this.escrow.fundFromExternal(id);
   }
 
   @Get()

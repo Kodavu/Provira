@@ -4,14 +4,25 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, WorkerDashboard } from "@/lib/api";
-import { getUserId, clearSession } from "@/lib/session";
+import { getUserId } from "@/lib/session";
+import { AppShell, NavItem, icons } from "@/components/shell";
+import { SectionHeader } from "@/components/ui";
 import {
-  ScoreCard,
-  WalletCard,
+  StandingCard,
+  HustleStats,
+  NextGoal,
   AssignmentsList,
   JobsNearby,
   LoanOffers,
 } from "@/components/worker";
+
+const NAV: NavItem[] = [
+  { label: "Overview", href: "#top", icon: icons.overview },
+  { label: "Jobs", href: "#jobs", icon: icons.jobs },
+  { label: "Earnings", href: "#earnings", icon: icons.earnings },
+  { label: "Loans", href: "#loans", icon: icons.loans },
+  { label: "My standing", href: "#standing", icon: icons.standing },
+];
 
 export default function WorkerDashboardPage() {
   const router = useRouter();
@@ -39,7 +50,7 @@ export default function WorkerDashboardPage() {
     return (
       <main className="mx-auto max-w-md px-6 py-20 text-center">
         <p className="text-red-600">Couldn&apos;t load your dashboard.</p>
-        <p className="mt-2 text-sm text-neutral-500">{error}</p>
+        <p className="mt-2 text-sm text-ink-muted">{error}</p>
         <Link href="/login" className="mt-4 inline-block text-brand-700 underline">
           Sign in again
         </Link>
@@ -48,59 +59,55 @@ export default function WorkerDashboardPage() {
 
   if (!data)
     return (
-      <main className="mx-auto max-w-4xl px-6 py-20">
-        <div className="h-8 w-40 animate-pulse rounded bg-neutral-100" />
-        <div className="mt-6 h-40 w-full animate-pulse rounded-2xl bg-neutral-100" />
-      </main>
+      <div className="mx-auto max-w-6xl px-6 py-20">
+        <div className="h-8 w-40 animate-pulse rounded bg-line" />
+        <div className="mt-6 h-40 w-full animate-pulse rounded-2xl bg-line" />
+      </div>
     );
 
   const firstName = data.user.fullName?.split(" ")[0] ?? "there";
+  const confirmedCount = data.assignments.filter(
+    (a) => a.attendance?.status === "CONFIRMED",
+  ).length;
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-8">
-      <header className="mb-8 flex items-center justify-between">
-        <div>
-          <p className="text-sm text-neutral-500">Worker dashboard</p>
-          <h1 className="text-2xl font-extrabold text-neutral-900">
-            Hi, {firstName} 👋
-          </h1>
-        </div>
-        <button
-          onClick={() => {
-            clearSession();
-            router.push("/login");
-          }}
-          className="text-sm text-neutral-500 hover:text-neutral-800"
-        >
-          Sign out
-        </button>
-      </header>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <ScoreCard score={data.score} />
-        <WalletCard wallet={data.wallet} />
+    <AppShell
+      role="worker"
+      userName={firstName}
+      nav={NAV}
+      active="Overview"
+      topbarPlaceholder="Search jobs, earnings, history…"
+    >
+      <div id="top" className="scroll-mt-24">
+        <h1 className="font-display text-4xl font-semibold text-ink">Welcome back</h1>
+        <p className="mt-1 text-ink-soft">
+          Your standing, your shifts, what you&apos;ve earned this week.
+        </p>
       </div>
 
-      <Section title="Your jobs">
+      <div id="standing" className="mt-6 grid scroll-mt-24 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+        <StandingCard score={data.score} />
+        <HustleStats score={data.score} assignments={data.assignments} wallet={data.wallet} />
+      </div>
+
+      <div className="mt-6">
+        <NextGoal done={confirmedCount} target={10} />
+      </div>
+
+      <section id="jobs" className="mt-10 scroll-mt-24">
+        <SectionHeader title="Your jobs" subtitle="Shifts you're on. Enter the employer's 4-digit code to confirm attendance and get paid." />
         <AssignmentsList assignments={data.assignments} onConfirmed={load} />
-      </Section>
+      </section>
 
-      <Section title="Jobs nearby">
+      <section id="earnings" className="mt-10 scroll-mt-24">
+        <SectionHeader title="Jobs nearby" subtitle="Open jobs near you — tap apply to send your application." />
         <JobsNearby jobs={data.openJobs} />
-      </Section>
+      </section>
 
-      <Section title="Loan offers">
+      <section id="loans" className="mt-10 scroll-mt-24">
+        <SectionHeader title="Loan offers" subtitle="Built off the work you've done. The more you show up, the more we trust you." />
         <LoanOffers offers={data.loanOffers} />
-      </Section>
-    </main>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="mt-8">
-      <h2 className="mb-3 text-lg font-bold text-neutral-900">{title}</h2>
-      {children}
-    </section>
+      </section>
+    </AppShell>
   );
 }
