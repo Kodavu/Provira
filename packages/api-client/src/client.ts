@@ -1,5 +1,6 @@
 import type {
   EmployerDashboard,
+  ScoreBreakdown,
   TraderDashboard,
   WalletData,
   WorkerDashboard,
@@ -72,6 +73,8 @@ export function createTallyClient(config: TallyClientConfig) {
     workerDashboard: (userId: string) =>
       request<WorkerDashboard>(`/users/${userId}/dashboard`),
     wallet: (userId: string) => request<WalletData>(`/users/${userId}/wallet`),
+    scoreBreakdown: (userId: string) =>
+      request<ScoreBreakdown>(`/scoring/${userId}/breakdown`),
     withdraw: (userId: string, amount: string) =>
       post(`/users/${userId}/withdraw`, { amount }) as Promise<WalletData>,
     applyToJob: (jobId: string, userId: string) =>

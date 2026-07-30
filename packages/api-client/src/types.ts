@@ -71,6 +71,30 @@ export interface EmployerDashboard {
   }>;
 }
 
+export interface ScoreFactor {
+  type: string;
+  label: string;
+  count: number;
+  points: number;
+}
+
+export interface ScoreHistoryItem {
+  type: string;
+  label: string;
+  points: number;
+  at: string;
+}
+
+export interface ScoreBreakdown {
+  score: number;
+  tier: Tier;
+  range: { min: number; max: number };
+  progress: { nextTier: Tier | null; pointsToNext: number; floor: number; ceil: number };
+  metrics: { jobsCompleted: number; onTimeRate: number; salesCount: number };
+  factors: ScoreFactor[];
+  history: ScoreHistoryItem[];
+}
+
 export interface WalletData {
   available: string;
   currency: string;

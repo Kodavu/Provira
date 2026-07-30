@@ -9,4 +9,9 @@ export class ScoringController {
   get(@Param("userId") userId: string) {
     return this.scoring.getProfile(userId);
   }
+
+  @Get(":userId/breakdown")
+  breakdown(@Param("userId") userId: string) {
+    return this.scoring.breakdown(userId);
+  }
 }

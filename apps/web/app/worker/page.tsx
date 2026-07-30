@@ -22,7 +22,7 @@ const NAV: NavItem[] = [
   { label: "Jobs", href: "#jobs", icon: icons.jobs },
   { label: "Earnings", href: "/worker/wallet", icon: icons.earnings },
   { label: "Loans", href: "#loans", icon: icons.loans },
-  { label: "My standing", href: "#standing", icon: icons.standing },
+  { label: "My standing", href: "/worker/score", icon: icons.standing },
 ];
 
 export default function WorkerDashboardPage() {

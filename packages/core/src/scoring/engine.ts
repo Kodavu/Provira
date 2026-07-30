@@ -34,6 +34,12 @@ export interface ScoreResult {
   breakdown: Record<string, number>;
 }
 
+/** A ScoreResult plus the per-event point deltas — the ledger behind the number. */
+export interface ScoreExplanation extends ScoreResult {
+  counts: Record<string, number>;
+  events: Array<{ type: ScoreEventType; points: number; createdAt?: Date }>;
+}
+
 function tierFor(score: number, config: ScoreConfig): ScoreTier {
   const t = config.tierThresholds;
   if (score >= t.ESTABLISHED) return "ESTABLISHED";
@@ -42,12 +48,18 @@ function tierFor(score: number, config: ScoreConfig): ScoreTier {
   return "BUILDING";
 }
 
-export function computeScore(
+/**
+ * Full explanation of a score: the exact points each event contributed (after
+ * decay), the per-type breakdown, and the derived metrics. computeScore is a
+ * thin projection of this, so the number a worker sees always matches the ledger.
+ */
+export function explainScore(
   events: ScoreEventInput[],
   config: ScoreConfig = DEFAULT_SCORE_CONFIG,
-): ScoreResult {
+): ScoreExplanation {
   const counts: Record<string, number> = {};
   const breakdown: Record<string, number> = {};
+  const explained: ScoreExplanation["events"] = [];
   let raw = 0;
 
   // Process oldest-first so decay reflects order of accumulation.
@@ -68,10 +80,11 @@ export function computeScore(
         ? Math.pow(1 - config.decayPerRepeat, seen)
         : 1;
 
-    const contribution = base * decay;
+    const contribution = Math.round(base * decay);
     raw += contribution;
     breakdown[event.type] = (breakdown[event.type] ?? 0) + contribution;
     counts[event.type] = seen + 1;
+    explained.push({ type: event.type, points: contribution, createdAt: event.createdAt });
   }
 
   const score = Math.max(config.min, Math.min(config.max, Math.round(raw)));
@@ -88,7 +101,17 @@ export function computeScore(
     onTimeRate: attendanceDenom === 0 ? 0 : onTime / attendanceDenom,
     salesCount: counts.SALE_LOGGED ?? 0,
     breakdown,
+    counts,
+    events: explained,
   };
+}
+
+export function computeScore(
+  events: ScoreEventInput[],
+  config: ScoreConfig = DEFAULT_SCORE_CONFIG,
+): ScoreResult {
+  const { counts: _c, events: _e, ...result } = explainScore(events, config);
+  return result;
 }
 
 /** Loan gating: is a user eligible for a product requiring a min score/tier? */
