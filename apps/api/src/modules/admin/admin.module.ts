@@ -4,6 +4,8 @@ import { AdminAuthService } from "./admin-auth.service.js";
 import { AdminAuthController } from "./admin-auth.controller.js";
 import { AuditService } from "./audit.service.js";
 import { DisputesService } from "./disputes.service.js";
+import { HrService } from "./hr.service.js";
+import { HrController } from "./hr.controller.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
   AdminController,
@@ -25,11 +27,13 @@ import {
     AdminUsersController,
     AdminMetaController,
     AdminDisputesController,
+    HrController,
   ],
   providers: [
     AdminAuthService,
     AuditService,
     DisputesService,
+    HrService,
     AdminAuthGuard,
     PermissionsGuard,
   ],

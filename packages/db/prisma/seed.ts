@@ -290,6 +290,16 @@ async function main() {
       roles: { create: { roleId: roleByName.get("Customer Support")! } },
     },
   });
+  await prisma.adminUser.create({
+    data: {
+      email: "hr@tally.ng",
+      fullName: "Ngozi Eze",
+      passwordHash: hashPassword("hr1234"),
+      status: "ACTIVE",
+      department: "People Ops",
+      roles: { create: { roleId: roleByName.get("HR / Admin Management")! } },
+    },
+  });
 
   // A couple of disputes so the queue isn't empty.
   await prisma.dispute.create({

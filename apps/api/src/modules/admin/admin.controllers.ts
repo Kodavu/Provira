@@ -222,16 +222,6 @@ export class AdminMetaController {
   auditLogs() {
     return this.audit.list(60);
   }
-
-  @Get("staff")
-  @RequirePermissions("disputes:assign")
-  staff() {
-    return this.prisma.adminUser.findMany({
-      where: { status: "ACTIVE" },
-      select: { id: true, fullName: true, department: true },
-      orderBy: { fullName: "asc" },
-    });
-  }
 }
 
 // --- Disputes (list) ---
@@ -256,6 +246,14 @@ export class AdminDisputesController {
       orderBy: [{ priority: "desc" }, { createdAt: "desc" }],
       take: 50,
     });
+  }
+
+  // Assignable admins for the case detail's assignee picker. Declared before
+  // the ":id" route so "assignees" matches literally.
+  @Get("assignees")
+  @RequirePermissions("disputes:assign")
+  assignees() {
+    return this.disputes.staff();
   }
 
   @Get(":id")

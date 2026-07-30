@@ -33,7 +33,7 @@ export default async function DisputeDetailPage({ params }: { params: { id: stri
   const [d, me, staff] = await Promise.all([
     adminFetch<Detail>(`/admin/disputes/${params.id}`),
     adminFetch<Me>("/admin/me"),
-    adminFetch<Array<{ id: string; fullName: string; department: string | null }>>("/admin/staff"),
+    adminFetch<Array<{ id: string; fullName: string; department: string | null }>>("/admin/disputes/assignees"),
   ]);
   if (!d || !me) return <EmptyState>Couldn&apos;t load this case.</EmptyState>;
   const p = new Set(me.permissions);

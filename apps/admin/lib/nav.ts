@@ -11,6 +11,7 @@ export const NAV: NavItem[] = [
   { label: "Dashboard", href: "/", icon: "home" },
   { label: "Users", href: "/users", icon: "users", permission: "users:view" },
   { label: "Disputes", href: "/disputes", icon: "flag", permission: "disputes:view" },
+  { label: "Staff", href: "/staff", icon: "id", permission: "admin_users:edit" },
   { label: "Roles & Access", href: "/roles", icon: "key", permission: "settings:view" },
   { label: "Audit Logs", href: "/audit", icon: "list", permission: "settings:view" },
 ];
