@@ -91,6 +91,20 @@ export interface EmployerDashboard {
   }>;
 }
 
+export interface WalletData {
+  available: string;
+  currency: string;
+  payoutDestination: { bank: string; accountName: string; accountNumber: string };
+  activity: Array<{
+    id: string;
+    direction: "in" | "out";
+    amount: string;
+    type: string;
+    label: string;
+    at: string;
+  }>;
+}
+
 export const api = {
   requestOtp: (phone: string) =>
     request<{ sent: boolean; devCode?: string }>("/auth/otp/request", {
@@ -111,6 +125,14 @@ export const api = {
 
   workerDashboard: (userId: string) =>
     request<WorkerDashboard>(`/users/${userId}/dashboard`),
+
+  wallet: (userId: string) => request<WalletData>(`/users/${userId}/wallet`),
+
+  withdraw: (userId: string, amount: string) =>
+    request<WalletData>(`/users/${userId}/withdraw`, {
+      method: "POST",
+      body: JSON.stringify({ amount }),
+    }),
 
   applyToJob: (jobId: string, userId: string) =>
     request<{ assignmentId: string; code: string | null; alreadyIssued: boolean }>(

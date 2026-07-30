@@ -1,11 +1,87 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
+import { LedgerService } from "../escrow/ledger.service.js";
 import { meetsThreshold } from "@tally/core";
-import type { Language, RoleType } from "@tally/db";
+import type { Language, LedgerTxnType, RoleType } from "@tally/db";
+
+// Human labels for ledger transaction types shown in the wallet activity feed.
+const TXN_LABELS: Partial<Record<LedgerTxnType, string>> = {
+  ESCROW_RELEASE: "Shift payout",
+  WITHDRAWAL: "Withdrawal",
+  LOAN_DISBURSEMENT: "Loan disbursed",
+  LOAN_REPAYMENT: "Loan repayment",
+  PAYOUT: "Payout",
+  ADJUSTMENT: "Adjustment",
+};
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly ledger: LedgerService,
+  ) {}
+
+  /** Wallet view: available balance, where withdrawals land, and the ledger. */
+  async wallet(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException("User not found");
+
+    const account = await this.prisma.account.findFirst({
+      where: { ownerId: userId, type: "WORKER_PAYOUT" },
+    });
+
+    const entries = account
+      ? await this.prisma.ledgerEntry.findMany({
+          where: { accountId: account.id },
+          include: { transaction: true },
+          orderBy: { createdAt: "desc" },
+          take: 30,
+        })
+      : [];
+
+    return {
+      available: (account?.balance ?? 0n).toString(),
+      currency: "NGN",
+      payoutDestination: {
+        bank: "OPay Digital Services",
+        accountName: user.fullName ?? "—",
+        accountNumber: "••••4821",
+      },
+      activity: entries.map((e) => ({
+        id: e.id,
+        direction: e.direction === "CREDIT" ? "in" : "out",
+        amount: e.amount.toString(),
+        type: e.transaction.type,
+        label: TXN_LABELS[e.transaction.type] ?? e.transaction.type,
+        at: e.createdAt,
+      })),
+    };
+  }
+
+  /** Withdraw from the Guild wallet to the linked bank (money out). */
+  async withdraw(userId: string, amount: bigint) {
+    if (amount <= 0n) throw new BadRequestException("Amount must be positive");
+    const account = await this.prisma.account.findFirst({
+      where: { ownerId: userId, type: "WORKER_PAYOUT" },
+    });
+    if (!account || account.balance < amount)
+      throw new BadRequestException("Insufficient balance");
+
+    const suspense = await this.ledger.getOrCreatePlatformAccount("SUSPENSE");
+    await this.ledger.post({
+      type: "WITHDRAWAL",
+      reference: `withdraw:${userId}:${Date.now()}`,
+      legs: [
+        { accountId: account.id, direction: "DEBIT", amount },
+        { accountId: suspense, direction: "CREDIT", amount },
+      ],
+    });
+    return this.wallet(userId);
+  }
 
   /**
    * One aggregate payload for the worker dashboard: identity, reliability score,

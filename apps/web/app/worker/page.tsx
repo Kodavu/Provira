@@ -20,7 +20,7 @@ import {
 const NAV: NavItem[] = [
   { label: "Overview", href: "#top", icon: icons.overview },
   { label: "Jobs", href: "#jobs", icon: icons.jobs },
-  { label: "Earnings", href: "#earnings", icon: icons.earnings },
+  { label: "Earnings", href: "/worker/wallet", icon: icons.earnings },
   { label: "Loans", href: "#loans", icon: icons.loans },
   { label: "My standing", href: "#standing", icon: icons.standing },
 ];

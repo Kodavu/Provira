@@ -16,6 +16,16 @@ export class UsersController {
     return this.users.workerDashboard(id);
   }
 
+  @Get(":id/wallet")
+  wallet(@Param("id") id: string) {
+    return this.users.wallet(id);
+  }
+
+  @Post(":id/withdraw")
+  withdraw(@Param("id") id: string, @Body() body: { amount: string }) {
+    return this.users.withdraw(id, BigInt(body.amount));
+  }
+
   @Patch(":id")
   update(
     @Param("id") id: string,
