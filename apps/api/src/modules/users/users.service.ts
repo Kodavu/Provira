@@ -6,6 +6,7 @@ import {
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
 import { meetsThreshold } from "@tally/core";
+import { zWalletData, zWorkerDashboard } from "@tally/contracts";
 import type { Language, LedgerTxnType, RoleType } from "@tally/db";
 
 // Human labels for ledger transaction types shown in the wallet activity feed.
@@ -43,8 +44,8 @@ export class UsersService {
         })
       : [];
 
-    return {
-      available: (account?.balance ?? 0n).toString(),
+    return zWalletData.parse({
+      available: account?.balance ?? 0n,
       currency: "NGN",
       payoutDestination: {
         bank: "OPay Digital Services",
@@ -54,12 +55,12 @@ export class UsersService {
       activity: entries.map((e) => ({
         id: e.id,
         direction: e.direction === "CREDIT" ? "in" : "out",
-        amount: e.amount.toString(),
+        amount: e.amount,
         type: e.transaction.type,
         label: TXN_LABELS[e.transaction.type] ?? e.transaction.type,
         at: e.createdAt,
       })),
-    };
+    });
   }
 
   /** Withdraw from the Guild wallet to the linked bank (money out). */
@@ -133,7 +134,10 @@ export class UsersService {
       eligible: meetsThreshold({ score, tier }, p.minScore, p.minTier),
     }));
 
-    return {
+    // Validated against the shared contract — the response is guaranteed to
+    // match the schema the clients infer their types from (and extra fields like
+    // attendance.confirmCodeHash are stripped).
+    return zWorkerDashboard.parse({
       user: {
         id: user.id,
         fullName: user.fullName,
@@ -147,11 +151,11 @@ export class UsersService {
         jobsCompleted: user.scoreProfile?.jobsCompleted ?? 0,
         onTimeRate: user.scoreProfile?.onTimeRate ?? 0,
       },
-      wallet: { balance: (payoutAccount?.balance ?? 0n).toString(), currency: "NGN" },
+      wallet: { balance: payoutAccount?.balance ?? 0n, currency: "NGN" },
       assignments,
       openJobs,
       loanOffers,
-    };
+    });
   }
 
   async get(userId: string) {

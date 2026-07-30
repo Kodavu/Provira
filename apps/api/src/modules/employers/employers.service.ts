@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
+import { zEmployerDashboard } from "@tally/contracts";
 
 /**
  * Employer view: the jobs they've posted, each with its escrow funding state,
@@ -37,11 +38,10 @@ export class EmployersService {
       if (j.escrow?.releasedAt) released += j.escrow.amount;
     }
 
-    return {
+    return zEmployerDashboard.parse({
       user: {
         id: user.id,
         fullName: user.fullName,
-        phone: user.phone,
         businessName: user.employerProfile.businessName,
       },
       employerProfileId: employerId,
@@ -69,6 +69,6 @@ export class EmployersService {
             }
           : null,
       })),
-    };
+    });
   }
 }

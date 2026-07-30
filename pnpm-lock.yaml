@@ -35,6 +35,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^10.4.4
         version: 10.4.22(@nestjs/common@10.4.22(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.22)
+      '@tally/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@tally/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -196,6 +199,20 @@ importers:
         version: 5.9.3
 
   packages/api-client:
+    dependencies:
+      '@tally/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      typescript:
+        specifier: ^5.6.2
+        version: 5.9.3
+
+  packages/contracts:
+    dependencies:
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
     devDependencies:
       typescript:
         specifier: ^5.6.2

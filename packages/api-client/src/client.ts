@@ -1,7 +1,10 @@
 import type {
   EmployerDashboard,
+  OtpRequestResponse,
+  OtpVerifyResponse,
   ScoreBreakdown,
   TraderDashboard,
+  UserRoles,
   WalletData,
   WorkerDashboard,
 } from "./types";
@@ -58,16 +61,10 @@ export function createTallyClient(config: TallyClientConfig) {
 
     // Auth
     requestOtp: (phone: string) =>
-      post("/auth/otp/request", { phone }) as Promise<{ sent: boolean; devCode?: string }>,
+      post("/auth/otp/request", { phone }) as Promise<OtpRequestResponse>,
     verifyOtp: (phone: string, code: string) =>
-      post("/auth/otp/verify", { phone, code }) as Promise<{
-        token: string;
-        user: { id: string; phone: string };
-      }>,
-    getUser: (userId: string) =>
-      request<{ id: string; fullName: string | null; roles: Array<{ role: string }> }>(
-        `/users/${userId}`,
-      ),
+      post("/auth/otp/verify", { phone, code }) as Promise<OtpVerifyResponse>,
+    getUser: (userId: string) => request<UserRoles>(`/users/${userId}`),
 
     // Worker
     workerDashboard: (userId: string) =>

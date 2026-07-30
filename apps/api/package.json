@@ -16,6 +16,7 @@
     "@nestjs/core": "^10.4.4",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.4.4",
+    "@tally/contracts": "workspace:*",
     "@tally/core": "workspace:*",
     "@tally/db": "workspace:*",
     "@tally/i18n": "workspace:*",

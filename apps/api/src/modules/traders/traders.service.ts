@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { ScoringService } from "../scoring/scoring.service.js";
 import { meetsThreshold } from "@tally/core";
+import { zTraderDashboard } from "@tally/contracts";
 
 /**
  * Traders log card/cash sales at their stall. Each logged sale is a scoring
@@ -63,12 +64,11 @@ export class TradersService {
       where: { isActive: true },
     });
 
-    return {
+    return zTraderDashboard.parse({
       user: {
         id: user.id,
         fullName: user.fullName,
         phone: user.phone,
-        language: user.language,
         businessName: user.traderProfile!.businessName,
         marketName: user.traderProfile!.marketName,
       },
@@ -96,6 +96,6 @@ export class TradersService {
         minTier: p.minTier,
         eligible: meetsThreshold({ score, tier }, p.minScore, p.minTier),
       })),
-    };
+    });
   }
 }

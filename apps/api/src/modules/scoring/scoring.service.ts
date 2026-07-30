@@ -6,6 +6,7 @@ import {
   DEFAULT_SCORE_CONFIG,
   ScoreEventInput,
 } from "@tally/core";
+import { zScoreBreakdown } from "@tally/contracts";
 import type { ScoreEventType } from "@tally/db";
 
 // Human labels for the score ledger.
@@ -134,7 +135,7 @@ export class ScoringService {
         at: e.createdAt,
       }));
 
-    return {
+    return zScoreBreakdown.parse({
       score: ex.score,
       tier: ex.tier,
       range: { min: DEFAULT_SCORE_CONFIG.min, max: DEFAULT_SCORE_CONFIG.max },
@@ -151,6 +152,6 @@ export class ScoringService {
       },
       factors,
       history,
-    };
+    });
   }
 }
