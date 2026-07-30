@@ -98,7 +98,7 @@ export default function WalletPage() {
       <Card className="mt-6 p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="eyebrow text-brand-700">Available now</p>
+            <p className="eyebrow text-gold-700">Available now</p>
             <p className="mt-1 font-display text-5xl font-semibold text-ink">
               {formatNaira(data.available)}
             </p>
@@ -169,7 +169,7 @@ export default function WalletPage() {
                   <div className="flex items-center gap-3">
                     <span
                       className={`grid h-9 w-9 place-items-center rounded-lg ${
-                        isIn ? "bg-brand-50 text-brand-700" : "bg-canvas text-ink-soft"
+                        isIn ? "bg-gold-50 text-gold-700" : "bg-canvas text-ink-soft"
                       }`}
                     >
                       <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth={1.8}>
@@ -185,7 +185,7 @@ export default function WalletPage() {
                       <p className="text-xs text-ink-muted">{timeAgo(a.at)}</p>
                     </div>
                   </div>
-                  <span className={`font-display font-semibold ${isIn ? "text-brand-700" : "text-ink"}`}>
+                  <span className={`font-display font-semibold ${isIn ? "text-gold-700" : "text-ink"}`}>
                     {isIn ? "+" : "−"}
                     {formatNaira(a.amount)}
                   </span>

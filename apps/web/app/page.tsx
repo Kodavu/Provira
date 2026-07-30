@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Wordmark } from "@/components/ui";
 
 const AUDIENCES = [
   {
@@ -19,12 +20,7 @@ export default function MarketingPage() {
   return (
     <main className="bg-canvas">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
-            T
-          </span>
-          <span className="font-display text-xl font-semibold text-ink">Tally.</span>
-        </div>
+        <Wordmark />
         <Link
           href="/login"
           className="rounded-xl bg-brand-800 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-900"

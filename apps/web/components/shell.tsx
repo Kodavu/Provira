@@ -3,6 +3,7 @@
 import { ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
 import { clearSession } from "@/lib/session";
+import { Wordmark } from "@/components/ui";
 
 export type Role = "worker" | "trader" | "employer";
 
@@ -74,12 +75,7 @@ export function AppShell({
 
   const sidebar = (
     <>
-      <div className="flex items-center gap-2 px-2">
-        <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
-          T
-        </span>
-        <span className="font-display text-xl font-semibold text-ink">Tally.</span>
-      </div>
+      <Wordmark className="px-2" />
 
       <nav className="mt-8 flex flex-1 flex-col gap-1">
         {nav.map((item) => {

@@ -7,19 +7,26 @@ body {
   color: theme("colors.ink.DEFAULT");
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 /* Micro-label: uppercase, tracked, muted — used above stats and sections. */
 .eyebrow {
   font-size: 0.7rem;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 600;
   color: theme("colors.ink.muted");
 }
 
-/* Thin scrollbars to match the calm aesthetic. */
+/* Tabular figures wherever money/scores are shown, so digits align. */
+.nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d8d4c8 transparent;
+  scrollbar-color: #cbd5e1 transparent;
 }

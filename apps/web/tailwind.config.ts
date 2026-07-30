@@ -5,40 +5,55 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        // Inter everywhere (brief: General Sans/Inter). `display` kept as an
+        // alias so existing font-display headings render Inter, tighter.
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "serif"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       colors: {
-        // Warm cream canvas + white surfaces (Guild-style).
-        canvas: "#faf9f4",
+        // Slate canvas + white surfaces.
+        canvas: "#f8fafc",
         surface: "#ffffff",
         ink: {
-          DEFAULT: "#1a211c",
-          soft: "#4b524c",
-          muted: "#8a8f89",
+          DEFAULT: "#0f172a",
+          soft: "#475569",
+          muted: "#94a3b8",
         },
-        line: "#ece9e1",
+        line: "#e2e8f0",
+        // Primary: indigo — actions, nav, links, logo.
         brand: {
-          50: "#eef5ef",
-          100: "#dcecdf",
-          200: "#bcdac2",
-          500: "#1f9d55",
-          600: "#188046",
-          700: "#146639",
-          800: "#124e2d",
-          900: "#0f3d24",
+          50: "#eef0fe",
+          100: "#e0e1fd",
+          200: "#c7c8fb",
+          300: "#a3a3f8",
+          400: "#7b79f5",
+          500: "#3d3bf3",
+          600: "#2e2cdb",
+          700: "#2725b0",
+          800: "#22218c",
+          900: "#1f1e70",
         },
-        // Warm terracotta used for the headline score number.
-        ember: "#c65b3d",
-        accent: "#e0912f",
+        // Accent: warm gold — money & score moments only.
+        gold: {
+          50: "#fef7e6",
+          100: "#fdecc2",
+          200: "#fbdd8f",
+          500: "#f5b301",
+          600: "#d99a00",
+          700: "#a67600",
+        },
+        accent: "#f5b301",
+        success: "#16a34a",
+        warning: "#d97706",
+        error: "#dc2626",
       },
       borderRadius: {
-        xl: "0.85rem",
-        "2xl": "1.15rem",
-        "3xl": "1.6rem",
+        xl: "0.75rem", // 12px per brief
+        "2xl": "1rem",
+        "3xl": "1.4rem",
       },
       boxShadow: {
-        card: "0 1px 2px rgba(20, 30, 24, 0.04), 0 1px 12px rgba(20, 30, 24, 0.03)",
+        card: "0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 10px rgba(15, 23, 42, 0.03)",
       },
     },
   },

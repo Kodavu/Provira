@@ -87,7 +87,7 @@ export function LogSaleCard({
 export function TraderStanding({ score }: { score: TraderDashboard["score"] }) {
   return (
     <Card className="flex h-full flex-col items-center justify-center p-6 text-center">
-      <p className="font-display text-6xl font-semibold text-ember">{score.value}</p>
+      <p className="font-display text-6xl font-bold tracking-tight text-ink">{score.value}</p>
       <div className="mt-3">
         <TierBadge tier={score.tier} />
       </div>
@@ -116,7 +116,7 @@ export function SalesList({ sales }: { sales: TraderDashboard["sales"] }) {
       {sales.map((s) => (
         <div key={s.id} className="flex items-center justify-between px-5 py-3.5">
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-700">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold-50 text-gold-700">
               <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth={1.7}>
                 <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -130,7 +130,7 @@ export function SalesList({ sales }: { sales: TraderDashboard["sales"] }) {
           </div>
           <div className="flex items-center gap-3">
             <Pill tone={METHOD_TONE[s.method] ?? "neutral"}>{s.method}</Pill>
-            <span className="font-display font-semibold text-brand-700">
+            <span className="font-display font-semibold text-gold-700">
               +{formatNaira(s.amount)}
             </span>
           </div>

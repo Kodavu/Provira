@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { saveSession } from "@/lib/session";
-import { Button, Card, Input } from "@/components/ui";
+import { Button, Card, Input, Wordmark } from "@/components/ui";
 
 const DEMO = [
   { label: "Worker", phone: "+2348010000001" },
@@ -58,12 +58,7 @@ export default function LoginPage() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6">
-      <div className="mb-6 flex items-center gap-2">
-        <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-700 text-sm font-bold text-white">
-          T
-        </span>
-        <span className="font-display text-2xl font-semibold text-ink">Tally.</span>
-      </div>
+      <Wordmark className="mb-6" />
       <h1 className="font-display text-3xl font-semibold text-ink">Sign in</h1>
       <p className="mb-6 mt-1 text-ink-soft">
         We&apos;ll text you a 4-digit code — no password needed.

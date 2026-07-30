@@ -1,5 +1,42 @@
 import { ReactNode } from "react";
 
+// Tally-stroke logomark: four vertical strokes + a diagonal fifth ("counted
+// work"). Reads at favicon size and scales cleanly.
+export function TallyMark({
+  className = "h-7 w-7",
+  boxed = true,
+}: {
+  className?: string;
+  boxed?: boolean;
+}) {
+  const strokes = (
+    <svg viewBox="0 0 24 24" fill="none" className={boxed ? "h-[62%] w-[62%]" : className}>
+      <g stroke={boxed ? "#ffffff" : "currentColor"} strokeWidth={2.1} strokeLinecap="round">
+        <path d="M5 5v14M9.5 5v14M14 5v14M18.5 5v14" />
+        <path d="M3.5 8 20 16" stroke="#f5b301" />
+      </g>
+    </svg>
+  );
+  if (!boxed) return strokes;
+  return (
+    <span
+      className={`grid shrink-0 place-items-center rounded-lg bg-brand-600 ${className}`}
+    >
+      {strokes}
+    </span>
+  );
+}
+
+// Wordmark: lowercase "tally", indigo, tight.
+export function Wordmark({ className = "" }: { className?: string }) {
+  return (
+    <span className={`flex items-center gap-2 ${className}`}>
+      <TallyMark />
+      <span className="text-xl font-bold tracking-tight text-ink">tally</span>
+    </span>
+  );
+}
+
 export function Card({
   children,
   className = "",
@@ -34,7 +71,7 @@ export function Button({
   className?: string;
 }) {
   const styles = {
-    primary: "bg-brand-800 text-white hover:bg-brand-900 disabled:opacity-40",
+    primary: "bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-40",
     outline:
       "border border-line bg-surface text-ink hover:bg-canvas disabled:opacity-40",
     ghost: "text-brand-700 hover:bg-brand-50 disabled:opacity-40",
@@ -127,7 +164,7 @@ export function StatCard({
 
 // Decorative flat sparkline — a subtle nod to the reference's stat cards.
 function Sparkline({ accent }: { accent: "brand" | "amber" }) {
-  const stroke = accent === "amber" ? "#e0912f" : "#188046";
+  const stroke = accent === "amber" ? "#f5b301" : "#3d3bf3";
   return (
     <svg width="72" height="20" viewBox="0 0 72 20" className="shrink-0">
       <line x1="2" y1="16" x2="70" y2="16" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
@@ -137,9 +174,9 @@ function Sparkline({ accent }: { accent: "brand" | "amber" }) {
 
 const TIER_STYLES: Record<string, string> = {
   BUILDING: "bg-canvas text-ink-soft border border-line",
-  EMERGING: "bg-amber-50 text-amber-800 border border-amber-100",
-  TRUSTED: "bg-brand-100 text-brand-800 border border-brand-200",
-  ESTABLISHED: "bg-brand-800 text-white",
+  EMERGING: "bg-gold-50 text-gold-700 border border-gold-100",
+  TRUSTED: "bg-brand-50 text-brand-700 border border-brand-200",
+  ESTABLISHED: "bg-brand-600 text-white",
 };
 
 export function TierBadge({ tier }: { tier: string }) {

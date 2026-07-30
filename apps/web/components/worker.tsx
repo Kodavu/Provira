@@ -34,7 +34,7 @@ export function StandingCard({ score }: { score: WorkerDashboard["score"] }) {
   return (
     <Card className="flex h-full flex-col p-6">
       <div className="flex flex-1 flex-col items-center justify-center py-4 text-center">
-        <p className="font-display text-6xl font-semibold text-ember">{score.value}</p>
+        <p className="font-display text-6xl font-bold tracking-tight text-ink">{score.value}</p>
         <div className="mt-3">
           <TierBadge tier={score.tier} />
         </div>
@@ -311,7 +311,7 @@ export function JobsNearby({
                 {j.skills.length > 0 && ` · ${j.skills.map((s) => s.skill.name).join(", ")}`}
               </p>
             </div>
-            <p className="whitespace-nowrap font-display text-lg font-semibold text-brand-700">
+            <p className="whitespace-nowrap font-display text-lg font-semibold text-ink">
               {formatNaira(j.payAmount)}
             </p>
           </div>
