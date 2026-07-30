@@ -220,6 +220,8 @@ model User {
   loans             Loan[]
   inboundMessages   InboundMessage[]
   conversations     ConversationState[]
+  reportedDisputes  Dispute[]           @relation("DisputeReporter")
+  disputesAgainst   Dispute[]           @relation("DisputeDefendant")
 
   @@index([status])
 }
@@ -726,4 +728,198 @@ model ConversationState {
 
   @@unique([channel, externalId])
   @@index([userId])
+}
+
+// ===========================================================================
+// ADMIN / BACK-OFFICE — RBAC, audit, disputes
+// ===========================================================================
+
+enum AdminStatus {
+  INVITED
+  ACTIVE
+  DISABLED
+}
+
+// A permission is a "resource:action" string (e.g. "finance:approve_withdrawals").
+// Nothing is hardcoded — roles are just bundles of these.
+model Permission {
+  id       String   @id @default(cuid())
+  key      String   @unique // e.g. "users:suspend"
+  group    String // e.g. "Users" (for grouping in the UI)
+  label    String // e.g. "Suspend"
+  createdAt DateTime @default(now())
+
+  roles RolePermission[]
+
+  @@index([group])
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  isSystem    Boolean  @default(false) // system roles (e.g. Super Admin) can't be deleted
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  permissions RolePermission[]
+  admins      AdminUserRole[]
+}
+
+model RolePermission {
+  roleId       String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permissionId String
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+}
+
+model AdminUser {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  fullName     String
+  passwordHash String? // null while INVITED
+  status       AdminStatus @default(INVITED)
+  department   String? // e.g. "Finance", "Compliance"
+  lastLoginAt  DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  roles           AdminUserRole[]
+  auditLogs       AdminAuditLog[]
+  loginEvents     AdminLoginEvent[]
+  assignedDisputes Dispute[]        @relation("DisputeAssignee")
+  disputeEvents   DisputeEvent[]
+  disputeMessages DisputeMessage[]
+
+  @@index([status])
+}
+
+model AdminUserRole {
+  adminUserId String
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+  roleId      String
+  role        Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  assignedAt  DateTime  @default(now())
+
+  @@id([adminUserId, roleId])
+  @@index([roleId])
+}
+
+// Append-only. No updatedAt, and the app never issues UPDATE/DELETE against it.
+// Production hardening: grant the app's DB role INSERT/SELECT only on this table.
+model AdminAuditLog {
+  id            String   @id @default(cuid())
+  adminUserId   String?
+  adminUser     AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  action        String // e.g. "user.suspend"
+  resource      String // e.g. "User"
+  resourceId    String?
+  ip            String?
+  device        String?
+  previousValue Json?
+  newValue      Json?
+  createdAt     DateTime @default(now())
+
+  @@index([adminUserId, createdAt])
+  @@index([resource, resourceId])
+}
+
+model AdminLoginEvent {
+  id          String   @id @default(cuid())
+  adminUserId String
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+  ip          String?
+  device      String?
+  success     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([adminUserId, createdAt])
+}
+
+// --- Disputes ---
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  WAITING_FOR_USER
+  ESCALATED
+  RESOLVED
+  CLOSED
+}
+
+enum DisputePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Dispute {
+  id           String          @id @default(cuid())
+  code         String          @unique // human ref, e.g. "DSP-1024"
+  reporterId   String
+  reporter     User            @relation("DisputeReporter", fields: [reporterId], references: [id])
+  defendantId  String?
+  defendant    User?           @relation("DisputeDefendant", fields: [defendantId], references: [id])
+  subjectType  String? // "job" | "loan" | "transaction"
+  subjectId    String?
+  title        String
+  priority     DisputePriority @default(MEDIUM)
+  status       DisputeStatus   @default(OPEN)
+  assignedAdminId String?
+  assignedAdmin   AdminUser?   @relation("DisputeAssignee", fields: [assignedAdminId], references: [id])
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  resolvedAt   DateTime?
+
+  events   DisputeEvent[]
+  messages DisputeMessage[]
+  evidence DisputeEvidence[]
+
+  @@index([status, priority])
+  @@index([assignedAdminId])
+}
+
+// Immutable timeline entries: status changes, assignments, escalations, notes.
+model DisputeEvent {
+  id          String   @id @default(cuid())
+  disputeId   String
+  dispute     Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  adminUserId String?
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  type        String // "created" | "status_change" | "assigned" | "escalated" | "note"
+  note        String?
+  fromStatus  DisputeStatus?
+  toStatus    DisputeStatus?
+  createdAt   DateTime @default(now())
+
+  @@index([disputeId, createdAt])
+}
+
+model DisputeMessage {
+  id          String   @id @default(cuid())
+  disputeId   String
+  dispute     Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  authorType  String // "ADMIN" | "USER"
+  adminUserId String?
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  body        String
+  isInternal  Boolean  @default(false) // internal notes vs user-visible
+  createdAt   DateTime @default(now())
+
+  @@index([disputeId, createdAt])
+}
+
+model DisputeEvidence {
+  id        String   @id @default(cuid())
+  disputeId String
+  dispute   Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  label     String
+  url       String
+  createdAt DateTime @default(now())
+
+  @@index([disputeId])
 }

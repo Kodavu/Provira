@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enterprise neutral surfaces, light + dark. Semantic vars keep components terse. */
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-soft: #475569;
+  --text-muted: #94a3b8;
+}
+.dark {
+  --bg: #0b1120;
+  --surface: #111827;
+  --border: #1f2937;
+  --text: #e5e7eb;
+  --text-soft: #9ca3af;
+  --text-muted: #6b7280;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+.surface { background: var(--surface); border-color: var(--border); }
+.text-soft { color: var(--text-soft); }
+.text-muted { color: var(--text-muted); }
+.border-app { border-color: var(--border); }
+.bg-app { background: var(--bg); }
+.eyebrow {
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 600; color: var(--text-muted);
+}
+* { scrollbar-width: thin; scrollbar-color: #64748b transparent; }

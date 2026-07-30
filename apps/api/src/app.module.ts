@@ -13,6 +13,7 @@ import { PaymentsModule } from "./modules/payments/payments.module.js";
 import { ChannelsModule } from "./modules/channels/channels.module.js";
 import { TradersModule } from "./modules/traders/traders.module.js";
 import { EmployersModule } from "./modules/employers/employers.module.js";
+import { AdminModule } from "./modules/admin/admin.module.js";
 import { HealthController } from "./health.controller.js";
 
 @Module({
@@ -31,6 +32,7 @@ import { HealthController } from "./health.controller.js";
     ChannelsModule,
     TradersModule,
     EmployersModule,
+    AdminModule,
   ],
   controllers: [HealthController],
 })
