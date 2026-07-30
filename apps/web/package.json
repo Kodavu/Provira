@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tally/api-client": "workspace:*",
     "framer-motion": "^11.11.1",
     "next": "^14.2.13",
     "react": "^18.3.1",

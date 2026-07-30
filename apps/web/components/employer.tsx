@@ -150,7 +150,7 @@ function JobRow({
     setBusy("match");
     try {
       await api.publishJob(job.id).catch(() => {});
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api"}/jobs/${job.id}/match`, { method: "POST" });
+      await api.matchJob(job.id);
       onChange();
     } finally {
       setBusy(null);

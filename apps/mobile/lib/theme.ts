@@ -28,7 +28,5 @@ const TIER_STYLE: Record<string, { bg: string; fg: string }> = {
 };
 export const tierStyle = (t: string) => TIER_STYLE[t] ?? TIER_STYLE.BUILDING;
 
-export function formatNaira(kobo: string | number): string {
-  const n = Number(kobo) / 100;
-  return "₦" + new Intl.NumberFormat("en-NG", { maximumFractionDigits: 0 }).format(n);
-}
+// Shared with web + admin via the api-client package.
+export { formatNaira } from "@tally/api-client";

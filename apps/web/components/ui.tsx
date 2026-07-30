@@ -269,11 +269,5 @@ export function EmptyState({ children }: { children: ReactNode }) {
   );
 }
 
-export function formatNaira(kobo: string | number): string {
-  const n = Number(kobo) / 100;
-  return new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-    maximumFractionDigits: 0,
-  }).format(n);
-}
+// Single source of money formatting, shared with mobile + admin.
+export { formatNaira } from "@tally/api-client";

@@ -42,6 +42,7 @@ export const session = {
     await set(USER, userId);
   },
   userId: () => get(USER),
+  token: () => get(TOKEN),
   clear: async () => {
     await del(TOKEN);
     await del(USER);
