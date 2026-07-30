@@ -145,6 +145,54 @@ export function NextGoal({ done, target }: { done: number; target: number }) {
   );
 }
 
+export function ApplyCodeBanner({
+  jobTitle,
+  code,
+  onDismiss,
+}: {
+  jobTitle: string;
+  code: string | null;
+  onDismiss: () => void;
+}) {
+  return (
+    <Card className="border-brand-200 bg-brand-50/70 p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="eyebrow text-brand-700">You applied — {jobTitle}</p>
+          {code ? (
+            <>
+              <p className="mt-1 text-ink">
+                Your confirmation code is{" "}
+                <span className="font-display text-2xl font-semibold tracking-[0.3em] text-brand-800">
+                  {code}
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-ink-soft">
+                The employer confirms this on site. Enter it under{" "}
+                <strong>Your jobs</strong> to confirm attendance and get paid.
+              </p>
+            </>
+          ) : (
+            <p className="mt-1 text-sm text-ink-soft">
+              You&apos;ve already applied — find this shift under{" "}
+              <strong>Your jobs</strong>.
+            </p>
+          )}
+        </div>
+        <button
+          onClick={onDismiss}
+          className="rounded-lg p-1 text-ink-muted hover:bg-brand-100"
+          aria-label="Dismiss"
+        >
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2}>
+            <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+    </Card>
+  );
+}
+
 export function AssignmentsList({
   assignments,
   onConfirmed,
@@ -234,11 +282,21 @@ function ConfirmForm({
   );
 }
 
-export function JobsNearby({ jobs }: { jobs: WorkerDashboard["openJobs"] }) {
+export function JobsNearby({
+  jobs,
+  onApply,
+  applyingId,
+}: {
+  jobs: WorkerDashboard["openJobs"];
+  onApply: (jobId: string) => void;
+  applyingId: string | null;
+}) {
   if (jobs.length === 0)
     return (
       <Card className="p-6">
-        <p className="text-sm text-ink-muted">No open jobs nearby right now.</p>
+        <p className="text-sm text-ink-muted">
+          No new jobs nearby right now — you&apos;ve applied to what&apos;s open.
+        </p>
       </Card>
     );
   return (
@@ -258,7 +316,14 @@ export function JobsNearby({ jobs }: { jobs: WorkerDashboard["openJobs"] }) {
             </p>
           </div>
           <div className="mt-3">
-            <Button variant="outline" size="sm">Apply</Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onApply(j.id)}
+              disabled={applyingId === j.id}
+            >
+              {applyingId === j.id ? "Applying…" : "Apply"}
+            </Button>
           </div>
         </Card>
       ))}

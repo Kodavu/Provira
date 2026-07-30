@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { EscrowService } from "../escrow/escrow.service.js";
 import {
@@ -110,6 +110,28 @@ export class JobsService {
       });
     }
     return ranked;
+  }
+
+  /**
+   * A worker applies to a job. Creates/accepts their assignment. The employer
+   * still generates and hands over the confirmation code (see AttendanceService)
+   * — the controller chains that so the worker sees the code in one step.
+   */
+  async applyToJob(jobId: string, userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { workerProfile: true },
+    });
+    if (!user?.workerProfile)
+      throw new BadRequestException("Only workers can apply to jobs");
+    const job = await this.prisma.job.findUnique({ where: { id: jobId } });
+    if (!job) throw new NotFoundException("Job not found");
+
+    return this.prisma.jobAssignment.upsert({
+      where: { jobId_workerId: { jobId, workerId: user.workerProfile.id } },
+      create: { jobId, workerId: user.workerProfile.id, status: "ACCEPTED" },
+      update: { status: "ACCEPTED" },
+    });
   }
 
   listOpenNear(_locationId?: string) {

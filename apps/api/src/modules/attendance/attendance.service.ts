@@ -30,6 +30,13 @@ export class AttendanceService {
     });
     if (!assignment) throw new BadRequestException("Assignment not found");
 
+    // Idempotent: a code was already issued for this assignment. We can't
+    // re-reveal the plaintext (it's hashed), so signal the caller.
+    const existing = await this.prisma.attendance.findUnique({
+      where: { assignmentId },
+    });
+    if (existing) return { code: null as string | null, alreadyIssued: true };
+
     const code = String(randomInt(1000, 10000));
     await this.prisma.$transaction([
       this.prisma.jobAssignment.update({

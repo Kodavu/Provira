@@ -14,6 +14,7 @@ import {
   AssignmentsList,
   JobsNearby,
   LoanOffers,
+  ApplyCodeBanner,
 } from "@/components/worker";
 
 const NAV: NavItem[] = [
@@ -28,6 +29,11 @@ export default function WorkerDashboardPage() {
   const router = useRouter();
   const [data, setData] = useState<WorkerDashboard | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [applyingId, setApplyingId] = useState<string | null>(null);
+  const [applyResult, setApplyResult] = useState<{
+    jobTitle: string;
+    code: string | null;
+  } | null>(null);
 
   const load = useCallback(async () => {
     const userId = getUserId();
@@ -41,6 +47,23 @@ export default function WorkerDashboardPage() {
       setError((e as Error).message);
     }
   }, [router]);
+
+  async function handleApply(jobId: string) {
+    const userId = getUserId();
+    if (!userId || !data) return;
+    setApplyingId(jobId);
+    try {
+      const res = await api.applyToJob(jobId, userId);
+      const job = data.openJobs.find((j) => j.id === jobId);
+      setApplyResult({ jobTitle: job?.title ?? "this shift", code: res.code });
+      await load();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setApplyingId(null);
+    }
+  }
 
   useEffect(() => {
     load();
@@ -69,6 +92,8 @@ export default function WorkerDashboardPage() {
   const confirmedCount = data.assignments.filter(
     (a) => a.attendance?.status === "CONFIRMED",
   ).length;
+  const assignedJobIds = new Set(data.assignments.map((a) => a.job.id));
+  const availableJobs = data.openJobs.filter((j) => !assignedJobIds.has(j.id));
 
   return (
     <AppShell
@@ -85,6 +110,16 @@ export default function WorkerDashboardPage() {
         </p>
       </div>
 
+      {applyResult && (
+        <div className="mt-6">
+          <ApplyCodeBanner
+            jobTitle={applyResult.jobTitle}
+            code={applyResult.code}
+            onDismiss={() => setApplyResult(null)}
+          />
+        </div>
+      )}
+
       <div id="standing" className="mt-6 grid scroll-mt-24 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
         <StandingCard score={data.score} />
         <HustleStats score={data.score} assignments={data.assignments} wallet={data.wallet} />
@@ -100,8 +135,8 @@ export default function WorkerDashboardPage() {
       </section>
 
       <section id="earnings" className="mt-10 scroll-mt-24">
-        <SectionHeader title="Jobs nearby" subtitle="Open jobs near you — tap apply to send your application." />
-        <JobsNearby jobs={data.openJobs} />
+        <SectionHeader title="Jobs nearby" subtitle="Open jobs near you — tap apply to get your confirmation code." />
+        <JobsNearby jobs={availableJobs} onApply={handleApply} applyingId={applyingId} />
       </section>
 
       <section id="loans" className="mt-10 scroll-mt-24">

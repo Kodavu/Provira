@@ -112,6 +112,12 @@ export const api = {
   workerDashboard: (userId: string) =>
     request<WorkerDashboard>(`/users/${userId}/dashboard`),
 
+  applyToJob: (jobId: string, userId: string) =>
+    request<{ assignmentId: string; code: string | null; alreadyIssued: boolean }>(
+      `/jobs/${jobId}/apply`,
+      { method: "POST", body: JSON.stringify({ userId }) },
+    ),
+
   confirmAttendance: (assignmentId: string, code: string) =>
     request<{ status: string }>(
       `/attendance/assignment/${assignmentId}/confirm`,
