@@ -56,10 +56,12 @@ export function AppShell({
 }) {
   const router = useRouter();
   const [current, setCurrent] = useState(active);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const initials = userName.slice(0, 2).toUpperCase();
   const roleLabel = role[0].toUpperCase() + role.slice(1);
 
   function go(item: NavItem) {
+    setMobileOpen(false);
     if (item.href.startsWith("#")) {
       setCurrent(item.label);
       document
@@ -70,66 +72,96 @@ export function AppShell({
     }
   }
 
+  const sidebar = (
+    <>
+      <div className="flex items-center gap-2 px-2">
+        <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
+          T
+        </span>
+        <span className="font-display text-xl font-semibold text-ink">Tally.</span>
+      </div>
+
+      <nav className="mt-8 flex flex-1 flex-col gap-1">
+        {nav.map((item) => {
+          const isActive = current === item.label;
+          return (
+            <button
+              key={item.label}
+              onClick={() => go(item)}
+              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+                isActive
+                  ? "bg-brand-50 text-brand-700"
+                  : "text-ink-soft hover:bg-canvas hover:text-ink"
+              }`}
+            >
+              <span className={isActive ? "text-brand-600" : "text-ink-muted"}>
+                {item.icon}
+              </span>
+              {item.label}
+            </button>
+          );
+        })}
+
+        <p className="eyebrow mt-6 px-3">Account</p>
+        {ACCOUNT.map((item) => (
+          <div
+            key={item.label}
+            className="flex cursor-default items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft"
+          >
+            <span className="text-ink-muted">{item.icon}</span>
+            {item.label}
+          </div>
+        ))}
+      </nav>
+
+      <button
+        onClick={() => {
+          clearSession();
+          router.push("/login");
+        }}
+        className="mt-2 rounded-xl border border-line px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-canvas"
+      >
+        Sign out
+      </button>
+    </>
+  );
+
   return (
     <div className="flex min-h-screen bg-canvas">
-      {/* Sidebar */}
+      {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-line bg-surface px-4 py-6 md:flex">
-        <div className="flex items-center gap-2 px-2">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
-            T
-          </span>
-          <span className="font-display text-xl font-semibold text-ink">Tally.</span>
-        </div>
-
-        <nav className="mt-8 flex flex-1 flex-col gap-1">
-          {nav.map((item) => {
-            const isActive = current === item.label;
-            return (
-              <button
-                key={item.label}
-                onClick={() => go(item)}
-                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
-                  isActive
-                    ? "bg-brand-50 text-brand-700"
-                    : "text-ink-soft hover:bg-canvas hover:text-ink"
-                }`}
-              >
-                <span className={isActive ? "text-brand-600" : "text-ink-muted"}>
-                  {item.icon}
-                </span>
-                {item.label}
-              </button>
-            );
-          })}
-
-          <p className="eyebrow mt-6 px-3">Account</p>
-          {ACCOUNT.map((item) => (
-            <div
-              key={item.label}
-              className="flex cursor-default items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft"
-            >
-              <span className="text-ink-muted">{item.icon}</span>
-              {item.label}
-            </div>
-          ))}
-        </nav>
-
-        <button
-          onClick={() => {
-            clearSession();
-            router.push("/login");
-          }}
-          className="mt-2 rounded-xl border border-line px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-canvas"
-        >
-          Sign out
-        </button>
+        {sidebar}
       </aside>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <div
+            className="absolute inset-0 bg-ink/30 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside className="absolute left-0 top-0 flex h-full w-72 max-w-[82%] flex-col border-r border-line bg-surface px-4 py-6 shadow-2xl">
+            {sidebar}
+          </aside>
+        </div>
+      )}
 
       {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-10 flex items-center gap-4 border-b border-line bg-canvas/85 px-6 py-3.5 backdrop-blur">
+        <header className="sticky top-0 z-30 flex items-center gap-2 border-b border-line bg-canvas/85 px-4 py-3 backdrop-blur sm:gap-4 sm:px-6 sm:py-3.5">
+          {/* Hamburger (mobile only) */}
+          <button
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft md:hidden"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8}>
+              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+            </svg>
+          </button>
+
           <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 text-ink-muted" fill="none" stroke="currentColor" strokeWidth={2}>
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-ink-muted" fill="none" stroke="currentColor" strokeWidth={2}>
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3-3" strokeLinecap="round" />
             </svg>
@@ -141,24 +173,26 @@ export function AppShell({
               Ctrl K
             </kbd>
           </div>
-          <button className="grid h-9 w-9 place-items-center rounded-xl border border-line bg-surface text-ink-soft">
-            <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth={1.7}>
+          <button className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
               <path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M10 19a2 2 0 0 0 4 0" strokeLinecap="round" />
             </svg>
           </button>
-          <div className="flex items-center gap-2 rounded-xl border border-line bg-surface py-1.5 pl-1.5 pr-3">
+          <div className="flex shrink-0 items-center gap-2 rounded-xl border border-line bg-surface py-1.5 pl-1.5 pr-1.5 sm:pr-3">
             <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
               {initials}
             </span>
-            <div className="text-left">
+            <div className="hidden text-left sm:block">
               <p className="text-sm font-semibold leading-none text-ink">{userName}</p>
               <p className="mt-0.5 text-[11px] leading-none text-ink-muted">{roleLabel}</p>
             </div>
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">{children}</main>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
+          {children}
+        </main>
       </div>
     </div>
   );

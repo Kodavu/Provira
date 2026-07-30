@@ -212,7 +212,7 @@ export function AssignmentsList({
   return (
     <div className="space-y-3">
       {assignments.map((a) => (
-        <Card key={a.id} className="flex items-center justify-between gap-4 p-4">
+        <Card key={a.id} className="flex flex-wrap items-center justify-between gap-3 p-4">
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-canvas text-ink-muted">
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
