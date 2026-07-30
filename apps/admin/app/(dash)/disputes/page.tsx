@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { adminFetch } from "@/lib/admin-api";
 import { Badge, PageHeader, Table, EmptyState } from "@/components/ui";
 
@@ -35,9 +36,13 @@ export default async function DisputesPage() {
       ) : (
         <Table head={["Case", "Title", "Reporter", "Priority", "Status", "Assigned", "Opened"]}>
           {disputes.map((d) => (
-            <tr key={d.id}>
-              <td className="px-4 py-3 font-mono text-xs font-semibold">{d.code}</td>
-              <td className="px-4 py-3 font-medium">{d.title}</td>
+            <tr key={d.id} className="hover:bg-app">
+              <td className="px-4 py-3 font-mono text-xs font-semibold">
+                <Link href={`/disputes/${d.id}`} className="text-brand-500 hover:underline">{d.code}</Link>
+              </td>
+              <td className="px-4 py-3 font-medium">
+                <Link href={`/disputes/${d.id}`} className="hover:underline">{d.title}</Link>
+              </td>
               <td className="px-4 py-3 text-soft">{d.reporter?.fullName ?? d.reporter?.phone ?? "—"}</td>
               <td className="px-4 py-3"><Badge tone={PRIORITY_TONE[d.priority]}>{d.priority.toLowerCase()}</Badge></td>
               <td className="px-4 py-3"><Badge tone={STATUS_TONE[d.status] ?? "neutral"}>{d.status.replace("_", " ").toLowerCase()}</Badge></td>

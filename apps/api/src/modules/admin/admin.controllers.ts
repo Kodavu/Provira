@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -9,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { AuditService } from "./audit.service.js";
+import { DisputesService } from "./disputes.service.js";
 import {
   AdminAuthGuard,
   AdminContext,
@@ -16,6 +18,14 @@ import {
   PermissionsGuard,
   RequirePermissions,
 } from "./rbac.js";
+import type { DisputeStatus } from "@tally/db";
+
+function reqMeta(req: any) {
+  return {
+    ip: (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ?? req.ip,
+    device: req.headers["user-agent"] as string | undefined,
+  };
+}
 
 // --- Me + dashboard (any authenticated admin) ---
 
@@ -212,6 +222,16 @@ export class AdminMetaController {
   auditLogs() {
     return this.audit.list(60);
   }
+
+  @Get("staff")
+  @RequirePermissions("disputes:assign")
+  staff() {
+    return this.prisma.adminUser.findMany({
+      where: { status: "ACTIVE" },
+      select: { id: true, fullName: true, department: true },
+      orderBy: { fullName: "asc" },
+    });
+  }
 }
 
 // --- Disputes (list) ---
@@ -219,7 +239,10 @@ export class AdminMetaController {
 @Controller("admin/disputes")
 @UseGuards(AdminAuthGuard, PermissionsGuard)
 export class AdminDisputesController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly disputes: DisputesService,
+  ) {}
 
   @Get()
   @RequirePermissions("disputes:view")
@@ -233,5 +256,77 @@ export class AdminDisputesController {
       orderBy: [{ priority: "desc" }, { createdAt: "desc" }],
       take: 50,
     });
+  }
+
+  @Get(":id")
+  @RequirePermissions("disputes:view")
+  detail(@Param("id") id: string) {
+    return this.disputes.detail(id);
+  }
+
+  @Post(":id/assign")
+  @RequirePermissions("disputes:assign")
+  assign(
+    @Param("id") id: string,
+    @Body() body: { adminUserId: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.assign(id, body.adminUserId, admin, reqMeta(req));
+  }
+
+  @Post(":id/status")
+  @RequirePermissions("disputes:assign")
+  setStatus(
+    @Param("id") id: string,
+    @Body() body: { status: DisputeStatus },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.setStatus(id, body.status, admin, reqMeta(req));
+  }
+
+  @Post(":id/escalate")
+  @RequirePermissions("disputes:escalate")
+  escalate(
+    @Param("id") id: string,
+    @Body() body: { note?: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.escalate(id, admin, reqMeta(req), body?.note);
+  }
+
+  @Post(":id/resolve")
+  @RequirePermissions("disputes:resolve")
+  resolve(
+    @Param("id") id: string,
+    @Body() body: { note?: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.resolve(id, admin, reqMeta(req), body?.note);
+  }
+
+  @Post(":id/close")
+  @RequirePermissions("disputes:close")
+  close(
+    @Param("id") id: string,
+    @Body() body: { note?: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.close(id, admin, reqMeta(req), body?.note);
+  }
+
+  @Post(":id/notes")
+  @RequirePermissions("disputes:view")
+  note(
+    @Param("id") id: string,
+    @Body() body: { body: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.addNote(id, body.body, admin, reqMeta(req));
   }
 }

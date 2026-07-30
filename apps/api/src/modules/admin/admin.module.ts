@@ -3,6 +3,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { AdminAuthService } from "./admin-auth.service.js";
 import { AdminAuthController } from "./admin-auth.controller.js";
 import { AuditService } from "./audit.service.js";
+import { DisputesService } from "./disputes.service.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
   AdminController,
@@ -28,6 +29,7 @@ import {
   providers: [
     AdminAuthService,
     AuditService,
+    DisputesService,
     AdminAuthGuard,
     PermissionsGuard,
   ],
