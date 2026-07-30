@@ -122,6 +122,105 @@ export function TierBadge({ tier }: { tier: string }) {
   );
 }
 
+export function StatTile({
+  label,
+  value,
+  caption,
+}: {
+  label: string;
+  value: string;
+  caption?: string;
+}) {
+  return (
+    <View style={{ flex: 1, backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: 14 }}>
+      <Eyebrow>{label}</Eyebrow>
+      <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink, marginTop: 4 }}>{value}</Text>
+      {caption ? <Text style={{ fontSize: 11, color: colors.inkMuted, marginTop: 2 }}>{caption}</Text> : null}
+    </View>
+  );
+}
+
+export function Segmented<T extends string>({
+  options,
+  value,
+  onChange,
+}: {
+  options: T[];
+  value: T;
+  onChange: (v: T) => void;
+}) {
+  return (
+    <View style={{ flexDirection: "row", backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, borderRadius: radius.md, padding: 4, gap: 4 }}>
+      {options.map((o) => {
+        const active = o === value;
+        return (
+          <Text
+            key={o}
+            onPress={() => onChange(o)}
+            style={{
+              paddingVertical: 6,
+              paddingHorizontal: 12,
+              borderRadius: radius.md - 4,
+              backgroundColor: active ? colors.brand : "transparent",
+              color: active ? "#fff" : colors.inkSoft,
+              fontWeight: "700",
+              fontSize: 12,
+              textTransform: "capitalize",
+              overflow: "hidden",
+            }}
+          >
+            {o}
+          </Text>
+        );
+      })}
+    </View>
+  );
+}
+
+export function Chip({
+  label,
+  active,
+  onPress,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Text
+      onPress={onPress}
+      style={{
+        borderWidth: active ? 0 : 1,
+        borderColor: colors.line,
+        backgroundColor: active ? colors.brand : colors.surface,
+        color: active ? "#fff" : colors.inkSoft,
+        borderRadius: radius.pill,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        fontSize: 12,
+        fontWeight: "700",
+        overflow: "hidden",
+      }}
+    >
+      {label}
+    </Text>
+  );
+}
+
+export function ScreenHeader({ onSignOut }: { onSignOut: () => void }) {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <TallyMark size={28} />
+        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>tally</Text>
+      </View>
+      <Text onPress={onSignOut} style={{ color: colors.inkSoft, fontSize: 14, fontWeight: "600" }}>
+        Sign out
+      </Text>
+    </View>
+  );
+}
+
 export function Eyebrow({ children, color }: { children: ReactNode; color?: string }) {
   return (
     <Text

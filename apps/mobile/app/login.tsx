@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { api } from "@/lib/api";
 import { session } from "@/lib/session";
+import { routeForRoles } from "@/lib/roles";
 import { Button, Eyebrow, TallyMark } from "@/components/ui";
 import { colors, radius } from "@/lib/theme";
 
@@ -36,7 +37,8 @@ export default function Login() {
     try {
       const res = await api.verifyOtp(phone, code);
       await session.save(res.token, res.user.id);
-      router.replace("/worker");
+      const user = await api.getUser(res.user.id);
+      router.replace(routeForRoles(user.roles.map((r) => r.role)));
     } catch (e) {
       setError((e as Error).message);
     } finally {
