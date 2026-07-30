@@ -127,7 +127,7 @@ export default function Worker() {
         </Card>
       ) : null}
 
-      <StandingCard score={data.score} />
+      <StandingCard score={data.score} onPress={() => router.push("/score")} />
       <WalletCard wallet={data.wallet} />
 
       {/* Your jobs */}
@@ -197,7 +197,7 @@ export default function Worker() {
   );
 }
 
-function StandingCard({ score }: { score: WorkerDashboard["score"] }) {
+function StandingCard({ score, onPress }: { score: WorkerDashboard["score"]; onPress?: () => void }) {
   const idx = TIER_ORDER.indexOf(score.tier);
   const next = TIER_ORDER[idx + 1];
   const pts = next ? Math.max(0, TIER_MIN[next] - score.value) : 0;
@@ -221,6 +221,11 @@ function StandingCard({ score }: { score: WorkerDashboard["score"] }) {
         <Text style={{ color: colors.inkSoft, fontSize: 13, marginTop: 8 }}>
           {score.jobsCompleted} shifts done · {Math.round(score.onTimeRate * 100)}% on time.
         </Text>
+        {onPress ? (
+          <Text onPress={onPress} style={{ color: colors.brand, fontWeight: "700", fontSize: 13, marginTop: 10 }}>
+            View full breakdown ›
+          </Text>
+        ) : null}
       </View>
     </Card>
   );

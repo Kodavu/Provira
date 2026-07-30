@@ -1,7 +1,54 @@
 import { ReactNode } from "react";
 import { ActivityIndicator, Pressable, Text, View, ViewStyle } from "react-native";
-import Svg, { G, Line } from "react-native-svg";
+import Svg, { Circle, G, Line } from "react-native-svg";
 import { colors, radius, tierStyle } from "@/lib/theme";
+
+// Circular progress ring (score dial).
+export function Ring({
+  pct,
+  size = 132,
+  children,
+}: {
+  pct: number;
+  size?: number;
+  children?: ReactNode;
+}) {
+  const stroke = 12;
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const clamped = Math.max(0, Math.min(100, pct));
+  return (
+    <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
+      <Svg width={size} height={size} style={{ position: "absolute", transform: [{ rotate: "-90deg" }] }}>
+        <Circle cx={size / 2} cy={size / 2} r={r} stroke={colors.line} strokeWidth={stroke} fill="none" />
+        <Circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          stroke={colors.brand}
+          strokeWidth={stroke}
+          fill="none"
+          strokeLinecap="round"
+          strokeDasharray={`${c} ${c}`}
+          strokeDashoffset={c - (clamped / 100) * c}
+        />
+      </Svg>
+      <View style={{ alignItems: "center" }}>{children}</View>
+    </View>
+  );
+}
+
+// Back header row for sub-screens.
+export function BackHeader({ onBack, title }: { onBack: () => void; title: string }) {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+      <Text onPress={onBack} accessibilityLabel="Back" style={{ fontSize: 26, color: colors.ink, paddingRight: 4 }}>
+        ‹
+      </Text>
+      <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>{title}</Text>
+    </View>
+  );
+}
 
 // Tally-stroke logomark: four verticals + a gold diagonal fifth.
 export function TallyMark({ size = 28, boxed = true }: { size?: number; boxed?: boolean }) {
