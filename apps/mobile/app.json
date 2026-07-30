@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Tally",
+    "slug": "tally",
+    "scheme": "tally",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "primaryColor": "#3D3BF3",
+    "splash": {
+      "backgroundColor": "#3D3BF3",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ng.usetally.app"
+    },
+    "android": {
+      "package": "ng.usetally.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#3D3BF3"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": ["expo-router", "expo-secure-store"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

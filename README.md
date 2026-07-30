@@ -91,6 +91,25 @@ Routes:
 
 Sign in with the seeded worker `+2348010000001` to see it populated.
 
+## Mobile app (Expo — iOS & Android)
+
+`apps/mobile` is an Expo (React Native) app that reuses the same NestJS API. One
+codebase targets **iOS and Android** (and web, via React Native Web).
+
+```bash
+cd apps/mobile
+cp .env.example .env   # optional; set EXPO_PUBLIC_API_URL to your machine's LAN IP for devices
+pnpm start             # Expo dev server — scan the QR with Expo Go
+# or: pnpm ios / pnpm android   (simulator/emulator)
+```
+
+- On a real device, set `EXPO_PUBLIC_API_URL` to `http://<your-lan-ip>:4000/api`
+  (a phone can't reach `localhost`).
+- Screens so far: phone-first OTP login + worker dashboard (score, wallet,
+  apply → confirm-code → paid, loan offers).
+- Store builds use EAS (`eas build -p ios|android`) — that step runs on your
+  machine / CI with Xcode / Android SDK, not in this repo.
+
 ## Try the core flows (mock mode)
 
 The mock providers return OTP codes and log outbound messages so you can drive
