@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { saveSession } from "@/lib/session";
@@ -11,6 +11,13 @@ const DEMO = [
   { label: "Trader", phone: "+2348010000002" },
   { label: "Employer", phone: "+2348010000003" },
 ];
+
+// Role → demo phone, so a "Get started" from a role card pre-selects the role.
+const ROLE_PHONE: Record<string, string> = {
+  worker: "+2348010000001",
+  trader: "+2348010000002",
+  employer: "+2348010000003",
+};
 
 function routeForRoles(roles: string[]): string {
   if (roles.includes("EMPLOYER")) return "/employer";
@@ -26,6 +33,12 @@ export default function LoginPage() {
   const [devCode, setDevCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Pre-select the phone if arriving from a role card (/login?role=worker).
+  useEffect(() => {
+    const role = new URLSearchParams(window.location.search).get("role");
+    if (role && ROLE_PHONE[role]) setPhone(ROLE_PHONE[role]);
+  }, []);
 
   async function sendCode() {
     setLoading(true);
