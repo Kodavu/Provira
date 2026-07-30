@@ -57,6 +57,7 @@ services:
     command: >
       sh -c "pnpm --filter './packages/*' build &&
              pnpm --filter @tally/db push &&
+             pnpm --filter @tally/db harden &&
              pnpm --filter @tally/db seed &&
              pnpm --filter @tally/api dev"
 

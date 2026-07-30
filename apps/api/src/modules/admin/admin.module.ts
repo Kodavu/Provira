@@ -6,6 +6,7 @@ import { AuditService } from "./audit.service.js";
 import { DisputesService } from "./disputes.service.js";
 import { HrService } from "./hr.service.js";
 import { HrController } from "./hr.controller.js";
+import { ImpersonationController } from "./impersonation.controller.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
   AdminController,
@@ -28,6 +29,7 @@ import {
     AdminMetaController,
     AdminDisputesController,
     HrController,
+    ImpersonationController,
   ],
   providers: [
     AdminAuthService,

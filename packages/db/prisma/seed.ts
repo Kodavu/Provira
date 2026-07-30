@@ -41,6 +41,8 @@ const PERMISSIONS: Array<{ key: string; group: string; label: string }> = [
   ["Settings", "Update", "settings:update"],
   ["Reports", "View", "reports:view"],
   ["Reports", "Export", "reports:export"],
+  ["Impersonation", "Request", "impersonation:request"],
+  ["Impersonation", "Approve", "impersonation:approve"],
 ].map(([group, label, key]) => ({ group, label, key }));
 
 // Roles are bundles of permission keys — nothing hardcoded in code.
@@ -59,7 +61,7 @@ const ROLES: Array<{ name: string; description: string; system?: boolean; perms:
   {
     name: "Operations Team",
     description: "Users and dispute assignment",
-    perms: ["users:view", "disputes:view", "disputes:assign", "reports:view"],
+    perms: ["users:view", "disputes:view", "disputes:assign", "reports:view", "impersonation:request"],
   },
   {
     name: "Customer Support",
@@ -69,7 +71,7 @@ const ROLES: Array<{ name: string; description: string; system?: boolean; perms:
   {
     name: "Compliance & Risk",
     description: "KYC and escalations",
-    perms: ["verification:review", "verification:approve", "verification:reject", "disputes:view", "disputes:escalate", "users:view", "reports:view"],
+    perms: ["verification:review", "verification:approve", "verification:reject", "disputes:view", "disputes:escalate", "users:view", "reports:view", "impersonation:approve"],
   },
   {
     name: "Moderators",
@@ -298,6 +300,28 @@ async function main() {
       status: "ACTIVE",
       department: "People Ops",
       roles: { create: { roleId: roleByName.get("HR / Admin Management")! } },
+    },
+  });
+  // Ops admin can REQUEST impersonation; compliance admin can APPROVE it — so the
+  // write-impersonation two-person rule is testable with distinct accounts.
+  await prisma.adminUser.create({
+    data: {
+      email: "ops@tally.ng",
+      fullName: "Chidi Nwosu",
+      passwordHash: hashPassword("ops1234"),
+      status: "ACTIVE",
+      department: "Operations",
+      roles: { create: { roleId: roleByName.get("Operations Team")! } },
+    },
+  });
+  await prisma.adminUser.create({
+    data: {
+      email: "compliance@tally.ng",
+      fullName: "Fatima Bello",
+      passwordHash: hashPassword("compliance1234"),
+      status: "ACTIVE",
+      department: "Compliance",
+      roles: { create: { roleId: roleByName.get("Compliance & Risk")! } },
     },
   });
 

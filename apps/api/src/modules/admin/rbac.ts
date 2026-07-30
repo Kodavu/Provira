@@ -11,6 +11,38 @@ import { JwtService } from "@nestjs/jwt";
 import { Reflector } from "@nestjs/core";
 import { PrismaService } from "../../prisma/prisma.service.js";
 
+// --- IP allowlist (defense in depth: the admin app enforces at its edge too) ---
+
+export function clientIp(req: any): string {
+  const xff = req.headers["x-forwarded-for"];
+  if (typeof xff === "string" && xff.length) return xff.split(",")[0].trim();
+  return (req.ip as string) ?? "";
+}
+
+function ipToLong(ip: string): number | null {
+  const p = ip.replace(/^::ffff:/, "").split(".").map(Number);
+  if (p.length !== 4 || p.some((n) => Number.isNaN(n))) return null;
+  return ((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3]) >>> 0;
+}
+
+function cidrMatch(ip: string, cidr: string): boolean {
+  const [range, bitsStr] = cidr.split("/");
+  const bits = parseInt(bitsStr, 10);
+  const a = ipToLong(ip);
+  const b = ipToLong(range);
+  if (a == null || b == null || Number.isNaN(bits)) return false;
+  const mask = bits === 0 ? 0 : (~0 << (32 - bits)) >>> 0;
+  return (a & mask) === (b & mask);
+}
+
+export function ipAllowed(ip: string, allowlist?: string): boolean {
+  if (!allowlist) return true; // unset = allow all (dev default)
+  const allow = allowlist.split(",").map((s) => s.trim()).filter(Boolean);
+  if (allow.length === 0 || allow.includes("*")) return true;
+  const norm = ip.replace(/^::ffff:/, "");
+  return allow.some((entry) => (entry.includes("/") ? cidrMatch(norm, entry) : entry === norm));
+}
+
 export interface AdminContext {
   id: string;
   email: string;
@@ -44,6 +76,12 @@ export class AdminAuthGuard implements CanActivate {
 
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const req = ctx.switchToHttp().getRequest();
+
+    // Edge control: reject admin API access from outside the allowlist.
+    if (!ipAllowed(clientIp(req), process.env.ADMIN_IP_ALLOWLIST)) {
+      throw new ForbiddenException("Access from this network is not permitted");
+    }
+
     const header: string | undefined = req.headers.authorization;
     const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
     if (!token) throw new UnauthorizedException("Missing admin token");

@@ -222,6 +222,7 @@ model User {
   conversations     ConversationState[]
   reportedDisputes  Dispute[]           @relation("DisputeReporter")
   disputesAgainst   Dispute[]           @relation("DisputeDefendant")
+  impersonationGrants ImpersonationGrant[]
 
   @@index([status])
 }
@@ -793,8 +794,44 @@ model AdminUser {
   assignedDisputes Dispute[]        @relation("DisputeAssignee")
   disputeEvents   DisputeEvent[]
   disputeMessages DisputeMessage[]
+  impersonationRequests  ImpersonationGrant[] @relation("ImpRequester")
+  impersonationApprovals ImpersonationGrant[] @relation("ImpApprover")
 
   @@index([status])
+}
+
+enum ImpersonationMode {
+  READ // view-as, read-only
+  WRITE // act-as — requires a second admin's approval
+}
+
+enum ImpersonationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CONSUMED
+  EXPIRED
+}
+
+// Impersonating a user in WRITE mode requires a second admin's approval — the
+// requester can never approve their own grant. Both IDs are recorded, so
+// internal fraud needs collusion, not one compromised account.
+model ImpersonationGrant {
+  id            String              @id @default(cuid())
+  requestedById String
+  requestedBy   AdminUser           @relation("ImpRequester", fields: [requestedById], references: [id])
+  targetUserId  String
+  targetUser    User                @relation(fields: [targetUserId], references: [id])
+  mode          ImpersonationMode
+  reason        String
+  status        ImpersonationStatus @default(PENDING)
+  approvedById  String?
+  approvedBy    AdminUser?          @relation("ImpApprover", fields: [approvedById], references: [id])
+  createdAt     DateTime            @default(now())
+  decidedAt     DateTime?
+
+  @@index([status])
+  @@index([targetUserId])
 }
 
 model AdminUserRole {

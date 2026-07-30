@@ -9,6 +9,7 @@
     "migrate": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
     "push": "prisma db push",
+    "harden": "prisma db execute --file prisma/harden.sql --schema prisma/schema.prisma",
     "seed": "tsx prisma/seed.ts",
     "studio": "prisma studio",
     "build": "prisma generate && tsc -p tsconfig.json",

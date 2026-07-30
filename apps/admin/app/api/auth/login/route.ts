@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   const out = NextResponse.json({ ok: true });
   out.cookies.set(SESSION_COOKIE, data.token, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "strict", // admin session — strict CSRF posture
     path: "/",
     maxAge: 12 * 3600,
     secure: process.env.NODE_ENV === "production",
