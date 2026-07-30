@@ -34,9 +34,9 @@ const BADGE: Record<string, string> = {
   indigo: "bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400",
 };
 
-export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: keyof typeof BADGE }) {
+export function Badge({ children, tone = "neutral", className = "" }: { children: ReactNode; tone?: keyof typeof BADGE; className?: string }) {
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${BADGE[tone]}`}>
+    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${BADGE[tone]} ${className}`}>
       {children}
     </span>
   );

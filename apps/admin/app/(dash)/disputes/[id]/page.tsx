@@ -2,6 +2,7 @@ import Link from "next/link";
 import { adminFetch, Me } from "@/lib/admin-api";
 import { Badge, Card, EmptyState } from "@/components/ui";
 import { DisputeActions } from "@/components/dispute-actions";
+import { ReplyForm, EvidenceForm } from "@/components/dispute-comms";
 
 interface Detail {
   id: string;
@@ -18,7 +19,7 @@ interface Detail {
   defendant: { fullName: string | null; phone: string } | null;
   assignedAdmin: { id: string; fullName: string } | null;
   events: Array<{ id: string; type: string; note: string | null; fromStatus: string | null; toStatus: string | null; createdAt: string; adminUser: { fullName: string } | null }>;
-  messages: Array<{ id: string; body: string; isInternal: boolean; createdAt: string; adminUser: { fullName: string } | null }>;
+  messages: Array<{ id: string; body: string; authorType: string; isInternal: boolean; createdAt: string; adminUser: { fullName: string } | null }>;
   evidence: Array<{ id: string; label: string; url: string }>;
 }
 
@@ -37,6 +38,9 @@ export default async function DisputeDetailPage({ params }: { params: { id: stri
   ]);
   if (!d || !me) return <EmptyState>Couldn&apos;t load this case.</EmptyState>;
   const p = new Set(me.permissions);
+  const canRespond = p.has("disputes:respond");
+  const conversation = d.messages.filter((m) => !m.isInternal);
+  const internalNotes = d.messages.filter((m) => m.isInternal);
 
   return (
     <>
@@ -86,14 +90,41 @@ export default async function DisputeDetailPage({ params }: { params: { id: stri
             </Card>
           </div>
 
-          {/* Internal notes */}
+          {/* Conversation with the user (visible to the reporter/defendant) */}
           <div>
-            <h2 className="mb-3 text-lg font-semibold">Internal notes</h2>
-            {d.messages.length === 0 ? (
-              <EmptyState>No notes yet.</EmptyState>
+            <h2 className="mb-3 text-lg font-semibold">Conversation</h2>
+            {conversation.length === 0 ? (
+              <EmptyState>No messages with the user yet.</EmptyState>
             ) : (
               <div className="space-y-3">
-                {d.messages.map((m) => (
+                {conversation.map((m) => {
+                  const fromAdmin = m.authorType === "ADMIN";
+                  return (
+                    <Card key={m.id} className={`p-4 ${fromAdmin ? "border-l-2 border-l-brand-500" : ""}`}>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">
+                          {fromAdmin ? m.adminUser?.fullName ?? "Support" : "User"}
+                          <Badge tone={fromAdmin ? "indigo" : "neutral"} className="ml-2">{fromAdmin ? "Support" : "User"}</Badge>
+                        </span>
+                        <span className="text-xs text-muted">{when(m.createdAt)}</span>
+                      </div>
+                      <p className="mt-1 text-sm text-soft">{m.body}</p>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
+            {canRespond && <ReplyForm id={d.id} />}
+          </div>
+
+          {/* Internal notes (staff-only) */}
+          <div>
+            <h2 className="mb-3 text-lg font-semibold">Internal notes</h2>
+            {internalNotes.length === 0 ? (
+              <EmptyState>No internal notes yet.</EmptyState>
+            ) : (
+              <div className="space-y-3">
+                {internalNotes.map((m) => (
                   <Card key={m.id} className="p-4">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">{m.adminUser?.fullName ?? "Admin"}</span>
@@ -114,13 +145,14 @@ export default async function DisputeDetailPage({ params }: { params: { id: stri
             ) : (
               <Card className="divide-y divide-[color:var(--border)]">
                 {d.evidence.map((ev) => (
-                  <a key={ev.id} href={ev.url} className="flex items-center justify-between px-4 py-3 text-sm hover:bg-app">
+                  <a key={ev.id} href={ev.url} target="_blank" rel="noreferrer" className="flex items-center justify-between px-4 py-3 text-sm hover:bg-app">
                     <span>{ev.label}</span>
                     <span className="text-xs text-brand-500">Open</span>
                   </a>
                 ))}
               </Card>
             )}
+            {canRespond && <EvidenceForm id={d.id} />}
           </div>
         </div>
 

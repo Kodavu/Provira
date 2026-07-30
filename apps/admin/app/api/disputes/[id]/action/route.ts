@@ -11,6 +11,8 @@ const MAP: Record<string, { path: (id: string) => string; body?: (b: any) => unk
   resolve: { path: (id) => `/admin/disputes/${id}/resolve`, body: (b) => ({ note: b.note }) },
   close: { path: (id) => `/admin/disputes/${id}/close`, body: (b) => ({ note: b.note }) },
   note: { path: (id) => `/admin/disputes/${id}/notes`, body: (b) => ({ body: b.note }) },
+  reply: { path: (id) => `/admin/disputes/${id}/reply`, body: (b) => ({ body: b.body }) },
+  evidence: { path: (id) => `/admin/disputes/${id}/evidence`, body: (b) => ({ label: b.label, url: b.url }) },
 };
 
 export async function POST(req: Request, { params }: { params: { id: string } }) {

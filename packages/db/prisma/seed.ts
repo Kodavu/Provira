@@ -20,6 +20,7 @@ const PERMISSIONS: Array<{ key: string; group: string; label: string }> = [
   ["Users", "Delete", "users:delete"],
   ["Disputes", "View", "disputes:view"],
   ["Disputes", "Assign", "disputes:assign"],
+  ["Disputes", "Respond", "disputes:respond"],
   ["Disputes", "Resolve", "disputes:resolve"],
   ["Disputes", "Escalate", "disputes:escalate"],
   ["Disputes", "Close", "disputes:close"],
@@ -61,12 +62,12 @@ const ROLES: Array<{ name: string; description: string; system?: boolean; perms:
   {
     name: "Operations Team",
     description: "Users and dispute assignment",
-    perms: ["users:view", "disputes:view", "disputes:assign", "reports:view", "impersonation:request"],
+    perms: ["users:view", "disputes:view", "disputes:assign", "disputes:respond", "reports:view", "impersonation:request"],
   },
   {
     name: "Customer Support",
     description: "Tickets and user lookups",
-    perms: ["support:view_tickets", "support:reply", "support:assign", "disputes:view", "users:view"],
+    perms: ["support:view_tickets", "support:reply", "support:assign", "disputes:view", "disputes:respond", "users:view"],
   },
   {
     name: "Compliance & Risk",
@@ -76,7 +77,7 @@ const ROLES: Array<{ name: string; description: string; system?: boolean; perms:
   {
     name: "Moderators",
     description: "Resolve disputes, suspend users",
-    perms: ["disputes:view", "disputes:assign", "disputes:resolve", "disputes:close", "users:view", "users:suspend"],
+    perms: ["disputes:view", "disputes:assign", "disputes:respond", "disputes:resolve", "disputes:close", "users:view", "users:suspend"],
   },
   {
     name: "Account Verification Team",
@@ -325,7 +326,9 @@ async function main() {
     },
   });
 
-  // A couple of disputes so the queue isn't empty.
+  // A couple of disputes so the queue isn't empty. DSP-1001 carries a
+  // user↔admin conversation, an internal note, and a piece of evidence so the
+  // detail view's Conversation / Internal notes / Evidence sections are populated.
   await prisma.dispute.create({
     data: {
       code: "DSP-1001",
@@ -337,6 +340,16 @@ async function main() {
       priority: "HIGH",
       status: "OPEN",
       events: { create: { type: "created", note: "Dispute opened by worker" } },
+      messages: {
+        create: [
+          { authorType: "USER", body: "I finished the loading job but I never got paid.", isInternal: false },
+          { authorType: "ADMIN", body: "Thanks for reporting — we're checking the escrow release now.", isInternal: false },
+          { authorType: "ADMIN", body: "Escrow shows funded but not released. Chasing the employer.", isInternal: true },
+        ],
+      },
+      evidence: {
+        create: { label: "Shift confirmation SMS log", url: "https://example.com/evidence/dsp-1001-sms.pdf" },
+      },
     },
   });
   await prisma.dispute.create({

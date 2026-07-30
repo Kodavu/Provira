@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { AuditService } from "./audit.service.js";
 import type { AdminContext } from "./rbac.js";
@@ -119,6 +119,58 @@ export class DisputesService {
       newValue: { note: body.slice(0, 120) },
     });
     return this.detail(id);
+  }
+
+  /**
+   * A user-visible reply (isInternal=false) — this is what the reporter/defendant
+   * would see. Unlike an internal note it also lands on the case timeline so the
+   * back-and-forth with the user is auditable.
+   */
+  async addReply(id: string, body: string, actor: AdminContext, meta: Meta) {
+    const text = body?.trim();
+    if (!text) throw new BadRequestException("A message is required");
+    await this.require(id);
+    await this.prisma.disputeMessage.create({
+      data: { disputeId: id, authorType: "ADMIN", adminUserId: actor.id, body: text, isInternal: false },
+    });
+    await this.prisma.disputeEvent.create({
+      data: { disputeId: id, adminUserId: actor.id, type: "reply", note: "Replied to the user" },
+    });
+    await this.audit.record({
+      adminUserId: actor.id,
+      action: "dispute.reply",
+      resource: "Dispute",
+      resourceId: id,
+      ip: meta.ip,
+      device: meta.device,
+      newValue: { body: text.slice(0, 120) },
+    });
+    return this.detail(id);
+  }
+
+  /** Attach a piece of evidence (a link to a stored file) and record it on the timeline. */
+  async addEvidence(id: string, label: string, url: string, actor: AdminContext, meta: Meta) {
+    const cleanLabel = label?.trim();
+    const cleanUrl = url?.trim();
+    if (!cleanLabel) throw new BadRequestException("A label is required");
+    if (!/^https?:\/\//i.test(cleanUrl ?? "")) throw new BadRequestException("A valid http(s) URL is required");
+    await this.require(id);
+    const ev = await this.prisma.disputeEvidence.create({
+      data: { disputeId: id, label: cleanLabel, url: cleanUrl },
+    });
+    await this.prisma.disputeEvent.create({
+      data: { disputeId: id, adminUserId: actor.id, type: "evidence", note: `Attached "${cleanLabel}"` },
+    });
+    await this.audit.record({
+      adminUserId: actor.id,
+      action: "dispute.evidence",
+      resource: "Dispute",
+      resourceId: id,
+      ip: meta.ip,
+      device: meta.device,
+      newValue: { label: cleanLabel, url: cleanUrl },
+    });
+    return ev && this.detail(id);
   }
 
   private async require(id: string) {

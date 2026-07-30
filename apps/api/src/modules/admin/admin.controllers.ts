@@ -327,4 +327,26 @@ export class AdminDisputesController {
   ) {
     return this.disputes.addNote(id, body.body, admin, reqMeta(req));
   }
+
+  @Post(":id/reply")
+  @RequirePermissions("disputes:respond")
+  reply(
+    @Param("id") id: string,
+    @Body() body: { body: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.addReply(id, body.body, admin, reqMeta(req));
+  }
+
+  @Post(":id/evidence")
+  @RequirePermissions("disputes:respond")
+  evidence(
+    @Param("id") id: string,
+    @Body() body: { label: string; url: string },
+    @CurrentAdmin() admin: AdminContext,
+    @Req() req: any,
+  ) {
+    return this.disputes.addEvidence(id, body.label, body.url, admin, reqMeta(req));
+  }
 }
