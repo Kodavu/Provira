@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
 import { clearSession } from "@/lib/session";
 import { Wordmark } from "@/components/ui";
+import { NotificationBell } from "@/components/notification-bell";
 
 export type Role = "worker" | "trader" | "employer";
 
@@ -169,12 +170,7 @@ export function AppShell({
               Ctrl K
             </kbd>
           </div>
-          <button className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft">
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
-              <path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M10 19a2 2 0 0 0 4 0" strokeLinecap="round" />
-            </svg>
-          </button>
+          <NotificationBell />
           <div className="flex shrink-0 items-center gap-2 rounded-xl border border-line bg-surface py-1.5 pl-1.5 pr-1.5 sm:pr-3">
             <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
               {initials}

@@ -7,6 +7,7 @@ import { DisputesService } from "./disputes.service.js";
 import { HrService } from "./hr.service.js";
 import { HrController } from "./hr.controller.js";
 import { ImpersonationController } from "./impersonation.controller.js";
+import { NotificationsModule } from "../notifications/notifications.module.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
   AdminController,
@@ -21,6 +22,7 @@ import {
       secret: process.env.JWT_SECRET ?? "dev-only-change-me",
       signOptions: { expiresIn: "12h" },
     }),
+    NotificationsModule,
   ],
   controllers: [
     AdminAuthController,

@@ -364,6 +364,61 @@ async function main() {
     },
   });
 
+  // --- Notifications ---
+  // Admin-editable templates (event × channel × language). The engine falls
+  // back to code defaults when a row is missing, so we only seed a couple.
+  const templates: Array<{
+    eventKey: string;
+    channel: "INAPP" | "SMS";
+    language: "EN" | "PCM";
+    subject?: string;
+    body: string;
+  }> = [
+    { eventKey: "dispute.replied", channel: "INAPP", language: "EN", subject: "New reply on {code}", body: "Support replied on your case {code}: {preview}" },
+    { eventKey: "dispute.replied", channel: "SMS", language: "EN", body: "Tally: support replied on case {code}. Open the app to read and respond." },
+    { eventKey: "dispute.replied", channel: "INAPP", language: "PCM", subject: "New reply for {code}", body: "Support don reply your case {code}: {preview}" },
+    { eventKey: "dispute.replied", channel: "SMS", language: "PCM", body: "Tally: support don reply your case {code}. Open app make you read am." },
+    { eventKey: "payout.sent", channel: "INAPP", language: "EN", subject: "Payment sent", body: "{amount} has been sent to your account." },
+    { eventKey: "payout.sent", channel: "SMS", language: "EN", body: "Tally: {amount} has been sent to your account." },
+  ];
+  await Promise.all(
+    templates.map((t) =>
+      prisma.notificationTemplate.upsert({
+        where: { eventKey_channel_language: { eventKey: t.eventKey, channel: t.channel, language: t.language } },
+        create: t,
+        update: { subject: t.subject ?? null, body: t.body },
+      }),
+    ),
+  );
+
+  // A couple of in-app feed rows for the worker so the bell isn't empty.
+  await prisma.notification.createMany({
+    data: [
+      {
+        userId: worker.id,
+        category: "TRANSACTIONAL",
+        eventKey: "payout.sent",
+        channel: "INAPP",
+        language: worker.language,
+        title: "Payment sent",
+        body: "NGN 8,000 has been sent to your account.",
+        status: "SENT",
+        sentAt: new Date(),
+      },
+      {
+        userId: worker.id,
+        category: "ACTIVITY",
+        eventKey: "dispute.replied",
+        channel: "INAPP",
+        language: worker.language,
+        title: "New reply on DSP-1001",
+        body: "Support replied on your case DSP-1001: We're checking the escrow release now.",
+        status: "SENT",
+        sentAt: new Date(),
+      },
+    ],
+  });
+
   // eslint-disable-next-line no-console
   console.log("Seed complete:", {
     worker: worker.phone,

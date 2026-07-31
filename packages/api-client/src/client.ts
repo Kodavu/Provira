@@ -1,5 +1,7 @@
 import type {
   EmployerDashboard,
+  NotificationFeed,
+  NotificationPreferences,
   OtpRequestResponse,
   OtpVerifyResponse,
   ScoreBreakdown,
@@ -104,6 +106,18 @@ export function createTallyClient(config: TallyClientConfig) {
     publishJob: (jobId: string) => post(`/jobs/${jobId}/publish`) as Promise<{ id: string }>,
     fundJob: (jobId: string) => post(`/jobs/${jobId}/fund`) as Promise<{ jobId: string }>,
     matchJob: (jobId: string) => post(`/jobs/${jobId}/match`) as Promise<unknown>,
+
+    // Notifications
+    notifications: (userId: string, limit?: number) =>
+      request<NotificationFeed>(
+        `/users/${userId}/notifications${limit ? `?limit=${limit}` : ""}`,
+      ),
+    markNotificationRead: (userId: string, id: string) =>
+      post(`/users/${userId}/notifications/${id}/read`) as Promise<NotificationFeed>,
+    markAllNotificationsRead: (userId: string) =>
+      post(`/users/${userId}/notifications/read-all`) as Promise<NotificationFeed>,
+    notificationPreferences: (userId: string) =>
+      request<NotificationPreferences>(`/users/${userId}/notifications/preferences`),
   };
 }
 

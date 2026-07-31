@@ -14,6 +14,7 @@ import { ChannelsModule } from "./modules/channels/channels.module.js";
 import { TradersModule } from "./modules/traders/traders.module.js";
 import { EmployersModule } from "./modules/employers/employers.module.js";
 import { AdminModule } from "./modules/admin/admin.module.js";
+import { NotificationsModule } from "./modules/notifications/notifications.module.js";
 import { HealthController } from "./health.controller.js";
 
 @Module({
@@ -32,6 +33,7 @@ import { HealthController } from "./health.controller.js";
     ChannelsModule,
     TradersModule,
     EmployersModule,
+    NotificationsModule,
     AdminModule,
   ],
   controllers: [HealthController],

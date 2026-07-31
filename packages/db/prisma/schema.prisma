@@ -211,18 +211,23 @@ model User {
   traderProfile   TraderProfile?
   employerProfile EmployerProfile?
 
-  channelIdentities ChannelIdentity[]
-  otpChallenges     OtpChallenge[]
-  accounts          Account[]
-  scoreProfile      ScoreProfile?
-  scoreEvents       ScoreEvent[]
-  loanApplications  LoanApplication[]
-  loans             Loan[]
-  inboundMessages   InboundMessage[]
-  conversations     ConversationState[]
-  reportedDisputes  Dispute[]           @relation("DisputeReporter")
-  disputesAgainst   Dispute[]           @relation("DisputeDefendant")
+  channelIdentities   ChannelIdentity[]
+  otpChallenges       OtpChallenge[]
+  accounts            Account[]
+  scoreProfile        ScoreProfile?
+  scoreEvents         ScoreEvent[]
+  loanApplications    LoanApplication[]
+  loans               Loan[]
+  inboundMessages     InboundMessage[]
+  conversations       ConversationState[]
+  reportedDisputes    Dispute[]            @relation("DisputeReporter")
+  disputesAgainst     Dispute[]            @relation("DisputeDefendant")
   impersonationGrants ImpersonationGrant[]
+
+  notifications       Notification[]
+  notificationPrefs   NotificationPreference[]
+  notificationSetting NotificationSetting?
+  pushDevices         PushDevice[]
 
   @@index([status])
 }
@@ -242,13 +247,13 @@ model UserRole {
 
 // Maps an external channel identity (whatsapp id, msisdn, caller id) to a user.
 model ChannelIdentity {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  channel     Channel
-  externalId  String // whatsapp wa_id / phone number / caller id
-  isVerified  Boolean  @default(false)
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel    Channel
+  externalId String // whatsapp wa_id / phone number / caller id
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
 
   @@unique([channel, externalId])
   @@index([userId])
@@ -286,7 +291,7 @@ model WorkerProfile {
 
   skills      WorkerSkill[]
   languages   Language[] // languages the worker speaks
-  location    Location?     @relation(fields: [locationId], references: [id])
+  location    Location?       @relation(fields: [locationId], references: [id])
   locationId  String?
   assignments JobAssignment[]
 
@@ -294,15 +299,15 @@ model WorkerProfile {
 }
 
 model TraderProfile {
-  id           String   @id @default(cuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   businessName String?
   marketName   String?
   location     Location? @relation(fields: [locationId], references: [id])
   locationId   String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   sales SaleRecord[]
 
@@ -310,14 +315,14 @@ model TraderProfile {
 }
 
 model EmployerProfile {
-  id           String   @id @default(cuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   businessName String?
   location     Location? @relation(fields: [locationId], references: [id])
   locationId   String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   jobs Job[]
 
@@ -337,12 +342,12 @@ model Skill {
 }
 
 model WorkerSkill {
-  id          String        @id @default(cuid())
-  workerId    String
-  worker      WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
-  skillId     String
-  skill       Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
-  yearsExp    Int           @default(0)
+  id       String        @id @default(cuid())
+  workerId String
+  worker   WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  skillId  String
+  skill    Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  yearsExp Int           @default(0)
 
   @@unique([workerId, skillId])
 }
@@ -368,22 +373,22 @@ model Location {
 // ---------------------------------------------------------------------------
 
 model Job {
-  id           String    @id @default(cuid())
-  employerId   String
-  employer     EmployerProfile @relation(fields: [employerId], references: [id])
-  title        String
-  description  String?
-  status       JobStatus @default(DRAFT)
-  payAmount    BigInt // kobo, total pay for the job
-  currency     String    @default("NGN")
-  locationId   String?
-  location     Location? @relation(fields: [locationId], references: [id])
-  languages    Language[] // languages acceptable for the job
-  startAt      DateTime?
-  endAt        DateTime?
-  headcount    Int       @default(1) // number of workers needed
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id          String          @id @default(cuid())
+  employerId  String
+  employer    EmployerProfile @relation(fields: [employerId], references: [id])
+  title       String
+  description String?
+  status      JobStatus       @default(DRAFT)
+  payAmount   BigInt // kobo, total pay for the job
+  currency    String          @default("NGN")
+  locationId  String?
+  location    Location?       @relation(fields: [locationId], references: [id])
+  languages   Language[] // languages acceptable for the job
+  startAt     DateTime?
+  endAt       DateTime?
+  headcount   Int             @default(1) // number of workers needed
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 
   skills      JobSkill[]
   assignments JobAssignment[]
@@ -428,16 +433,16 @@ model JobAssignment {
 // ---------------------------------------------------------------------------
 
 model Attendance {
-  id             String           @id @default(cuid())
-  jobId          String
-  job            Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  assignmentId   String           @unique
-  assignment     JobAssignment    @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  status         AttendanceStatus @default(PENDING)
+  id              String           @id @default(cuid())
+  jobId           String
+  job             Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  assignmentId    String           @unique
+  assignment      JobAssignment    @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  status          AttendanceStatus @default(PENDING)
   confirmCodeHash String // 4-digit code, hashed; employer/worker exchange to confirm
-  confirmedAt    DateTime?
-  confirmedVia   Channel?
-  createdAt      DateTime         @default(now())
+  confirmedAt     DateTime?
+  confirmedVia    Channel?
+  createdAt       DateTime         @default(now())
 
   @@index([status])
 }
@@ -463,29 +468,29 @@ model Account {
 }
 
 model EscrowAccount {
-  id        String   @id @default(cuid())
-  jobId     String   @unique
-  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  accountId String   @unique
-  account   Account  @relation(fields: [accountId], references: [id])
-  amount    BigInt // required funding amount, kobo
-  currency  String   @default("NGN")
-  fundedAt  DateTime?
+  id         String    @id @default(cuid())
+  jobId      String    @unique
+  job        Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  accountId  String    @unique
+  account    Account   @relation(fields: [accountId], references: [id])
+  amount     BigInt // required funding amount, kobo
+  currency   String    @default("NGN")
+  fundedAt   DateTime?
   releasedAt DateTime?
   refundedAt DateTime?
-  createdAt DateTime @default(now())
+  createdAt  DateTime  @default(now())
 }
 
 // A balanced group of ledger entries. Sum of DEBITs == sum of CREDITs.
 model LedgerTransaction {
-  id            String          @id @default(cuid())
-  type          LedgerTxnType
-  status        LedgerTxnStatus @default(PENDING)
-  reference     String? // human-readable ref
-  idempotencyKey String?        @unique // prevents double-posting
-  metadata      Json?
-  createdAt     DateTime        @default(now())
-  postedAt      DateTime?
+  id             String          @id @default(cuid())
+  type           LedgerTxnType
+  status         LedgerTxnStatus @default(PENDING)
+  reference      String? // human-readable ref
+  idempotencyKey String?         @unique // prevents double-posting
+  metadata       Json?
+  createdAt      DateTime        @default(now())
+  postedAt       DateTime?
 
   entries  LedgerEntry[]
   payments PaymentIntent[]
@@ -508,19 +513,19 @@ model LedgerEntry {
 // Artifact of a provider-neutral PaymentProvider adapter call. Links external
 // money movement (funding, payout, disbursement) to an internal ledger txn.
 model PaymentIntent {
-  id            String           @id @default(cuid())
-  direction     PaymentDirection
-  status        PaymentStatus    @default(CREATED)
-  amount        BigInt // kobo
-  currency      String           @default("NGN")
-  provider      String // adapter name, e.g. "mock", "paystack"
-  providerRef   String? // provider-side transaction id
-  idempotencyKey String?         @unique
-  transactionId String?
-  transaction   LedgerTransaction? @relation(fields: [transactionId], references: [id])
-  metadata      Json?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  id             String             @id @default(cuid())
+  direction      PaymentDirection
+  status         PaymentStatus      @default(CREATED)
+  amount         BigInt // kobo
+  currency       String             @default("NGN")
+  provider       String // adapter name, e.g. "mock", "paystack"
+  providerRef    String? // provider-side transaction id
+  idempotencyKey String?            @unique
+  transactionId  String?
+  transaction    LedgerTransaction? @relation(fields: [transactionId], references: [id])
+  metadata       Json?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
 
   webhookEvents PaymentWebhookEvent[]
 
@@ -530,15 +535,15 @@ model PaymentIntent {
 
 // Raw inbound webhook from a payment provider, stored for audit/idempotency.
 model PaymentWebhookEvent {
-  id              String        @id @default(cuid())
+  id              String         @id @default(cuid())
   provider        String
   eventType       String
-  providerEventId String?       @unique
+  providerEventId String?        @unique
   paymentIntentId String?
   paymentIntent   PaymentIntent? @relation(fields: [paymentIntentId], references: [id])
   payload         Json
   processedAt     DateTime?
-  createdAt       DateTime      @default(now())
+  createdAt       DateTime       @default(now())
 }
 
 // ---------------------------------------------------------------------------
@@ -546,15 +551,15 @@ model PaymentWebhookEvent {
 // ---------------------------------------------------------------------------
 
 model SaleRecord {
-  id          String   @id @default(cuid())
-  traderId    String
-  trader      TraderProfile @relation(fields: [traderId], references: [id], onDelete: Cascade)
-  amount      BigInt // kobo
-  currency    String   @default("NGN")
-  method      String   @default("card") // card | cash | transfer
-  reference   String? // POS/provider reference
-  occurredAt  DateTime @default(now())
-  createdAt   DateTime @default(now())
+  id         String        @id @default(cuid())
+  traderId   String
+  trader     TraderProfile @relation(fields: [traderId], references: [id], onDelete: Cascade)
+  amount     BigInt // kobo
+  currency   String        @default("NGN")
+  method     String        @default("card") // card | cash | transfer
+  reference  String? // POS/provider reference
+  occurredAt DateTime      @default(now())
+  createdAt  DateTime      @default(now())
 
   @@index([traderId])
   @@index([occurredAt])
@@ -567,16 +572,16 @@ model SaleRecord {
 // Current score snapshot per user (fast reads for gating). Recomputed by the
 // scoring worker from the append-only ScoreEvent log.
 model ScoreProfile {
-  id            String    @id @default(cuid())
-  userId        String    @unique
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  score         Int       @default(0) // 0..1000 (tunable range)
-  tier          ScoreTier @default(BUILDING)
-  jobsCompleted Int       @default(0)
-  onTimeRate    Float     @default(0) // 0..1
-  salesCount    Int       @default(0)
-  lastComputedAt DateTime @default(now())
-  updatedAt     DateTime  @updatedAt
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score          Int       @default(0) // 0..1000 (tunable range)
+  tier           ScoreTier @default(BUILDING)
+  jobsCompleted  Int       @default(0)
+  onTimeRate     Float     @default(0) // 0..1
+  salesCount     Int       @default(0)
+  lastComputedAt DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 // Append-only log of scoring signals. The engine is a pure function of these.
@@ -600,11 +605,11 @@ model ScoreEvent {
 // ---------------------------------------------------------------------------
 
 model Lender {
-  id        String   @id @default(cuid())
-  name      String
-  isPlatform Boolean @default(true) // Tally itself vs a partner lender
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  name       String
+  isPlatform Boolean  @default(true) // Tally itself vs a partner lender
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
 
   products         LoanProduct[]
   loans            Loan[]
@@ -612,38 +617,38 @@ model Lender {
 }
 
 model LoanProduct {
-  id             String   @id @default(cuid())
-  lenderId       String
-  lender         Lender   @relation(fields: [lenderId], references: [id])
-  name           String
-  minAmount      BigInt // kobo
-  maxAmount      BigInt // kobo
-  interestBps    Int // interest in basis points for the term
-  termDays       Int
-  minScore       Int // score threshold to qualify
-  minTier        ScoreTier @default(EMERGING)
-  isActive       Boolean  @default(true)
-  createdAt      DateTime @default(now())
+  id          String    @id @default(cuid())
+  lenderId    String
+  lender      Lender    @relation(fields: [lenderId], references: [id])
+  name        String
+  minAmount   BigInt // kobo
+  maxAmount   BigInt // kobo
+  interestBps Int // interest in basis points for the term
+  termDays    Int
+  minScore    Int // score threshold to qualify
+  minTier     ScoreTier @default(EMERGING)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
 
   applications LoanApplication[]
   loans        Loan[]
 }
 
 model LoanApplication {
-  id         String                @id @default(cuid())
-  userId     String
-  user       User                  @relation(fields: [userId], references: [id])
-  productId  String
-  product    LoanProduct           @relation(fields: [productId], references: [id])
-  lenderId   String
-  lender     Lender                @relation(fields: [lenderId], references: [id])
-  amount     BigInt // requested, kobo
-  status     LoanApplicationStatus @default(SUBMITTED)
-  scoreAtApply Int? // snapshot for audit
+  id             String                @id @default(cuid())
+  userId         String
+  user           User                  @relation(fields: [userId], references: [id])
+  productId      String
+  product        LoanProduct           @relation(fields: [productId], references: [id])
+  lenderId       String
+  lender         Lender                @relation(fields: [lenderId], references: [id])
+  amount         BigInt // requested, kobo
+  status         LoanApplicationStatus @default(SUBMITTED)
+  scoreAtApply   Int? // snapshot for audit
   decisionReason String?
-  decidedAt  DateTime?
-  createdAt  DateTime              @default(now())
-  updatedAt  DateTime              @updatedAt
+  decidedAt      DateTime?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
 
   loan Loan?
 
@@ -652,24 +657,24 @@ model LoanApplication {
 }
 
 model Loan {
-  id             String     @id @default(cuid())
-  userId         String
-  user           User       @relation(fields: [userId], references: [id])
-  lenderId       String
-  lender         Lender     @relation(fields: [lenderId], references: [id])
-  productId      String
-  product        LoanProduct @relation(fields: [productId], references: [id])
-  applicationId  String?    @unique
-  application    LoanApplication? @relation(fields: [applicationId], references: [id])
-  principal      BigInt // kobo
-  interestBps    Int
-  currency       String     @default("NGN")
-  status         LoanStatus @default(ACTIVE)
-  disbursedAt    DateTime?
-  dueAt          DateTime?
-  closedAt       DateTime?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id            String           @id @default(cuid())
+  userId        String
+  user          User             @relation(fields: [userId], references: [id])
+  lenderId      String
+  lender        Lender           @relation(fields: [lenderId], references: [id])
+  productId     String
+  product       LoanProduct      @relation(fields: [productId], references: [id])
+  applicationId String?          @unique
+  application   LoanApplication? @relation(fields: [applicationId], references: [id])
+  principal     BigInt // kobo
+  interestBps   Int
+  currency      String           @default("NGN")
+  status        LoanStatus       @default(ACTIVE)
+  disbursedAt   DateTime?
+  dueAt         DateTime?
+  closedAt      DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 
   repayments RepaymentInstallment[]
 
@@ -698,16 +703,16 @@ model RepaymentInstallment {
 
 // Persisted inbound message from any channel, after adapter normalization.
 model InboundMessage {
-  id          String   @id @default(cuid())
-  userId      String?
-  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  channel     Channel
-  externalId  String? // sender's channel id
-  rawBody     String? // text, transcript, or DTMF sequence
+  id               String    @id @default(cuid())
+  userId           String?
+  user             User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  channel          Channel
+  externalId       String? // sender's channel id
+  rawBody          String? // text, transcript, or DTMF sequence
   detectedLanguage Language?
-  intent      String? // resolved by LLM/NLU adapter, e.g. "accept_job"
-  metadata    Json?
-  createdAt   DateTime @default(now())
+  intent           String? // resolved by LLM/NLU adapter, e.g. "accept_job"
+  metadata         Json?
+  createdAt        DateTime  @default(now())
 
   @@index([userId])
   @@index([channel])
@@ -715,17 +720,17 @@ model InboundMessage {
 
 // Tracks a multi-step conversation/IVR flow state per user+channel.
 model ConversationState {
-  id        String   @id @default(cuid())
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  channel   Channel
+  id         String    @id @default(cuid())
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  channel    Channel
   externalId String
-  flow      String // "signup" | "accept_job" | "confirm_attendance"
-  step      String
-  context   Json? // accumulated slot values
-  expiresAt DateTime?
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  flow       String // "signup" | "accept_job" | "confirm_attendance"
+  step       String
+  context    Json? // accumulated slot values
+  expiresAt  DateTime?
+  updatedAt  DateTime  @updatedAt
+  createdAt  DateTime  @default(now())
 
   @@unique([channel, externalId])
   @@index([userId])
@@ -744,10 +749,10 @@ enum AdminStatus {
 // A permission is a "resource:action" string (e.g. "finance:approve_withdrawals").
 // Nothing is hardcoded — roles are just bundles of these.
 model Permission {
-  id       String   @id @default(cuid())
-  key      String   @unique // e.g. "users:suspend"
-  group    String // e.g. "Users" (for grouping in the UI)
-  label    String // e.g. "Suspend"
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g. "users:suspend"
+  group     String // e.g. "Users" (for grouping in the UI)
+  label     String // e.g. "Suspend"
   createdAt DateTime @default(now())
 
   roles RolePermission[]
@@ -788,12 +793,12 @@ model AdminUser {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 
-  roles           AdminUserRole[]
-  auditLogs       AdminAuditLog[]
-  loginEvents     AdminLoginEvent[]
-  assignedDisputes Dispute[]        @relation("DisputeAssignee")
-  disputeEvents   DisputeEvent[]
-  disputeMessages DisputeMessage[]
+  roles                  AdminUserRole[]
+  auditLogs              AdminAuditLog[]
+  loginEvents            AdminLoginEvent[]
+  assignedDisputes       Dispute[]            @relation("DisputeAssignee")
+  disputeEvents          DisputeEvent[]
+  disputeMessages        DisputeMessage[]
   impersonationRequests  ImpersonationGrant[] @relation("ImpRequester")
   impersonationApprovals ImpersonationGrant[] @relation("ImpApprover")
 
@@ -848,7 +853,7 @@ model AdminUserRole {
 // Append-only. No updatedAt, and the app never issues UPDATE/DELETE against it.
 // Production hardening: grant the app's DB role INSERT/SELECT only on this table.
 model AdminAuditLog {
-  id            String   @id @default(cuid())
+  id            String     @id @default(cuid())
   adminUserId   String?
   adminUser     AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
   action        String // e.g. "user.suspend"
@@ -858,20 +863,20 @@ model AdminAuditLog {
   device        String?
   previousValue Json?
   newValue      Json?
-  createdAt     DateTime @default(now())
+  createdAt     DateTime   @default(now())
 
   @@index([adminUserId, createdAt])
   @@index([resource, resourceId])
 }
 
 model AdminLoginEvent {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   adminUserId String
   adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
   ip          String?
   device      String?
-  success     Boolean  @default(true)
-  createdAt   DateTime @default(now())
+  success     Boolean   @default(true)
+  createdAt   DateTime  @default(now())
 
   @@index([adminUserId, createdAt])
 }
@@ -895,22 +900,22 @@ enum DisputePriority {
 }
 
 model Dispute {
-  id           String          @id @default(cuid())
-  code         String          @unique // human ref, e.g. "DSP-1024"
-  reporterId   String
-  reporter     User            @relation("DisputeReporter", fields: [reporterId], references: [id])
-  defendantId  String?
-  defendant    User?           @relation("DisputeDefendant", fields: [defendantId], references: [id])
-  subjectType  String? // "job" | "loan" | "transaction"
-  subjectId    String?
-  title        String
-  priority     DisputePriority @default(MEDIUM)
-  status       DisputeStatus   @default(OPEN)
+  id              String          @id @default(cuid())
+  code            String          @unique // human ref, e.g. "DSP-1024"
+  reporterId      String
+  reporter        User            @relation("DisputeReporter", fields: [reporterId], references: [id])
+  defendantId     String?
+  defendant       User?           @relation("DisputeDefendant", fields: [defendantId], references: [id])
+  subjectType     String? // "job" | "loan" | "transaction"
+  subjectId       String?
+  title           String
+  priority        DisputePriority @default(MEDIUM)
+  status          DisputeStatus   @default(OPEN)
   assignedAdminId String?
-  assignedAdmin   AdminUser?   @relation("DisputeAssignee", fields: [assignedAdminId], references: [id])
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  resolvedAt   DateTime?
+  assignedAdmin   AdminUser?      @relation("DisputeAssignee", fields: [assignedAdminId], references: [id])
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  resolvedAt      DateTime?
 
   events   DisputeEvent[]
   messages DisputeMessage[]
@@ -922,30 +927,30 @@ model Dispute {
 
 // Immutable timeline entries: status changes, assignments, escalations, notes.
 model DisputeEvent {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   disputeId   String
-  dispute     Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  dispute     Dispute        @relation(fields: [disputeId], references: [id], onDelete: Cascade)
   adminUserId String?
-  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  adminUser   AdminUser?     @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
   type        String // "created" | "status_change" | "assigned" | "escalated" | "note"
   note        String?
   fromStatus  DisputeStatus?
   toStatus    DisputeStatus?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime       @default(now())
 
   @@index([disputeId, createdAt])
 }
 
 model DisputeMessage {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   disputeId   String
-  dispute     Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  dispute     Dispute    @relation(fields: [disputeId], references: [id], onDelete: Cascade)
   authorType  String // "ADMIN" | "USER"
   adminUserId String?
   adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
   body        String
-  isInternal  Boolean  @default(false) // internal notes vs user-visible
-  createdAt   DateTime @default(now())
+  isInternal  Boolean    @default(false) // internal notes vs user-visible
+  createdAt   DateTime   @default(now())
 
   @@index([disputeId, createdAt])
 }
@@ -959,4 +964,124 @@ model DisputeEvidence {
   createdAt DateTime @default(now())
 
   @@index([disputeId])
+}
+
+// ============================================================================
+// Notifications
+// A channel-agnostic engine: one Notification row per (recipient, channel).
+// INAPP rows double as the in-app feed; external-channel rows are the durable
+// outbox + delivery log. Content comes from admin-editable NotificationTemplate
+// rows (with a code/i18n fallback); routing comes from NotificationPreference +
+// NotificationSetting. Push (PushDevice) is modeled now, wired in a later stage.
+// ============================================================================
+
+enum NotificationChannel {
+  INAPP
+  EMAIL
+  SMS
+  WHATSAPP
+  IVR
+  PUSH
+}
+
+enum NotificationCategory {
+  SECURITY // OTP, login, account status — always sent, never mutable
+  TRANSACTIONAL // payouts, escrow, loans — always sent, never mutable
+  ACTIVITY // dispute replies, job offers, attendance, score — mutable
+  MARKETING // nudges, promotions — mutable, opt-in
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  DELIVERED
+  FAILED
+  READ
+  SUPPRESSED
+}
+
+model Notification {
+  id          String               @id @default(cuid())
+  userId      String
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    NotificationCategory
+  eventKey    String // e.g. "dispute.replied"
+  channel     NotificationChannel
+  language    Language             @default(EN)
+  title       String?
+  body        String
+  data        Json? // structured payload (ids, deep-link targets)
+  status      NotificationStatus   @default(PENDING)
+  providerRef String?
+  error       String?
+  attempts    Int                  @default(0)
+  dedupeKey   String?
+  createdAt   DateTime             @default(now())
+  sentAt      DateTime?
+  readAt      DateTime?
+
+  @@index([userId, channel, status])
+  @@index([userId, createdAt])
+  @@index([status])
+  @@index([dedupeKey])
+}
+
+// Per-user, per-category, per-channel opt in/out. Absent row = the code default
+// (derived from category + whether the channel is deliverable for the user).
+model NotificationPreference {
+  id        String               @id @default(cuid())
+  userId    String
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category  NotificationCategory
+  channel   NotificationChannel
+  enabled   Boolean
+  updatedAt DateTime             @updatedAt
+
+  @@unique([userId, category, channel])
+  @@index([userId])
+}
+
+// Per-user global switches. muteAll silences mutable categories; quiet hours are
+// stored for the (later) deferral scheduler.
+model NotificationSetting {
+  userId     String   @id
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  muteAll    Boolean  @default(false)
+  quietStart Int? // hour 0-23, local; null = no quiet hours
+  quietEnd   Int?
+  updatedAt  DateTime @updatedAt
+}
+
+// Admin-editable content per (event, channel, language). Falls back to the EN
+// row, then to the code/i18n default when no active template exists.
+model NotificationTemplate {
+  id               String              @id @default(cuid())
+  eventKey         String
+  channel          NotificationChannel
+  language         Language
+  subject          String? // email/push title
+  body             String // supports {placeholder} interpolation
+  isActive         Boolean             @default(true)
+  version          Int                 @default(1)
+  updatedByAdminId String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  @@unique([eventKey, channel, language])
+  @@index([eventKey])
+}
+
+// A registered device for push delivery (Expo/FCM). Push is wired in a later
+// stage; the model exists so the engine is channel-complete.
+model PushDevice {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String   @unique
+  platform   String // ios | android | web
+  provider   String   @default("expo")
+  lastSeenAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
 }

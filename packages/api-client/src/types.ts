@@ -14,4 +14,7 @@ export type {
   OtpRequestResponse,
   OtpVerifyResponse,
   UserRoles,
+  Notification,
+  NotificationFeed,
+  NotificationPreferences,
 } from "@tally/contracts";

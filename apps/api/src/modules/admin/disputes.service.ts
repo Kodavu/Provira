@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { AuditService } from "./audit.service.js";
+import { NotificationService } from "../notifications/notification.service.js";
 import type { AdminContext } from "./rbac.js";
 import type { DisputeStatus } from "@tally/db";
 
@@ -19,6 +20,7 @@ export class DisputesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
+    private readonly notifications: NotificationService,
   ) {}
 
   detail(id: string): Promise<unknown> {
@@ -129,7 +131,11 @@ export class DisputesService {
   async addReply(id: string, body: string, actor: AdminContext, meta: Meta) {
     const text = body?.trim();
     if (!text) throw new BadRequestException("A message is required");
-    await this.require(id);
+    const dispute = await this.prisma.dispute.findUnique({
+      where: { id },
+      select: { id: true, code: true, reporterId: true },
+    });
+    if (!dispute) throw new NotFoundException("Dispute not found");
     await this.prisma.disputeMessage.create({
       data: { disputeId: id, authorType: "ADMIN", adminUserId: actor.id, body: text, isInternal: false },
     });
@@ -144,6 +150,13 @@ export class DisputesService {
       ip: meta.ip,
       device: meta.device,
       newValue: { body: text.slice(0, 120) },
+    });
+    // Notify the reporter that support replied — the reply is now actually
+    // delivered (in-app + SMS/push per their prefs), not just stored.
+    await this.notifications.notify(dispute.reporterId, "dispute.replied", {
+      code: dispute.code,
+      preview: text.length > 80 ? `${text.slice(0, 80)}…` : text,
+      disputeId: dispute.id,
     });
     return this.detail(id);
   }

@@ -5,3 +5,5 @@ export * from "./messaging/types.js";
 export * from "./messaging/mock.js";
 export * from "./llm/types.js";
 export * from "./llm/mock.js";
+export * from "./notifications/types.js";
+export * from "./notifications/mock.js";

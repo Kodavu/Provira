@@ -5,6 +5,8 @@ import {
   MockSmsProvider,
   MockVoiceProvider,
   MockWhatsAppProvider,
+  MockEmailProvider,
+  MockPushProvider,
   MockOutbox,
 } from "@tally/integrations";
 
@@ -13,6 +15,8 @@ export const PAYMENT_PROVIDER = Symbol("PAYMENT_PROVIDER");
 export const SMS_PROVIDER = Symbol("SMS_PROVIDER");
 export const VOICE_PROVIDER = Symbol("VOICE_PROVIDER");
 export const WHATSAPP_PROVIDER = Symbol("WHATSAPP_PROVIDER");
+export const EMAIL_PROVIDER = Symbol("EMAIL_PROVIDER");
+export const PUSH_PROVIDER = Symbol("PUSH_PROVIDER");
 export const LLM_PROVIDER = Symbol("LLM_PROVIDER");
 export const OUTBOX = Symbol("OUTBOX");
 
@@ -47,6 +51,30 @@ export const OUTBOX = Symbol("OUTBOX");
       inject: [OUTBOX],
       useFactory: (outbox: MockOutbox) => new MockWhatsAppProvider(outbox),
     },
+    {
+      provide: EMAIL_PROVIDER,
+      inject: [OUTBOX],
+      useFactory: (outbox: MockOutbox) => {
+        switch (process.env.EMAIL_PROVIDER) {
+          // case "sendgrid": return new SendgridProvider(...);
+          // case "ses": return new SesProvider(...);
+          default:
+            return new MockEmailProvider(outbox);
+        }
+      },
+    },
+    {
+      provide: PUSH_PROVIDER,
+      inject: [OUTBOX],
+      useFactory: (outbox: MockOutbox) => {
+        switch (process.env.PUSH_PROVIDER) {
+          // case "expo": return new ExpoPushProvider(...);
+          // case "fcm": return new FcmProvider(...);
+          default:
+            return new MockPushProvider(outbox);
+        }
+      },
+    },
     { provide: LLM_PROVIDER, useFactory: () => new MockLlmProvider() },
   ],
   exports: [
@@ -54,6 +82,8 @@ export const OUTBOX = Symbol("OUTBOX");
     SMS_PROVIDER,
     VOICE_PROVIDER,
     WHATSAPP_PROVIDER,
+    EMAIL_PROVIDER,
+    PUSH_PROVIDER,
     LLM_PROVIDER,
     OUTBOX,
   ],

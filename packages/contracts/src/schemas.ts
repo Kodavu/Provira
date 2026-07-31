@@ -206,3 +206,42 @@ export const zEmployerDashboard = z.object({
   ),
 });
 export type EmployerDashboard = z.infer<typeof zEmployerDashboard>;
+
+// --- Notifications ---
+
+export const zNotificationChannel = z.enum(["INAPP", "EMAIL", "SMS", "WHATSAPP", "IVR", "PUSH"]);
+export const zNotificationCategory = z.enum(["SECURITY", "TRANSACTIONAL", "ACTIVITY", "MARKETING"]);
+
+export const zNotification = z.object({
+  id: z.string(),
+  category: zNotificationCategory,
+  eventKey: z.string(),
+  title: z.string().nullable(),
+  body: z.string(),
+  data: z.unknown().nullable(),
+  readAt: zDate.nullable(),
+  createdAt: zDate,
+});
+export type Notification = z.infer<typeof zNotification>;
+
+export const zNotificationFeed = z.object({
+  items: z.array(zNotification),
+  unread: z.number(),
+});
+export type NotificationFeed = z.infer<typeof zNotificationFeed>;
+
+export const zNotificationPreferences = z.object({
+  preferences: z.array(
+    z.object({
+      category: zNotificationCategory,
+      channel: zNotificationChannel,
+      enabled: z.boolean(),
+    }),
+  ),
+  setting: z.object({
+    muteAll: z.boolean(),
+    quietStart: z.number().nullable(),
+    quietEnd: z.number().nullable(),
+  }),
+});
+export type NotificationPreferences = z.infer<typeof zNotificationPreferences>;
