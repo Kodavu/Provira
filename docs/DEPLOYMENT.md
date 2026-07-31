@@ -112,10 +112,21 @@ Create a **Web Service** from the repo (branch
   ```bash
   npx --yes pnpm@9.12.0 --filter @tally/api start
   ```
-- **Pre-Deploy Command** (runs migrations/hardening on each deploy):
+- **Pre-Deploy Command** (paid tier only — runs migrations/hardening on each deploy):
   ```bash
   npx --yes pnpm@9.12.0 --filter @tally/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @tally/db harden
   ```
+
+> **On Render's free tier there is no Pre-Deploy Command.** You don't need it:
+> you already ran `prisma db push` + `harden` once from your machine in §1, and
+> the API doesn't touch the schema on boot. For later schema changes, either
+> re-run those two commands locally, or append them to the **Build Command**
+> (the build has your `DATABASE_URL`, and both are idempotent):
+> ```bash
+> … && npx --yes pnpm@9.12.0 --filter @tally/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @tally/db harden
+> ```
+> Also note free services **spin down when idle** (~50s cold start) and have
+> **no persistent disk** (uploads need the S3 adapter, not the mock).
 
 > **Why `npx pnpm` and not `corepack enable`?** Render's filesystem is
 > read-only outside your project dir, so `corepack enable` fails with
