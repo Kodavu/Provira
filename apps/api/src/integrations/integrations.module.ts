@@ -7,6 +7,7 @@ import {
   MockWhatsAppProvider,
   MockEmailProvider,
   MockPushProvider,
+  MockStorageProvider,
   MockOutbox,
 } from "@tally/integrations";
 
@@ -17,6 +18,7 @@ export const VOICE_PROVIDER = Symbol("VOICE_PROVIDER");
 export const WHATSAPP_PROVIDER = Symbol("WHATSAPP_PROVIDER");
 export const EMAIL_PROVIDER = Symbol("EMAIL_PROVIDER");
 export const PUSH_PROVIDER = Symbol("PUSH_PROVIDER");
+export const STORAGE_PROVIDER = Symbol("STORAGE_PROVIDER");
 export const LLM_PROVIDER = Symbol("LLM_PROVIDER");
 export const OUTBOX = Symbol("OUTBOX");
 
@@ -75,6 +77,20 @@ export const OUTBOX = Symbol("OUTBOX");
         }
       },
     },
+    {
+      provide: STORAGE_PROVIDER,
+      useFactory: () => {
+        switch (process.env.STORAGE_PROVIDER) {
+          // case "s3": return new S3StorageProvider(...);
+          // case "gcs": return new GcsStorageProvider(...);
+          default:
+            return new MockStorageProvider({
+              baseDir: process.env.STORAGE_DIR,
+              publicBaseUrl: process.env.PUBLIC_API_URL,
+            });
+        }
+      },
+    },
     { provide: LLM_PROVIDER, useFactory: () => new MockLlmProvider() },
   ],
   exports: [
@@ -84,6 +100,7 @@ export const OUTBOX = Symbol("OUTBOX");
     WHATSAPP_PROVIDER,
     EMAIL_PROVIDER,
     PUSH_PROVIDER,
+    STORAGE_PROVIDER,
     LLM_PROVIDER,
     OUTBOX,
   ],

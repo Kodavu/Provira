@@ -142,6 +142,21 @@ export function createTallyClient(config: TallyClientConfig) {
         body: JSON.stringify(patch),
       }),
 
+    // Object storage — upload a document, get back its stored URL.
+    uploadFile: async (file: File, purpose = "docs") => {
+      const form = new FormData();
+      form.append("purpose", purpose);
+      form.append("file", file);
+      const token = config.getToken ? await config.getToken() : null;
+      const res = await doFetch(`${config.baseUrl}/uploads`, {
+        method: "POST",
+        body: form,
+        headers: token ? { authorization: `Bearer ${token}` } : {},
+      });
+      if (!res.ok) throw new ApiError(res.status, await res.text());
+      return res.json() as Promise<{ key: string; url: string; contentType: string; size: number }>;
+    },
+
     // KYC / verification
     verificationStatus: (userId: string) =>
       request<VerificationStatus>(`/users/${userId}/verification`),

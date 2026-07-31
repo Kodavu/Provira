@@ -7,3 +7,5 @@ export * from "./llm/types.js";
 export * from "./llm/mock.js";
 export * from "./notifications/types.js";
 export * from "./notifications/mock.js";
+export * from "./storage/types.js";
+export * from "./storage/mock.js";

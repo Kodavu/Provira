@@ -21,7 +21,7 @@ const DOC_TYPES = [
 
 interface DocRow {
   type: string;
-  fileName: string | null;
+  file: File | null;
 }
 
 const input = "w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-brand-500";
@@ -31,7 +31,7 @@ export default function VerifyPage() {
   const [data, setData] = useState<VerificationStatus | null>(null);
   const [level, setLevel] = useState("BVN_VERIFIED");
   const [bvn, setBvn] = useState("");
-  const [docs, setDocs] = useState<DocRow[]>([{ type: "NIN", fileName: null }]);
+  const [docs, setDocs] = useState<DocRow[]>([{ type: "NIN", file: null }]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileRefs = useRef<Record<number, HTMLInputElement | null>>({});
@@ -64,7 +64,7 @@ export default function VerifyPage() {
   async function submit() {
     const userId = getUserId();
     if (!userId) return;
-    const ready = docs.filter((d) => d.fileName);
+    const ready = docs.filter((d) => d.file);
     if (ready.length === 0 && !bvn.trim()) {
       setError("Add your BVN or at least one document.");
       return;
@@ -72,15 +72,17 @@ export default function VerifyPage() {
     setBusy(true);
     setError(null);
     try {
+      // Upload each file to object storage first, then attach the stored URLs.
+      const documents = await Promise.all(
+        ready.map(async (d) => {
+          const up = await api.uploadFile(d.file as File, "kyc");
+          return { type: d.type, label: (d.file as File).name, url: up.url };
+        }),
+      );
       await api.submitVerification(userId, {
         requestedLevel: level as "BVN_VERIFIED" | "FULL" | "BASIC",
         bvn: bvn.trim() || undefined,
-        // File storage isn't wired yet — we record a reference per uploaded file.
-        documents: ready.map((d) => ({
-          type: d.type,
-          label: d.fileName as string,
-          url: `https://uploads.tally.ng/${userId}/${encodeURIComponent(d.fileName as string)}`,
-        })),
+        documents,
       });
       await load();
     } catch (e) {
@@ -181,15 +183,16 @@ export default function VerifyPage() {
                         <input
                           ref={(el) => { fileRefs.current[i] = el; }}
                           type="file"
+                          accept="image/jpeg,image/png,image/webp,application/pdf"
                           className="hidden"
-                          onChange={(e) => setDoc(i, { fileName: e.target.files?.[0]?.name ?? null })}
+                          onChange={(e) => setDoc(i, { file: e.target.files?.[0] ?? null })}
                         />
                         <button
                           type="button"
                           onClick={() => fileRefs.current[i]?.click()}
                           className="flex-1 truncate rounded-lg border border-dashed border-line px-3 py-2 text-left text-sm text-ink-soft hover:border-brand-500"
                         >
-                          {doc.fileName ?? "Choose file…"}
+                          {doc.file?.name ?? "Choose file…"}
                         </button>
                         {docs.length > 1 && (
                           <button type="button" onClick={() => setDocs((d) => d.filter((_, idx) => idx !== i))} className="text-ink-muted hover:text-red-600" aria-label="Remove">✕</button>
@@ -197,7 +200,7 @@ export default function VerifyPage() {
                       </div>
                     ))}
                   </div>
-                  <button type="button" onClick={() => setDocs((d) => [...d, { type: "SELFIE", fileName: null }])} className="mt-2 text-sm font-medium text-brand-600 hover:text-brand-700">
+                  <button type="button" onClick={() => setDocs((d) => [...d, { type: "SELFIE", file: null }])} className="mt-2 text-sm font-medium text-brand-600 hover:text-brand-700">
                     + Add another document
                   </button>
                 </div>
