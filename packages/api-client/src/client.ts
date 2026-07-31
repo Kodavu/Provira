@@ -118,6 +118,22 @@ export function createTallyClient(config: TallyClientConfig) {
       post(`/users/${userId}/notifications/read-all`) as Promise<NotificationFeed>,
     notificationPreferences: (userId: string) =>
       request<NotificationPreferences>(`/users/${userId}/notifications/preferences`),
+    setNotificationPreference: (
+      userId: string,
+      pref: { category: string; channel: string; enabled: boolean },
+    ) =>
+      request<NotificationPreferences>(`/users/${userId}/notifications/preferences`, {
+        method: "PUT",
+        body: JSON.stringify(pref),
+      }),
+    setNotificationSetting: (
+      userId: string,
+      patch: { muteAll?: boolean; quietStart?: number | null; quietEnd?: number | null },
+    ) =>
+      request<NotificationPreferences>(`/users/${userId}/notifications/settings`, {
+        method: "PUT",
+        body: JSON.stringify(patch),
+      }),
   };
 }
 

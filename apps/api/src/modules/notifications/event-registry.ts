@@ -44,3 +44,12 @@ export const EVENTS: Record<string, NotificationEvent> = {
 export function eventDef(eventKey: string): NotificationEvent | undefined {
   return EVENTS[eventKey];
 }
+
+export interface EventCatalogEntry extends NotificationEvent {
+  eventKey: string;
+}
+
+/** The full catalog, for the admin template editor to render every editable slot. */
+export function listEvents(): EventCatalogEntry[] {
+  return Object.entries(EVENTS).map(([eventKey, e]) => ({ eventKey, ...e }));
+}

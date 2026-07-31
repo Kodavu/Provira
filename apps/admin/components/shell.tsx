@@ -15,6 +15,7 @@ function Icon({ name }: { name: string }) {
     key: "M14 7a4 4 0 1 1-5.4 3.7L3 16v3h3l1-1h2l1-1v-2l1.3-1.3A4 4 0 0 1 14 7Z",
     list: "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",
     id: "M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-2.5 5a2.5 2.5 0 0 1 5 0M14 9h4M14 13h3",
+    bell: "M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6ZM10 19a2 2 0 0 0 4 0",
   };
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.7}>

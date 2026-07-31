@@ -44,6 +44,7 @@ const PERMISSIONS: Array<{ key: string; group: string; label: string }> = [
   ["Reports", "Export", "reports:export"],
   ["Impersonation", "Request", "impersonation:request"],
   ["Impersonation", "Approve", "impersonation:approve"],
+  ["Notifications", "Manage templates", "notifications:manage"],
 ].map(([group, label, key]) => ({ group, label, key }));
 
 // Roles are bundles of permission keys — nothing hardcoded in code.
@@ -62,7 +63,7 @@ const ROLES: Array<{ name: string; description: string; system?: boolean; perms:
   {
     name: "Operations Team",
     description: "Users and dispute assignment",
-    perms: ["users:view", "disputes:view", "disputes:assign", "disputes:respond", "reports:view", "impersonation:request"],
+    perms: ["users:view", "disputes:view", "disputes:assign", "disputes:respond", "reports:view", "impersonation:request", "notifications:manage"],
   },
   {
     name: "Customer Support",

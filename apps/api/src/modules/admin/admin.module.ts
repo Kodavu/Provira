@@ -7,6 +7,7 @@ import { DisputesService } from "./disputes.service.js";
 import { HrService } from "./hr.service.js";
 import { HrController } from "./hr.controller.js";
 import { ImpersonationController } from "./impersonation.controller.js";
+import { NotificationTemplatesController } from "./notification-templates.controller.js";
 import { NotificationsModule } from "../notifications/notifications.module.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
@@ -32,6 +33,7 @@ import {
     AdminDisputesController,
     HrController,
     ImpersonationController,
+    NotificationTemplatesController,
   ],
   providers: [
     AdminAuthService,

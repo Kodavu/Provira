@@ -37,7 +37,7 @@ export const icons = {
 };
 
 const ACCOUNT: NavItem[] = [
-  { label: "Settings", href: "#", icon: icons.settings },
+  { label: "Settings", href: "/settings", icon: icons.settings },
   { label: "Help center", href: "#", icon: icons.help },
 ];
 
@@ -101,13 +101,14 @@ export function AppShell({
 
         <p className="eyebrow mt-6 px-3">Account</p>
         {ACCOUNT.map((item) => (
-          <div
+          <button
             key={item.label}
-            className="flex cursor-default items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink-soft"
+            onClick={() => go(item)}
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-canvas hover:text-ink"
           >
             <span className="text-ink-muted">{item.icon}</span>
             {item.label}
-          </div>
+          </button>
         ))}
       </nav>
 
