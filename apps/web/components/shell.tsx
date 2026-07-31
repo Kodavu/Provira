@@ -37,6 +37,7 @@ export const icons = {
 };
 
 const ACCOUNT: NavItem[] = [
+  { label: "Verify identity", href: "/verify", icon: icons.standing },
   { label: "Settings", href: "/settings", icon: icons.settings },
   { label: "Help center", href: "#", icon: icons.help },
 ];

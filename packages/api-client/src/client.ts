@@ -7,9 +7,16 @@ import type {
   ScoreBreakdown,
   TraderDashboard,
   UserRoles,
+  VerificationStatus,
   WalletData,
   WorkerDashboard,
 } from "./types";
+
+export interface VerificationSubmission {
+  requestedLevel: "BASIC" | "BVN_VERIFIED" | "FULL";
+  bvn?: string;
+  documents?: Array<{ type: string; label: string; url: string }>;
+}
 
 export class ApiError extends Error {
   constructor(
@@ -134,6 +141,12 @@ export function createTallyClient(config: TallyClientConfig) {
         method: "PUT",
         body: JSON.stringify(patch),
       }),
+
+    // KYC / verification
+    verificationStatus: (userId: string) =>
+      request<VerificationStatus>(`/users/${userId}/verification`),
+    submitVerification: (userId: string, submission: VerificationSubmission) =>
+      post(`/users/${userId}/verification`, submission) as Promise<{ id: string; status: string }>,
   };
 }
 

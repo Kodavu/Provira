@@ -7,7 +7,7 @@ import {
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
 import { meetsThreshold } from "@tally/core";
-import { zWalletData, zWorkerDashboard } from "@tally/contracts";
+import { zVerificationStatus, zWalletData, zWorkerDashboard } from "@tally/contracts";
 import type { KycLevel, Language, LedgerTxnType, RoleType, VerificationDocType } from "@tally/db";
 
 // Human labels for ledger transaction types shown in the wallet activity feed.
@@ -194,6 +194,33 @@ export class UsersService {
     data: { fullName?: string; language?: Language; hasSmartphone?: boolean },
   ) {
     return this.prisma.user.update({ where: { id: userId }, data });
+  }
+
+  /** The user's current KYC level plus their latest verification request (if any). */
+  async verificationStatus(userId: string): Promise<unknown> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { kycLevel: true },
+    });
+    if (!user) throw new NotFoundException("User not found");
+    const latest = await this.prisma.verificationRequest.findFirst({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      include: { documents: { select: { type: true, label: true } } },
+    });
+    return zVerificationStatus.parse({
+      kycLevel: user.kycLevel,
+      request: latest
+        ? {
+            id: latest.id,
+            requestedLevel: latest.requestedLevel,
+            status: latest.status,
+            decisionReason: latest.decisionReason,
+            createdAt: latest.createdAt,
+            documents: latest.documents,
+          }
+        : null,
+    });
   }
 
   /**

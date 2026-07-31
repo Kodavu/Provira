@@ -245,3 +245,25 @@ export const zNotificationPreferences = z.object({
   }),
 });
 export type NotificationPreferences = z.infer<typeof zNotificationPreferences>;
+
+// --- KYC / verification ---
+
+export const zKycLevel = z.enum(["NONE", "BASIC", "BVN_VERIFIED", "FULL"]);
+export const zVerificationDocType = z.enum([
+  "BVN", "NIN", "NATIONAL_ID", "DRIVERS_LICENSE", "VOTERS_CARD", "PASSPORT", "UTILITY_BILL", "SELFIE",
+]);
+
+export const zVerificationStatus = z.object({
+  kycLevel: zKycLevel,
+  request: z
+    .object({
+      id: z.string(),
+      requestedLevel: zKycLevel,
+      status: z.enum(["PENDING", "APPROVED", "REJECTED"]),
+      decisionReason: z.string().nullable(),
+      createdAt: zDate,
+      documents: z.array(z.object({ type: zVerificationDocType, label: z.string() })),
+    })
+    .nullable(),
+});
+export type VerificationStatus = z.infer<typeof zVerificationStatus>;

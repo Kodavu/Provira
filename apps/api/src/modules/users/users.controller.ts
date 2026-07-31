@@ -39,6 +39,11 @@ export class UsersController {
     return this.users.addRole(id, body.role);
   }
 
+  @Get(":id/verification")
+  verificationStatus(@Param("id") id: string) {
+    return this.users.verificationStatus(id);
+  }
+
   @Post(":id/verification")
   submitVerification(
     @Param("id") id: string,

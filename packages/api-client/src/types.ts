@@ -17,4 +17,5 @@ export type {
   Notification,
   NotificationFeed,
   NotificationPreferences,
+  VerificationStatus,
 } from "@tally/contracts";
