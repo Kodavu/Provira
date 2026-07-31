@@ -153,13 +153,20 @@ but proves it's up).
 New Project → import the repo.
 
 - **Framework Preset:** Next.js
-- **Root Directory:** `apps/web`
+- **Root Directory:** `apps/web` ← **this is the setting that matters most** (see below)
 - **Build Command (override):** `pnpm --filter "@tally/web..." build`
 - **Install Command:** `pnpm install --frozen-lockfile`
 - **Environment variable:**
   ```
   NEXT_PUBLIC_API_URL=https://tally-api.onrender.com/api
   ```
+
+> **If you get `Error: No Output Directory named "public" found`** — the Root
+> Directory isn't set to `apps/web`. Vercel then builds from the repo root,
+> can't detect Next.js there, and looks for a static `public/` folder. Set
+> **Settings → General → Root Directory → `apps/web`** and redeploy; the output
+> then resolves to `apps/web/.next` automatically. (Install still runs at the
+> workspace root — Vercel sees `pnpm-workspace.yaml` above.)
 
 (Vercel has native pnpm support and no read-only-FS issue, so plain `pnpm`
 works here — no `npx` needed. The `"@tally/web..."` filter builds the app's
