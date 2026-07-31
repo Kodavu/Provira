@@ -168,6 +168,12 @@ New Project → import the repo.
 > then resolves to `apps/web/.next` automatically. (Install still runs at the
 > workspace root — Vercel sees `pnpm-workspace.yaml` above.)
 
+> **If the production URL 404s but the build succeeded** — Vercel points the
+> production domain at your **Production Branch** (default `main`). Deploying
+> from a feature branch produces a *preview* URL, not the production alias, so
+> the production URL 404s. Either **⋯ → Promote to Production** on the good
+> deployment, or set **Settings → Git → Production Branch** to your branch.
+
 (Vercel has native pnpm support and no read-only-FS issue, so plain `pnpm`
 works here — no `npx` needed. The `"@tally/web..."` filter builds the app's
 workspace deps first, then `next build`.)
