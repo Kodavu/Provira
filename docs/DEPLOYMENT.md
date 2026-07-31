@@ -153,13 +153,19 @@ but proves it's up).
 New Project → import the repo.
 
 - **Framework Preset:** Next.js
-- **Root Directory:** `apps/web` ← **this is the setting that matters most** (see below)
+- **Root Directory:** `apps/web` ← **the setting that matters most** (see below)
 - **Build Command (override):** `pnpm --filter "@tally/web..." build`
+- **Output Directory:** **leave BLANK** (override OFF). Next.js manages its own
+  output — do **not** set this to `/` or `public`, or every route 404s.
 - **Install Command:** `pnpm install --frozen-lockfile`
 - **Environment variable:**
   ```
   NEXT_PUBLIC_API_URL=https://tally-api.onrender.com/api
   ```
+
+The three settings that trip up a Next.js monorepo on Vercel:
+**Root Directory** = `apps/web` (set it) · **Output Directory** = blank (never
+set it for Next.js) · **Framework Preset** = Next.js.
 
 > **If you get `Error: No Output Directory named "public" found`** — the Root
 > Directory isn't set to `apps/web`. Vercel then builds from the repo root,
