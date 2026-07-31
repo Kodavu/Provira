@@ -34,6 +34,16 @@ export const EVENTS: Record<string, NotificationEvent> = {
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
     defaults: { title: "New job near you", body: "{title} pays {pay} at {location}. Open Tally to accept." },
   },
+  "verification.approved": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "SMS", "PUSH"],
+    defaults: { title: "You're verified", body: "Your identity check passed. Your account is now {level}." },
+  },
+  "verification.rejected": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "SMS", "PUSH"],
+    defaults: { title: "Verification needs attention", body: "We couldn't verify your identity: {reason}. Please resubmit." },
+  },
   "otp.code": {
     category: "SECURITY",
     channels: ["SMS"],

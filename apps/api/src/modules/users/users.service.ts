@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import {
   BadRequestException,
   Injectable,
@@ -7,7 +8,7 @@ import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
 import { meetsThreshold } from "@tally/core";
 import { zWalletData, zWorkerDashboard } from "@tally/contracts";
-import type { Language, LedgerTxnType, RoleType } from "@tally/db";
+import type { KycLevel, Language, LedgerTxnType, RoleType, VerificationDocType } from "@tally/db";
 
 // Human labels for ledger transaction types shown in the wallet activity feed.
 const TXN_LABELS: Partial<Record<LedgerTxnType, string>> = {
@@ -193,6 +194,39 @@ export class UsersService {
     data: { fullName?: string; language?: Language; hasSmartphone?: boolean },
   ) {
     return this.prisma.user.update({ where: { id: userId }, data });
+  }
+
+  /**
+   * Submit a KYC verification request for review. Raw BVN/NIN is hashed here and
+   * never stored in the clear. Only one request may be pending at a time.
+   */
+  async submitVerification(
+    userId: string,
+    input: {
+      requestedLevel: KycLevel;
+      bvn?: string;
+      documents?: Array<{ type: VerificationDocType; label: string; url: string }>;
+    },
+  ): Promise<{ id: string; status: string }> {
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, select: { id: true } });
+    if (!user) throw new NotFoundException("User not found");
+    const existing = await this.prisma.verificationRequest.findFirst({
+      where: { userId, status: "PENDING" },
+      select: { id: true },
+    });
+    if (existing) throw new BadRequestException("You already have a verification in review");
+    const bvnHash = input.bvn?.trim() ? createHash("sha256").update(input.bvn.trim()).digest("hex") : null;
+    const req = await this.prisma.verificationRequest.create({
+      data: {
+        userId,
+        requestedLevel: input.requestedLevel,
+        bvnHash,
+        documents: input.documents?.length
+          ? { create: input.documents.map((d) => ({ type: d.type, label: d.label, url: d.url })) }
+          : undefined,
+      },
+    });
+    return { id: req.id, status: req.status };
   }
 
   /** Attach a role and create its profile row if missing. */

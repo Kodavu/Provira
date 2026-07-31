@@ -10,6 +10,8 @@ import { ImpersonationController } from "./impersonation.controller.js";
 import { NotificationTemplatesController } from "./notification-templates.controller.js";
 import { FinanceController } from "./finance.controller.js";
 import { FinanceService } from "./finance.service.js";
+import { VerificationController } from "./verification.controller.js";
+import { VerificationService } from "./verification.service.js";
 import { NotificationsModule } from "../notifications/notifications.module.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
@@ -37,6 +39,7 @@ import {
     ImpersonationController,
     NotificationTemplatesController,
     FinanceController,
+    VerificationController,
   ],
   providers: [
     AdminAuthService,
@@ -44,6 +47,7 @@ import {
     DisputesService,
     HrService,
     FinanceService,
+    VerificationService,
     AdminAuthGuard,
     PermissionsGuard,
   ],

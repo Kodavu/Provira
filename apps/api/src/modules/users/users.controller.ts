@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { UsersService } from "./users.service.js";
-import type { Language, RoleType } from "@tally/db";
+import type { KycLevel, Language, RoleType, VerificationDocType } from "@tally/db";
 
 @Controller("users")
 export class UsersController {
@@ -37,5 +37,18 @@ export class UsersController {
   @Post(":id/roles")
   addRole(@Param("id") id: string, @Body() body: { role: RoleType }) {
     return this.users.addRole(id, body.role);
+  }
+
+  @Post(":id/verification")
+  submitVerification(
+    @Param("id") id: string,
+    @Body()
+    body: {
+      requestedLevel: KycLevel;
+      bvn?: string;
+      documents?: Array<{ type: VerificationDocType; label: string; url: string }>;
+    },
+  ) {
+    return this.users.submitVerification(id, body);
   }
 }

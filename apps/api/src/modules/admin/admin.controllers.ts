@@ -64,7 +64,7 @@ export class AdminController {
       this.prisma.dispute.count({
         where: { status: { in: ["OPEN", "UNDER_REVIEW", "ESCALATED", "WAITING_FOR_USER"] } },
       }),
-      this.prisma.user.count({ where: { kycLevel: "NONE" } }),
+      this.prisma.verificationRequest.count({ where: { status: "PENDING" } }),
       this.prisma.paymentIntent.count({
         where: { direction: "OUTBOUND", status: { in: ["CREATED", "PROCESSING"] } },
       }),

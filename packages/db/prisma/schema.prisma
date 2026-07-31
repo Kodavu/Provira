@@ -228,6 +228,7 @@ model User {
   notificationPrefs   NotificationPreference[]
   notificationSetting NotificationSetting?
   pushDevices         PushDevice[]
+  verificationRequests VerificationRequest[]
 
   @@index([status])
 }
@@ -1087,4 +1088,59 @@ model PushDevice {
   createdAt  DateTime @default(now())
 
   @@index([userId])
+}
+
+// ============================================================================
+// KYC / verification
+// A user submits a VerificationRequest (raising their KYC level) with supporting
+// documents. Compliance / the verification team review it and approve (bumping
+// User.kycLevel) or reject with a reason. Raw BVN/NIN is never stored — only a
+// hash — matching the existing User.bvnHash convention.
+// ============================================================================
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum VerificationDocType {
+  BVN
+  NIN
+  NATIONAL_ID
+  DRIVERS_LICENSE
+  VOTERS_CARD
+  PASSPORT
+  UTILITY_BILL
+  SELFIE
+}
+
+model VerificationRequest {
+  id                String             @id @default(cuid())
+  userId            String
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  requestedLevel    KycLevel // the level the user wants to reach
+  status            VerificationStatus @default(PENDING)
+  bvnHash           String? // hashed BVN/NIN, never raw
+  reviewedByAdminId String?
+  decisionReason    String?
+  createdAt         DateTime           @default(now())
+  decidedAt         DateTime?
+
+  documents VerificationDocument[]
+
+  @@index([status])
+  @@index([userId])
+}
+
+model VerificationDocument {
+  id        String              @id @default(cuid())
+  requestId String
+  request   VerificationRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  type      VerificationDocType
+  label     String
+  url       String
+  createdAt DateTime            @default(now())
+
+  @@index([requestId])
 }

@@ -3,7 +3,7 @@
 // with a funded job). Enough to exercise scoring, escrow, matching, and every
 // channel locally. Idempotent-ish: clears core tables then re-inserts.
 
-import { randomBytes, scryptSync } from "node:crypto";
+import { createHash, randomBytes, scryptSync } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
 import { computeScore, ScoreEventInput } from "@tally/core";
 
@@ -461,6 +461,36 @@ async function main() {
         sentAt: new Date(),
       },
     ],
+  });
+
+  // --- KYC / verification queue ---
+  // A couple of pending requests so the review queue isn't empty. BVN is hashed.
+  const bvnHash = (bvn: string) => createHash("sha256").update(bvn).digest("hex");
+  await prisma.verificationRequest.create({
+    data: {
+      userId: worker.id,
+      requestedLevel: "BVN_VERIFIED",
+      bvnHash: bvnHash("22212345678"),
+      documents: {
+        create: [
+          { type: "NIN", label: "National ID card", url: "https://example.com/kyc/amaka-nin.jpg" },
+          { type: "SELFIE", label: "Selfie with ID", url: "https://example.com/kyc/amaka-selfie.jpg" },
+        ],
+      },
+    },
+  });
+  await prisma.verificationRequest.create({
+    data: {
+      userId: trader.id,
+      requestedLevel: "FULL",
+      bvnHash: bvnHash("22287654321"),
+      documents: {
+        create: [
+          { type: "DRIVERS_LICENSE", label: "Driver's licence", url: "https://example.com/kyc/musa-licence.jpg" },
+          { type: "UTILITY_BILL", label: "Electricity bill", url: "https://example.com/kyc/musa-bill.pdf" },
+        ],
+      },
+    },
   });
 
   // eslint-disable-next-line no-console
