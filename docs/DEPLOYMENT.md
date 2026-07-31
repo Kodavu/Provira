@@ -99,20 +99,29 @@ Create a **Web Service** from the repo (branch
 
 - **Runtime:** Node
 - **Root Directory:** *(leave blank — repo root; it's a monorepo)*
+- **Node version:** pinned to 22 by the repo's `.node-version` file. (Without
+  it Render grabs the newest Node, which can break the build.)
 - **Build Command:**
   ```bash
-  corepack enable && pnpm install --frozen-lockfile && pnpm turbo run build --filter=@tally/api
+  npx --yes pnpm@9.12.0 install --frozen-lockfile && npx --yes pnpm@9.12.0 --filter "@tally/api..." build
   ```
-  (Turbo builds `@tally/api` **and** every workspace package it depends on,
-  including `prisma generate`.)
+  The `@tally/api...` filter (note the trailing `...`) builds `@tally/api` **and
+  every workspace package it depends on** — contracts, db (incl. `prisma
+  generate`), core, integrations, i18n — in dependency order.
 - **Start Command:**
   ```bash
-  pnpm --filter @tally/api start
+  npx --yes pnpm@9.12.0 --filter @tally/api start
   ```
 - **Pre-Deploy Command** (runs migrations/hardening on each deploy):
   ```bash
-  pnpm --filter @tally/db exec prisma db push && pnpm --filter @tally/db harden
+  npx --yes pnpm@9.12.0 --filter @tally/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @tally/db harden
   ```
+
+> **Why `npx pnpm` and not `corepack enable`?** Render's filesystem is
+> read-only outside your project dir, so `corepack enable` fails with
+> `EROFS: read-only file system, unlink '/usr/bin/pnpm'`. `npx --yes
+> pnpm@9.12.0` fetches pnpm into npm's writable cache and never touches
+> `/usr/bin`. (Same reason you'll see it used for the start/pre-deploy commands.)
 - **Environment variables:**
   ```
   NODE_ENV=production
@@ -145,12 +154,16 @@ New Project → import the repo.
 
 - **Framework Preset:** Next.js
 - **Root Directory:** `apps/web`
-- **Build Command (override):** `pnpm turbo run build --filter=@tally/web`
+- **Build Command (override):** `pnpm --filter "@tally/web..." build`
 - **Install Command:** `pnpm install --frozen-lockfile`
 - **Environment variable:**
   ```
   NEXT_PUBLIC_API_URL=https://tally-api.onrender.com/api
   ```
+
+(Vercel has native pnpm support and no read-only-FS issue, so plain `pnpm`
+works here — no `npx` needed. The `"@tally/web..."` filter builds the app's
+workspace deps first, then `next build`.)
 
 Because Vercel detects the pnpm workspace, `install` runs at the repo root and
 links `@tally/*` packages; the Turbo build compiles those packages before
@@ -164,7 +177,7 @@ New Project → same repo, **second project**.
 
 - **Framework Preset:** Next.js
 - **Root Directory:** `apps/admin`
-- **Build Command (override):** `pnpm turbo run build --filter=@tally/admin`
+- **Build Command (override):** `pnpm --filter "@tally/admin..." build`
 - **Install Command:** `pnpm install --frozen-lockfile`
 - **Environment variables:**
   ```
