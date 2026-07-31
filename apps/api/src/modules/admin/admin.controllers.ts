@@ -66,7 +66,7 @@ export class AdminController {
       }),
       this.prisma.user.count({ where: { kycLevel: "NONE" } }),
       this.prisma.paymentIntent.count({
-        where: { direction: "OUTBOUND", status: "PROCESSING" },
+        where: { direction: "OUTBOUND", status: { in: ["CREATED", "PROCESSING"] } },
       }),
       this.prisma.escrowAccount.aggregate({
         _sum: { amount: true },

@@ -250,6 +250,39 @@ async function main() {
     },
   });
 
+  // Give the worker a payout-wallet balance (as if past shifts settled), then
+  // stage one pending withdrawal so the finance queue isn't empty.
+  const workerWallet = await prisma.account.create({
+    data: { type: "WORKER_PAYOUT", ownerId: worker.id, balance: 4500000n }, // NGN 45,000
+  });
+  const suspenseAcct = await prisma.account.create({ data: { type: "SUSPENSE" } });
+  const holdTxn = await prisma.ledgerTransaction.create({
+    data: {
+      type: "WITHDRAWAL",
+      status: "POSTED",
+      reference: `withdraw-hold:${worker.id}:seed`,
+      postedAt: new Date(),
+      entries: {
+        create: [
+          { accountId: workerWallet.id, direction: "DEBIT", amount: 1500000n }, // NGN 15,000 held
+          { accountId: suspenseAcct.id, direction: "CREDIT", amount: 1500000n },
+        ],
+      },
+    },
+  });
+  await prisma.account.update({ where: { id: workerWallet.id }, data: { balance: 3000000n } }); // 45k - 15k held
+  await prisma.account.update({ where: { id: suspenseAcct.id }, data: { balance: 1500000n } });
+  await prisma.paymentIntent.create({
+    data: {
+      direction: "OUTBOUND",
+      status: "CREATED",
+      amount: 1500000n,
+      provider: "mock",
+      transactionId: holdTxn.id,
+      metadata: { kind: "withdrawal", userId: worker.id },
+    },
+  });
+
   // --- Admin RBAC ---
   await Promise.all(
     PERMISSIONS.map((p) =>
@@ -324,6 +357,16 @@ async function main() {
       status: "ACTIVE",
       department: "Compliance",
       roles: { create: { roleId: roleByName.get("Compliance & Risk")! } },
+    },
+  });
+  await prisma.adminUser.create({
+    data: {
+      email: "finance@tally.ng",
+      fullName: "Ifeoma Okafor",
+      passwordHash: hashPassword("finance1234"),
+      status: "ACTIVE",
+      department: "Finance",
+      roles: { create: { roleId: roleByName.get("Finance Team")! } },
     },
   });
 

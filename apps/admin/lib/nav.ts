@@ -12,6 +12,7 @@ export const NAV: NavItem[] = [
   { label: "Dashboard", href: "/", icon: "home" },
   { label: "Users", href: "/users", icon: "users", permission: "users:view" },
   { label: "Disputes", href: "/disputes", icon: "flag", permission: "disputes:view" },
+  { label: "Finance", href: "/finance", icon: "cash", permission: "finance:view_transactions" },
   { label: "Impersonation", href: "/impersonation", icon: "eye", anyOf: ["impersonation:request", "impersonation:approve"] },
   { label: "Notifications", href: "/notifications", icon: "bell", permission: "notifications:manage" },
   { label: "Staff", href: "/staff", icon: "id", permission: "admin_users:edit" },

@@ -8,6 +8,8 @@ import { HrService } from "./hr.service.js";
 import { HrController } from "./hr.controller.js";
 import { ImpersonationController } from "./impersonation.controller.js";
 import { NotificationTemplatesController } from "./notification-templates.controller.js";
+import { FinanceController } from "./finance.controller.js";
+import { FinanceService } from "./finance.service.js";
 import { NotificationsModule } from "../notifications/notifications.module.js";
 import { AdminAuthGuard, PermissionsGuard } from "./rbac.js";
 import {
@@ -34,12 +36,14 @@ import {
     HrController,
     ImpersonationController,
     NotificationTemplatesController,
+    FinanceController,
   ],
   providers: [
     AdminAuthService,
     AuditService,
     DisputesService,
     HrService,
+    FinanceService,
     AdminAuthGuard,
     PermissionsGuard,
   ],

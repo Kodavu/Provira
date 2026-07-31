@@ -63,7 +63,12 @@ export class UsersService {
     });
   }
 
-  /** Withdraw from the Guild wallet to the linked bank (money out). */
+  /**
+   * Request a withdrawal to the linked bank. Funds are held immediately (moved
+   * from the payout wallet into suspense) and a PaymentIntent is created in
+   * CREATED — awaiting finance approval before the payout is actually dispatched.
+   * Holding at request time prevents double-spending the same balance.
+   */
   async withdraw(userId: string, amount: bigint) {
     if (amount <= 0n) throw new BadRequestException("Amount must be positive");
     const account = await this.prisma.account.findFirst({
@@ -73,13 +78,23 @@ export class UsersService {
       throw new BadRequestException("Insufficient balance");
 
     const suspense = await this.ledger.getOrCreatePlatformAccount("SUSPENSE");
-    await this.ledger.post({
+    const hold = await this.ledger.post({
       type: "WITHDRAWAL",
-      reference: `withdraw:${userId}:${Date.now()}`,
+      reference: `withdraw-hold:${userId}:${Date.now()}`,
       legs: [
         { accountId: account.id, direction: "DEBIT", amount },
         { accountId: suspense, direction: "CREDIT", amount },
       ],
+    });
+    await this.prisma.paymentIntent.create({
+      data: {
+        direction: "OUTBOUND",
+        status: "CREATED", // awaiting finance approval
+        amount,
+        provider: "mock",
+        transactionId: hold.id,
+        metadata: { kind: "withdrawal", userId },
+      },
     });
     return this.wallet(userId);
   }
