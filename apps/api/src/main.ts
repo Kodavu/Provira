@@ -17,7 +17,9 @@ async function bootstrap() {
     new ValidationPipe({ whitelist: true, transform: true }),
   );
   app.enableCors();
-  const port = Number(process.env.API_PORT ?? 4000);
+  // PaaS platforms (Render, Railway, Cloud Run) inject PORT; fall back to
+  // API_PORT for local/compose, then a sane default.
+  const port = Number(process.env.PORT ?? process.env.API_PORT ?? 4000);
   await app.listen(port);
   // eslint-disable-next-line no-console
   console.log(`Tally API listening on http://localhost:${port}/api`);
