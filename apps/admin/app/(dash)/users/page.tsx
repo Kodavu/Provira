@@ -9,11 +9,12 @@ export default async function UsersPage() {
   ]);
   if (!users || !me) return <EmptyState>Couldn&apos;t load users.</EmptyState>;
   const canSuspend = me.permissions.includes("users:suspend");
+  const canImpersonate = me.permissions.includes("impersonation:request");
 
   return (
     <>
       <PageHeader title="Users" subtitle={`${users.length} platform members. Suspensions are audited.`} />
-      <UsersTable users={users} canSuspend={canSuspend} />
+      <UsersTable users={users} canSuspend={canSuspend} canImpersonate={canImpersonate} />
     </>
   );
 }

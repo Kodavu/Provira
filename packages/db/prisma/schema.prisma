@@ -834,9 +834,12 @@ model ImpersonationGrant {
   approvedBy    AdminUser?          @relation("ImpApprover", fields: [approvedById], references: [id])
   createdAt     DateTime            @default(now())
   decidedAt     DateTime?
+  consumedAt    DateTime? // when the session was started
+  expiresAt     DateTime? // session validity window (set on consume)
 
   @@index([status])
   @@index([targetUserId])
+  @@index([requestedById])
 }
 
 model AdminUserRole {
