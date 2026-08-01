@@ -54,6 +54,10 @@ export interface NormalizedWebhookEvent {
   reference?: string; // our reference echoed back
   status: PaymentOutcomeStatus;
   amount?: Money;
+  /** For collections into a dedicated account (e.g. our EscrowAccount id). */
+  customerIdentifier?: string;
+  /** The virtual account the money landed in, when applicable. */
+  virtualAccountNumber?: string;
   raw: unknown;
 }
 

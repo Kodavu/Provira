@@ -157,6 +157,8 @@ export class SquadPaymentProvider implements PaymentProvider {
         rawAmount != null && !Number.isNaN(Number(rawAmount))
           ? { amount: BigInt(Math.round(Number(rawAmount))), currency: "NGN" }
           : undefined,
+      customerIdentifier: (body.customer_identifier as string) ?? undefined,
+      virtualAccountNumber: (body.virtual_account_number as string) ?? undefined,
       raw: payload,
     };
   }

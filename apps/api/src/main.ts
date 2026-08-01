@@ -11,7 +11,9 @@ import { ValidationPipe } from "@nestjs/common";
 import { AppModule } from "./app.module.js";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // rawBody: true exposes req.rawBody (a Buffer) so provider webhook signatures
+  // can be verified against the exact bytes received, not a re-serialized body.
+  const app = await NestFactory.create(AppModule, { rawBody: true });
   app.setGlobalPrefix("api");
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, transform: true }),
