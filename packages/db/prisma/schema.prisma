@@ -203,6 +203,14 @@ model User {
   kycLevel      KycLevel   @default(NONE)
   bvnHash       String? // hashed BVN/NIN, never stored raw
   hasSmartphone Boolean    @default(false) // drives channel defaults
+
+  // Verified payout destination (where the user receives funds). The account
+  // name is resolved via the payment provider's account lookup, not typed.
+  payoutBankCode      String?
+  payoutBankName      String?
+  payoutAccountNumber String?
+  payoutAccountName   String?
+
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 

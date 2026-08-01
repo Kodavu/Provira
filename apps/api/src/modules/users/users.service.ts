@@ -1,13 +1,16 @@
 import { createHash } from "node:crypto";
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
+import { PAYMENT_PROVIDER } from "../../integrations/integrations.module.js";
 import { meetsThreshold } from "@tally/core";
 import { zVerificationStatus, zWalletData, zWorkerDashboard } from "@tally/contracts";
+import type { PaymentProvider } from "@tally/integrations";
 import type { KycLevel, Language, LedgerTxnType, RoleType, VerificationDocType } from "@tally/db";
 
 // Human labels for ledger transaction types shown in the wallet activity feed.
@@ -25,7 +28,38 @@ export class UsersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly ledger: LedgerService,
+    @Inject(PAYMENT_PROVIDER) private readonly payments: PaymentProvider,
   ) {}
+
+  /** Resolve the account holder's name (name-enquiry) before saving it. */
+  async lookupBankAccount(bankCode: string, accountNumber: string): Promise<{ accountName: string }> {
+    if (!bankCode || !/^\d{10}$/.test(accountNumber ?? "")) {
+      throw new BadRequestException("A bank and a 10-digit account number are required");
+    }
+    const res = await this.payments.accountLookup(bankCode, accountNumber);
+    if (!res.accountName) throw new BadRequestException("Couldn't resolve that account");
+    return { accountName: res.accountName };
+  }
+
+  /** Save the user's verified payout destination. */
+  async saveBankAccount(
+    userId: string,
+    input: { bankCode: string; bankName?: string; accountNumber: string; accountName: string },
+  ): Promise<{ ok: true }> {
+    if (!input.bankCode || !/^\d{10}$/.test(input.accountNumber ?? "") || !input.accountName) {
+      throw new BadRequestException("bankCode, a 10-digit accountNumber, and accountName are required");
+    }
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        payoutBankCode: input.bankCode,
+        payoutBankName: input.bankName ?? null,
+        payoutAccountNumber: input.accountNumber,
+        payoutAccountName: input.accountName,
+      },
+    });
+    return { ok: true };
+  }
 
   /** Wallet view: available balance, where withdrawals land, and the ledger. */
   async wallet(userId: string) {
@@ -200,7 +234,13 @@ export class UsersService {
   async verificationStatus(userId: string): Promise<unknown> {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { kycLevel: true },
+      select: {
+        kycLevel: true,
+        payoutBankCode: true,
+        payoutBankName: true,
+        payoutAccountNumber: true,
+        payoutAccountName: true,
+      },
     });
     if (!user) throw new NotFoundException("User not found");
     const latest = await this.prisma.verificationRequest.findFirst({
@@ -218,6 +258,14 @@ export class UsersService {
             decisionReason: latest.decisionReason,
             createdAt: latest.createdAt,
             documents: latest.documents,
+          }
+        : null,
+      bankAccount: user.payoutAccountNumber
+        ? {
+            bankCode: user.payoutBankCode,
+            bankName: user.payoutBankName,
+            accountNumber: user.payoutAccountNumber,
+            accountName: user.payoutAccountName,
           }
         : null,
     });

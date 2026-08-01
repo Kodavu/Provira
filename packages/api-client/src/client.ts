@@ -166,6 +166,16 @@ export function createTallyClient(config: TallyClientConfig) {
       request<VerificationStatus>(`/users/${userId}/verification`),
     submitVerification: (userId: string, submission: VerificationSubmission) =>
       post(`/users/${userId}/verification`, submission) as Promise<{ id: string; status: string }>,
+    lookupBankAccount: (userId: string, bankCode: string, accountNumber: string) =>
+      post(`/users/${userId}/bank-account/lookup`, { bankCode, accountNumber }) as Promise<{ accountName: string }>,
+    saveBankAccount: (
+      userId: string,
+      account: { bankCode: string; bankName?: string; accountNumber: string; accountName: string },
+    ) =>
+      request<{ ok: true }>(`/users/${userId}/bank-account`, {
+        method: "PUT",
+        body: JSON.stringify(account),
+      }),
   };
 }
 

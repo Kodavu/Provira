@@ -41,6 +41,11 @@ export class MockPaymentProvider implements PaymentProvider {
     };
   }
 
+  async accountLookup(_bankCode: string, accountNumber: string): Promise<{ accountName: string }> {
+    // Deterministic stand-in name so the flow is testable without a real bank.
+    return { accountName: `TALLY TEST ${accountNumber.slice(-4)}` };
+  }
+
   parseWebhook(
     _headers: Record<string, string>,
     rawBody: string,

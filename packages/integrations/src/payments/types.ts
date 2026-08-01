@@ -69,6 +69,8 @@ export interface PaymentProvider {
   ): Promise<EscrowAccountHandle>;
   /** Push money out: worker payout or loan disbursement. */
   transfer(params: TransferParams): Promise<PaymentOutcome>;
+  /** Resolve the account holder's name for a bank account (name-enquiry). */
+  accountLookup(bankCode: string, accountNumber: string): Promise<{ accountName: string }>;
   /** Verify + normalize a raw provider webhook into our shape. */
   parseWebhook(
     headers: Record<string, string>,

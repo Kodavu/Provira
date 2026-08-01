@@ -253,6 +253,14 @@ export const zVerificationDocType = z.enum([
   "BVN", "NIN", "NATIONAL_ID", "DRIVERS_LICENSE", "VOTERS_CARD", "PASSPORT", "UTILITY_BILL", "SELFIE",
 ]);
 
+export const zBankAccount = z.object({
+  bankCode: z.string().nullable(),
+  bankName: z.string().nullable(),
+  accountNumber: z.string(),
+  accountName: z.string().nullable(),
+});
+export type BankAccount = z.infer<typeof zBankAccount>;
+
 export const zVerificationStatus = z.object({
   kycLevel: zKycLevel,
   request: z
@@ -265,5 +273,6 @@ export const zVerificationStatus = z.object({
       documents: z.array(z.object({ type: zVerificationDocType, label: z.string() })),
     })
     .nullable(),
+  bankAccount: zBankAccount.nullable(),
 });
 export type VerificationStatus = z.infer<typeof zVerificationStatus>;

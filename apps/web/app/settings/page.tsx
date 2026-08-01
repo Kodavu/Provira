@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, type NotificationPreferences } from "@/lib/api";
 import { getUserId } from "@/lib/session";
+import { routeForRoles } from "@/lib/auth";
 import { Card, Wordmark } from "@/components/ui";
 
 // Only mutable categories are user-controllable; the rest always send.
@@ -42,6 +43,7 @@ export default function SettingsPage() {
   const router = useRouter();
   const [data, setData] = useState<NotificationPreferences | null>(null);
   const [busy, setBusy] = useState(false);
+  const [backHref, setBackHref] = useState("/worker");
 
   const load = useCallback(async () => {
     const userId = getUserId();
@@ -50,7 +52,12 @@ export default function SettingsPage() {
       return;
     }
     try {
-      setData(await api.notificationPreferences(userId));
+      const [prefs, user] = await Promise.all([
+        api.notificationPreferences(userId),
+        api.getUser(userId),
+      ]);
+      setData(prefs);
+      setBackHref(routeForRoles(user.roles.map((r) => r.role)));
     } catch {
       /* leave null → shows loading */
     }
@@ -93,7 +100,7 @@ export default function SettingsPage() {
       <header className="border-b border-line bg-surface">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
           <Wordmark />
-          <Link href="/worker" className="text-sm font-medium text-ink-soft hover:text-ink">
+          <Link href={backHref} className="text-sm font-medium text-ink-soft hover:text-ink">
             &larr; Back
           </Link>
         </div>

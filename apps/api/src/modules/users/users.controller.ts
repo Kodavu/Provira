@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, Put } from "@nestjs/common";
 import { UsersService } from "./users.service.js";
 import type { KycLevel, Language, RoleType, VerificationDocType } from "@tally/db";
 
@@ -42,6 +42,22 @@ export class UsersController {
   @Get(":id/verification")
   verificationStatus(@Param("id") id: string) {
     return this.users.verificationStatus(id);
+  }
+
+  @Post(":id/bank-account/lookup")
+  lookupBankAccount(
+    @Param("id") _id: string,
+    @Body() body: { bankCode: string; accountNumber: string },
+  ) {
+    return this.users.lookupBankAccount(body.bankCode, body.accountNumber);
+  }
+
+  @Put(":id/bank-account")
+  saveBankAccount(
+    @Param("id") id: string,
+    @Body() body: { bankCode: string; bankName?: string; accountNumber: string; accountName: string },
+  ) {
+    return this.users.saveBankAccount(id, body);
   }
 
   @Post(":id/verification")

@@ -86,11 +86,24 @@ export class FinanceService {
     if (intent.status !== "CREATED") throw new BadRequestException("This withdrawal isn't awaiting approval");
     const userId = (intent.metadata as { userId?: string })?.userId ?? null;
 
+    // Send to the user's verified payout account (name-enquiry-confirmed at save).
+    const payout = userId
+      ? await this.prisma.user.findUnique({
+          where: { id: userId },
+          select: { payoutBankCode: true, payoutAccountNumber: true, payoutAccountName: true },
+        })
+      : null;
+
     // Dispatch the payout through the provider (funds are already held in suspense).
     const outcome = await this.provider.transfer({
       reference: intent.id,
       amount: { amount: intent.amount, currency: "NGN" },
-      destination: { type: "bank_account" },
+      destination: {
+        type: "bank_account",
+        bankCode: payout?.payoutBankCode ?? undefined,
+        accountNumber: payout?.payoutAccountNumber ?? undefined,
+        accountName: payout?.payoutAccountName ?? undefined,
+      },
       narration: "Tally withdrawal",
     });
     const updated = await this.prisma.paymentIntent.update({
