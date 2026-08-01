@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight, MapPin, Users } from "lucide-react";
 import { api, EmployerDashboard } from "@/lib/api";
-import { Button, Card, Input, Pill, formatNaira } from "@/components/ui";
+import { Button, Card, Input, Pill, ProgressBar, formatNaira } from "@/components/ui";
 
 const CATEGORIES = [
   { slug: "loading", label: "Loading" },
@@ -54,9 +55,7 @@ export function PostJobCard({
   return (
     <Card className="p-6">
       <p className="eyebrow">Post a job</p>
-      <h2 className="mb-4 mt-1 font-display text-xl font-semibold text-ink">
-        Hire for a shift
-      </h2>
+      <h2 className="mb-4 mt-1 font-display text-xl font-semibold text-ink">Hire for a shift</h2>
       <div className="grid gap-3 sm:grid-cols-[1fr_180px]">
         <Input value={title} onChange={setTitle} placeholder="e.g. Warehouse loading (1 day)" />
         <div className="flex items-center rounded-xl border border-line bg-surface px-3.5">
@@ -95,12 +94,13 @@ export function PostJobCard({
   );
 }
 
-const STATUS_TONE: Record<string, "green" | "amber" | "neutral"> = {
-  OPEN: "amber",
-  FILLED: "green",
-  IN_PROGRESS: "green",
-  COMPLETED: "green",
-  DRAFT: "neutral",
+const STATUS: Record<string, { label: string; tone: "green" | "amber" | "neutral" }> = {
+  OPEN: { label: "Matching", tone: "amber" },
+  FILLED: { label: "Filled", tone: "green" },
+  IN_PROGRESS: { label: "In progress", tone: "green" },
+  COMPLETED: { label: "Completed", tone: "green" },
+  DRAFT: { label: "Draft", tone: "neutral" },
+  CANCELLED: { label: "Cancelled", tone: "neutral" },
 };
 
 export function JobsBoard({
@@ -112,23 +112,22 @@ export function JobsBoard({
 }) {
   if (jobs.length === 0)
     return (
-      <Card className="p-6">
-        <p className="text-sm text-ink-muted">
-          No jobs yet. Post your first shift above.
-        </p>
+      <Card className="p-10 text-center">
+        <p className="font-medium text-ink">No jobs yet</p>
+        <p className="mt-1 text-sm text-ink-muted">Post your first shift to start matching workers.</p>
       </Card>
     );
 
   return (
-    <div className="space-y-3">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {jobs.map((j) => (
-        <JobRow key={j.id} job={j} onChange={onChange} />
+        <JobCard key={j.id} job={j} onChange={onChange} />
       ))}
     </div>
   );
 }
 
-function JobRow({
+function JobCard({
   job,
   onChange,
 }: {
@@ -136,6 +135,10 @@ function JobRow({
   onChange: () => void;
 }) {
   const [busy, setBusy] = useState<string | null>(null);
+  const status = STATUS[job.status] ?? { label: job.status.toLowerCase(), tone: "neutral" as const };
+  const matched = Math.min(job.applicants, job.headcount);
+  const pct = job.headcount > 0 ? (matched / job.headcount) * 100 : 0;
+  const escrow = job.escrow;
 
   async function fund() {
     setBusy("fund");
@@ -157,42 +160,65 @@ function JobRow({
     }
   }
 
-  const escrow = job.escrow;
   return (
-    <Card className="p-5">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <p className="font-semibold text-ink">{job.title}</p>
-            <Pill tone={STATUS_TONE[job.status] ?? "neutral"}>{job.status.toLowerCase()}</Pill>
-          </div>
-          <p className="mt-1 text-sm text-ink-muted">
-            {formatNaira(job.payAmount)} · {job.location ?? "Lagos"}
-            {job.skills.length > 0 && ` · ${job.skills.join(", ")}`}
-          </p>
-          <p className="mt-1 text-sm text-ink-soft">
-            {job.applicants} applicant{job.applicants === 1 ? "" : "s"}
-          </p>
-        </div>
+    <Card className="flex flex-col p-5">
+      <div className="flex items-start justify-between">
+        <Pill tone={status.tone}>{status.label}</Pill>
+        <span className="grid h-8 w-8 place-items-center rounded-full border border-line text-ink-soft transition hover:border-brand-300 hover:text-brand-600">
+          <ArrowRight className="h-4 w-4" />
+        </span>
+      </div>
 
-        <div className="flex flex-col items-end gap-2">
-          {escrow ? (
-            escrow.released ? (
-              <Pill tone="green">Escrow released</Pill>
-            ) : escrow.funded ? (
-              <Pill tone="green">Escrow funded · {formatNaira(escrow.amount)}</Pill>
-            ) : (
-              <Button size="sm" onClick={fund} disabled={busy === "fund"}>
-                {busy === "fund" ? "Funding…" : `Fund escrow · ${formatNaira(escrow.amount)}`}
-              </Button>
-            )
-          ) : (
-            <Pill>No escrow</Pill>
-          )}
-          <Button size="sm" variant="outline" onClick={match} disabled={busy === "match"}>
-            {busy === "match" ? "Matching…" : "Find workers"}
-          </Button>
+      <h3 className="mt-3 font-semibold leading-snug text-ink">{job.title}</h3>
+      <p className="mt-1 flex items-center gap-1 text-sm text-ink-muted">
+        <MapPin className="h-3.5 w-3.5" /> {job.location ?? "Lagos"}
+      </p>
+
+      <div className="mt-4">
+        <div className="mb-1.5 flex items-center justify-between text-xs text-ink-soft">
+          <span>{matched}/{job.headcount} matched</span>
+          <span className="flex items-center gap-1 text-ink-muted">
+            <Users className="h-3.5 w-3.5" /> {job.applicants} applied
+          </span>
         </div>
+        <ProgressBar pct={pct} />
+      </div>
+
+      {/* Avatar stack (decorative) + pay */}
+      <div className="mt-4 flex items-center justify-between">
+        <div className="flex -space-x-2">
+          {Array.from({ length: Math.max(1, Math.min(job.headcount, 4)) }).map((_, i) => (
+            <span
+              key={i}
+              className={`h-7 w-7 rounded-full border-2 border-surface ${
+                i < matched ? "bg-brand-200" : "bg-canvas"
+              }`}
+            />
+          ))}
+        </div>
+        <span className="font-display text-lg font-semibold tabular-nums text-ink">
+          {formatNaira(job.payAmount)}
+        </span>
+      </div>
+
+      {/* Escrow + action */}
+      <div className="mt-4 flex items-center gap-2 border-t border-line pt-4">
+        {escrow ? (
+          escrow.released ? (
+            <Pill tone="green">Paid out</Pill>
+          ) : escrow.funded ? (
+            <Pill tone="green">Escrow funded</Pill>
+          ) : (
+            <Button size="sm" onClick={fund} disabled={busy === "fund"} className="flex-1">
+              {busy === "fund" ? "Funding…" : `Fund · ${formatNaira(escrow.amount)}`}
+            </Button>
+          )
+        ) : (
+          <Pill>No escrow</Pill>
+        )}
+        <Button size="sm" variant="outline" onClick={match} disabled={busy === "match"} className="ml-auto">
+          {busy === "match" ? "Matching…" : "Find workers"}
+        </Button>
       </div>
     </Card>
   );
