@@ -9,6 +9,7 @@ import {
   MockPushProvider,
   MockStorageProvider,
   MockOutbox,
+  SquadPaymentProvider,
 } from "@tally/integrations";
 
 // Injection tokens. Services depend on these, never on a concrete provider.
@@ -32,7 +33,13 @@ export const OUTBOX = Symbol("OUTBOX");
       provide: PAYMENT_PROVIDER,
       useFactory: () => {
         switch (process.env.PAYMENTS_PROVIDER) {
-          // case "paystack": return new PaystackProvider(...);
+          case "squad":
+            return new SquadPaymentProvider({
+              secretKey: process.env.SQUAD_SECRET_KEY ?? "",
+              merchantId: process.env.SQUAD_MERCHANT_ID ?? "",
+              baseUrl: process.env.SQUAD_BASE_URL, // defaults to sandbox
+              publicKey: process.env.SQUAD_PUBLIC_KEY,
+            });
           default:
             return new MockPaymentProvider();
         }

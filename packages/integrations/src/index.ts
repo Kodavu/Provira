@@ -1,6 +1,7 @@
 export * from "./common.js";
 export * from "./payments/types.js";
 export * from "./payments/mock.js";
+export * from "./payments/squad.js";
 export * from "./messaging/types.js";
 export * from "./messaging/mock.js";
 export * from "./llm/types.js";
