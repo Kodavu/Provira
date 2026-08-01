@@ -55,7 +55,7 @@ export default function LandingPage() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              href="/login"
+              href="/signup"
               className="rounded-xl bg-brand-600 px-6 py-3 text-base font-semibold text-white hover:bg-brand-700"
             >
               Get started free
@@ -99,7 +99,7 @@ export default function LandingPage() {
             <Link
               key={r.id}
               id={r.id}
-              href={`/login?role=${r.role}`}
+              href={`/signup?type=${r.role}`}
               className="group scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-brand-400"
             >
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
@@ -200,7 +200,7 @@ export default function LandingPage() {
             Start counting your work today.
           </h2>
           <Link
-            href="/login"
+            href="/signup"
             className="rounded-xl bg-white px-7 py-3 text-base font-semibold text-brand-700 hover:bg-brand-50"
           >
             Get started free

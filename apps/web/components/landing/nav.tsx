@@ -56,7 +56,7 @@ export function LandingNav() {
             Sign in
           </Link>
           <Link
-            href="/login"
+            href="/signup"
             className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
           >
             Get started
@@ -105,7 +105,7 @@ export function LandingNav() {
               <Link href="/login" onClick={() => setOpen(false)} className="rounded-xl border border-slate-200 py-3 text-center font-semibold text-ink">
                 Sign in
               </Link>
-              <Link href="/login" onClick={() => setOpen(false)} className="rounded-xl bg-brand-600 py-3 text-center font-semibold text-white">
+              <Link href="/signup" onClick={() => setOpen(false)} className="rounded-xl bg-brand-600 py-3 text-center font-semibold text-white">
                 Get started
               </Link>
             </div>

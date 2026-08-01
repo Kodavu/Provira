@@ -74,6 +74,10 @@ export function createTallyClient(config: TallyClientConfig) {
     verifyOtp: (phone: string, code: string) =>
       post("/auth/otp/verify", { phone, code }) as Promise<OtpVerifyResponse>,
     getUser: (userId: string) => request<UserRoles>(`/users/${userId}`),
+    updateProfile: (userId: string, patch: { fullName?: string; hasSmartphone?: boolean; language?: string }) =>
+      request<UserRoles>(`/users/${userId}`, { method: "PATCH", body: JSON.stringify(patch) }),
+    addRole: (userId: string, role: "WORKER" | "TRADER" | "EMPLOYER") =>
+      post(`/users/${userId}/roles`, { role }) as Promise<unknown>,
 
     // Worker
     workerDashboard: (userId: string) =>
