@@ -74,9 +74,10 @@ enum JobStatus {
 }
 
 enum AssignmentStatus {
-  MATCHED // surfaced by matching engine
-  INVITED // employer/worker invited
-  ACCEPTED // worker accepted
+  MATCHED // surfaced by matching engine (not persisted; suggestion only)
+  INVITED // employer invited the worker — awaiting the worker's acceptance
+  APPLIED // worker applied — awaiting the employer's acceptance
+  ACCEPTED // in the job: employer accepted an application, or worker accepted an invite
   DECLINED
   WITHDRAWN
   CONFIRMED // attendance confirmed via code
@@ -428,6 +429,9 @@ model JobAssignment {
   worker     WorkerProfile    @relation(fields: [workerId], references: [id], onDelete: Cascade)
   status     AssignmentStatus @default(MATCHED)
   matchScore Float? // ranking score from matching engine
+  invitedAt  DateTime? // set when the employer invites this worker
+  appliedAt  DateTime? // set when the worker applies
+  acceptedAt DateTime? // set when the worker joins the job (either path)
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @updatedAt
 
@@ -448,7 +452,8 @@ model Attendance {
   assignmentId    String           @unique
   assignment      JobAssignment    @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   status          AttendanceStatus @default(PENDING)
-  confirmCodeHash String // 4-digit code, hashed; employer/worker exchange to confirm
+  confirmCodeHash String // 4-digit code, hashed; used to verify confirmation
+  code            String? // same 4-digit code in the clear, so the employer can show it on site
   confirmedAt     DateTime?
   confirmedVia    Channel?
   createdAt       DateTime         @default(now())

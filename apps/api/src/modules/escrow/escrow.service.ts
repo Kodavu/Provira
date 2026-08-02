@@ -87,16 +87,17 @@ export class EscrowService {
   }
 
   /**
-   * Release escrow to a worker's payout wallet on confirmed attendance.
-   * Returns the worker payout account id so PaymentsService can push it out.
+   * Release one worker's share of escrow to their payout wallet on confirmed
+   * attendance. A job funds escrow for the whole headcount up front, so each
+   * confirmed worker draws their per-person amount. Idempotent per (job, worker);
+   * escrow is marked fully released once its holding account is drained.
    */
-  async release(jobId: string, workerUserId: string) {
+  async release(jobId: string, workerUserId: string, amount: bigint) {
     const escrow = await this.prisma.escrowAccount.findUnique({
       where: { jobId },
     });
     if (!escrow) throw new BadRequestException("No escrow for job");
     if (!escrow.fundedAt) throw new BadRequestException("Escrow not funded");
-    if (escrow.releasedAt) return escrow; // idempotent
 
     const workerAccount = await this.ledger.ensureUserAccount(
       workerUserId,
@@ -105,17 +106,24 @@ export class EscrowService {
 
     await this.ledger.post({
       type: "ESCROW_RELEASE",
-      reference: `escrow-release:${jobId}`,
-      idempotencyKey: `escrow-release:${jobId}`,
+      reference: `escrow-release:${jobId}:${workerUserId}`,
+      idempotencyKey: `escrow-release:${jobId}:${workerUserId}`,
       legs: [
-        { accountId: escrow.accountId, direction: "DEBIT", amount: escrow.amount },
-        { accountId: workerAccount, direction: "CREDIT", amount: escrow.amount },
+        { accountId: escrow.accountId, direction: "DEBIT", amount },
+        { accountId: workerAccount, direction: "CREDIT", amount },
       ],
     });
 
-    return this.prisma.escrowAccount.update({
-      where: { jobId },
-      data: { releasedAt: new Date() },
+    // Mark the escrow released once its holding account is drained to zero.
+    const account = await this.prisma.account.findUnique({
+      where: { id: escrow.accountId },
     });
+    if (account && account.balance <= 0n && !escrow.releasedAt) {
+      return this.prisma.escrowAccount.update({
+        where: { jobId },
+        data: { releasedAt: new Date() },
+      });
+    }
+    return escrow;
   }
 }

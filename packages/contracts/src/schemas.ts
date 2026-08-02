@@ -73,8 +73,14 @@ export const zWorkerDashboard = z.object({
         title: z.string(),
         payAmount: zMoney,
         status: z.string().optional(),
+        location: z.string().nullable().optional(),
+        startAt: zDate.nullable().optional(),
+        endAt: zDate.nullable().optional(),
+        employerName: z.string().nullable().optional(),
       }),
-      attendance: z.object({ status: z.string() }).nullable(),
+      attendance: z
+        .object({ status: z.string(), code: z.string().nullable().optional() })
+        .nullable(),
     }),
   ),
   openJobs: z.array(
@@ -194,9 +200,15 @@ export const zEmployerDashboard = z.object({
       id: z.string(),
       title: z.string(),
       status: z.string(),
-      payAmount: zMoney,
+      payAmount: zMoney, // total (perPerson × headcount)
+      perPerson: zMoney,
       headcount: z.number(),
+      accepted: z.number(), // workers in the job
+      applied: z.number(), // pending applications awaiting the employer
+      invited: z.number(), // pending invites awaiting the worker
       location: z.string().nullable(),
+      startAt: zDate.nullable(),
+      endAt: zDate.nullable(),
       skills: z.array(z.string()),
       applicants: z.number(),
       escrow: z
@@ -206,6 +218,73 @@ export const zEmployerDashboard = z.object({
   ),
 });
 export type EmployerDashboard = z.infer<typeof zEmployerDashboard>;
+
+// --- Job detail (employer view) ---
+
+export const zJobAssignmentRow = z.object({
+  assignmentId: z.string(),
+  workerId: z.string(),
+  workerName: z.string().nullable(),
+  status: z.string(),
+  matchScore: z.number().nullable(),
+  attendance: z
+    .object({ status: z.string(), code: z.string().nullable(), confirmedAt: zDate.nullable() })
+    .nullable(),
+});
+export type JobAssignmentRow = z.infer<typeof zJobAssignmentRow>;
+
+export const zJobSuggestion = z.object({
+  workerId: z.string(),
+  workerName: z.string().nullable(),
+  matchScore: z.number(),
+  skills: z.array(z.string()),
+  score: z.number(),
+  tier: zTier,
+  reasons: z.array(z.string()),
+});
+export type JobSuggestion = z.infer<typeof zJobSuggestion>;
+
+export const zJobDetail = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string().nullable(),
+  status: z.string(),
+  payAmount: zMoney,
+  perPerson: zMoney,
+  headcount: z.number(),
+  accepted: z.number(),
+  filled: z.boolean(),
+  location: z.string().nullable(),
+  startAt: zDate.nullable(),
+  endAt: zDate.nullable(),
+  skills: z.array(z.string()),
+  escrow: z.object({ amount: zMoney, funded: z.boolean(), released: z.boolean() }).nullable(),
+  inJob: z.array(zJobAssignmentRow), // ACCEPTED / CONFIRMED
+  applications: z.array(zJobAssignmentRow), // APPLIED — awaiting employer
+  invites: z.array(zJobAssignmentRow), // INVITED — awaiting worker
+});
+export type JobDetail = z.infer<typeof zJobDetail>;
+
+// --- Job search (worker view) ---
+
+export const zJobSearchItem = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string().nullable(),
+  perPerson: zMoney,
+  headcount: z.number(),
+  accepted: z.number(),
+  filled: z.boolean(),
+  location: z.string().nullable(),
+  startAt: zDate.nullable(),
+  endAt: zDate.nullable(),
+  skills: z.array(z.string()),
+  employerName: z.string().nullable(),
+  myStatus: z.string().nullable(), // this worker's assignment status, if any
+});
+export type JobSearchItem = z.infer<typeof zJobSearchItem>;
+export const zJobSearchResults = z.object({ items: z.array(zJobSearchItem) });
+export type JobSearchResults = z.infer<typeof zJobSearchResults>;
 
 // --- Notifications ---
 

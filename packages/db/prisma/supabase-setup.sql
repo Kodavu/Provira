@@ -21,7 +21,7 @@ CREATE TYPE "Channel" AS ENUM ('WEB', 'WHATSAPP', 'SMS', 'IVR', 'USSD');
 CREATE TYPE "JobStatus" AS ENUM ('DRAFT', 'OPEN', 'FILLED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'EXPIRED');
 
 -- CreateEnum
-CREATE TYPE "AssignmentStatus" AS ENUM ('MATCHED', 'INVITED', 'ACCEPTED', 'DECLINED', 'WITHDRAWN', 'CONFIRMED', 'COMPLETED', 'NO_SHOW');
+CREATE TYPE "AssignmentStatus" AS ENUM ('MATCHED', 'INVITED', 'APPLIED', 'ACCEPTED', 'DECLINED', 'WITHDRAWN', 'CONFIRMED', 'COMPLETED', 'NO_SHOW');
 
 -- CreateEnum
 CREATE TYPE "AttendanceStatus" AS ENUM ('PENDING', 'CONFIRMED', 'DISPUTED', 'NO_SHOW');
@@ -256,6 +256,9 @@ CREATE TABLE "JobAssignment" (
     "workerId" TEXT NOT NULL,
     "status" "AssignmentStatus" NOT NULL DEFAULT 'MATCHED',
     "matchScore" DOUBLE PRECISION,
+    "invitedAt" TIMESTAMP(3),
+    "appliedAt" TIMESTAMP(3),
+    "acceptedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -269,6 +272,7 @@ CREATE TABLE "Attendance" (
     "assignmentId" TEXT NOT NULL,
     "status" "AttendanceStatus" NOT NULL DEFAULT 'PENDING',
     "confirmCodeHash" TEXT NOT NULL,
+    "code" TEXT,
     "confirmedAt" TIMESTAMP(3),
     "confirmedVia" "Channel",
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

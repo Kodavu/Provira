@@ -32,16 +32,13 @@ export default function NewJobPage() {
       <FadeIn delay={0.05}>
         <PostJobCard
           employerProfileId={data.employerProfileId}
-          onPosted={() => {
-            reload();
-            router.push("/jobs");
-          }}
+          onPosted={(jobId) => router.push(`/jobs/${jobId}`)}
         />
       </FadeIn>
       <Card className="bg-brand-50/50 p-5">
         <p className="text-sm text-ink-soft">
           <span className="font-semibold text-ink">How it works:</span> once posted, fund escrow to secure the shift,
-          then tap <span className="font-medium">Find workers</span>. Pay is released only when a worker confirms
+          then invite suggested workers or accept applications. Pay is released only when a worker confirms
           attendance with their 4-digit code.
         </p>
       </Card>

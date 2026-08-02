@@ -38,19 +38,14 @@ export class AttendanceService {
     if (existing) return { code: null as string | null, alreadyIssued: true };
 
     const code = String(randomInt(1000, 10000));
-    await this.prisma.$transaction([
-      this.prisma.jobAssignment.update({
-        where: { id: assignmentId },
-        data: { status: "ACCEPTED" },
-      }),
-      this.prisma.attendance.create({
-        data: {
-          jobId: assignment.jobId,
-          assignmentId,
-          confirmCodeHash: hash(code),
-        },
-      }),
-    ]);
+    await this.prisma.attendance.create({
+      data: {
+        jobId: assignment.jobId,
+        assignmentId,
+        confirmCodeHash: hash(code),
+        code, // stored in the clear so the employer can display it on site
+      },
+    });
     return { code };
   }
 
@@ -73,6 +68,9 @@ export class AttendanceService {
 
     const workerUserId = attendance.assignment.worker.userId;
     const jobId = attendance.jobId;
+    const job = attendance.assignment.job;
+    // Each confirmed worker draws their per-person share of the funded escrow.
+    const perPerson = job.payAmount / BigInt(Math.max(1, job.headcount));
 
     const updated = await this.prisma.attendance.update({
       where: { assignmentId },
@@ -83,8 +81,8 @@ export class AttendanceService {
       data: { status: "CONFIRMED" },
     });
 
-    // Release escrow -> worker payout wallet.
-    await this.escrow.release(jobId, workerUserId);
+    // Release this worker's share of escrow -> their payout wallet.
+    await this.escrow.release(jobId, workerUserId, perPerson);
 
     // Record score signals (completed + on-time).
     await this.scoring.recordEvent({
@@ -100,17 +98,22 @@ export class AttendanceService {
       refId: jobId,
     });
 
-    // Fire same-day payout (worker wallet destination in this scaffold).
+    // Fire same-day payout for this worker's share.
     await this.payments.payoutWorker({
       userId: workerUserId,
-      amount: attendance.assignment.job.payAmount,
+      amount: perPerson,
       destination: { walletId: workerUserId },
       reference: `payout:${jobId}:${workerUserId}`,
     });
 
+    // The job is complete only once every worker in it has confirmed.
+    const [confirmed, inJob] = await Promise.all([
+      this.prisma.jobAssignment.count({ where: { jobId, status: "CONFIRMED" } }),
+      this.prisma.jobAssignment.count({ where: { jobId, status: { in: ["ACCEPTED", "CONFIRMED"] } } }),
+    ]);
     await this.prisma.job.update({
       where: { id: jobId },
-      data: { status: "COMPLETED" },
+      data: { status: confirmed >= inJob ? "COMPLETED" : "IN_PROGRESS" },
     });
 
     return updated;

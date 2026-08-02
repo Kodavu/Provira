@@ -65,8 +65,11 @@ export function WorkerOverview() {
   if (!data) return <PageSkeleton />;
 
   const firstName = fullName?.split(" ")[0] ?? "there";
-  const confirmed = data.assignments.filter((a) => a.attendance?.status === "CONFIRMED");
-  const activeAssignments = data.assignments.filter((a) => a.attendance?.status !== "CONFIRMED");
+  const confirmed = data.assignments.filter(
+    (a) => a.attendance?.status === "CONFIRMED" || a.status === "CONFIRMED",
+  );
+  const invitations = data.assignments.filter((a) => a.status === "INVITED");
+  const activeAssignments = data.assignments.filter((a) => a.status === "ACCEPTED");
 
   return (
     <div className="space-y-6">
@@ -88,6 +91,19 @@ export function WorkerOverview() {
       </FadeIn>
 
       <NextGoal done={confirmed.length} target={10} />
+
+      {invitations.length > 0 && (
+        <Link href="/jobs">
+          <Card className="flex items-center justify-between gap-3 border-brand-200 bg-brand-50/50 p-4 transition hover:shadow-md">
+            <p className="text-sm font-medium text-ink">
+              You have {invitations.length} job invitation{invitations.length === 1 ? "" : "s"} waiting.
+            </p>
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-700">
+              Respond <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </Card>
+        </Link>
+      )}
 
       <div>
         <SectionRow title="Active shifts" href="/jobs" cta="Manage jobs" />

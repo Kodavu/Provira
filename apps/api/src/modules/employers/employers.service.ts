@@ -52,23 +52,36 @@ export class EmployersService {
         committed: committed.toString(),
         released: released.toString(),
       },
-      jobs: jobs.map((j) => ({
-        id: j.id,
-        title: j.title,
-        status: j.status,
-        payAmount: j.payAmount.toString(),
-        headcount: j.headcount,
-        location: j.location?.label ?? null,
-        skills: j.skills.map((s) => s.skill.name),
-        applicants: j.assignments.length,
-        escrow: j.escrow
-          ? {
-              amount: j.escrow.amount.toString(),
-              funded: !!j.escrow.fundedAt,
-              released: !!j.escrow.releasedAt,
-            }
-          : null,
-      })),
+      jobs: jobs.map((j) => {
+        const accepted = j.assignments.filter((a) =>
+          ["ACCEPTED", "CONFIRMED"].includes(a.status),
+        ).length;
+        const applied = j.assignments.filter((a) => a.status === "APPLIED").length;
+        const invited = j.assignments.filter((a) => a.status === "INVITED").length;
+        return {
+          id: j.id,
+          title: j.title,
+          status: j.status,
+          payAmount: j.payAmount.toString(),
+          perPerson: (j.payAmount / BigInt(Math.max(1, j.headcount))).toString(),
+          headcount: j.headcount,
+          accepted,
+          applied,
+          invited,
+          location: j.location?.label ?? null,
+          startAt: j.startAt,
+          endAt: j.endAt,
+          skills: j.skills.map((s) => s.skill.name),
+          applicants: j.assignments.length,
+          escrow: j.escrow
+            ? {
+                amount: j.escrow.amount.toString(),
+                funded: !!j.escrow.fundedAt,
+                released: !!j.escrow.releasedAt,
+              }
+            : null,
+        };
+      }),
     });
   }
 }

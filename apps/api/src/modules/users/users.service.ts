@@ -154,14 +154,36 @@ export class UsersService {
       where: { ownerId: userId, type: "WORKER_PAYOUT" },
     });
 
-    const assignments = user.workerProfile
+    const assignmentRows = user.workerProfile
       ? await this.prisma.jobAssignment.findMany({
           where: { workerId: user.workerProfile.id },
-          include: { job: true, attendance: true },
+          include: {
+            job: { include: { location: true, employer: true } },
+            attendance: true,
+          },
           orderBy: { updatedAt: "desc" },
-          take: 20,
+          take: 30,
         })
       : [];
+
+    const assignments = assignmentRows.map((a) => ({
+      id: a.id,
+      status: a.status,
+      matchScore: a.matchScore,
+      job: {
+        id: a.job.id,
+        title: a.job.title,
+        payAmount: a.job.payAmount.toString(),
+        status: a.job.status,
+        location: a.job.location?.label ?? null,
+        startAt: a.job.startAt,
+        endAt: a.job.endAt,
+        employerName: a.job.employer?.businessName ?? null,
+      },
+      attendance: a.attendance
+        ? { status: a.attendance.status, code: a.attendance.code }
+        : null,
+    }));
 
     const openJobs = await this.prisma.job.findMany({
       where: { status: "OPEN" },

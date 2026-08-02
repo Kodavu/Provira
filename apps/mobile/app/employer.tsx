@@ -170,7 +170,10 @@ function JobRow({ job, onChange }: { job: EmployerDashboard["jobs"][number]; onC
     setBusy("match");
     try {
       await api.publishJob(job.id).catch(() => {});
-      await api.matchJob(job.id);
+      // Matching now suggests workers rather than adding them; invite the
+      // top-ranked candidate so the mobile quick-action stays functional.
+      const suggestions = await api.jobSuggestions(job.id);
+      if (suggestions[0]) await api.inviteWorker(job.id, suggestions[0].workerId);
       onChange();
     } finally {
       setBusy(null);
@@ -205,7 +208,7 @@ function JobRow({ job, onChange }: { job: EmployerDashboard["jobs"][number]; onC
           />
         )
       ) : null}
-      <Button label={busy === "match" ? "Matching…" : "Find workers"} variant="outline" onPress={match} loading={busy === "match"} />
+      <Button label={busy === "match" ? "Inviting…" : "Invite a worker"} variant="outline" onPress={match} loading={busy === "match"} />
     </Card>
   );
 }

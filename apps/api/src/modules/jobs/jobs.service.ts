@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { EscrowService } from "../escrow/escrow.service.js";
+import { AttendanceService } from "../attendance/attendance.service.js";
+import { NotificationService } from "../notifications/notification.service.js";
 import {
   rankWorkers,
   DEFAULT_SCORE_CONFIG,
@@ -12,13 +14,21 @@ interface CreateJobInput {
   employerId: string;
   title: string;
   description?: string;
-  payAmount: bigint;
+  payAmount: bigint; // total (perPerson × headcount)
   headcount?: number;
   languages?: Language[];
   skillSlugs?: string[];
   locationId?: string;
+  locationLabel?: string;
   startAt?: Date;
   endAt?: Date;
+}
+
+// Statuses that count against a job's headcount (a worker is "in" the job).
+const IN_JOB = ["ACCEPTED", "CONFIRMED"] as const;
+
+function naira(kobo: bigint): string {
+  return `₦${(Number(kobo) / 100).toLocaleString("en-NG")}`;
 }
 
 @Injectable()
@@ -26,14 +36,22 @@ export class JobsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly escrow: EscrowService,
+    private readonly attendance: AttendanceService,
+    private readonly notifications: NotificationService,
   ) {}
 
   async create(input: CreateJobInput) {
     const skills = input.skillSlugs?.length
-      ? await this.prisma.skill.findMany({
-          where: { slug: { in: input.skillSlugs } },
-        })
+      ? await this.prisma.skill.findMany({ where: { slug: { in: input.skillSlugs } } })
       : [];
+
+    // Resolve a free-text location into a Location row (reuse if it exists).
+    let locationId = input.locationId;
+    if (!locationId && input.locationLabel?.trim()) {
+      const label = input.locationLabel.trim();
+      const existing = await this.prisma.location.findFirst({ where: { label } });
+      locationId = existing?.id ?? (await this.prisma.location.create({ data: { label } })).id;
+    }
 
     return this.prisma.job.create({
       data: {
@@ -43,7 +61,7 @@ export class JobsService {
         payAmount: input.payAmount,
         headcount: input.headcount ?? 1,
         languages: input.languages ?? ["EN"],
-        locationId: input.locationId,
+        locationId,
         startAt: input.startAt,
         endAt: input.endAt,
         skills: { create: skills.map((s) => ({ skillId: s.id })) },
@@ -56,22 +74,33 @@ export class JobsService {
     const job = await this.prisma.job.findUnique({ where: { id: jobId } });
     if (!job) throw new NotFoundException("Job not found");
     await this.escrow.createForJob(jobId, job.payAmount);
-    return this.prisma.job.update({
-      where: { id: jobId },
-      data: { status: "OPEN" },
+    return this.prisma.job.update({ where: { id: jobId }, data: { status: "OPEN" } });
+  }
+
+  private async acceptedCount(jobId: string): Promise<number> {
+    return this.prisma.jobAssignment.count({
+      where: { jobId, status: { in: [...IN_JOB] } },
     });
   }
 
-  /** Rank candidate workers for a job and persist assignments with matchScore. */
-  async match(jobId: string, limit = 10) {
+  private async assertNotFull(jobId: string, headcount: number) {
+    if ((await this.acceptedCount(jobId)) >= headcount)
+      throw new BadRequestException("This job is already full");
+  }
+
+  /**
+   * Suggest qualified workers for a job — ranked, but NOT added to the job.
+   * The employer reviews these and sends invites. Workers already linked to the
+   * job (invited/applied/in) are excluded.
+   */
+  async suggest(jobId: string, limit = 12) {
     const job = await this.prisma.job.findUnique({
       where: { id: jobId },
-      include: { skills: { include: { skill: true } }, location: true },
+      include: { skills: { include: { skill: true } }, location: true, assignments: true },
     });
     if (!job) throw new NotFoundException("Job not found");
+    const already = new Set(job.assignments.map((a) => a.workerId));
 
-    // Candidate pool: workers with a profile. A production version filters by
-    // radius/skills in SQL first; here we rank in-memory for clarity.
     const workers = await this.prisma.workerProfile.findMany({
       include: {
         skills: { include: { skill: true } },
@@ -81,15 +110,18 @@ export class JobsService {
       take: 200,
     });
 
-    const candidates: WorkerCandidate[] = workers.map((w) => ({
-      workerId: w.id,
-      skillSlugs: w.skills.map((s) => s.skill.slug),
-      languages: w.languages,
-      lat: w.location?.lat ?? null,
-      lng: w.location?.lng ?? null,
-      score: w.user.scoreProfile?.score ?? 0,
-      scoreMax: DEFAULT_SCORE_CONFIG.max,
-    }));
+    const byId = new Map(workers.map((w) => [w.id, w]));
+    const candidates: WorkerCandidate[] = workers
+      .filter((w) => !already.has(w.id))
+      .map((w) => ({
+        workerId: w.id,
+        skillSlugs: w.skills.map((s) => s.skill.slug),
+        languages: w.languages,
+        lat: w.location?.lat ?? null,
+        lng: w.location?.lng ?? null,
+        score: w.user.scoreProfile?.score ?? 0,
+        scoreMax: DEFAULT_SCORE_CONFIG.max,
+      }));
 
     const ranked = rankWorkers(
       {
@@ -101,37 +133,252 @@ export class JobsService {
       candidates,
     ).slice(0, limit);
 
-    // Upsert assignments carrying the match score for transparency.
-    for (const r of ranked) {
-      await this.prisma.jobAssignment.upsert({
-        where: { jobId_workerId: { jobId, workerId: r.workerId } },
-        create: { jobId, workerId: r.workerId, matchScore: r.matchScore },
-        update: { matchScore: r.matchScore },
-      });
-    }
-    return ranked;
+    return ranked.map((r) => {
+      const w = byId.get(r.workerId)!;
+      return {
+        workerId: r.workerId,
+        workerName: w.user.fullName,
+        matchScore: r.matchScore,
+        skills: w.skills.map((s) => s.skill.name),
+        score: w.user.scoreProfile?.score ?? 0,
+        tier: w.user.scoreProfile?.tier ?? "BUILDING",
+        reasons: r.reasons ?? [],
+      };
+    });
   }
 
-  /**
-   * A worker applies to a job. Creates/accepts their assignment. The employer
-   * still generates and hands over the confirmation code (see AttendanceService)
-   * — the controller chains that so the worker sees the code in one step.
-   */
+  /** Employer invites a worker. Creates/updates an INVITED assignment + notifies. */
+  async invite(jobId: string, workerId: string) {
+    const job = await this.jobOrThrow(jobId);
+    await this.assertNotFull(jobId, job.headcount);
+
+    const worker = await this.prisma.workerProfile.findUnique({
+      where: { id: workerId },
+      include: { user: true },
+    });
+    if (!worker) throw new NotFoundException("Worker not found");
+
+    const assignment = await this.prisma.jobAssignment.upsert({
+      where: { jobId_workerId: { jobId, workerId } },
+      create: { jobId, workerId, status: "INVITED", invitedAt: new Date() },
+      update: { status: "INVITED", invitedAt: new Date() },
+    });
+
+    await this.notifications.notify(worker.userId, "job.invited", {
+      title: job.title,
+      pay: naira(job.payAmount / BigInt(Math.max(1, job.headcount))),
+      employer: job.employer.businessName ?? "An employer",
+      jobId,
+    });
+    return assignment;
+  }
+
+  /** A worker applies to a job → APPLIED, awaiting the employer's acceptance. */
   async applyToJob(jobId: string, userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
       include: { workerProfile: true },
     });
-    if (!user?.workerProfile)
-      throw new BadRequestException("Only workers can apply to jobs");
-    const job = await this.prisma.job.findUnique({ where: { id: jobId } });
+    if (!user?.workerProfile) throw new BadRequestException("Only workers can apply to jobs");
+    const job = await this.jobOrThrow(jobId);
+    await this.assertNotFull(jobId, job.headcount);
+
+    const existing = await this.prisma.jobAssignment.findUnique({
+      where: { jobId_workerId: { jobId, workerId: user.workerProfile.id } },
+    });
+    if (existing && [...IN_JOB].includes(existing.status as (typeof IN_JOB)[number]))
+      throw new BadRequestException("You're already in this job");
+
+    const assignment = await this.prisma.jobAssignment.upsert({
+      where: { jobId_workerId: { jobId, workerId: user.workerProfile.id } },
+      create: { jobId, workerId: user.workerProfile.id, status: "APPLIED", appliedAt: new Date() },
+      update: { status: "APPLIED", appliedAt: new Date() },
+    });
+
+    await this.notifications.notify(job.employer.userId, "job.application", {
+      title: job.title,
+      worker: user.fullName ?? "A worker",
+      jobId,
+    });
+    return assignment;
+  }
+
+  /** Employer accepts an application → the worker joins the job + gets a code. */
+  async acceptApplication(jobId: string, assignmentId: string) {
+    const job = await this.jobOrThrow(jobId);
+    const assignment = await this.assignmentOrThrow(assignmentId, jobId);
+    if (assignment.status !== "APPLIED")
+      throw new BadRequestException("This assignment is not a pending application");
+    await this.assertNotFull(jobId, job.headcount);
+    return this.admit(assignment.id, job, assignment.worker.userId);
+  }
+
+  /** Worker accepts an employer's invite → joins the job + gets a code. */
+  async acceptInvite(assignmentId: string, userId: string) {
+    const assignment = await this.prisma.jobAssignment.findUnique({
+      where: { id: assignmentId },
+      include: { worker: { include: { user: true } }, job: { include: { employer: true } } },
+    });
+    if (!assignment) throw new NotFoundException("Invite not found");
+    if (assignment.worker.userId !== userId)
+      throw new BadRequestException("This invite isn't yours");
+    if (assignment.status !== "INVITED")
+      throw new BadRequestException("This invite is no longer open");
+    await this.assertNotFull(assignment.jobId, assignment.job.headcount);
+
+    const admitted = await this.admit(assignment.id, assignment.job, userId);
+    await this.notifications.notify(assignment.job.employer.userId, "job.invite.accepted", {
+      title: assignment.job.title,
+      worker: assignment.worker.user.fullName ?? "A worker",
+      jobId: assignment.jobId,
+    });
+    return admitted;
+  }
+
+  /** Worker declines an invite. */
+  async declineInvite(assignmentId: string, userId: string) {
+    const assignment = await this.prisma.jobAssignment.findUnique({
+      where: { id: assignmentId },
+      include: { worker: true },
+    });
+    if (!assignment) throw new NotFoundException("Invite not found");
+    if (assignment.worker.userId !== userId)
+      throw new BadRequestException("This invite isn't yours");
+    return this.prisma.jobAssignment.update({
+      where: { id: assignmentId },
+      data: { status: "DECLINED" },
+    });
+  }
+
+  // Shared "worker joins the job" step: mark ACCEPTED, mint the attendance code,
+  // and tell the worker they're hired (with the code).
+  private async admit(
+    assignmentId: string,
+    job: { id: string; title: string },
+    workerUserId: string,
+  ) {
+    await this.prisma.jobAssignment.update({
+      where: { id: assignmentId },
+      data: { status: "ACCEPTED", acceptedAt: new Date() },
+    });
+    const issued = await this.attendance.createForAssignment(assignmentId);
+    const code =
+      issued.code ??
+      (await this.prisma.attendance.findUnique({ where: { assignmentId } }))?.code ??
+      null;
+
+    await this.notifications.notify(workerUserId, "job.hired", {
+      title: job.title,
+      code: code ?? "—",
+      jobId: job.id,
+    });
+    return this.prisma.jobAssignment.findUnique({ where: { id: assignmentId } });
+  }
+
+  /** Full employer-facing job detail: grouped assignments + attendance codes. */
+  async detail(jobId: string) {
+    const job = await this.prisma.job.findUnique({
+      where: { id: jobId },
+      include: {
+        escrow: true,
+        location: true,
+        skills: { include: { skill: true } },
+        assignments: {
+          include: { worker: { include: { user: true } }, attendance: true },
+          orderBy: { updatedAt: "desc" },
+        },
+      },
+    });
     if (!job) throw new NotFoundException("Job not found");
 
-    return this.prisma.jobAssignment.upsert({
-      where: { jobId_workerId: { jobId, workerId: user.workerProfile.id } },
-      create: { jobId, workerId: user.workerProfile.id, status: "ACCEPTED" },
-      update: { status: "ACCEPTED" },
+    const perPerson = job.payAmount / BigInt(Math.max(1, job.headcount));
+    const accepted = job.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
+
+    const row = (a: (typeof job.assignments)[number]) => ({
+      assignmentId: a.id,
+      workerId: a.workerId,
+      workerName: a.worker.user.fullName,
+      status: a.status,
+      matchScore: a.matchScore,
+      attendance: a.attendance
+        ? { status: a.attendance.status, code: a.attendance.code, confirmedAt: a.attendance.confirmedAt }
+        : null,
     });
+
+    return {
+      id: job.id,
+      title: job.title,
+      description: job.description,
+      status: job.status,
+      payAmount: job.payAmount.toString(),
+      perPerson: perPerson.toString(),
+      headcount: job.headcount,
+      accepted,
+      filled: accepted >= job.headcount,
+      location: job.location?.label ?? null,
+      startAt: job.startAt,
+      endAt: job.endAt,
+      skills: job.skills.map((s) => s.skill.name),
+      escrow: job.escrow
+        ? { amount: job.escrow.amount.toString(), funded: !!job.escrow.fundedAt, released: !!job.escrow.releasedAt }
+        : null,
+      inJob: job.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).map(row),
+      applications: job.assignments.filter((a) => a.status === "APPLIED").map(row),
+      invites: job.assignments.filter((a) => a.status === "INVITED").map(row),
+    };
+  }
+
+  /** Worker-facing job search across open jobs. */
+  async search(userId?: string, query?: string, skill?: string) {
+    const jobs = await this.prisma.job.findMany({
+      where: { status: { in: ["OPEN", "FILLED", "IN_PROGRESS"] } },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      include: {
+        location: true,
+        employer: true,
+        skills: { include: { skill: true } },
+        assignments: true,
+      },
+    });
+
+    let workerId: string | null = null;
+    if (userId) {
+      const wp = await this.prisma.workerProfile.findUnique({ where: { userId } });
+      workerId = wp?.id ?? null;
+    }
+
+    const q = query?.trim().toLowerCase();
+    const sk = skill?.trim().toLowerCase();
+
+    const items = jobs
+      .filter((j) => {
+        if (q && !(`${j.title} ${j.description ?? ""}`.toLowerCase().includes(q))) return false;
+        if (sk && !j.skills.some((s) => s.skill.slug.toLowerCase() === sk || s.skill.name.toLowerCase().includes(sk)))
+          return false;
+        return true;
+      })
+      .map((j) => {
+        const accepted = j.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
+        const mine = workerId ? j.assignments.find((a) => a.workerId === workerId) : undefined;
+        return {
+          id: j.id,
+          title: j.title,
+          description: j.description,
+          perPerson: (j.payAmount / BigInt(Math.max(1, j.headcount))).toString(),
+          headcount: j.headcount,
+          accepted,
+          filled: accepted >= j.headcount,
+          location: j.location?.label ?? null,
+          startAt: j.startAt,
+          endAt: j.endAt,
+          skills: j.skills.map((s) => s.skill.name),
+          employerName: j.employer.businessName ?? null,
+          myStatus: mine?.status ?? null,
+        };
+      });
+
+    return { items };
   }
 
   listOpenNear(_locationId?: string) {
@@ -140,5 +387,24 @@ export class JobsService {
       orderBy: { createdAt: "desc" },
       take: 50,
     });
+  }
+
+  private async jobOrThrow(jobId: string) {
+    const job = await this.prisma.job.findUnique({
+      where: { id: jobId },
+      include: { employer: true },
+    });
+    if (!job) throw new NotFoundException("Job not found");
+    return job;
+  }
+
+  private async assignmentOrThrow(assignmentId: string, jobId: string) {
+    const assignment = await this.prisma.jobAssignment.findUnique({
+      where: { id: assignmentId },
+      include: { worker: true },
+    });
+    if (!assignment || assignment.jobId !== jobId)
+      throw new NotFoundException("Assignment not found");
+    return assignment;
   }
 }

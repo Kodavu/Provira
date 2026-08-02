@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { JobsService } from "./jobs.service.js";
 import { EscrowService } from "../escrow/escrow.service.js";
-import { AttendanceService } from "../attendance/attendance.service.js";
 import type { Language } from "@tally/db";
 
 @Controller("jobs")
@@ -9,7 +8,6 @@ export class JobsController {
   constructor(
     private readonly jobs: JobsService,
     private readonly escrow: EscrowService,
-    private readonly attendance: AttendanceService,
   ) {}
 
   @Post()
@@ -19,24 +17,27 @@ export class JobsController {
       employerId: string;
       title: string;
       description?: string;
-      payAmount: string; // kobo as string to avoid JSON bigint issues
+      payAmount: string; // kobo total as string to avoid JSON bigint issues
       headcount?: number;
       languages?: Language[];
       skillSlugs?: string[];
       locationId?: string;
+      locationLabel?: string;
+      startAt?: string;
+      endAt?: string;
     },
   ) {
-    return this.jobs.create({ ...body, payAmount: BigInt(body.payAmount) });
+    return this.jobs.create({
+      ...body,
+      payAmount: BigInt(body.payAmount),
+      startAt: body.startAt ? new Date(body.startAt) : undefined,
+      endAt: body.endAt ? new Date(body.endAt) : undefined,
+    });
   }
 
   @Post(":id/publish")
   publish(@Param("id") id: string) {
     return this.jobs.publish(id);
-  }
-
-  @Post(":id/match")
-  match(@Param("id") id: string) {
-    return this.jobs.match(id);
   }
 
   // Employer funds the job's escrow holding account before work starts.
@@ -45,21 +46,54 @@ export class JobsController {
     return this.escrow.fundFromExternal(id);
   }
 
-  // Worker applies to a job: creates their assignment and issues the 4-digit
-  // confirmation code (which, in the real flow, the employer hands over on site).
-  @Post(":id/apply")
-  async apply(@Param("id") id: string, @Body() body: { userId: string }) {
-    const assignment = await this.jobs.applyToJob(id, body.userId);
-    const issued = await this.attendance.createForAssignment(assignment.id);
-    return {
-      assignmentId: assignment.id,
-      code: issued.code,
-      alreadyIssued: "alreadyIssued" in issued ? issued.alreadyIssued : false,
-    };
+  // Ranked, qualified workers to invite (not added to the job).
+  @Get(":id/suggestions")
+  suggestions(@Param("id") id: string) {
+    return this.jobs.suggest(id);
   }
 
+  // Employer invites a suggested worker.
+  @Post(":id/invite")
+  invite(@Param("id") id: string, @Body() body: { workerId: string }) {
+    return this.jobs.invite(id, body.workerId);
+  }
+
+  // Worker applies to a job (pending the employer's acceptance).
+  @Post(":id/apply")
+  apply(@Param("id") id: string, @Body() body: { userId: string }) {
+    return this.jobs.applyToJob(id, body.userId);
+  }
+
+  // Employer accepts a pending application → worker joins + gets a code.
+  @Post(":id/assignments/:assignmentId/accept")
+  acceptApplication(@Param("id") id: string, @Param("assignmentId") assignmentId: string) {
+    return this.jobs.acceptApplication(id, assignmentId);
+  }
+
+  // Worker accepts / declines an employer's invite.
+  @Post("invites/:assignmentId/accept")
+  acceptInvite(@Param("assignmentId") assignmentId: string, @Body() body: { userId: string }) {
+    return this.jobs.acceptInvite(assignmentId, body.userId);
+  }
+
+  @Post("invites/:assignmentId/decline")
+  declineInvite(@Param("assignmentId") assignmentId: string, @Body() body: { userId: string }) {
+    return this.jobs.declineInvite(assignmentId, body.userId);
+  }
+
+  // Full employer detail: grouped assignments + attendance codes.
+  @Get(":id")
+  detail(@Param("id") id: string) {
+    return this.jobs.detail(id);
+  }
+
+  // Worker search across open jobs.
   @Get()
-  listOpen(@Query("locationId") locationId?: string) {
-    return this.jobs.listOpenNear(locationId);
+  search(
+    @Query("userId") userId?: string,
+    @Query("q") q?: string,
+    @Query("skill") skill?: string,
+  ) {
+    return this.jobs.search(userId, q, skill);
   }
 }

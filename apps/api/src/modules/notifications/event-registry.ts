@@ -34,6 +34,26 @@ export const EVENTS: Record<string, NotificationEvent> = {
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
     defaults: { title: "New job near you", body: "{title} pays {pay} at {location}. Open Tally to accept." },
   },
+  "job.invited": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
+    defaults: { title: "You've been invited to a job", body: "{employer} invited you to {title} — {pay} per person. Open Tally to accept or decline." },
+  },
+  "job.application": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "PUSH"],
+    defaults: { title: "New applicant", body: "{worker} applied to {title}. Review and accept them in Tally." },
+  },
+  "job.invite.accepted": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "PUSH"],
+    defaults: { title: "Invite accepted", body: "{worker} accepted your invite to {title}." },
+  },
+  "job.hired": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
+    defaults: { title: "You're hired!", body: "You're confirmed for {title}. Your attendance code is {code}." },
+  },
   "verification.approved": {
     category: "ACTIVITY",
     channels: ["INAPP", "SMS", "PUSH"],

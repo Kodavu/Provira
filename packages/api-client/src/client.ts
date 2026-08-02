@@ -1,5 +1,8 @@
 import type {
   EmployerDashboard,
+  JobDetail,
+  JobSearchResults,
+  JobSuggestion,
   NotificationFeed,
   NotificationPreferences,
   OtpRequestResponse,
@@ -110,13 +113,37 @@ export function createTallyClient(config: TallyClientConfig) {
     createJob: (input: {
       employerId: string;
       title: string;
-      payAmount: string;
+      description?: string;
+      payAmount: string; // kobo total (perPerson × headcount)
+      headcount?: number;
       skillSlugs?: string[];
       languages?: string[];
+      locationLabel?: string;
+      startAt?: string;
+      endAt?: string;
     }) => post("/jobs", input) as Promise<{ id: string }>,
     publishJob: (jobId: string) => post(`/jobs/${jobId}/publish`) as Promise<{ id: string }>,
     fundJob: (jobId: string) => post(`/jobs/${jobId}/fund`) as Promise<{ jobId: string }>,
-    matchJob: (jobId: string) => post(`/jobs/${jobId}/match`) as Promise<unknown>,
+
+    // Jobs — detail, matching (suggest only), invite/apply/accept
+    jobDetail: (jobId: string) => request<JobDetail>(`/jobs/${jobId}`),
+    jobSuggestions: (jobId: string) => request<JobSuggestion[]>(`/jobs/${jobId}/suggestions`),
+    inviteWorker: (jobId: string, workerId: string) =>
+      post(`/jobs/${jobId}/invite`, { workerId }) as Promise<{ id: string; status: string }>,
+    acceptApplication: (jobId: string, assignmentId: string) =>
+      post(`/jobs/${jobId}/assignments/${assignmentId}/accept`) as Promise<{ id: string; status: string }>,
+    acceptInvite: (assignmentId: string, userId: string) =>
+      post(`/jobs/invites/${assignmentId}/accept`, { userId }) as Promise<{ id: string; status: string }>,
+    declineInvite: (assignmentId: string, userId: string) =>
+      post(`/jobs/invites/${assignmentId}/decline`, { userId }) as Promise<{ id: string; status: string }>,
+    searchJobs: (userId?: string, q?: string, skill?: string) => {
+      const params = new URLSearchParams();
+      if (userId) params.set("userId", userId);
+      if (q) params.set("q", q);
+      if (skill) params.set("skill", skill);
+      const qs = params.toString();
+      return request<JobSearchResults>(`/jobs${qs ? `?${qs}` : ""}`);
+    },
 
     // Lending
     loanEligibility: (userId: string) =>
