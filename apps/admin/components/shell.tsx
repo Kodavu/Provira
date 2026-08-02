@@ -141,6 +141,8 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
         </nav>
         <button
           onClick={() => setCollapsed((c) => !c)}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           className="m-3 inline-flex items-center justify-center gap-2 rounded-2xl border border-app px-3 py-2 text-xs font-semibold text-soft transition hover:bg-app"
         >
           {collapsed ? (
@@ -191,12 +193,14 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
               </p>
             </div>
             <button
+              type="button"
               onClick={logout}
               title="Sign out"
+              aria-label="Sign out"
               className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-app px-2.5 py-2 text-xs font-semibold text-soft transition hover:bg-app hover:text-[color:var(--text)]"
             >
-              <LogOut className="h-3.5 w-3.5" />{" "}
-              <span className="hidden lg:inline">Sign out</span>
+              <LogOut className="h-3.5 w-3.5" />
+              <span className="sr-only lg:not-sr-only">Sign out</span>
             </button>
           </div>
         </header>
