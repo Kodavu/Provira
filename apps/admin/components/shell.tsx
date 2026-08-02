@@ -3,28 +3,47 @@
 import { ReactNode, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import {
+  Bell,
+  ChevronLeft,
+  Command,
+  Eye,
+  Flag,
+  Home,
+  KeyRound,
+  Landmark,
+  ListChecks,
+  LogOut,
+  Menu,
+  Moon,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Sun,
+  Users,
+  UserSquare2,
+} from "lucide-react";
 import { visibleNav } from "@/lib/nav";
 import type { Me } from "@/lib/admin-api";
 import { CommandPalette } from "./command-palette";
 
-function Icon({ name }: { name: string }) {
-  const paths: Record<string, string> = {
-    home: "M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5",
-    users: "M16 19a4 4 0 0 0-8 0M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM20 19a3 3 0 0 0-4-2.8M18 11a2.5 2.5 0 0 0 0-5",
-    flag: "M5 21V4m0 0 9 2-2 4 6 1-2 4-11-2",
-    key: "M14 7a4 4 0 1 1-5.4 3.7L3 16v3h3l1-1h2l1-1v-2l1.3-1.3A4 4 0 0 1 14 7Z",
-    list: "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",
-    id: "M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-2.5 5a2.5 2.5 0 0 1 5 0M14 9h4M14 13h3",
-    bell: "M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6ZM10 19a2 2 0 0 0 4 0",
-    eye: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Zm10 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
-    cash: "M3 7h18v10H3zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 9v.01M18 15v.01",
-    shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3ZM9 12l2 2 4-4",
-  };
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.7}>
-      <path d={paths[name] ?? paths.home} strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+const ICONS = {
+  home: Home,
+  users: Users,
+  flag: Flag,
+  key: KeyRound,
+  list: ListChecks,
+  id: UserSquare2,
+  bell: Bell,
+  eye: Eye,
+  cash: Landmark,
+  shield: ShieldCheck,
+};
+
+function NavIcon({ name }: { name: string }) {
+  const Icon = ICONS[name as keyof typeof ICONS] ?? Home;
+  return <Icon className="h-5 w-5 shrink-0" strokeWidth={1.8} />;
 }
 
 export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
@@ -32,10 +51,16 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const [dark, setDark] = useState(
-    typeof document !== "undefined" && document.documentElement.classList.contains("dark"),
+    typeof document !== "undefined" &&
+      document.documentElement.classList.contains("dark"),
   );
   const nav = visibleNav(me.permissions);
-  const initials = me.admin.fullName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+  const initials = me.admin.fullName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   function toggleTheme() {
     const el = document.documentElement;
@@ -52,76 +77,136 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen bg-app">
+    <div className="relative flex min-h-screen overflow-hidden bg-app">
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_15%_10%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_85%_0%,rgba(14,165,233,0.12),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(16,185,129,0.10),transparent_26%)]" />
       <CommandPalette items={nav} />
 
-      {/* Sidebar */}
-      <aside
-        className={`surface sticky top-0 hidden h-screen shrink-0 flex-col border-r md:flex ${collapsed ? "w-16" : "w-60"} transition-[width]`}
+      <motion.aside
+        animate={{ width: collapsed ? 72 : 272 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="sticky top-0 hidden h-screen shrink-0 flex-col border-r border-app bg-white/75 shadow-2xl shadow-slate-200/50 backdrop-blur-xl dark:bg-slate-950/60 dark:shadow-black/20 md:flex"
       >
-        <div className={`flex h-16 items-center gap-2 border-b border-app px-4 ${collapsed ? "justify-center" : ""}`}>
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">T</span>
-          {!collapsed && <span className="font-bold tracking-tight">Tally Admin</span>}
+        <div
+          className={`flex h-20 items-center gap-3 border-b border-app px-4 ${collapsed ? "justify-center" : ""}`}
+        >
+          <motion.span
+            whileHover={{ rotate: -8, scale: 1.04 }}
+            className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-indigo-700 text-sm font-black text-white shadow-lg shadow-brand-600/25"
+          >
+            T
+          </motion.span>
+          {!collapsed && (
+            <div>
+              <span className="font-bold tracking-tight">Tally Admin</span>
+              <p className="text-[11px] font-medium text-muted">
+                Premium operations suite
+              </p>
+            </div>
+          )}
         </div>
-        <nav className="flex flex-1 flex-col gap-1 p-3">
-          {nav.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+        <nav className="flex flex-1 flex-col gap-1.5 p-3">
+          {nav.map((item, index) => {
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
             return (
-              <Link
+              <motion.div
                 key={item.href}
-                href={item.href as never}
-                title={item.label}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${
-                  active ? "bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400" : "text-soft hover:bg-app"
-                } ${collapsed ? "justify-center" : ""}`}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.025 }}
               >
-                <Icon name={item.icon} />
-                {!collapsed && item.label}
-              </Link>
+                <Link
+                  href={item.href as never}
+                  title={item.label}
+                  className={`relative flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition ${
+                    active
+                      ? "bg-gradient-to-r from-brand-600 to-indigo-600 text-white shadow-lg shadow-brand-600/20"
+                      : "text-soft hover:bg-slate-900/5 hover:text-[color:var(--text)] dark:hover:bg-white/5"
+                  } ${collapsed ? "justify-center" : ""}`}
+                >
+                  <NavIcon name={item.icon} />
+                  {!collapsed && <span>{item.label}</span>}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-glow"
+                      className="absolute inset-0 -z-10 rounded-2xl bg-brand-500/20 blur-xl"
+                    />
+                  )}
+                </Link>
+              </motion.div>
             );
           })}
         </nav>
         <button
           onClick={() => setCollapsed((c) => !c)}
-          className="m-3 rounded-lg border border-app px-3 py-2 text-xs font-medium text-soft hover:bg-app"
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          className="m-3 inline-flex items-center justify-center gap-2 rounded-2xl border border-app px-3 py-2 text-xs font-semibold text-soft transition hover:bg-app"
         >
-          {collapsed ? "»" : "« Collapse"}
+          {collapsed ? (
+            <Menu className="h-4 w-4" />
+          ) : (
+            <>
+              <ChevronLeft className="h-4 w-4" /> Collapse
+            </>
+          )}
         </button>
-      </aside>
+      </motion.aside>
 
-      {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="surface sticky top-0 z-30 flex h-16 items-center gap-3 border-b px-4 sm:px-6">
+        <header className="sticky top-0 z-30 flex h-20 items-center gap-3 border-b border-white/30 bg-white/70 px-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/60 sm:px-6">
           <button
             onClick={() => (window as any).__openPalette?.()}
-            className="flex flex-1 items-center gap-2 rounded-lg border border-app px-3 py-2 text-sm text-muted hover:bg-app"
+            className="group flex flex-1 items-center gap-3 rounded-2xl border border-app bg-white/75 px-3 py-2.5 text-sm text-muted shadow-sm transition hover:border-brand-500/40 hover:bg-white dark:bg-white/[0.03]"
           >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2}>
-              <circle cx="11" cy="11" r="7" /><path d="m20 20-3-3" strokeLinecap="round" />
-            </svg>
-            <span className="flex-1 text-left">Search or jump to…</span>
-            <kbd className="hidden rounded border border-app px-1.5 py-0.5 text-[10px] sm:inline">⌘K</kbd>
+            <Search className="h-4 w-4 transition group-hover:text-brand-500" />
+            <span className="flex-1 text-left">
+              Search records, staff, disputes…
+            </span>
+            <kbd className="hidden items-center gap-1 rounded-lg border border-app bg-app px-2 py-1 text-[10px] font-bold sm:inline-flex">
+              <Command className="h-3 w-3" />K
+            </kbd>
           </button>
-          <button onClick={toggleTheme} title="Toggle theme" className="grid h-9 w-9 place-items-center rounded-lg border border-app text-soft hover:bg-app">
+          <button
+            onClick={toggleTheme}
+            title="Toggle theme"
+            className="grid h-11 w-11 place-items-center rounded-2xl border border-app bg-white/70 text-soft transition hover:bg-app dark:bg-white/[0.03]"
+          >
             {dark ? (
-              <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth={1.8}><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19" strokeLinecap="round" /></svg>
+              <Sun className="h-4.5 w-4.5" />
             ) : (
-              <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth={1.8}><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <Moon className="h-4.5 w-4.5" />
             )}
           </button>
           <div className="flex items-center gap-2 border-l border-app pl-3">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-xs font-bold text-white">{initials}</span>
+            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-slate-900 to-brand-600 text-xs font-bold text-white shadow-lg">
+              {initials}
+            </span>
             <div className="hidden sm:block">
-              <p className="text-sm font-semibold leading-none">{me.admin.fullName}</p>
-              <p className="mt-0.5 text-[11px] leading-none text-muted">{me.roles.join(", ")}</p>
+              <p className="text-sm font-semibold leading-none">
+                {me.admin.fullName}
+              </p>
+              <p className="mt-1 inline-flex items-center gap-1 text-[11px] leading-none text-muted">
+                <Sparkles className="h-3 w-3" /> {me.roles.join(", ")}
+              </p>
             </div>
-            <button onClick={logout} title="Sign out" className="ml-1 rounded-lg border border-app px-2.5 py-1.5 text-xs font-medium text-soft hover:bg-app">
-              Sign out
-            </button>
+<button
+  type="button"
+  onClick={logout}
+  title="Sign out"
+  aria-label="Sign out"
+  className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-app px-2.5 py-2 text-xs font-semibold text-soft transition hover:bg-app hover:text-[color:var(--text)]"
+>
+  <LogOut className="h-3.5 w-3.5" />
+  <span className="sr-only lg:not-sr-only">Sign out</span>
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 p-4 sm:p-6">{children}</main>
+        <main className="mx-auto w-full max-w-7xl flex-1 p-4 sm:p-6 lg:p-8">
+          {children}
+        </main>
       </div>
     </div>
   );
