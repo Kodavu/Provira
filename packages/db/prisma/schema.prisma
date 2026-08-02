@@ -204,6 +204,9 @@ model User {
   kycLevel      KycLevel   @default(NONE)
   bvnHash       String? // hashed BVN/NIN, never stored raw
   hasSmartphone Boolean    @default(false) // drives channel defaults
+  // Which jobs the worker's feed surfaces: ALL, SKILLS (matched to their skills),
+  // or NEARBY (same state). Free-form string so it stays trivial to migrate.
+  jobFeed       String     @default("ALL")
 
   // Verified payout destination (where the user receives funds). The account
   // name is resolved via the payment provider's account lookup, not typed.

@@ -3,6 +3,8 @@ import type {
   JobDetail,
   JobSearchResults,
   JobSuggestion,
+  Skill,
+  WorkerProfileEdit,
   NotificationFeed,
   NotificationPreferences,
   OtpRequestResponse,
@@ -77,10 +79,30 @@ export function createTallyClient(config: TallyClientConfig) {
     verifyOtp: (phone: string, code: string) =>
       post("/auth/otp/verify", { phone, code }) as Promise<OtpVerifyResponse>,
     getUser: (userId: string) => request<UserRoles>(`/users/${userId}`),
-    updateProfile: (userId: string, patch: { fullName?: string; hasSmartphone?: boolean; language?: string }) =>
+    updateProfile: (userId: string, patch: { fullName?: string; hasSmartphone?: boolean; language?: string; jobFeed?: string }) =>
       request<UserRoles>(`/users/${userId}`, { method: "PATCH", body: JSON.stringify(patch) }),
     addRole: (userId: string, role: "WORKER" | "TRADER" | "EMPLOYER") =>
       post(`/users/${userId}/roles`, { role }) as Promise<unknown>,
+
+    // Skill catalog + worker profile
+    skills: () => request<Skill[]>(`/skills`),
+    workerProfile: (userId: string) => request<WorkerProfileEdit>(`/users/${userId}/worker-profile`),
+    updateWorkerProfile: (
+      userId: string,
+      patch: {
+        fullName?: string;
+        bio?: string;
+        languages?: string[];
+        skillSlugs?: string[];
+        state?: string;
+        area?: string;
+        label?: string;
+      },
+    ) =>
+      request<WorkerProfileEdit>(`/users/${userId}/worker-profile`, {
+        method: "PUT",
+        body: JSON.stringify(patch),
+      }),
 
     // Worker
     workerDashboard: (userId: string) =>
@@ -118,7 +140,9 @@ export function createTallyClient(config: TallyClientConfig) {
       headcount?: number;
       skillSlugs?: string[];
       languages?: string[];
-      locationLabel?: string;
+      locationLabel?: string; // address / landmark
+      locationState?: string;
+      locationArea?: string;
       startAt?: string;
       endAt?: string;
     }) => post("/jobs", input) as Promise<{ id: string }>,
@@ -136,11 +160,12 @@ export function createTallyClient(config: TallyClientConfig) {
       post(`/jobs/invites/${assignmentId}/accept`, { userId }) as Promise<{ id: string; status: string }>,
     declineInvite: (assignmentId: string, userId: string) =>
       post(`/jobs/invites/${assignmentId}/decline`, { userId }) as Promise<{ id: string; status: string }>,
-    searchJobs: (userId?: string, q?: string, skill?: string) => {
+    searchJobs: (userId?: string, q?: string, skill?: string, feed?: string) => {
       const params = new URLSearchParams();
       if (userId) params.set("userId", userId);
       if (q) params.set("q", q);
       if (skill) params.set("skill", skill);
+      if (feed) params.set("feed", feed);
       const qs = params.toString();
       return request<JobSearchResults>(`/jobs${qs ? `?${qs}` : ""}`);
     },

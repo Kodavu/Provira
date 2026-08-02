@@ -100,6 +100,7 @@ CREATE TABLE "User" (
     "kycLevel" "KycLevel" NOT NULL DEFAULT 'NONE',
     "bvnHash" TEXT,
     "hasSmartphone" BOOLEAN NOT NULL DEFAULT false,
+    "jobFeed" TEXT NOT NULL DEFAULT 'ALL',
     "payoutBankCode" TEXT,
     "payoutBankName" TEXT,
     "payoutAccountNumber" TEXT,

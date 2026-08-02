@@ -247,9 +247,99 @@ export class UsersService {
 
   async updateProfile(
     userId: string,
-    data: { fullName?: string; language?: Language; hasSmartphone?: boolean },
+    data: { fullName?: string; language?: Language; hasSmartphone?: boolean; jobFeed?: string },
   ) {
-    return this.prisma.user.update({ where: { id: userId }, data });
+    const jobFeed = data.jobFeed && ["ALL", "SKILLS", "NEARBY"].includes(data.jobFeed) ? data.jobFeed : undefined;
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { ...data, jobFeed },
+    });
+  }
+
+  /** The worker's editable profile: bio, skills, languages, and home location. */
+  async workerProfile(userId: string): Promise<unknown> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        workerProfile: { include: { skills: { include: { skill: true } }, location: true } },
+      },
+    });
+    if (!user) throw new NotFoundException("User not found");
+    const wp = user.workerProfile;
+    return {
+      fullName: user.fullName,
+      jobFeed: (user as { jobFeed?: string }).jobFeed ?? "ALL",
+      bio: wp?.bio ?? null,
+      languages: wp?.languages ?? ["EN"],
+      skills: wp?.skills.map((s) => s.skill.slug) ?? [],
+      location: {
+        state: wp?.location?.state ?? null,
+        area: wp?.location?.lga ?? null,
+        label: wp?.location?.label ?? null,
+      },
+    };
+  }
+
+  /** Update the worker's profile — creates the profile/location if missing. */
+  async updateWorkerProfile(
+    userId: string,
+    input: {
+      fullName?: string;
+      bio?: string;
+      languages?: Language[];
+      skillSlugs?: string[];
+      state?: string;
+      area?: string;
+      label?: string;
+    },
+  ): Promise<unknown> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { workerProfile: true },
+    });
+    if (!user) throw new NotFoundException("User not found");
+    // Ensure a worker profile exists (a WORKER may not have one if role added elsewhere).
+    const wp =
+      user.workerProfile ??
+      (await this.prisma.workerProfile.create({ data: { userId } }));
+
+    if (input.fullName?.trim()) {
+      await this.prisma.user.update({ where: { id: userId }, data: { fullName: input.fullName.trim() } });
+    }
+
+    // Upsert the worker's home location (state + area + optional label).
+    let locationId = wp.locationId;
+    const state = input.state?.trim() || null;
+    const area = input.area?.trim() || null;
+    const label = input.label?.trim() || null;
+    if (state || area || label) {
+      if (locationId) {
+        await this.prisma.location.update({ where: { id: locationId }, data: { state, lga: area, label } });
+      } else {
+        locationId = (await this.prisma.location.create({ data: { state, lga: area, label } })).id;
+      }
+    }
+
+    // Replace the skill set if provided.
+    if (input.skillSlugs) {
+      const skills = await this.prisma.skill.findMany({ where: { slug: { in: input.skillSlugs } } });
+      await this.prisma.workerSkill.deleteMany({ where: { workerId: wp.id } });
+      await this.prisma.workerSkill.createMany({
+        data: skills.map((s) => ({ workerId: wp.id, skillId: s.id })),
+        skipDuplicates: true,
+      });
+    }
+
+    await this.prisma.workerProfile.update({
+      where: { id: wp.id },
+      data: {
+        bio: input.bio?.trim() ?? undefined,
+        languages: input.languages ?? undefined,
+        locationId: locationId ?? undefined,
+      },
+    });
+
+    return this.workerProfile(userId);
   }
 
   /** The user's current KYC level plus their latest verification request (if any). */

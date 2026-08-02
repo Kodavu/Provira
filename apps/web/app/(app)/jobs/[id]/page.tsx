@@ -131,7 +131,7 @@ export default function JobDetailPage() {
               {full && <Pill tone="green">Full</Pill>}
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-muted">
-              <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {job.location ?? "Lagos"}</span>
+              <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {[job.location, job.area, job.state].filter(Boolean).join(", ") || "Location TBC"}</span>
               {shiftRange(job.startAt, job.endAt) && (
                 <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> {shiftRange(job.startAt, job.endAt)}</span>
               )}

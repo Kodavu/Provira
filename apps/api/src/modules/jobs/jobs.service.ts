@@ -19,7 +19,9 @@ interface CreateJobInput {
   languages?: Language[];
   skillSlugs?: string[];
   locationId?: string;
-  locationLabel?: string;
+  locationLabel?: string; // address / landmark
+  locationState?: string; // e.g. "Lagos"
+  locationArea?: string; // LGA / area, e.g. "Ikeja"
   startAt?: Date;
   endAt?: Date;
 }
@@ -45,12 +47,15 @@ export class JobsService {
       ? await this.prisma.skill.findMany({ where: { slug: { in: input.skillSlugs } } })
       : [];
 
-    // Resolve a free-text location into a Location row (reuse if it exists).
+    // Resolve the job's location (address/landmark + area + state) into a
+    // Location row, reusing an identical one so "near me" grouping stays tight.
     let locationId = input.locationId;
-    if (!locationId && input.locationLabel?.trim()) {
-      const label = input.locationLabel.trim();
-      const existing = await this.prisma.location.findFirst({ where: { label } });
-      locationId = existing?.id ?? (await this.prisma.location.create({ data: { label } })).id;
+    const label = input.locationLabel?.trim() || null;
+    const state = input.locationState?.trim() || null;
+    const lga = input.locationArea?.trim() || null;
+    if (!locationId && (label || state || lga)) {
+      const existing = await this.prisma.location.findFirst({ where: { label, state, lga } });
+      locationId = existing?.id ?? (await this.prisma.location.create({ data: { label, state, lga } })).id;
     }
 
     return this.prisma.job.create({
@@ -338,6 +343,8 @@ export class JobsService {
       accepted,
       filled: accepted >= job.headcount,
       location: job.location?.label ?? null,
+      state: job.location?.state ?? null,
+      area: job.location?.lga ?? null,
       startAt: job.startAt,
       endAt: job.endAt,
       skills: job.skills.map((s) => s.skill.name),
@@ -351,11 +358,11 @@ export class JobsService {
   }
 
   /** Worker-facing job search across open jobs. */
-  async search(userId?: string, query?: string, skill?: string) {
+  async search(userId?: string, query?: string, skill?: string, feed?: string) {
     const jobs = await this.prisma.job.findMany({
       where: { status: { in: ["OPEN", "FILLED", "IN_PROGRESS"] } },
       orderBy: { createdAt: "desc" },
-      take: 100,
+      take: 200,
       include: {
         location: true,
         employer: true,
@@ -364,25 +371,49 @@ export class JobsService {
       },
     });
 
+    // Resolve the worker's context: their profile id, skill slugs, and home
+    // state — used both for filtering and for "near you" labelling.
     let workerId: string | null = null;
+    let mySkills = new Set<string>();
+    let myState: string | null = null;
+    let myArea: string | null = null;
+    let preference = "ALL";
     if (userId) {
-      const wp = await this.prisma.workerProfile.findUnique({ where: { userId } });
-      workerId = wp?.id ?? null;
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+        include: { workerProfile: { include: { skills: { include: { skill: true } }, location: true } } },
+      });
+      preference = (user as { jobFeed?: string })?.jobFeed ?? "ALL";
+      const wp = user?.workerProfile;
+      if (wp) {
+        workerId = wp.id;
+        mySkills = new Set(wp.skills.map((s) => s.skill.slug));
+        myState = wp.location?.state ?? null;
+        myArea = wp.location?.lga ?? null;
+      }
     }
 
+    // The active feed: an explicit `feed` param wins; otherwise the worker's
+    // saved preference. SKILLS/NEARBY only bite when we have the data for them.
+    const activeFeed = (feed || preference || "ALL").toUpperCase();
     const q = query?.trim().toLowerCase();
     const sk = skill?.trim().toLowerCase();
 
-    const items = jobs
+    let items = jobs
       .filter((j) => {
         if (q && !(`${j.title} ${j.description ?? ""}`.toLowerCase().includes(q))) return false;
         if (sk && !j.skills.some((s) => s.skill.slug.toLowerCase() === sk || s.skill.name.toLowerCase().includes(sk)))
           return false;
+        if (activeFeed === "SKILLS" && mySkills.size > 0 && !j.skills.some((s) => mySkills.has(s.skill.slug)))
+          return false;
+        if (activeFeed === "NEARBY" && myState && j.location?.state !== myState) return false;
         return true;
       })
       .map((j) => {
         const accepted = j.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
         const mine = workerId ? j.assignments.find((a) => a.workerId === workerId) : undefined;
+        const sameArea = !!myArea && j.location?.lga === myArea;
+        const sameState = !!myState && j.location?.state === myState;
         return {
           id: j.id,
           title: j.title,
@@ -392,6 +423,10 @@ export class JobsService {
           accepted,
           filled: accepted >= j.headcount,
           location: j.location?.label ?? null,
+          state: j.location?.state ?? null,
+          area: j.location?.lga ?? null,
+          proximity: sameArea ? "area" : sameState ? "state" : null,
+          matchesSkills: j.skills.some((s) => mySkills.has(s.skill.slug)),
           startAt: j.startAt,
           endAt: j.endAt,
           skills: j.skills.map((s) => s.skill.name),
@@ -400,7 +435,12 @@ export class JobsService {
         };
       });
 
-    return { items };
+    // In NEARBY, surface same-area jobs first; otherwise keep newest-first.
+    if (activeFeed === "NEARBY") {
+      items = items.sort((a, b) => Number(b.proximity === "area") - Number(a.proximity === "area"));
+    }
+
+    return { items, feed: activeFeed };
   }
 
   listOpenNear(_locationId?: string) {

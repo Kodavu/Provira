@@ -272,6 +272,8 @@ export const zJobDetail = z.object({
   accepted: z.number(),
   filled: z.boolean(),
   location: z.string().nullable(),
+  state: z.string().nullable(),
+  area: z.string().nullable(),
   startAt: zDate.nullable(),
   endAt: zDate.nullable(),
   skills: z.array(z.string()),
@@ -293,6 +295,10 @@ export const zJobSearchItem = z.object({
   accepted: z.number(),
   filled: z.boolean(),
   location: z.string().nullable(),
+  state: z.string().nullable(),
+  area: z.string().nullable(),
+  proximity: z.enum(["area", "state"]).nullable(), // relative to the worker's home
+  matchesSkills: z.boolean(),
   startAt: zDate.nullable(),
   endAt: zDate.nullable(),
   skills: z.array(z.string()),
@@ -300,8 +306,29 @@ export const zJobSearchItem = z.object({
   myStatus: z.string().nullable(), // this worker's assignment status, if any
 });
 export type JobSearchItem = z.infer<typeof zJobSearchItem>;
-export const zJobSearchResults = z.object({ items: z.array(zJobSearchItem) });
+export const zJobSearchResults = z.object({
+  items: z.array(zJobSearchItem),
+  feed: z.string(), // ALL | SKILLS | NEARBY — the feed actually applied
+});
 export type JobSearchResults = z.infer<typeof zJobSearchResults>;
+
+// The worker's editable profile (skills, languages, home location, feed pref).
+export const zWorkerProfileEdit = z.object({
+  fullName: z.string().nullable(),
+  jobFeed: z.string(),
+  bio: z.string().nullable(),
+  languages: z.array(z.string()),
+  skills: z.array(z.string()),
+  location: z.object({
+    state: z.string().nullable(),
+    area: z.string().nullable(),
+    label: z.string().nullable(),
+  }),
+});
+export type WorkerProfileEdit = z.infer<typeof zWorkerProfileEdit>;
+
+export const zSkill = z.object({ slug: z.string(), name: z.string() });
+export type Skill = z.infer<typeof zSkill>;
 
 // --- Notifications ---
 

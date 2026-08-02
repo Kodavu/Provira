@@ -23,6 +23,8 @@ export class JobsController {
       skillSlugs?: string[];
       locationId?: string;
       locationLabel?: string;
+      locationState?: string;
+      locationArea?: string;
       startAt?: string;
       endAt?: string;
     },
@@ -87,13 +89,15 @@ export class JobsController {
     return this.jobs.detail(id);
   }
 
-  // Worker search across open jobs.
+  // Worker search across open jobs. `feed` (ALL|SKILLS|NEARBY) overrides the
+  // worker's saved preference for this request.
   @Get()
   search(
     @Query("userId") userId?: string,
     @Query("q") q?: string,
     @Query("skill") skill?: string,
+    @Query("feed") feed?: string,
   ) {
-    return this.jobs.search(userId, q, skill);
+    return this.jobs.search(userId, q, skill, feed);
   }
 }

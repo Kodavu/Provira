@@ -248,12 +248,14 @@ function JobSearch({
 }) {
   const [query, setQuery] = useState("");
   const [items, setItems] = useState<JobSearchItem[] | null>(null);
+  const [feed, setFeed] = useState<string | null>(null); // null until the saved pref loads
   const [busy, setBusy] = useState<string | null>(null);
 
-  const run = useCallback(async (q: string) => {
+  const run = useCallback(async (q: string, f?: string) => {
     try {
-      const res = await api.searchJobs(userId, q || undefined);
+      const res = await api.searchJobs(userId, q || undefined, undefined, f);
       setItems(res.items);
+      setFeed(res.feed); // reflect the feed actually applied (saved pref on first load)
     } catch {
       setItems([]);
     }
@@ -262,16 +264,16 @@ function JobSearch({
   // Debounced search as the worker types; also re-runs when their assignment
   // statuses change (e.g. after accepting an invite), so cards stay accurate.
   useEffect(() => {
-    const t = setTimeout(() => run(query), 300);
+    const t = setTimeout(() => run(query, feed ?? undefined), 300);
     return () => clearTimeout(t);
-  }, [query, run, syncKey]);
+  }, [query, run, syncKey, feed]);
 
   async function apply(job: JobSearchItem) {
     setBusy(job.id);
     try {
       await api.applyToJob(job.id, userId);
       toast.success("Applied!", { description: `The employer will review your application for "${job.title}".` });
-      await run(query);
+      await run(query, feed ?? undefined);
       onApplied();
     } catch (e) {
       toast.error("Couldn't apply", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
@@ -282,9 +284,9 @@ function JobSearch({
 
   return (
     <section>
-      <SectionHeader title="Find work" subtitle="Search open jobs near you and apply in one tap." />
+      <SectionHeader title="Find work" subtitle="Search open jobs and apply in one tap. Tune the feed to your skills or your area." />
       <FadeIn>
-        <div className="mb-4 flex items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5">
+        <div className="mb-3 flex items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5">
           <Search className="h-4 w-4 shrink-0 text-ink-muted" strokeWidth={2} />
           <input
             value={query}
@@ -292,6 +294,23 @@ function JobSearch({
             placeholder="Search by title, skill, or place…"
             className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted"
           />
+        </div>
+        <div className="mb-4 inline-flex rounded-xl border border-line bg-surface p-1">
+          {[
+            { key: "ALL", label: "All jobs" },
+            { key: "SKILLS", label: "My skills" },
+            { key: "NEARBY", label: "Near me" },
+          ].map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFeed(f.key)}
+              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                feed === f.key ? "bg-brand-600 text-white" : "text-ink-soft hover:bg-canvas"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
       </FadeIn>
 
@@ -307,12 +326,21 @@ function JobSearch({
                 <div className="min-w-0">
                   <p className="font-semibold text-ink">{j.title}</p>
                   <p className="mt-0.5 flex items-center gap-1 text-sm text-ink-muted">
-                    <MapPin className="h-3.5 w-3.5" /> {j.location ?? "Nearby"}
+                    <MapPin className="h-3.5 w-3.5" />
+                    {[j.area, j.state].filter(Boolean).join(", ") || j.location || "Location TBC"}
                     {j.employerName ? ` · ${j.employerName}` : ""}
                   </p>
                 </div>
                 <span className="whitespace-nowrap font-display text-lg font-semibold text-ink">{formatNaira(j.perPerson)}</span>
               </div>
+
+              {(j.proximity || j.matchesSkills) && (
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {j.proximity === "area" && <Pill tone="green">Near you</Pill>}
+                  {j.proximity === "state" && <Pill tone="green">In {j.state}</Pill>}
+                  {j.matchesSkills && <Pill tone="amber">Matches your skills</Pill>}
+                </div>
+              )}
 
               {j.description && <p className="mt-2 line-clamp-2 text-sm text-ink-soft">{j.description}</p>}
 

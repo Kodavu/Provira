@@ -21,6 +21,7 @@ import {
   Settings,
   ShieldCheck,
   TrendingUp,
+  UserCircle,
   Wallet,
   X,
   type LucideIcon,
@@ -61,6 +62,7 @@ const NAV_BY_ROLE: Record<Role, NavLink[]> = {
     { label: "Earnings", href: "/earnings", icon: Wallet },
     { label: "Loans", href: "/loans", icon: HandCoins },
     { label: "My standing", href: "/standing", icon: TrendingUp },
+    { label: "Profile", href: "/profile", icon: UserCircle },
   ],
   TRADER: [
     { label: "Overview", href: "/overview", icon: LayoutDashboard },

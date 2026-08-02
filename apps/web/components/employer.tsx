@@ -5,6 +5,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
 import { api, EmployerDashboard } from "@/lib/api";
+import { NIGERIAN_STATES } from "@/lib/nigeria";
 import { Button, Card, Pill, ProgressBar, formatNaira } from "@/components/ui";
 
 const CATEGORIES = [
@@ -33,7 +34,9 @@ export function PostJobCard({
   const [description, setDescription] = useState("");
   const [headcount, setHeadcount] = useState("1");
   const [perPerson, setPerPerson] = useState("");
-  const [location, setLocation] = useState("");
+  const [state, setState] = useState("");
+  const [area, setArea] = useState("");
+  const [address, setAddress] = useState("");
   const [startAt, setStartAt] = useState("");
   const [endAt, setEndAt] = useState("");
   const [slug, setSlug] = useState("loading");
@@ -59,7 +62,9 @@ export function PostJobCard({
         payAmount: String(Math.round(total * 100)), // kobo total
         headcount: count,
         skillSlugs: [slug],
-        locationLabel: location.trim() || undefined,
+        locationLabel: address.trim() || undefined,
+        locationState: state || undefined,
+        locationArea: area.trim() || undefined,
         startAt: startAt ? new Date(startAt).toISOString() : undefined,
         endAt: endAt ? new Date(endAt).toISOString() : undefined,
       });
@@ -121,13 +126,20 @@ export function PostJobCard({
           </label>
         </div>
 
-        <label className="block">
-          <Label>Location</Label>
-          <div className="relative">
-            <MapPin className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
-            <input className={`${fieldCls} pl-9`} value={location} onChange={(e) => setLocation(e.target.value)} placeholder="e.g. Ikeja, Lagos" />
+        <div>
+          <Label>Location <span className="font-normal text-ink-muted">— helps nearby workers find this job</span></Label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <select className={fieldCls} value={state} onChange={(e) => setState(e.target.value)}>
+              <option value="">Select state…</option>
+              {NIGERIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+            <input className={fieldCls} value={area} onChange={(e) => setArea(e.target.value)} placeholder="Area / LGA (e.g. Ikeja)" />
           </div>
-        </label>
+          <div className="relative mt-3">
+            <MapPin className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
+            <input className={`${fieldCls} pl-9`} value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address or landmark (e.g. 12 Allen Ave)" />
+          </div>
+        </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="block">

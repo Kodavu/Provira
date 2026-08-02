@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Check } from "lucide-react";
 import { api, type NotificationPreferences } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
 import { usePageData } from "@/lib/use-page-data";
@@ -91,6 +92,8 @@ export default function SettingsPage() {
       />
 
       <FadeIn delay={0.05} className="space-y-5">
+        <JobFeedPreference />
+
         <Card className="flex items-center justify-between p-5">
           <div>
             <p className="font-semibold text-ink">Pause non-urgent notifications</p>
@@ -148,5 +151,71 @@ export default function SettingsPage() {
         </Card>
       </FadeIn>
     </div>
+  );
+}
+
+const FEED_OPTIONS = [
+  { key: "ALL", label: "All jobs", hint: "Every open job on Tally." },
+  { key: "SKILLS", label: "Matched to my skills", hint: "Only jobs that need what you do." },
+  { key: "NEARBY", label: "Near me", hint: "Jobs in your state, closest area first." },
+] as const;
+
+// Worker-only: controls which jobs the Find work feed surfaces by default.
+function JobFeedPreference() {
+  const { userId, activeRole } = useSession();
+  const [feed, setFeed] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (activeRole !== "WORKER") return;
+    api.workerProfile(userId).then((p) => setFeed(p.jobFeed)).catch(() => setFeed("ALL"));
+  }, [userId, activeRole]);
+
+  if (activeRole !== "WORKER") return null;
+
+  async function choose(key: string) {
+    if (busy || key === feed) return;
+    setBusy(true);
+    const prev = feed;
+    setFeed(key);
+    try {
+      await api.updateProfile(userId, { jobFeed: key });
+      toast.success("Job feed updated", { description: FEED_OPTIONS.find((o) => o.key === key)?.label });
+    } catch {
+      setFeed(prev);
+      toast.error("Couldn't update job feed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card className="p-5">
+      <p className="font-semibold text-ink">Job feed</p>
+      <p className="text-sm text-ink-soft">Choose which jobs show up first when you look for work.</p>
+      <div className="mt-4 space-y-2">
+        {FEED_OPTIONS.map((o) => {
+          const on = feed === o.key;
+          return (
+            <button
+              key={o.key}
+              onClick={() => choose(o.key)}
+              disabled={busy || feed === null}
+              className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition ${
+                on ? "border-brand-500 bg-brand-50" : "border-line bg-surface hover:bg-canvas"
+              }`}
+            >
+              <span>
+                <span className="block text-sm font-semibold text-ink">{o.label}</span>
+                <span className="block text-xs text-ink-muted">{o.hint}</span>
+              </span>
+              <span className={`grid h-5 w-5 place-items-center rounded-full border ${on ? "border-brand-600 bg-brand-600 text-white" : "border-line"}`}>
+                {on && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </Card>
   );
 }

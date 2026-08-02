@@ -29,9 +29,31 @@ export class UsersController {
   @Patch(":id")
   update(
     @Param("id") id: string,
-    @Body() body: { fullName?: string; language?: Language; hasSmartphone?: boolean },
+    @Body() body: { fullName?: string; language?: Language; hasSmartphone?: boolean; jobFeed?: string },
   ) {
     return this.users.updateProfile(id, body);
+  }
+
+  @Get(":id/worker-profile")
+  workerProfile(@Param("id") id: string) {
+    return this.users.workerProfile(id);
+  }
+
+  @Put(":id/worker-profile")
+  updateWorkerProfile(
+    @Param("id") id: string,
+    @Body()
+    body: {
+      fullName?: string;
+      bio?: string;
+      languages?: Language[];
+      skillSlugs?: string[];
+      state?: string;
+      area?: string;
+      label?: string;
+    },
+  ) {
+    return this.users.updateWorkerProfile(id, body);
   }
 
   @Post(":id/roles")
