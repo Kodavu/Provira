@@ -190,14 +190,15 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
                 <Sparkles className="h-3 w-3" /> {me.roles.join(", ")}
               </p>
             </div>
-            <button
-              onClick={logout}
-              title="Sign out"
-              className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-app px-2.5 py-2 text-xs font-semibold text-soft transition hover:bg-app hover:text-[color:var(--text)]"
-            >
-              <LogOut className="h-3.5 w-3.5" />{" "}
-              <span className="hidden lg:inline">Sign out</span>
-            </button>
+<button
+  type="button"
+  onClick={logout}
+  title="Sign out"
+  aria-label="Sign out"
+  className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-app px-2.5 py-2 text-xs font-semibold text-soft transition hover:bg-app hover:text-[color:var(--text)]"
+>
+  <LogOut className="h-3.5 w-3.5" />
+  <span className="sr-only lg:not-sr-only">Sign out</span>
           </div>
         </header>
 
