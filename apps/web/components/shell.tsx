@@ -1,19 +1,37 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import { useRouter } from "next/navigation";
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { toast } from "sonner";
+import {
+  BadgeCheck,
+  Banknote,
+  Briefcase,
+  ChevronsUpDown,
+  HandCoins,
+  LayoutDashboard,
+  LifeBuoy,
+  LogOut,
+  Menu,
+  PlusCircle,
+  Receipt,
+  Search,
+  Settings,
+  ShieldCheck,
+  TrendingUp,
+  Wallet,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { clearSession } from "@/lib/session";
+import { useSession } from "@/lib/session-context";
+import { ROLE_LABEL, type Role } from "@/lib/auth";
 import { Wordmark } from "@/components/ui";
 import { NotificationBell } from "@/components/notification-bell";
 
-export type Role = "worker" | "trader" | "employer";
-
-export interface NavItem {
-  label: string;
-  href: string; // in-page anchor (#id) or route
-  icon: ReactNode;
-}
-
+// Legacy SVG-path icon set kept for any component still importing `icons`.
 function Icon({ path }: { path: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" strokeWidth={1.7} stroke="currentColor">
@@ -21,105 +39,129 @@ function Icon({ path }: { path: string }) {
     </svg>
   );
 }
-
 export const icons = {
   overview: <Icon path="M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5" />,
   jobs: <Icon path="M3 8h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8Zm5 0V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />,
-  earnings: <Icon path="M4 19V5m4 14V9m4 10V7m4 12v-6m4 6V4" />,
-  wallet: <Icon path="M3 7h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Zm0 0 2.5-3H17M16 13h2" />,
-  savings: <Icon path="M4 12a6 6 0 0 1 12 0v3h2a1 1 0 0 0 1-1 8 8 0 1 0-3 6M9 10h.01" />,
-  loans: <Icon path="M3 10 12 4l9 6M5 10v9h14v-9M9 19v-5h6v5" />,
-  standing: <Icon path="M4 18 10 12l4 4 6-7M14 6h6v6" />,
-  sales: <Icon path="M6 6h15l-2 9H8L6 6Zm0 0-.8-3H3M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm9 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />,
-  post: <Icon path="M12 5v14M5 12h14" />,
-  settings: <Icon path="M10.3 3.3a1 1 0 0 1 3.4 0l.2 1a7 7 0 0 1 2 .8l.9-.5a1 1 0 0 1 1.4 1.4l-.5.9a7 7 0 0 1 .8 2l1 .2a1 1 0 0 1 0 3.4l-1 .2a7 7 0 0 1-.8 2l.5.9a1 1 0 0 1-1.4 1.4l-.9-.5a7 7 0 0 1-2 .8l-.2 1a1 1 0 0 1-3.4 0l-.2-1a7 7 0 0 1-2-.8l-.9.5a1 1 0 0 1-1.4-1.4l.5-.9a7 7 0 0 1-.8-2l-1-.2a1 1 0 0 1 0-3.4l1-.2a7 7 0 0 1 .8-2l-.5-.9A1 1 0 0 1 6.5 4.6l.9.5a7 7 0 0 1 2-.8l.2-1ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />,
-  help: <Icon path="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm-1.8-7.3c0-2 3-2 3-4a1.5 1.5 0 0 0-3-.4M12 17h.01" />,
+  wallet: <Icon path="M3 7h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" />,
 };
 
-const ACCOUNT: NavItem[] = [
-  { label: "Verify identity", href: "/verify", icon: icons.standing },
-  { label: "Settings", href: "/settings", icon: icons.settings },
-  { label: "Help center", href: "#", icon: icons.help },
+export type { Role };
+
+interface NavLink {
+  label: string;
+  href: string;
+  icon: LucideIcon;
+}
+
+// Each role's sidebar — every entry is a real route, no scroll anchors.
+const NAV_BY_ROLE: Record<Role, NavLink[]> = {
+  WORKER: [
+    { label: "Overview", href: "/overview", icon: LayoutDashboard },
+    { label: "Jobs", href: "/jobs", icon: Briefcase },
+    { label: "Earnings", href: "/earnings", icon: Wallet },
+    { label: "Loans", href: "/loans", icon: HandCoins },
+    { label: "My standing", href: "/standing", icon: TrendingUp },
+  ],
+  TRADER: [
+    { label: "Overview", href: "/overview", icon: LayoutDashboard },
+    { label: "Sales", href: "/sales", icon: Receipt },
+    { label: "Loans", href: "/loans", icon: HandCoins },
+    { label: "My standing", href: "/standing", icon: TrendingUp },
+  ],
+  EMPLOYER: [
+    { label: "Overview", href: "/overview", icon: LayoutDashboard },
+    { label: "Jobs", href: "/jobs", icon: Briefcase },
+    { label: "Post a job", href: "/jobs/new", icon: PlusCircle },
+    { label: "Escrow", href: "/escrow", icon: Banknote },
+  ],
+};
+
+const ACCOUNT: NavLink[] = [
+  { label: "Verify identity", href: "/verify", icon: ShieldCheck },
+  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Help center", href: "/help", icon: LifeBuoy },
 ];
 
-export function AppShell({
-  role,
-  userName,
-  nav,
-  active,
-  topbarPlaceholder = "Search…",
-  children,
-}: {
-  role: Role;
-  userName: string;
-  nav: NavItem[];
-  active: string;
-  topbarPlaceholder?: string;
-  children: ReactNode;
-}) {
-  const router = useRouter();
-  const [current, setCurrent] = useState(active);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const initials = userName.slice(0, 2).toUpperCase();
-  const roleLabel = role[0].toUpperCase() + role.slice(1);
+function isActive(pathname: string, href: string): boolean {
+  if (href === "/overview") return pathname === "/overview";
+  if (href === "/jobs") return pathname === "/jobs"; // keep /jobs/new distinct
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
-  function go(item: NavItem) {
-    setMobileOpen(false);
-    if (item.href.startsWith("#")) {
-      setCurrent(item.label);
-      document
-        .getElementById(item.href.slice(1))
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      router.push(item.href);
+const SEARCH_HINTS: Record<Role, string> = {
+  WORKER: "Search jobs, earnings, standing…",
+  TRADER: "Search sales, loans, standing…",
+  EMPLOYER: "Search jobs, applicants, escrow…",
+};
+
+export function AppShell({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { fullName, roles, activeRole, setActiveRole } = useSession();
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [cmdOpen, setCmdOpen] = useState(false);
+
+  const nav = NAV_BY_ROLE[activeRole];
+  const displayName = fullName?.trim() || "there";
+  const initials = displayName.slice(0, 2).toUpperCase();
+
+  // Ctrl/Cmd+K opens the command menu.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setCmdOpen((v) => !v);
+      }
     }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  function signOut() {
+    clearSession();
+    toast.success("Signed out", { description: "See you soon." });
+    router.push("/login");
   }
 
   const sidebar = (
     <>
-      <Wordmark className="px-2" />
+      <Link href="/overview" className="px-2">
+        <Wordmark />
+      </Link>
 
-      <nav className="mt-8 flex flex-1 flex-col gap-1">
-        {nav.map((item) => {
-          const isActive = current === item.label;
-          return (
-            <button
-              key={item.label}
-              onClick={() => go(item)}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
-                isActive
-                  ? "bg-brand-50 text-brand-700"
-                  : "text-ink-soft hover:bg-canvas hover:text-ink"
-              }`}
-            >
-              <span className={isActive ? "text-brand-600" : "text-ink-muted"}>
-                {item.icon}
-              </span>
-              {item.label}
-            </button>
-          );
-        })}
+      {roles.length > 1 && (
+        <div className="mt-6">
+          <RoleSwitcher roles={roles} active={activeRole} onChange={setActiveRole} />
+        </div>
+      )}
+
+      <nav className="mt-6 flex flex-1 flex-col gap-1">
+        {nav.map((item) => (
+          <NavButton
+            key={item.href}
+            item={item}
+            active={isActive(pathname, item.href)}
+            onNavigate={() => setMobileOpen(false)}
+          />
+        ))}
 
         <p className="eyebrow mt-6 px-3">Account</p>
         {ACCOUNT.map((item) => (
-          <button
-            key={item.label}
-            onClick={() => go(item)}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-canvas hover:text-ink"
-          >
-            <span className="text-ink-muted">{item.icon}</span>
-            {item.label}
-          </button>
+          <NavButton
+            key={item.href}
+            item={item}
+            active={isActive(pathname, item.href)}
+            onNavigate={() => setMobileOpen(false)}
+          />
         ))}
       </nav>
 
       <button
-        onClick={() => {
-          clearSession();
-          router.push("/login");
-        }}
-        className="mt-2 rounded-xl border border-line px-3 py-2.5 text-left text-sm font-medium text-ink-soft hover:bg-canvas"
+        onClick={signOut}
+        className="mt-2 flex items-center gap-2.5 rounded-xl border border-line px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink"
       >
+        <LogOut className="h-[18px] w-[18px]" strokeWidth={1.8} />
         Sign out
       </button>
     </>
@@ -133,53 +175,60 @@ export function AppShell({
       </aside>
 
       {/* Mobile drawer */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          <div
-            className="absolute inset-0 bg-ink/30 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-          />
-          <aside className="absolute left-0 top-0 flex h-full w-72 max-w-[82%] flex-col border-r border-line bg-surface px-4 py-6 shadow-2xl">
-            {sidebar}
-          </aside>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileOpen && (
+          <div className="fixed inset-0 z-40 md:hidden">
+            <motion.div
+              className="absolute inset-0 bg-ink/30 backdrop-blur-sm"
+              onClick={() => setMobileOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.aside
+              className="absolute left-0 top-0 flex h-full w-72 max-w-[82%] flex-col border-r border-line bg-surface px-4 py-6 shadow-2xl"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 34 }}
+            >
+              {sidebar}
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
 
-      {/* Main */}
+      {/* Main column */}
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-30 flex items-center gap-2 border-b border-line bg-canvas/85 px-4 py-3 backdrop-blur sm:gap-4 sm:px-6 sm:py-3.5">
-          {/* Hamburger (mobile only) */}
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft md:hidden"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8}>
-              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-            </svg>
+            <Menu className="h-5 w-5" strokeWidth={1.8} />
           </button>
 
-          <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-ink-muted" fill="none" stroke="currentColor" strokeWidth={2}>
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3-3" strokeLinecap="round" />
-            </svg>
-            <input
-              placeholder={topbarPlaceholder}
-              className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted"
-            />
-            <kbd className="hidden rounded-md border border-line px-1.5 py-0.5 text-[10px] text-ink-muted sm:inline">
+          <button
+            onClick={() => setCmdOpen(true)}
+            className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5 text-left text-ink-muted transition hover:border-brand-200"
+          >
+            <Search className="h-4 w-4 shrink-0" strokeWidth={2} />
+            <span className="min-w-0 flex-1 truncate text-sm">{SEARCH_HINTS[activeRole]}</span>
+            <kbd className="hidden rounded-md border border-line px-1.5 py-0.5 text-[10px] sm:inline">
               Ctrl K
             </kbd>
-          </div>
+          </button>
+
           <NotificationBell />
+
           <div className="flex shrink-0 items-center gap-2 rounded-xl border border-line bg-surface py-1.5 pl-1.5 pr-1.5 sm:pr-3">
             <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
               {initials}
             </span>
             <div className="hidden text-left sm:block">
-              <p className="text-sm font-semibold leading-none text-ink">{userName}</p>
-              <p className="mt-0.5 text-[11px] leading-none text-ink-muted">{roleLabel}</p>
+              <p className="text-sm font-semibold leading-none text-ink">{displayName}</p>
+              <p className="mt-0.5 text-[11px] leading-none text-ink-muted">{ROLE_LABEL[activeRole]}</p>
             </div>
           </div>
         </header>
@@ -188,6 +237,219 @@ export function AppShell({
           {children}
         </main>
       </div>
+
+      <CommandMenu
+        open={cmdOpen}
+        onClose={() => setCmdOpen(false)}
+        nav={[...nav, ...ACCOUNT]}
+        onSignOut={signOut}
+      />
     </div>
+  );
+}
+
+function NavButton({
+  item,
+  active,
+  onNavigate,
+}: {
+  item: NavLink;
+  active: boolean;
+  onNavigate: () => void;
+}) {
+  const Ico = item.icon;
+  return (
+    <Link
+      href={item.href}
+      onClick={onNavigate}
+      className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+        active ? "text-brand-700" : "text-ink-soft hover:bg-canvas hover:text-ink"
+      }`}
+    >
+      {active && (
+        <motion.span
+          layoutId="nav-active"
+          className="absolute inset-0 rounded-xl bg-brand-50"
+          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+        />
+      )}
+      <span className={`relative z-10 ${active ? "text-brand-600" : "text-ink-muted"}`}>
+        <Ico className="h-[18px] w-[18px]" strokeWidth={1.8} />
+      </span>
+      <span className="relative z-10">{item.label}</span>
+    </Link>
+  );
+}
+
+function RoleSwitcher({
+  roles,
+  active,
+  onChange,
+}: {
+  roles: Role[];
+  active: Role;
+  onChange: (r: Role) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between rounded-xl border border-line bg-canvas px-3 py-2.5 text-left transition hover:border-brand-200"
+      >
+        <span>
+          <span className="eyebrow block">Viewing as</span>
+          <span className="text-sm font-semibold text-ink">{ROLE_LABEL[active]}</span>
+        </span>
+        <ChevronsUpDown className="h-4 w-4 text-ink-muted" />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.16 }}
+            className="absolute left-0 right-0 top-full z-20 mt-1.5 overflow-hidden rounded-xl border border-line bg-surface shadow-lg"
+          >
+            {roles.map((r) => (
+              <button
+                key={r}
+                onClick={() => {
+                  onChange(r);
+                  setOpen(false);
+                  toast.success(`Switched to ${ROLE_LABEL[r]}`);
+                }}
+                className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition hover:bg-canvas ${
+                  r === active ? "font-semibold text-brand-700" : "text-ink-soft"
+                }`}
+              >
+                {ROLE_LABEL[r]}
+                {r === active && <BadgeCheck className="h-4 w-4 text-brand-600" />}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function CommandMenu({
+  open,
+  onClose,
+  nav,
+  onSignOut,
+}: {
+  open: boolean;
+  onClose: () => void;
+  nav: NavLink[];
+  onSignOut: () => void;
+}) {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      setQuery("");
+      setTimeout(() => inputRef.current?.focus(), 30);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    if (open) window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
+  const results = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return nav;
+    return nav.filter((n) => n.label.toLowerCase().includes(q));
+  }, [query, nav]);
+
+  function go(href: string) {
+    onClose();
+    router.push(href);
+  }
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-[60] flex items-start justify-center px-4 pt-[12vh]">
+          <motion.div
+            className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+          <motion.div
+            className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl"
+            initial={{ opacity: 0, y: -12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-center gap-3 border-b border-line px-4">
+              <Search className="h-4 w-4 text-ink-muted" strokeWidth={2} />
+              <input
+                ref={inputRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && results[0]) go(results[0].href);
+                }}
+                placeholder="Jump to…"
+                className="w-full bg-transparent py-3.5 text-sm text-ink outline-none placeholder:text-ink-muted"
+              />
+              <kbd className="rounded-md border border-line px-1.5 py-0.5 text-[10px] text-ink-muted">Esc</kbd>
+            </div>
+            <div className="max-h-80 overflow-y-auto p-2">
+              {results.length === 0 ? (
+                <p className="px-3 py-6 text-center text-sm text-ink-muted">No matches.</p>
+              ) : (
+                results.map((n) => {
+                  const Ico = n.icon;
+                  return (
+                    <button
+                      key={n.href}
+                      onClick={() => go(n.href)}
+                      className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-ink-soft transition hover:bg-canvas hover:text-ink"
+                    >
+                      <Ico className="h-[18px] w-[18px] text-ink-muted" strokeWidth={1.8} />
+                      {n.label}
+                    </button>
+                  );
+                })
+              )}
+              <button
+                onClick={() => {
+                  onClose();
+                  onSignOut();
+                }}
+                className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-ink-soft transition hover:bg-canvas hover:text-ink"
+              >
+                <LogOut className="h-[18px] w-[18px] text-ink-muted" strokeWidth={1.8} />
+                Sign out
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

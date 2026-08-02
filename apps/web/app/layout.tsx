@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import { inter } from "./fonts";
 import "./globals.css";
 
@@ -17,6 +18,16 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen bg-canvas font-sans text-ink antialiased">
         {children}
+        <Toaster
+          position="top-center"
+          richColors
+          closeButton
+          toastOptions={{
+            classNames: {
+              toast: "rounded-xl border border-line",
+            },
+          }}
+        />
       </body>
     </html>
   );

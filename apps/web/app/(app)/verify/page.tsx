@@ -1,12 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
+import { BadgeCheck, Clock, ShieldCheck } from "lucide-react";
 import { api, type VerificationStatus } from "@/lib/api";
-import { getUserId } from "@/lib/session";
-import { routeForRoles } from "@/lib/auth";
-import { Button, Card, Wordmark } from "@/components/ui";
+import { useSession } from "@/lib/session-context";
+import { usePageData } from "@/lib/use-page-data";
+import { Button, Card } from "@/components/ui";
+import { PageHeader, PageError, PageSkeleton } from "@/components/page";
+import { FadeIn } from "@/components/motion";
 
 const LEVEL_LABEL: Record<string, string> = {
   NONE: "Not verified",
@@ -38,60 +40,27 @@ const input =
   "w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink-muted focus:border-brand-500 focus:ring-2 focus:ring-brand-100";
 
 export default function VerifyPage() {
-  const router = useRouter();
-  const [data, setData] = useState<VerificationStatus | null>(null);
-  const [backHref, setBackHref] = useState("/worker");
+  const { data, error, reload } = usePageData<VerificationStatus>((id) => api.verificationStatus(id));
 
-  const load = useCallback(async () => {
-    const userId = getUserId();
-    if (!userId) {
-      router.push("/login");
-      return;
-    }
-    try {
-      const [status, user] = await Promise.all([api.verificationStatus(userId), api.getUser(userId)]);
-      setData(status);
-      setBackHref(routeForRoles(user.roles.map((r) => r.role)));
-    } catch {
-      /* leave defaults */
-    }
-  }, [router]);
-
-  useEffect(() => {
-    load();
-  }, [load]);
+  if (error) return <PageError message={error} onRetry={reload} />;
+  if (!data) return <PageSkeleton />;
 
   return (
-    <div className="min-h-screen bg-canvas">
-      <header className="border-b border-line bg-surface">
-        <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4 sm:px-6">
-          <Wordmark />
-          <Link href={backHref} className="text-sm font-medium text-ink-soft hover:text-ink">&larr; Back</Link>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
-        <h1 className="text-2xl font-bold tracking-tight text-ink">Verify your identity</h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Verifying unlocks higher limits and loan eligibility, and lets you receive payouts. Your details are encrypted.
-        </p>
-
-        {!data ? (
-          <p className="mt-8 text-sm text-ink-muted">Loading…</p>
-        ) : (
-          <div className="mt-6 space-y-5">
-            <IdentityCard data={data} onDone={load} />
-            <PayoutAccountCard data={data} onSaved={load} />
-          </div>
-        )}
-      </main>
+    <div className="mx-auto max-w-2xl space-y-6">
+      <PageHeader
+        title="Verify your identity"
+        subtitle="Verifying unlocks higher limits and loan eligibility, and lets you receive payouts. Your details are encrypted."
+      />
+      <FadeIn delay={0.05} className="space-y-5">
+        <IdentityCard data={data} onDone={reload} />
+        <PayoutAccountCard data={data} onSaved={reload} />
+      </FadeIn>
     </div>
   );
 }
 
-// --- Identity (NIN) ---
-
 function IdentityCard({ data, onDone }: { data: VerificationStatus; onDone: () => void }) {
+  const { userId } = useSession();
   const [nin, setNin] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -101,8 +70,6 @@ function IdentityCard({ data, onDone }: { data: VerificationStatus; onDone: () =
   const rejected = data.request?.status === "REJECTED";
 
   async function submit() {
-    const userId = getUserId();
-    if (!userId) return;
     if (!/^\d{11}$/.test(nin)) {
       setError("Enter your 11-digit NIN.");
       return;
@@ -110,14 +77,13 @@ function IdentityCard({ data, onDone }: { data: VerificationStatus; onDone: () =
     setBusy(true);
     setError(null);
     try {
-      await api.submitVerification(userId, {
-        requestedLevel: "BVN_VERIFIED",
-        bvn: nin, // hashed server-side; never stored raw
-        documents: [],
-      });
+      await api.submitVerification(userId, { requestedLevel: "BVN_VERIFIED", bvn: nin, documents: [] });
+      toast.success("Submitted for verification", { description: "We'll notify you once it's decided." });
       onDone();
     } catch (e) {
-      setError((e as Error).message.replace(/^API \d+:\s*/, ""));
+      const msg = (e as Error).message.replace(/^API \d+:\s*/, "");
+      setError(msg);
+      toast.error("Couldn't submit", { description: msg });
     } finally {
       setBusy(false);
     }
@@ -126,18 +92,25 @@ function IdentityCard({ data, onDone }: { data: VerificationStatus; onDone: () =
   return (
     <Card className="p-5">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="font-semibold text-ink">Identity (NIN)</p>
-          <p className="text-sm text-ink-soft">Status: {LEVEL_LABEL[data.kycLevel]}</p>
+        <div className="flex items-center gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-700">
+            <ShieldCheck className="h-5 w-5" strokeWidth={1.8} />
+          </span>
+          <div>
+            <p className="font-semibold text-ink">Identity (NIN)</p>
+            <p className="text-sm text-ink-soft">Status: {LEVEL_LABEL[data.kycLevel]}</p>
+          </div>
         </div>
         {verified && (
-          <span className="rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700">✓ Verified</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700">
+            <BadgeCheck className="h-4 w-4" /> Verified
+          </span>
         )}
       </div>
 
       {verified ? null : pending ? (
         <div className="mt-4 flex items-center gap-2 rounded-xl bg-gold-50 px-3.5 py-2.5 text-sm text-gold-700 ring-1 ring-gold-200">
-          <span className="h-2 w-2 rounded-full bg-gold-500" /> In review — we&apos;ll notify you once it&apos;s decided.
+          <Clock className="h-4 w-4" /> In review — we&apos;ll notify you once it&apos;s decided.
         </div>
       ) : (
         <div className="mt-4 space-y-3">
@@ -165,9 +138,8 @@ function IdentityCard({ data, onDone }: { data: VerificationStatus; onDone: () =
   );
 }
 
-// --- Payout account (with name lookup) ---
-
 function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSaved: () => void }) {
+  const { userId } = useSession();
   const existing = data.bankAccount;
   const [editing, setEditing] = useState(!existing);
   const [bankCode, setBankCode] = useState("");
@@ -179,24 +151,25 @@ function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSave
   const canLookup = !!bankCode && /^\d{10}$/.test(accountNumber);
 
   async function lookup() {
-    const userId = getUserId();
-    if (!userId || !canLookup) return;
+    if (!canLookup) return;
     setBusy("lookup");
     setError(null);
     setResolvedName(null);
     try {
       const { accountName } = await api.lookupBankAccount(userId, bankCode, accountNumber);
       setResolvedName(accountName);
+      toast.success("Account found", { description: accountName });
     } catch (e) {
-      setError((e as Error).message.replace(/^API \d+:\s*/, ""));
+      const msg = (e as Error).message.replace(/^API \d+:\s*/, "");
+      setError(msg);
+      toast.error("Couldn't verify account", { description: msg });
     } finally {
       setBusy(null);
     }
   }
 
   async function save() {
-    const userId = getUserId();
-    if (!userId || !resolvedName) return;
+    if (!resolvedName) return;
     setBusy("save");
     setError(null);
     try {
@@ -206,11 +179,14 @@ function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSave
         accountNumber,
         accountName: resolvedName,
       });
+      toast.success("Payout account saved", { description: `${resolvedName} · ••••${accountNumber.slice(-4)}` });
       setEditing(false);
       setResolvedName(null);
       onSaved();
     } catch (e) {
-      setError((e as Error).message.replace(/^API \d+:\s*/, ""));
+      const msg = (e as Error).message.replace(/^API \d+:\s*/, "");
+      setError(msg);
+      toast.error("Couldn't save account", { description: msg });
     } finally {
       setBusy(null);
     }

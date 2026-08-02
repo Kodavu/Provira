@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { api, TraderDashboard } from "@/lib/api";
 import {
   Button,
@@ -33,10 +34,12 @@ export function LogSaleCard({
     setError(null);
     try {
       await api.logSale(userId, String(Math.round(naira * 100)), method);
+      toast.success("Sale logged", { description: `${formatNaira(String(Math.round(naira * 100)))} · ${method}` });
       setAmount("");
       onLogged();
     } catch (e) {
       setError((e as Error).message);
+      toast.error("Couldn't log sale", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setLoading(false);
     }

@@ -5,22 +5,34 @@ import { api } from "@/lib/api";
 import { saveSession, getUserId, clearSession } from "@/lib/session";
 
 export type UserType = "worker" | "trader" | "employer";
+export type Role = "WORKER" | "TRADER" | "EMPLOYER";
 
-export const ROLE_TO_PATH: Record<string, string> = {
-  EMPLOYER: "/employer",
-  TRADER: "/trader",
-  WORKER: "/worker",
-};
+// The whole authenticated app lives at /overview and adapts to the active role,
+// so there's a single home for every user regardless of how many roles they hold.
+export const HOME = "/overview";
 
-/** Where a user lands after auth, given their roles. */
-export function routeForRoles(roles: string[]): string {
-  if (roles.includes("EMPLOYER")) return "/employer";
-  if (roles.includes("TRADER")) return "/trader";
-  return "/worker";
+// When a user holds more than one role we default to the "richest" experience.
+const ROLE_PRIORITY: Role[] = ["EMPLOYER", "TRADER", "WORKER"];
+
+/** Pick the default active role for a set of roles (highest priority wins). */
+export function primaryRole(roles: string[]): Role | null {
+  for (const r of ROLE_PRIORITY) if (roles.includes(r)) return r;
+  return null;
 }
 
-export function pathForType(type: UserType): string {
-  return `/${type}`;
+export const ROLE_LABEL: Record<Role, string> = {
+  WORKER: "Worker",
+  TRADER: "Trader",
+  EMPLOYER: "Employer",
+};
+
+/** Where a user lands after auth. One home for everyone; content follows role. */
+export function routeForRoles(roles: string[]): string {
+  return roles.length > 0 ? HOME : "/signup";
+}
+
+export function pathForType(_type: UserType): string {
+  return HOME;
 }
 
 /** E.164-ish validation matching the API's DTO. */
@@ -75,7 +87,7 @@ export async function resolveSessionRoute(): Promise<string | null> {
     const profile = await api.getUser(userId);
     const roles = profile.roles.map((r) => r.role);
     // A session with no role yet isn't onboarded — send them to finish signup.
-    return roles.length === 0 ? null : routeForRoles(roles);
+    return roles.length === 0 ? null : HOME;
   } catch {
     clearSession();
     return null;

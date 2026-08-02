@@ -118,6 +118,17 @@ export function createTallyClient(config: TallyClientConfig) {
     fundJob: (jobId: string) => post(`/jobs/${jobId}/fund`) as Promise<{ jobId: string }>,
     matchJob: (jobId: string) => post(`/jobs/${jobId}/match`) as Promise<unknown>,
 
+    // Lending
+    loanEligibility: (userId: string) =>
+      request<unknown>(`/lending/eligibility/${userId}`),
+    applyForLoan: (userId: string, productId: string, amount: string) =>
+      post("/lending/apply", { userId, productId, amount }) as Promise<{
+        id: string;
+        status: "APPROVED" | "REJECTED" | "PENDING";
+        amount: string;
+        decisionReason: string | null;
+      }>,
+
     // Notifications
     notifications: (userId: string, limit?: number) =>
       request<NotificationFeed>(

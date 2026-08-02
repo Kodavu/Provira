@@ -172,6 +172,39 @@ function Sparkline({ accent }: { accent: "brand" | "amber" }) {
   );
 }
 
+// Metric card with a real icon (no decorative sparkline). `value` accepts a
+// node so callers can drop in an animated count-up.
+export function Kpi({
+  icon,
+  label,
+  value,
+  caption,
+  accent = "brand",
+}: {
+  icon?: ReactNode;
+  label: string;
+  value: ReactNode;
+  caption?: string;
+  accent?: "brand" | "amber" | "neutral";
+}) {
+  const tone =
+    accent === "amber"
+      ? "bg-gold-50 text-gold-700"
+      : accent === "neutral"
+        ? "bg-canvas text-ink-soft"
+        : "bg-brand-50 text-brand-700";
+  return (
+    <div className="rounded-2xl border border-line bg-surface p-5 shadow-card">
+      <div className="flex items-center justify-between">
+        <p className="eyebrow">{label}</p>
+        {icon && <span className={`grid h-8 w-8 place-items-center rounded-lg ${tone}`}>{icon}</span>}
+      </div>
+      <p className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">{value}</p>
+      {caption && <p className="mt-1.5 text-sm text-ink-muted">{caption}</p>}
+    </div>
+  );
+}
+
 const TIER_STYLES: Record<string, string> = {
   BUILDING: "bg-canvas text-ink-soft border border-line",
   EMERGING: "bg-gold-50 text-gold-700 border border-gold-100",

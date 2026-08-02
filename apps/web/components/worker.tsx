@@ -1,18 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { api, WorkerDashboard } from "@/lib/api";
+import { Clock, TrendingUp, Wallet } from "lucide-react";
 import {
   Button,
   Card,
   Input,
+  Kpi,
   Pill,
   ProgressBar,
-  SectionHeader,
-  StatCard,
   TierBadge,
   formatNaira,
 } from "@/components/ui";
+import { CountUp, CountUpNaira } from "@/components/motion";
 
 const TIER_ORDER = ["BUILDING", "EMERGING", "TRUSTED", "ESTABLISHED"];
 const TIER_MIN: Record<string, number> = {
@@ -86,21 +88,29 @@ export function HustleStats({
         <Pill>Mon — Sun</Pill>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <StatCard
+        <Kpi
+          icon={<TrendingUp className="h-4 w-4" />}
           label="Earnings"
-          value={formatNaira(earned)}
+          value={<CountUpNaira amount={earned} />}
           caption={earned ? `From ${confirmed.length} confirmed shift(s).` : "No earnings yet this week."}
         />
-        <StatCard
+        <Kpi
+          icon={<Clock className="h-4 w-4" />}
           label="Shifts"
-          value={confirmed.length}
+          value={<CountUp value={confirmed.length} />}
           caption={confirmed.length ? "Confirmed & paid." : "No shifts completed yet."}
-          accent="amber"
+          accent="neutral"
         />
-        <StatCard label="Average rating" value="—" caption="No reviews yet." />
-        <StatCard
+        <Kpi
+          icon={<TrendingUp className="h-4 w-4" />}
+          label="On-time rate"
+          value={<><CountUp value={Math.round(score.onTimeRate * 100)} />%</>}
+          caption={`Across ${score.jobsCompleted} completed shift(s).`}
+        />
+        <Kpi
+          icon={<Wallet className="h-4 w-4" />}
           label="Wallet"
-          value={formatNaira(wallet.balance)}
+          value={<CountUpNaira amount={wallet.balance} />}
           caption="Available to withdraw."
           accent="amber"
         />
@@ -253,9 +263,14 @@ function ConfirmForm({
     setError(null);
     try {
       await api.confirmAttendance(assignmentId, code);
+      toast.success("Attendance confirmed", { description: "Your payout is on the way." });
       onConfirmed();
     } catch (e) {
-      setError((e as Error).message.includes("Invalid") ? "Wrong code" : "Failed");
+      const wrong = (e as Error).message.includes("Invalid");
+      setError(wrong ? "Wrong code" : "Failed");
+      toast.error(wrong ? "That code isn't right" : "Couldn't confirm", {
+        description: wrong ? "Check the 4-digit code with the employer." : "Please try again.",
+      });
     } finally {
       setLoading(false);
     }
@@ -331,30 +346,92 @@ export function JobsNearby({
   );
 }
 
-export function LoanOffers({ offers }: { offers: WorkerDashboard["loanOffers"] }) {
+export function LoanOffers({
+  offers,
+  userId,
+}: {
+  offers: WorkerDashboard["loanOffers"];
+  userId: string;
+}) {
+  if (offers.length === 0)
+    return (
+      <Card className="p-6">
+        <p className="text-sm text-ink-muted">
+          No loan offers yet. Complete more shifts to build the record that unlocks credit.
+        </p>
+      </Card>
+    );
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {offers.map((o) => (
-        <Card key={o.productId} className="p-5">
-          <div className="flex items-start justify-between">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-700">
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
-                <path d="M3 10 12 4l9 6M5 10v9h14v-9M9 19v-5h6v5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-            {o.eligible ? <Pill tone="green">Eligible</Pill> : <Pill>Locked</Pill>}
-          </div>
-          <p className="mt-3 font-semibold text-ink">{o.name}</p>
-          <p className="text-sm text-ink-muted">
-            Up to {formatNaira(o.maxAmount)} · needs score {o.minScore}+
-          </p>
-          <div className="mt-4">
-            <Button disabled={!o.eligible} size="sm">
-              {o.eligible ? "Request" : "Keep building"}
-            </Button>
-          </div>
-        </Card>
+        <LoanOfferCard key={o.productId} offer={o} userId={userId} />
       ))}
     </div>
+  );
+}
+
+function LoanOfferCard({
+  offer: o,
+  userId,
+}: {
+  offer: WorkerDashboard["loanOffers"][number];
+  userId: string;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [applied, setApplied] = useState<null | "APPROVED" | "REJECTED" | "PENDING">(null);
+
+  async function request() {
+    setBusy(true);
+    try {
+      const res = await api.applyForLoan(userId, o.productId, o.maxAmount);
+      setApplied(res.status);
+      if (res.status === "APPROVED") {
+        toast.success("Loan approved!", {
+          description: `Up to ${formatNaira(o.maxAmount)} on ${o.name}. We'll disburse to your payout account.`,
+        });
+      } else {
+        toast.error("Not approved yet", {
+          description: res.decisionReason ?? "Keep building your score and try again.",
+        });
+      }
+    } catch (e) {
+      toast.error("Couldn't submit", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card className="p-5">
+      <div className="flex items-start justify-between">
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-700">
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
+            <path d="M3 10 12 4l9 6M5 10v9h14v-9M9 19v-5h6v5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+        {applied === "APPROVED" ? (
+          <Pill tone="green">Approved</Pill>
+        ) : o.eligible ? (
+          <Pill tone="green">Eligible</Pill>
+        ) : (
+          <Pill>Locked</Pill>
+        )}
+      </div>
+      <p className="mt-3 font-semibold text-ink">{o.name}</p>
+      <p className="text-sm text-ink-muted">
+        Up to {formatNaira(o.maxAmount)} · needs score {o.minScore}+
+      </p>
+      <div className="mt-4">
+        <Button disabled={!o.eligible || busy || applied === "APPROVED"} size="sm" onClick={request}>
+          {applied === "APPROVED"
+            ? "Approved ✓"
+            : busy
+              ? "Submitting…"
+              : o.eligible
+                ? "Request loan"
+                : "Keep building"}
+        </Button>
+      </div>
+    </Card>
   );
 }

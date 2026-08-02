@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { ArrowRight, MapPin, Users } from "lucide-react";
 import { api, EmployerDashboard } from "@/lib/api";
 import { Button, Card, Input, Pill, ProgressBar, formatNaira } from "@/components/ui";
@@ -42,11 +43,13 @@ export function PostJobCard({
         skillSlugs: [slug],
       });
       await api.publishJob(job.id); // opens the job + creates its escrow account
+      toast.success("Job posted", { description: `"${title.trim()}" is live and matching workers.` });
       setTitle("");
       setPay("");
       onPosted();
     } catch (e) {
       setError((e as Error).message);
+      toast.error("Couldn't post job", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setLoading(false);
     }
@@ -144,7 +147,10 @@ function JobCard({
     setBusy("fund");
     try {
       await api.fundJob(job.id);
+      toast.success("Escrow funded", { description: `${job.title} · ${formatNaira(escrow?.amount ?? job.payAmount)} secured.` });
       onChange();
+    } catch (e) {
+      toast.error("Funding failed", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
@@ -154,7 +160,10 @@ function JobCard({
     try {
       await api.publishJob(job.id).catch(() => {});
       await api.matchJob(job.id);
+      toast.success("Finding workers", { description: `Matching started for ${job.title}.` });
       onChange();
+    } catch (e) {
+      toast.error("Couldn't start matching", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
