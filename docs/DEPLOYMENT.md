@@ -76,6 +76,15 @@ Key distinction:
    > `db push` is fine to start. For change history later, switch to
    > `prisma migrate dev --name init` (commit it) + `prisma migrate deploy`.
 
+   > **Prefer `prisma db push` over pasting SQL.** If you'd rather paste, use the
+   > current `packages/db/prisma/supabase-setup.sql`. Either way, **re-run it
+   > whenever the Prisma schema changes** — the API returns every column of a
+   > model on most queries, so a live DB missing a newly-added column makes even
+   > login/signup fail with a 500. `prisma db push` is additive and safe to
+   > re-run; it only adds what's missing. (Example of such an addition: the
+   > `User.payoutBankCode/payoutBankName/payoutAccountNumber/payoutAccountName`
+   > columns used by the payout-account lookup.)
+
 5. **Seeding — do NOT seed demo data in production.** The seed creates demo
    users with *known passwords*. For a real environment, either skip it or seed
    only a single super-admin with a strong password. To try it end-to-end first,

@@ -100,6 +100,10 @@ CREATE TABLE "User" (
     "kycLevel" "KycLevel" NOT NULL DEFAULT 'NONE',
     "bvnHash" TEXT,
     "hasSmartphone" BOOLEAN NOT NULL DEFAULT false,
+    "payoutBankCode" TEXT,
+    "payoutBankName" TEXT,
+    "payoutAccountNumber" TEXT,
+    "payoutAccountName" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
