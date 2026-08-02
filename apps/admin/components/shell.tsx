@@ -78,7 +78,7 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
 
   return (
     <div className="relative flex min-h-screen overflow-hidden bg-app">
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_15%_10%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_85%_0%,rgba(14,165,233,0.12),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(16,185,129,0.10),transparent_26%)]" />
+      <div className="admin-ambient pointer-events-none fixed inset-0 -z-10" />
       <CommandPalette items={nav} />
 
       <motion.aside
@@ -175,9 +175,9 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
             className="grid h-11 w-11 place-items-center rounded-2xl border border-app bg-white/70 text-soft transition hover:bg-app dark:bg-white/[0.03]"
           >
             {dark ? (
-              <Sun className="h-4.5 w-4.5" />
+              <Sun className="h-[18px] w-[18px]" />
             ) : (
-              <Moon className="h-4.5 w-4.5" />
+              <Moon className="h-[18px] w-[18px]" />
             )}
           </button>
           <div className="flex items-center gap-2 border-l border-app pl-3">
@@ -192,15 +192,16 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
                 <Sparkles className="h-3 w-3" /> {me.roles.join(", ")}
               </p>
             </div>
-<button
-  type="button"
-  onClick={logout}
-  title="Sign out"
-  aria-label="Sign out"
-  className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-app px-2.5 py-2 text-xs font-semibold text-soft transition hover:bg-app hover:text-[color:var(--text)]"
->
-  <LogOut className="h-3.5 w-3.5" />
-  <span className="sr-only lg:not-sr-only">Sign out</span>
+            <button
+              type="button"
+              onClick={logout}
+              title="Sign out"
+              aria-label="Sign out"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-app px-2.5 py-2 text-xs font-semibold text-soft transition hover:bg-app hover:text-[color:var(--text)]"
+            >
+              <LogOut className="h-3.5 w-3.5" />
+              <span className="sr-only lg:not-sr-only">Sign out</span>
+            </button>
           </div>
         </header>
 
