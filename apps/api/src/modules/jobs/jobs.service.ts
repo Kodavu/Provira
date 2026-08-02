@@ -250,8 +250,9 @@ export class JobsService {
     });
   }
 
-  // Shared "worker joins the job" step: mark ACCEPTED, mint the attendance code,
-  // and tell the worker they're hired (with the code).
+  // Shared "worker joins the job" step: mark ACCEPTED and mint the attendance
+  // code. The code is kept for the employer to read out on site — it is never
+  // sent to or shown to the worker.
   private async admit(
     assignmentId: string,
     job: { id: string; title: string },
@@ -261,15 +262,10 @@ export class JobsService {
       where: { id: assignmentId },
       data: { status: "ACCEPTED", acceptedAt: new Date() },
     });
-    const issued = await this.attendance.createForAssignment(assignmentId);
-    const code =
-      issued.code ??
-      (await this.prisma.attendance.findUnique({ where: { assignmentId } }))?.code ??
-      null;
+    await this.attendance.createForAssignment(assignmentId);
 
     await this.notifications.notify(workerUserId, "job.hired", {
       title: job.title,
-      code: code ?? "—",
       jobId: job.id,
     });
     return this.prisma.jobAssignment.findUnique({ where: { id: assignmentId } });
@@ -284,7 +280,16 @@ export class JobsService {
         location: true,
         skills: { include: { skill: true } },
         assignments: {
-          include: { worker: { include: { user: true } }, attendance: true },
+          include: {
+            worker: {
+              include: {
+                location: true,
+                skills: { include: { skill: true } },
+                user: { include: { scoreProfile: true } },
+              },
+            },
+            attendance: true,
+          },
           orderBy: { updatedAt: "desc" },
         },
       },
@@ -294,16 +299,33 @@ export class JobsService {
     const perPerson = job.payAmount / BigInt(Math.max(1, job.headcount));
     const accepted = job.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
 
-    const row = (a: (typeof job.assignments)[number]) => ({
-      assignmentId: a.id,
-      workerId: a.workerId,
-      workerName: a.worker.user.fullName,
-      status: a.status,
-      matchScore: a.matchScore,
-      attendance: a.attendance
-        ? { status: a.attendance.status, code: a.attendance.code, confirmedAt: a.attendance.confirmedAt }
-        : null,
-    });
+    const row = (a: (typeof job.assignments)[number]) => {
+      const w = a.worker;
+      const sp = w.user.scoreProfile;
+      return {
+        assignmentId: a.id,
+        workerId: a.workerId,
+        workerName: w.user.fullName,
+        status: a.status,
+        matchScore: a.matchScore,
+        profile: {
+          bio: w.bio,
+          location: w.location?.label ?? null,
+          phone: w.user.phone,
+          skills: w.skills.map((s) => s.skill.name),
+          languages: w.languages,
+          score: sp?.score ?? 0,
+          tier: sp?.tier ?? "BUILDING",
+          jobsCompleted: sp?.jobsCompleted ?? 0,
+          onTimeRate: sp?.onTimeRate ?? 0,
+          kycVerified: w.user.kycLevel !== "NONE",
+          memberSince: w.user.createdAt,
+        },
+        attendance: a.attendance
+          ? { status: a.attendance.status, code: a.attendance.code, confirmedAt: a.attendance.confirmedAt }
+          : null,
+      };
+    };
 
     return {
       id: job.id,

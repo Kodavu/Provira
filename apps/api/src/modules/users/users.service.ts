@@ -180,9 +180,9 @@ export class UsersService {
         endAt: a.job.endAt,
         employerName: a.job.employer?.businessName ?? null,
       },
-      attendance: a.attendance
-        ? { status: a.attendance.status, code: a.attendance.code }
-        : null,
+      // The attendance code is deliberately NOT exposed to the worker — the
+      // employer reads it out on site. Workers only ever confirm by entering it.
+      attendance: a.attendance ? { status: a.attendance.status } : null,
     }));
 
     const openJobs = await this.prisma.job.findMany({

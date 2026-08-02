@@ -4,18 +4,25 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   Banknote,
+  BadgeCheck,
+  Briefcase,
   Calendar,
   Check,
   Clock,
+  Languages,
   MapPin,
+  Phone,
   Sparkles,
+  Star,
   UserPlus,
   Users,
+  X,
 } from "lucide-react";
-import { api, type JobDetail, type JobSuggestion } from "@/lib/api";
+import { api, type JobAssignmentRow, type JobDetail, type JobSuggestion } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
 import { Button, Card, Kpi, Pill, TierBadge, formatNaira } from "@/components/ui";
 import { PageError, PageSkeleton, EmptyPanel } from "@/components/page";
@@ -41,6 +48,7 @@ export default function JobDetailPage() {
   const [suggestions, setSuggestions] = useState<JobSuggestion[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [profileFor, setProfileFor] = useState<JobAssignmentRow | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -165,15 +173,7 @@ export default function JobDetailPage() {
           <Card className="divide-y divide-line p-0">
             {job.inJob.map((a) => (
               <div key={a.assignmentId} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <Avatar name={a.workerName} />
-                  <div>
-                    <p className="font-medium text-ink">{a.workerName ?? "Worker"}</p>
-                    <p className="text-xs text-ink-muted">
-                      {a.attendance?.status === "CONFIRMED" ? "Attendance confirmed" : "Confirmed for the shift"}
-                    </p>
-                  </div>
-                </div>
+                <WorkerButton row={a} onView={() => setProfileFor(a)} subtitle={a.attendance?.status === "CONFIRMED" ? "Attendance confirmed" : "Confirmed for the shift"} />
                 <div className="flex items-center gap-3">
                   {a.attendance?.status === "CONFIRMED" ? (
                     <Pill tone="green"><Check className="h-3.5 w-3.5" /> Confirmed & paid</Pill>
@@ -200,17 +200,17 @@ export default function JobDetailPage() {
           <Card className="divide-y divide-line p-0">
             {job.applications.map((a) => (
               <div key={a.assignmentId} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <Avatar name={a.workerName} />
-                  <p className="font-medium text-ink">{a.workerName ?? "Worker"}</p>
+                <WorkerButton row={a} onView={() => setProfileFor(a)} />
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline" onClick={() => setProfileFor(a)}>View profile</Button>
+                  <Button
+                    size="sm"
+                    onClick={() => accept(a.assignmentId, a.workerName)}
+                    disabled={full || busy === `accept:${a.assignmentId}`}
+                  >
+                    {busy === `accept:${a.assignmentId}` ? "Accepting…" : full ? "Job full" : "Accept"}
+                  </Button>
                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => accept(a.assignmentId, a.workerName)}
-                  disabled={full || busy === `accept:${a.assignmentId}`}
-                >
-                  {busy === `accept:${a.assignmentId}` ? "Accepting…" : full ? "Job full" : "Accept"}
-                </Button>
               </div>
             ))}
           </Card>
@@ -223,10 +223,7 @@ export default function JobDetailPage() {
           <Card className="divide-y divide-line p-0">
             {job.invites.map((a) => (
               <div key={a.assignmentId} className="flex items-center justify-between px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <Avatar name={a.workerName} />
-                  <p className="font-medium text-ink">{a.workerName ?? "Worker"}</p>
-                </div>
+                <WorkerButton row={a} onView={() => setProfileFor(a)} />
                 <Pill tone="amber"><Clock className="h-3.5 w-3.5" /> Invited</Pill>
               </div>
             ))}
@@ -260,6 +257,130 @@ export default function JobDetailPage() {
           </div>
         )}
       </Section>
+
+      <ProfileModal row={profileFor} onClose={() => setProfileFor(null)} />
+    </div>
+  );
+}
+
+// Clickable worker identity (avatar + name) that opens the profile modal.
+function WorkerButton({
+  row,
+  onView,
+  subtitle,
+}: {
+  row: JobAssignmentRow;
+  onView: () => void;
+  subtitle?: string;
+}) {
+  return (
+    <button onClick={onView} className="group flex items-center gap-3 text-left">
+      <Avatar name={row.workerName} />
+      <div>
+        <p className="font-medium text-ink group-hover:text-brand-700">{row.workerName ?? "Worker"}</p>
+        {subtitle ? (
+          <p className="text-xs text-ink-muted">{subtitle}</p>
+        ) : row.profile ? (
+          <p className="text-xs text-ink-muted">
+            Score {row.profile.score} · {row.profile.jobsCompleted} shift{row.profile.jobsCompleted === 1 ? "" : "s"} done
+          </p>
+        ) : null}
+      </div>
+    </button>
+  );
+}
+
+function ProfileModal({ row, onClose }: { row: JobAssignmentRow | null; onClose: () => void }) {
+  const p = row?.profile;
+  return (
+    <AnimatePresence>
+      {row && p && (
+        <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:px-4">
+          <motion.div
+            className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+          <motion.div
+            className="relative w-full max-w-md overflow-hidden rounded-t-3xl border border-line bg-surface shadow-2xl sm:rounded-3xl"
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 320, damping: 30 }}
+          >
+            <button onClick={onClose} className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full text-ink-muted transition hover:bg-canvas">
+              <X className="h-4 w-4" />
+            </button>
+
+            <div className="flex flex-col items-center px-6 pb-2 pt-8 text-center">
+              <span className="grid h-16 w-16 place-items-center rounded-2xl bg-brand-100 text-xl font-bold text-brand-700">
+                {(row.workerName ?? "?").slice(0, 2).toUpperCase()}
+              </span>
+              <h3 className="mt-3 flex items-center gap-1.5 font-display text-xl font-semibold text-ink">
+                {row.workerName ?? "Worker"}
+                {p.kycVerified && <BadgeCheck className="h-5 w-5 text-brand-600" />}
+              </h3>
+              <div className="mt-1.5 flex items-center gap-2">
+                <TierBadge tier={p.tier} />
+                {row.matchScore != null && (
+                  <span className="text-xs text-ink-muted">{Math.round(row.matchScore * 100)}% match</span>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 px-6 py-4">
+              <Stat icon={<Star className="h-4 w-4" />} label="Score" value={String(p.score)} />
+              <Stat icon={<Briefcase className="h-4 w-4" />} label="Shifts" value={String(p.jobsCompleted)} />
+              <Stat icon={<Check className="h-4 w-4" />} label="On-time" value={`${Math.round(p.onTimeRate * 100)}%`} />
+            </div>
+
+            <div className="space-y-3 border-t border-line px-6 py-5 text-sm">
+              {p.bio && <p className="text-ink-soft">{p.bio}</p>}
+              {p.skills.length > 0 && (
+                <Detail icon={<Briefcase className="h-4 w-4" />} label="Skills">
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.skills.map((s) => <Pill key={s}>{s}</Pill>)}
+                  </div>
+                </Detail>
+              )}
+              {p.languages.length > 0 && (
+                <Detail icon={<Languages className="h-4 w-4" />} label="Languages">{p.languages.join(", ")}</Detail>
+              )}
+              {p.location && <Detail icon={<MapPin className="h-4 w-4" />} label="Location">{p.location}</Detail>}
+              {p.phone && <Detail icon={<Phone className="h-4 w-4" />} label="Phone">{p.phone}</Detail>}
+              {p.memberSince && (
+                <Detail icon={<Calendar className="h-4 w-4" />} label="Member since">
+                  {new Date(p.memberSince).toLocaleDateString("en-NG", { month: "short", year: "numeric" })}
+                </Detail>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <div className="rounded-xl bg-canvas p-3 text-center">
+      <span className="mx-auto mb-1 grid h-7 w-7 place-items-center rounded-lg bg-surface text-brand-600">{icon}</span>
+      <p className="font-display text-lg font-semibold text-ink">{value}</p>
+      <p className="text-[11px] text-ink-muted">{label}</p>
+    </div>
+  );
+}
+
+function Detail({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-2.5">
+      <span className="mt-0.5 text-ink-muted">{icon}</span>
+      <div className="min-w-0 flex-1">
+        <p className="eyebrow">{label}</p>
+        <div className="mt-1 text-ink">{children}</div>
+      </div>
     </div>
   );
 }

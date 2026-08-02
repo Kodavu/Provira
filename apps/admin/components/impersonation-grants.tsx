@@ -32,9 +32,11 @@ export function ImpersonationGrants({ grants }: { grants: Grant[] }) {
       const res = await fetch(`/api/impersonation/${id}/consume`, { method: "POST" });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.message || "Could not start session");
-      router.push(`/impersonation?session=${id}`);
+      window.open(`/impersonate/${id}`, "_blank", "noopener,noreferrer");
+      router.refresh();
     } catch (e) {
       setError((e as Error).message);
+    } finally {
       setBusy(null);
     }
   }
@@ -64,8 +66,8 @@ export function ImpersonationGrants({ grants }: { grants: Grant[] }) {
               </Button>
             )}
             {g.active && (
-              <Button size="sm" variant="outline" onClick={() => router.push(`/impersonation?session=${g.id}`)}>
-                Open
+              <Button size="sm" variant="outline" onClick={() => window.open(`/impersonate/${g.id}`, "_blank", "noopener,noreferrer")}>
+                Open window
               </Button>
             )}
           </div>

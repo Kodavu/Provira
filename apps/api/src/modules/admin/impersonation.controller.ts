@@ -168,27 +168,45 @@ export class ImpersonationController {
   @RequirePermissions("impersonation:request")
   async view(@Param("id") id: string, @CurrentAdmin() admin: AdminContext): Promise<unknown> {
     const grant = await this.activeGrant(id, admin);
-    const [user, score, feed, disputes] = await Promise.all([
+    const targetId = grant.targetUserId;
+    const [user, score, feed, disputes, roles, payout, assignments] = await Promise.all([
       this.prisma.user.findUnique({
-        where: { id: grant.targetUserId },
+        where: { id: targetId },
         select: { id: true, fullName: true, phone: true, email: true, language: true, status: true, kycLevel: true, hasSmartphone: true },
       }),
       this.prisma.scoreProfile.findUnique({
-        where: { userId: grant.targetUserId },
+        where: { userId: targetId },
         select: { score: true, tier: true, jobsCompleted: true, onTimeRate: true },
       }),
-      this.notifications.feed(grant.targetUserId, 10),
+      this.notifications.feed(targetId, 10),
       this.prisma.dispute.findMany({
-        where: { reporterId: grant.targetUserId },
+        where: { reporterId: targetId },
         orderBy: { createdAt: "desc" },
         take: 10,
         select: { id: true, code: true, title: true, status: true, createdAt: true },
+      }),
+      this.prisma.userRole.findMany({ where: { userId: targetId }, select: { role: true } }),
+      this.prisma.account.findFirst({ where: { ownerId: targetId, type: "WORKER_PAYOUT" }, select: { balance: true } }),
+      this.prisma.jobAssignment.findMany({
+        where: { worker: { userId: targetId } },
+        orderBy: { updatedAt: "desc" },
+        take: 8,
+        select: { id: true, status: true, job: { select: { title: true, payAmount: true, location: { select: { label: true } } } } },
       }),
     ]);
     return {
       grant: { id: grant.id, mode: grant.mode, expiresAt: grant.expiresAt },
       user,
+      roles: roles.map((r) => r.role),
       score,
+      wallet: { balance: (payout?.balance ?? 0n).toString() },
+      assignments: assignments.map((a) => ({
+        id: a.id,
+        status: a.status,
+        title: a.job.title,
+        payAmount: a.job.payAmount.toString(),
+        location: a.job.location?.label ?? null,
+      })),
       notifications: feed.items,
       disputes,
     };

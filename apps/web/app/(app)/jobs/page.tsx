@@ -73,7 +73,7 @@ function WorkerJobs() {
       )}
 
       <section>
-        <SectionHeader title="Your shifts" subtitle="Jobs you're in. Show your attendance code on site and confirm to get paid." />
+        <SectionHeader title="Your shifts" subtitle="Jobs you're in. Get the code from your employer on site and confirm to get paid." />
         {shifts.length === 0 ? (
           <EmptyPanel icon={Users} title="No shifts yet" body="Apply to a job or accept an invitation to get started." />
         ) : (
@@ -128,7 +128,7 @@ function InvitationCard({
     setBusy("accept");
     try {
       await api.acceptInvite(a.id, userId);
-      toast.success("Invitation accepted", { description: `You're in "${a.job.title}". Your attendance code is ready.` });
+      toast.success("Invitation accepted", { description: `You're in "${a.job.title}". Your employer will give you the code on site.` });
       onChange();
     } catch (e) {
       toast.error("Couldn't accept", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
@@ -194,13 +194,12 @@ function ShiftCard({
 
       {!confirmed && (
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-4">
-          {a.attendance?.code && (
-            <div>
-              <p className="eyebrow">Your attendance code</p>
-              <p className="font-display text-2xl font-bold tracking-[0.3em] text-brand-800">{a.attendance.code}</p>
-              <p className="mt-0.5 text-xs text-ink-muted">Show this to the employer on site.</p>
-            </div>
-          )}
+          <div>
+            <p className="eyebrow">Confirm attendance</p>
+            <p className="mt-0.5 max-w-xs text-xs text-ink-muted">
+              Ask your employer for the 4-digit code on site, then enter it here to confirm and get paid.
+            </p>
+          </div>
           <ConfirmCode assignmentId={a.id} onConfirmed={onConfirmed} />
         </div>
       )}

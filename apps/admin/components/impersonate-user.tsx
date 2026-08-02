@@ -34,14 +34,17 @@ export function ImpersonateUser({ userId, userName }: { userId: string; userName
   async function viewAs() {
     const grant = await request("READ", `Support view of ${userName}`);
     if (!grant) return;
-    // READ is auto-approved — start the session and jump straight in.
+    // READ is auto-approved — start the session and open the user's view in a
+    // new window so it reads as their own app.
     const res = await fetch(`/api/impersonation/${grant.id}/consume`, { method: "POST" });
     if (!res.ok) {
       setError("Could not start session");
       setBusy(false);
       return;
     }
-    router.push(`/impersonation?session=${grant.id}`);
+    window.open(`/impersonate/${grant.id}`, "_blank", "noopener,noreferrer");
+    setBusy(false);
+    router.refresh();
   }
 
   async function requestActAs() {

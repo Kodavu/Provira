@@ -221,12 +221,29 @@ export type EmployerDashboard = z.infer<typeof zEmployerDashboard>;
 
 // --- Job detail (employer view) ---
 
+// A worker's public-facing profile, shown to employers reviewing applicants.
+export const zWorkerProfile = z.object({
+  bio: z.string().nullable(),
+  location: z.string().nullable(),
+  phone: z.string().nullable(),
+  skills: z.array(z.string()),
+  languages: z.array(z.string()),
+  score: z.number(),
+  tier: zTier,
+  jobsCompleted: z.number(),
+  onTimeRate: z.number(),
+  kycVerified: z.boolean(),
+  memberSince: zDate.nullable(),
+});
+export type WorkerProfile = z.infer<typeof zWorkerProfile>;
+
 export const zJobAssignmentRow = z.object({
   assignmentId: z.string(),
   workerId: z.string(),
   workerName: z.string().nullable(),
   status: z.string(),
   matchScore: z.number().nullable(),
+  profile: zWorkerProfile.nullable(),
   attendance: z
     .object({ status: z.string(), code: z.string().nullable(), confirmedAt: zDate.nullable() })
     .nullable(),

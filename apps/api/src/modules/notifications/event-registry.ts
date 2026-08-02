@@ -52,7 +52,7 @@ export const EVENTS: Record<string, NotificationEvent> = {
   "job.hired": {
     category: "ACTIVITY",
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
-    defaults: { title: "You're hired!", body: "You're confirmed for {title}. Your attendance code is {code}." },
+    defaults: { title: "You're hired!", body: "You're confirmed for {title}. The employer will give you your attendance code on site." },
   },
   "verification.approved": {
     category: "ACTIVITY",

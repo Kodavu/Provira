@@ -2,7 +2,6 @@ import { adminFetch, Me } from "@/lib/admin-api";
 import { PageHeader, EmptyState } from "@/components/ui";
 import { ImpersonationApprovals } from "@/components/impersonation-approvals";
 import { ImpersonationGrants, Grant } from "@/components/impersonation-grants";
-import { ImpersonationView, ViewData } from "@/components/impersonation-view";
 
 interface Pending {
   id: string;
@@ -13,36 +12,23 @@ interface Pending {
   targetUser: { fullName: string | null; phone: string } | null;
 }
 
-export default async function ImpersonationPage({ searchParams }: { searchParams: { session?: string } }) {
+export default async function ImpersonationPage() {
   const me = await adminFetch<Me>("/admin/me");
   if (!me) return <EmptyState>Couldn&apos;t load your access.</EmptyState>;
   const canRequest = me.permissions.includes("impersonation:request");
   const canApprove = me.permissions.includes("impersonation:approve");
 
-  const [pending, mine, session] = await Promise.all([
+  const [pending, mine] = await Promise.all([
     canApprove ? adminFetch<Pending[]>("/admin/impersonation/pending") : Promise.resolve(null),
     canRequest ? adminFetch<Grant[]>("/admin/impersonation/mine") : Promise.resolve(null),
-    searchParams.session && canRequest
-      ? adminFetch<ViewData>(`/admin/impersonation/${searchParams.session}/view`)
-      : Promise.resolve(null),
   ]);
 
   return (
     <>
       <PageHeader
         title="Impersonation"
-        subtitle="View a user's account for support. Acting as a user needs a second admin's approval; every session is time-boxed and audited."
+        subtitle="View a user's account for support in a new window. Acting as a user needs a second admin's approval; every session is time-boxed and audited."
       />
-
-      {searchParams.session && (
-        session ? (
-          <div className="mb-8">
-            <ImpersonationView data={session} />
-          </div>
-        ) : (
-          <EmptyState>That session has expired or isn&apos;t available. Request access again below.</EmptyState>
-        )
-      )}
 
       {canApprove && (
         <section className="mb-8">
