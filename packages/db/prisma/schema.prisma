@@ -371,6 +371,7 @@ model Location {
   label     String? // "Balogun Market", "Ikeja"
   state     String? // Lagos, Kano...
   lga       String? // local government area
+  ward      String? // ward within the LGA (finest matching level)
   lat       Float?
   lng       Float?
   createdAt DateTime @default(now())

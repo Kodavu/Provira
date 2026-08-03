@@ -95,13 +95,45 @@ const ROLES: Array<{ name: string; description: string; system?: boolean; perms:
 const prisma = new PrismaClient();
 
 async function main() {
-  const skills = ["bricklaying", "tailoring", "cleaning", "driving", "loading"];
+  // Informal-economy skill catalog. Keep in sync with the INSERTs in
+  // supabase-setup.sql (and the paste-able SQL in docs).
+  const skills: { slug: string; name: string }[] = [
+    { slug: "cleaning", name: "Cleaning" },
+    { slug: "loading", name: "Loading & offloading" },
+    { slug: "driving", name: "Driving" },
+    { slug: "dispatch", name: "Dispatch / delivery rider" },
+    { slug: "bricklaying", name: "Bricklaying" },
+    { slug: "masonry", name: "Masonry / concrete" },
+    { slug: "carpentry", name: "Carpentry" },
+    { slug: "painting", name: "Painting" },
+    { slug: "plumbing", name: "Plumbing" },
+    { slug: "electrical", name: "Electrical work" },
+    { slug: "welding", name: "Welding / fabrication" },
+    { slug: "tailoring", name: "Tailoring / fashion" },
+    { slug: "hairdressing", name: "Hairdressing" },
+    { slug: "barbing", name: "Barbing" },
+    { slug: "makeup", name: "Makeup artistry" },
+    { slug: "cooking", name: "Cooking / catering" },
+    { slug: "waiter", name: "Waiter / server" },
+    { slug: "bartending", name: "Bartending" },
+    { slug: "security", name: "Security guard" },
+    { slug: "farming", name: "Farming / agriculture" },
+    { slug: "sales", name: "Sales / shop attendant" },
+    { slug: "cashier", name: "Cashier / POS agent" },
+    { slug: "laundry", name: "Laundry / dry cleaning" },
+    { slug: "nanny", name: "Nanny / childcare" },
+    { slug: "gardening", name: "Gardening / landscaping" },
+    { slug: "mechanic", name: "Auto mechanic" },
+    { slug: "generator-repair", name: "Generator repair" },
+    { slug: "phone-repair", name: "Phone / gadget repair" },
+    { slug: "event-usher", name: "Event usher" },
+  ];
   await Promise.all(
-    skills.map((slug) =>
+    skills.map((sk) =>
       prisma.skill.upsert({
-        where: { slug },
-        create: { slug, name: slug[0].toUpperCase() + slug.slice(1) },
-        update: {},
+        where: { slug: sk.slug },
+        create: { slug: sk.slug, name: sk.name },
+        update: { name: sk.name },
       }),
     ),
   );

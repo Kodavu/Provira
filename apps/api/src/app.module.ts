@@ -16,6 +16,8 @@ import { EmployersModule } from "./modules/employers/employers.module.js";
 import { AdminModule } from "./modules/admin/admin.module.js";
 import { NotificationsModule } from "./modules/notifications/notifications.module.js";
 import { UploadsModule } from "./modules/uploads/uploads.module.js";
+import { GeoModule } from "./modules/geo/geo.module.js";
+import { BanksModule } from "./modules/banks/banks.module.js";
 import { HealthController } from "./health.controller.js";
 
 @Module({
@@ -37,6 +39,8 @@ import { HealthController } from "./health.controller.js";
     NotificationsModule,
     UploadsModule,
     AdminModule,
+    GeoModule,
+    BanksModule,
   ],
   controllers: [HealthController],
 })
