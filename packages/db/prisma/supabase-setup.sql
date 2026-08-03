@@ -1,6 +1,6 @@
 -- Tally — full schema for Supabase (paste into the SQL editor and Run).
 -- Generated from prisma/schema.prisma via prisma migrate diff.
--- Safe on a fresh database. Includes the append-only audit trigger.
+-- Safe on a fresh database. Includes the skill catalog + audit trigger.
 
 -- CreateEnum
 CREATE TYPE "Language" AS ENUM ('EN', 'PCM', 'YO', 'HA', 'IG');
@@ -214,6 +214,7 @@ CREATE TABLE "Location" (
     "label" TEXT,
     "state" TEXT,
     "lga" TEXT,
+    "ward" TEXT,
     "lat" DOUBLE PRECISION,
     "lng" DOUBLE PRECISION,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1217,6 +1218,40 @@ ALTER TABLE "VerificationRequest" ADD CONSTRAINT "VerificationRequest_userId_fke
 -- AddForeignKey
 ALTER TABLE "VerificationDocument" ADD CONSTRAINT "VerificationDocument_requestId_fkey" FOREIGN KEY ("requestId") REFERENCES "VerificationRequest"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
+
+-- ============ Skill catalog ============
+-- Seed the skill catalog (idempotent). Uses gen_random_uuid() for ids.
+INSERT INTO "Skill" (id, slug, name) VALUES
+  (gen_random_uuid()::text, 'cleaning', 'Cleaning'),
+  (gen_random_uuid()::text, 'loading', 'Loading & offloading'),
+  (gen_random_uuid()::text, 'driving', 'Driving'),
+  (gen_random_uuid()::text, 'dispatch', 'Dispatch / delivery rider'),
+  (gen_random_uuid()::text, 'bricklaying', 'Bricklaying'),
+  (gen_random_uuid()::text, 'masonry', 'Masonry / concrete'),
+  (gen_random_uuid()::text, 'carpentry', 'Carpentry'),
+  (gen_random_uuid()::text, 'painting', 'Painting'),
+  (gen_random_uuid()::text, 'plumbing', 'Plumbing'),
+  (gen_random_uuid()::text, 'electrical', 'Electrical work'),
+  (gen_random_uuid()::text, 'welding', 'Welding / fabrication'),
+  (gen_random_uuid()::text, 'tailoring', 'Tailoring / fashion'),
+  (gen_random_uuid()::text, 'hairdressing', 'Hairdressing'),
+  (gen_random_uuid()::text, 'barbing', 'Barbing'),
+  (gen_random_uuid()::text, 'makeup', 'Makeup artistry'),
+  (gen_random_uuid()::text, 'cooking', 'Cooking / catering'),
+  (gen_random_uuid()::text, 'waiter', 'Waiter / server'),
+  (gen_random_uuid()::text, 'bartending', 'Bartending'),
+  (gen_random_uuid()::text, 'security', 'Security guard'),
+  (gen_random_uuid()::text, 'farming', 'Farming / agriculture'),
+  (gen_random_uuid()::text, 'sales', 'Sales / shop attendant'),
+  (gen_random_uuid()::text, 'cashier', 'Cashier / POS agent'),
+  (gen_random_uuid()::text, 'laundry', 'Laundry / dry cleaning'),
+  (gen_random_uuid()::text, 'nanny', 'Nanny / childcare'),
+  (gen_random_uuid()::text, 'gardening', 'Gardening / landscaping'),
+  (gen_random_uuid()::text, 'mechanic', 'Auto mechanic'),
+  (gen_random_uuid()::text, 'generator-repair', 'Generator repair'),
+  (gen_random_uuid()::text, 'phone-repair', 'Phone / gadget repair'),
+  (gen_random_uuid()::text, 'event-usher', 'Event usher')
+ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name;
 
 -- ============ Audit-log hardening (append-only) ============
 -- Database-level hardening applied after `prisma db push` (which can't express
