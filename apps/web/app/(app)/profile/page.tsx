@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Check, MapPin, User } from "lucide-react";
 import { api, type Skill, type WorkerProfileEdit } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
-import { NIGERIAN_STATES } from "@/lib/nigeria";
+import { LocationPicker, type LocationValue } from "@/components/location-picker";
 import { Button, Card } from "@/components/ui";
 import { PageHeader, PageError, PageSkeleton } from "@/components/page";
 import { FadeIn } from "@/components/motion";
@@ -34,8 +34,7 @@ export default function ProfilePage() {
   // form state
   const [fullName, setFullName] = useState("");
   const [bio, setBio] = useState("");
-  const [state, setState] = useState("");
-  const [area, setArea] = useState("");
+  const [loc, setLoc] = useState<LocationValue>({ state: "", area: "", ward: "" });
   const [skills, setSkills] = useState<Set<string>>(new Set());
   const [langs, setLangs] = useState<Set<string>>(new Set(["EN"]));
 
@@ -47,8 +46,7 @@ export default function ProfilePage() {
       setCatalog(c);
       setFullName(p.fullName ?? "");
       setBio(p.bio ?? "");
-      setState(p.location.state ?? "");
-      setArea(p.location.area ?? "");
+      setLoc({ state: p.location.state ?? "", area: p.location.area ?? "", ward: p.location.ward ?? "" });
       setSkills(new Set(p.skills));
       setLangs(new Set(p.languages.length ? p.languages : ["EN"]));
     } catch (e) {
@@ -83,8 +81,9 @@ export default function ProfilePage() {
         bio: bio.trim(),
         languages: [...langs],
         skillSlugs: [...skills],
-        state: state || undefined,
-        area: area.trim() || undefined,
+        state: loc.state || undefined,
+        area: loc.area || undefined,
+        ward: loc.ward || undefined,
       });
       await refresh();
       toast.success("Profile saved", { description: "Employers will see your updated profile." });
@@ -165,12 +164,8 @@ export default function ProfilePage() {
         <Card className="p-5">
           <p className="flex items-center gap-1.5 font-semibold text-ink"><MapPin className="h-4 w-4 text-brand-600" /> Where you work</p>
           <p className="text-sm text-ink-soft">Used to show you jobs near you.</p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <select className={fieldCls} value={state} onChange={(e) => setState(e.target.value)}>
-              <option value="">Select state…</option>
-              {NIGERIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-            <input className={fieldCls} value={area} onChange={(e) => setArea(e.target.value)} placeholder="Area / LGA (e.g. Ikeja)" />
+          <div className="mt-3">
+            <LocationPicker value={loc} onChange={setLoc} />
           </div>
         </Card>
 

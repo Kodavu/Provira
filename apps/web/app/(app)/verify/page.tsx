@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { BadgeCheck, Clock, ShieldCheck } from "lucide-react";
 import { api, type VerificationStatus } from "@/lib/api";
@@ -18,24 +18,6 @@ const LEVEL_LABEL: Record<string, string> = {
 };
 
 // Common Nigerian banks + NIP codes (a subset; the full list lives with Squad).
-const BANKS: { code: string; name: string }[] = [
-  { code: "044", name: "Access Bank" },
-  { code: "058", name: "GTBank" },
-  { code: "057", name: "Zenith Bank" },
-  { code: "033", name: "UBA" },
-  { code: "011", name: "First Bank" },
-  { code: "032", name: "Union Bank" },
-  { code: "070", name: "Fidelity Bank" },
-  { code: "214", name: "FCMB" },
-  { code: "221", name: "Stanbic IBTC" },
-  { code: "035", name: "Wema Bank" },
-  { code: "050", name: "Ecobank" },
-  { code: "50211", name: "Kuda" },
-  { code: "999992", name: "OPay" },
-  { code: "999991", name: "PalmPay" },
-  { code: "50515", name: "Moniepoint" },
-];
-
 const input =
   "w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink-muted focus:border-brand-500 focus:ring-2 focus:ring-brand-100";
 
@@ -142,11 +124,14 @@ function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSave
   const { userId } = useSession();
   const existing = data.bankAccount;
   const [editing, setEditing] = useState(!existing);
+  const [banks, setBanks] = useState<{ code: string; name: string }[]>([]);
   const [bankCode, setBankCode] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [resolvedName, setResolvedName] = useState<string | null>(null);
   const [busy, setBusy] = useState<"lookup" | "save" | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => { api.banks().then(setBanks).catch(() => setBanks([])); }, []);
 
   const canLookup = !!bankCode && /^\d{10}$/.test(accountNumber);
 
@@ -175,7 +160,7 @@ function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSave
     try {
       await api.saveBankAccount(userId, {
         bankCode,
-        bankName: BANKS.find((b) => b.code === bankCode)?.name,
+        bankName: banks.find((b) => b.code === bankCode)?.name,
         accountNumber,
         accountName: resolvedName,
       });
@@ -213,7 +198,7 @@ function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSave
             <span className="mb-1.5 block text-sm font-medium text-ink-soft">Bank</span>
             <select value={bankCode} onChange={(e) => { setBankCode(e.target.value); setResolvedName(null); }} className={input}>
               <option value="">Select your bank…</option>
-              {BANKS.map((b) => <option key={b.code} value={b.code}>{b.name}</option>)}
+              {banks.map((b) => <option key={b.code} value={b.code}>{b.name}</option>)}
             </select>
           </label>
           <label className="block">
