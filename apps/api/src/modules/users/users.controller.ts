@@ -50,6 +50,7 @@ export class UsersController {
       skillSlugs?: string[];
       state?: string;
       area?: string;
+      ward?: string;
       label?: string;
     },
   ) {

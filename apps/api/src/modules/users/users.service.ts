@@ -287,6 +287,7 @@ export class UsersService {
       location: {
         state: wp?.location?.state ?? null,
         area: wp?.location?.lga ?? null,
+        ward: wp?.location?.ward ?? null,
         label: wp?.location?.label ?? null,
       },
     };
@@ -302,6 +303,7 @@ export class UsersService {
       skillSlugs?: string[];
       state?: string;
       area?: string;
+      ward?: string;
       label?: string;
     },
   ): Promise<unknown> {
@@ -323,12 +325,13 @@ export class UsersService {
     let locationId = wp.locationId;
     const state = input.state?.trim() || null;
     const area = input.area?.trim() || null;
+    const ward = input.ward?.trim() || null;
     const label = input.label?.trim() || null;
-    if (state || area || label) {
+    if (state || area || ward || label) {
       if (locationId) {
-        await this.prisma.location.update({ where: { id: locationId }, data: { state, lga: area, label } });
+        await this.prisma.location.update({ where: { id: locationId }, data: { state, lga: area, ward, label } });
       } else {
-        locationId = (await this.prisma.location.create({ data: { state, lga: area, label } })).id;
+        locationId = (await this.prisma.location.create({ data: { state, lga: area, ward, label } })).id;
       }
     }
 

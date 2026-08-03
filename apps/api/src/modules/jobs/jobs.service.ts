@@ -21,7 +21,8 @@ interface CreateJobInput {
   locationId?: string;
   locationLabel?: string; // address / landmark
   locationState?: string; // e.g. "Lagos"
-  locationArea?: string; // LGA / area, e.g. "Ikeja"
+  locationArea?: string; // LGA, e.g. "Ikeja"
+  locationWard?: string; // ward within the LGA
   startAt?: Date;
   endAt?: Date;
 }
@@ -53,9 +54,10 @@ export class JobsService {
     const label = input.locationLabel?.trim() || null;
     const state = input.locationState?.trim() || null;
     const lga = input.locationArea?.trim() || null;
-    if (!locationId && (label || state || lga)) {
-      const existing = await this.prisma.location.findFirst({ where: { label, state, lga } });
-      locationId = existing?.id ?? (await this.prisma.location.create({ data: { label, state, lga } })).id;
+    const ward = input.locationWard?.trim() || null;
+    if (!locationId && (label || state || lga || ward)) {
+      const existing = await this.prisma.location.findFirst({ where: { label, state, lga, ward } });
+      locationId = existing?.id ?? (await this.prisma.location.create({ data: { label, state, lga, ward } })).id;
     }
 
     return this.prisma.job.create({
@@ -345,6 +347,7 @@ export class JobsService {
       location: job.location?.label ?? null,
       state: job.location?.state ?? null,
       area: job.location?.lga ?? null,
+      ward: job.location?.ward ?? null,
       startAt: job.startAt,
       endAt: job.endAt,
       skills: job.skills.map((s) => s.skill.name),
@@ -377,6 +380,7 @@ export class JobsService {
     let mySkills = new Set<string>();
     let myState: string | null = null;
     let myArea: string | null = null;
+    let myWard: string | null = null;
     let preference = "ALL";
     if (userId) {
       const user = await this.prisma.user.findUnique({
@@ -390,6 +394,7 @@ export class JobsService {
         mySkills = new Set(wp.skills.map((s) => s.skill.slug));
         myState = wp.location?.state ?? null;
         myArea = wp.location?.lga ?? null;
+        myWard = wp.location?.ward ?? null;
       }
     }
 
@@ -412,6 +417,7 @@ export class JobsService {
       .map((j) => {
         const accepted = j.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
         const mine = workerId ? j.assignments.find((a) => a.workerId === workerId) : undefined;
+        const sameWard = !!myWard && !!j.location?.ward && j.location.ward === myWard;
         const sameArea = !!myArea && j.location?.lga === myArea;
         const sameState = !!myState && j.location?.state === myState;
         return {
@@ -425,7 +431,8 @@ export class JobsService {
           location: j.location?.label ?? null,
           state: j.location?.state ?? null,
           area: j.location?.lga ?? null,
-          proximity: sameArea ? "area" : sameState ? "state" : null,
+          ward: j.location?.ward ?? null,
+          proximity: sameWard ? "ward" : sameArea ? "area" : sameState ? "state" : null,
           matchesSkills: j.skills.some((s) => mySkills.has(s.skill.slug)),
           startAt: j.startAt,
           endAt: j.endAt,
@@ -437,7 +444,8 @@ export class JobsService {
 
     // In NEARBY, surface same-area jobs first; otherwise keep newest-first.
     if (activeFeed === "NEARBY") {
-      items = items.sort((a, b) => Number(b.proximity === "area") - Number(a.proximity === "area"));
+      const rank = (p: string | null) => (p === "ward" ? 2 : p === "area" ? 1 : 0);
+      items = items.sort((a, b) => rank(b.proximity) - rank(a.proximity));
     }
 
     return { items, feed: activeFeed };

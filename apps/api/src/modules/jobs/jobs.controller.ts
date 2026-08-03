@@ -25,6 +25,7 @@ export class JobsController {
       locationLabel?: string;
       locationState?: string;
       locationArea?: string;
+      locationWard?: string;
       startAt?: string;
       endAt?: string;
     },

@@ -274,6 +274,7 @@ export const zJobDetail = z.object({
   location: z.string().nullable(),
   state: z.string().nullable(),
   area: z.string().nullable(),
+  ward: z.string().nullable(),
   startAt: zDate.nullable(),
   endAt: zDate.nullable(),
   skills: z.array(z.string()),
@@ -297,7 +298,8 @@ export const zJobSearchItem = z.object({
   location: z.string().nullable(),
   state: z.string().nullable(),
   area: z.string().nullable(),
-  proximity: z.enum(["area", "state"]).nullable(), // relative to the worker's home
+  ward: z.string().nullable(),
+  proximity: z.enum(["ward", "area", "state"]).nullable(), // relative to the worker's home
   matchesSkills: z.boolean(),
   startAt: zDate.nullable(),
   endAt: zDate.nullable(),
@@ -322,6 +324,7 @@ export const zWorkerProfileEdit = z.object({
   location: z.object({
     state: z.string().nullable(),
     area: z.string().nullable(),
+    ward: z.string().nullable(),
     label: z.string().nullable(),
   }),
 });

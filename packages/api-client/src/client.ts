@@ -84,6 +84,13 @@ export function createTallyClient(config: TallyClientConfig) {
     addRole: (userId: string, role: "WORKER" | "TRADER" | "EMPLOYER") =>
       post(`/users/${userId}/roles`, { role }) as Promise<unknown>,
 
+    // Geo (cascading location) + bank catalog
+    geoStates: () => request<string[]>(`/geo/states`),
+    geoLgas: (state: string) => request<string[]>(`/geo/lgas?state=${encodeURIComponent(state)}`),
+    geoWards: (state: string, lga: string) =>
+      request<string[]>(`/geo/wards?state=${encodeURIComponent(state)}&lga=${encodeURIComponent(lga)}`),
+    banks: () => request<{ code: string; name: string }[]>(`/banks`),
+
     // Skill catalog + worker profile
     skills: () => request<Skill[]>(`/skills`),
     workerProfile: (userId: string) => request<WorkerProfileEdit>(`/users/${userId}/worker-profile`),
@@ -96,6 +103,7 @@ export function createTallyClient(config: TallyClientConfig) {
         skillSlugs?: string[];
         state?: string;
         area?: string;
+        ward?: string;
         label?: string;
       },
     ) =>
@@ -142,7 +150,8 @@ export function createTallyClient(config: TallyClientConfig) {
       languages?: string[];
       locationLabel?: string; // address / landmark
       locationState?: string;
-      locationArea?: string;
+      locationArea?: string; // LGA
+      locationWard?: string;
       startAt?: string;
       endAt?: string;
     }) => post("/jobs", input) as Promise<{ id: string }>,
