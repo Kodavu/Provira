@@ -81,7 +81,7 @@ const NAV_BY_ROLE: Record<Role, NavLink[]> = {
 const ACCOUNT: NavLink[] = [
   { label: "Verify identity", href: "/verify", icon: ShieldCheck },
   { label: "Settings", href: "/settings", icon: Settings },
-  { label: "Help center", href: "/help", icon: LifeBuoy },
+  { label: "Help center", href: "/support", icon: LifeBuoy },
 ];
 
 function isActive(pathname: string, href: string): boolean {
