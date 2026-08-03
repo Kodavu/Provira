@@ -46,10 +46,22 @@ export class SquadPaymentProvider implements PaymentProvider {
   private readonly doFetch: typeof fetch;
 
   constructor(private readonly cfg: SquadConfig) {
-    if (!cfg.secretKey) throw new Error("SquadPaymentProvider: secretKey is required");
-    if (!cfg.merchantId) throw new Error("SquadPaymentProvider: merchantId is required");
+    // Do NOT throw here: the provider is constructed at app boot via DI, so a
+    // missing key must not crash the whole API (that's the "500 on everything"
+    // people hit after switching PAYMENTS_PROVIDER=squad without setting keys).
+    // We validate lazily, per call, and surface a clean, actionable error.
     this.base = (cfg.baseUrl ?? SANDBOX_BASE).replace(/\/$/, "");
     this.doFetch = cfg.fetchImpl ?? fetch;
+  }
+
+  /** Throw a clear config error the moment an API call actually needs the keys. */
+  private ensureConfigured(): void {
+    if (!this.cfg.secretKey || !this.cfg.merchantId) {
+      throw new SquadError(
+        503,
+        "Squad is selected (PAYMENTS_PROVIDER=squad) but SQUAD_SECRET_KEY / SQUAD_MERCHANT_ID are not set. Add them to the API environment, or set PAYMENTS_PROVIDER=mock to test without a real provider.",
+      );
+    }
   }
 
   // --- PaymentProvider interface ---
@@ -197,6 +209,7 @@ export class SquadPaymentProvider implements PaymentProvider {
   // --- internals ---
 
   private async call<T>(method: string, path: string, body?: unknown): Promise<T> {
+    this.ensureConfigured();
     const res = await this.doFetch(`${this.base}${path}`, {
       method,
       headers: {

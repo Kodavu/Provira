@@ -36,8 +36,20 @@ export class UsersService {
     if (!bankCode || !/^\d{10}$/.test(accountNumber ?? "")) {
       throw new BadRequestException("A bank and a 10-digit account number are required");
     }
-    const res = await this.payments.accountLookup(bankCode, accountNumber);
-    if (!res.accountName) throw new BadRequestException("Couldn't resolve that account");
+    let res: { accountName: string };
+    try {
+      res = await this.payments.accountLookup(bankCode, accountNumber);
+    } catch (e) {
+      // Provider errors (bad bank code, unreachable, misconfigured Squad) must
+      // surface as a clean 400 with a readable message — never a raw 500.
+      const msg =
+        typeof (e as { body?: unknown })?.body === "string"
+          ? (e as { body: string }).body
+          : (e as Error)?.message || "Couldn't verify that account with the bank";
+      throw new BadRequestException(msg);
+    }
+    if (!res.accountName)
+      throw new BadRequestException("We couldn't confirm a name for that account. Check the bank and number.");
     return { accountName: res.accountName };
   }
 
