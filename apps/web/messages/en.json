@@ -505,5 +505,73 @@
     "noEscrow": "No escrow",
     "invited": "{count} invited",
     "view": "View →"
+  },
+  "Time": {
+    "justNow": "just now",
+    "minutes": "{n}m ago",
+    "hours": "{n}h ago",
+    "days": "{n}d ago",
+    "weeks": "{n}w ago"
+  },
+  "Earnings": {
+    "title": "Earnings",
+    "subtitle": "What landed in your wallet, and where it goes when you withdraw.",
+    "availableNow": "Available now",
+    "inWallet": "in your Tally wallet",
+    "withdraw": "Withdraw",
+    "addPayoutInline": "Add a payout account to receive withdrawals.",
+    "addAccount": "Add account",
+    "amountPlaceholder": "Amount to withdraw",
+    "sending": "Sending…",
+    "confirmWithdrawal": "Confirm withdrawal",
+    "whereLand": "Where withdrawals land",
+    "change": "Change",
+    "noPayout": "No payout account yet",
+    "noPayoutBody": "Add a verified bank account so your earnings can reach you.",
+    "addPayoutAccount": "Add payout account",
+    "recentActivity": "Recent activity",
+    "recentActivitySub": "Money in, money out — everything that touched your wallet.",
+    "noActivity": "No activity yet",
+    "noActivityBody": "Confirm a shift to see your first payout here.",
+    "withdrawalSent": "Withdrawal sent",
+    "withdrawalSentDesc": "{amount} to {bank}.",
+    "addPayoutTitle": "Add a payout account first",
+    "addPayoutDesc": "Verify your account to receive withdrawals.",
+    "insufficient": "Insufficient balance",
+    "insufficientDesc": "You can't withdraw more than your available balance.",
+    "withdrawFailed": "Withdrawal failed",
+    "withdrawFailedDesc": "Please try again."
+  },
+  "Loans": {
+    "workerTitle": "Loans",
+    "workerSubtitle": "Built off the work you've done. The more you show up, the more we trust you.",
+    "traderTitle": "Stock loans",
+    "traderSubtitle": "Qualify for working capital once you've built a track record of logged sales.",
+    "howTitle": "How eligibility works:",
+    "howBody": "your Tally score decides which products you qualify for. Approved loans disburse straight to your payout account, and repaying on time raises your score — unlocking larger limits next time."
+  },
+  "Standing": {
+    "title": "Your Tally Score",
+    "subtitle": "Exactly what moved your score — the ledger behind the number.",
+    "ptsToNext": "{points} pts to {tier}",
+    "shiftsDone": "Shifts done",
+    "onTime": "On-time",
+    "sales": "Sales",
+    "whatsIn": "What's in your score",
+    "whatsInSub": "Every signal, and the points it added or removed.",
+    "noScoreActivity": "No score activity yet",
+    "noScoreActivityBody": "Complete a shift or log a sale to start building.",
+    "recentActivity": "Recent activity",
+    "recentActivitySub": "The most recent entries in your score ledger.",
+    "nothingYet": "Nothing yet",
+    "howToMove": "How to move it",
+    "howToMoveSub": "The score is honest — here's what changes it.",
+    "verifyNote": "Banks and lenders can verify this record — it's what turns your work into credit.",
+    "tips": {
+      "completeShift": "Complete a shift",
+      "showUp": "Show up on time",
+      "repayLoan": "Repay a loan on time",
+      "noShow": "A no-show costs"
+    }
   }
 }

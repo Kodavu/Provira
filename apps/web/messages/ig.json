@@ -505,5 +505,73 @@
     "noEscrow": "Ọ dịghị escrow",
     "invited": "{count} akpọrọ",
     "view": "Lee →"
+  },
+  "Time": {
+    "justNow": "ugbu a",
+    "minutes": "nkeji {n} gara aga",
+    "hours": "awa {n} gara aga",
+    "days": "ụbọchị {n} gara aga",
+    "weeks": "izu {n} gara aga"
+  },
+  "Earnings": {
+    "title": "Ego enwetara",
+    "subtitle": "Ihe batara na obere akpa gị, na ebe ọ na-aga mgbe ị wepụtara ya.",
+    "availableNow": "Dị ugbu a",
+    "inWallet": "n'obere akpa Tally gị",
+    "withdraw": "Wepụta ego",
+    "addPayoutInline": "Tinye akaụntụ ịkwụ ụgwọ iji nweta mwepụ.",
+    "addAccount": "Tinye akaụntụ",
+    "amountPlaceholder": "Ego ị chọrọ iwepụta",
+    "sending": "Na-ezipu…",
+    "confirmWithdrawal": "Kwado mwepụ",
+    "whereLand": "Ebe mwepụ na-adaba",
+    "change": "Gbanwee",
+    "noPayout": "Ọ dịghị akaụntụ ịkwụ ụgwọ ka",
+    "noPayoutBody": "Tinye akaụntụ bankị akwadoro ka ego gị ruo gị aka.",
+    "addPayoutAccount": "Tinye akaụntụ ịkwụ ụgwọ",
+    "recentActivity": "Ihe omume na-adịbeghị anya",
+    "recentActivitySub": "Ego batara, ego pụrụ — ihe niile metụrụ obere akpa gị.",
+    "noActivity": "Ọ dịghị ihe omume ka",
+    "noActivityBody": "Kwado ọrụ ka ị hụ ịkwụ ụgwọ mbụ gị ebe a.",
+    "withdrawalSent": "Ezigala mwepụ",
+    "withdrawalSentDesc": "{amount} gaa {bank}.",
+    "addPayoutTitle": "Buru ụzọ tinye akaụntụ ịkwụ ụgwọ",
+    "addPayoutDesc": "Kwado akaụntụ gị iji nweta mwepụ.",
+    "insufficient": "Ego ezughị",
+    "insufficientDesc": "Ị nweghị ike iwepụta karịa ego dị gị.",
+    "withdrawFailed": "Mwepụ dara",
+    "withdrawFailedDesc": "Biko nwaa ọzọ."
+  },
+  "Loans": {
+    "workerTitle": "Mbinye ego",
+    "workerSubtitle": "E wuru ya site n'ọrụ i rụrụ. Ka ị na-abịa, otú ahụ ka anyị na-atụkwasị gị obi.",
+    "traderTitle": "Mbinye ngwaahịa",
+    "traderSubtitle": "Tozuo maka ego ọrụ ozugbo i wuru ndekọ ahịa e depụtara.",
+    "howTitle": "Otú ntozu si arụ ọrụ:",
+    "howBody": "akara Tally gị na-ekpebi ngwaahịa ndị i tozuru. Mbinye ego akwadoro na-abanye n'akaụntụ ịkwụ ụgwọ gị ozugbo, ịkwụghachi n'oge na-eweli akara gị — na-emeghe oke ka ukwuu n'oge ọzọ."
+  },
+  "Standing": {
+    "title": "Akara Tally Gị",
+    "subtitle": "Kpọmkwem ihe kpaliri akara gị — akwụkwọ ndekọ nọ n'azụ nọmba ahụ.",
+    "ptsToNext": "{points} pts ruo {tier}",
+    "shiftsDone": "Ọrụ emechara",
+    "onTime": "N'oge",
+    "sales": "Ahịa",
+    "whatsIn": "Ihe dị n'akara gị",
+    "whatsInSub": "Akara ọ bụla, na akara ọ gbakwụnyere ma ọ bụ wepụ.",
+    "noScoreActivity": "Ọ dịghị ihe omume akara ka",
+    "noScoreActivityBody": "Mezuo ọrụ ma ọ bụ depụta ahịa ka ị malite iwu.",
+    "recentActivity": "Ihe omume na-adịbeghị anya",
+    "recentActivitySub": "Ndenye kachasị ọhụrụ n'akwụkwọ ndekọ akara gị.",
+    "nothingYet": "Ọ dịghị ihe ka",
+    "howToMove": "Otú isi kwaghari ya",
+    "howToMoveSub": "Akara ahụ bụ eziokwu — nke a bụ ihe na-agbanwe ya.",
+    "verifyNote": "Ụlọ akụ na ndị na-ebinye ego nwere ike ịkwado ndekọ a — ọ bụ ihe na-eme ka ọrụ gị ghọọ mbinye ego.",
+    "tips": {
+      "completeShift": "Mezuo otu ọrụ",
+      "showUp": "Bịa n'oge",
+      "repayLoan": "Kwụghachi mbinye ego n'oge",
+      "noShow": "Ọ na-efu ma abịaghị"
+    }
   }
 }

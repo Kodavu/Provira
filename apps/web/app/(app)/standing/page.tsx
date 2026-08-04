@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { api, type ScoreBreakdown } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
@@ -12,19 +13,21 @@ import { AnimatedBar, AnimatedRing, CountUp, Stagger, StaggerItem } from "@/comp
 const cap = (s: string) => s[0] + s.slice(1).toLowerCase();
 
 const TIPS = [
-  { label: "Complete a shift", delta: "+25", up: true },
-  { label: "Show up on time", delta: "+10", up: true },
-  { label: "Repay a loan on time", delta: "+40", up: true },
-  { label: "A no-show costs", delta: "−40", up: false },
+  { key: "completeShift", delta: "+25", up: true },
+  { key: "showUp", delta: "+10", up: true },
+  { key: "repayLoan", delta: "+40", up: true },
+  { key: "noShow", delta: "−40", up: false },
 ];
 
-function timeAgo(iso: string): string {
+type TimeT = ReturnType<typeof useTranslations<"Time">>;
+
+function timeAgo(iso: string, tt: TimeT): string {
   const d = (Date.now() - new Date(iso).getTime()) / 1000;
-  if (d < 60) return "just now";
-  if (d < 3600) return `${Math.floor(d / 60)}m ago`;
-  if (d < 86400) return `${Math.floor(d / 3600)}h ago`;
-  if (d < 604800) return `${Math.floor(d / 86400)}d ago`;
-  return `${Math.floor(d / 604800)}w ago`;
+  if (d < 60) return tt("justNow");
+  if (d < 3600) return tt("minutes", { n: Math.floor(d / 60) });
+  if (d < 86400) return tt("hours", { n: Math.floor(d / 3600) });
+  if (d < 604800) return tt("days", { n: Math.floor(d / 86400) });
+  return tt("weeks", { n: Math.floor(d / 604800) });
 }
 
 function Points({ n }: { n: number }) {
@@ -39,6 +42,8 @@ function Points({ n }: { n: number }) {
 export default function StandingPage() {
   const { activeRole } = useSession();
   const router = useRouter();
+  const t = useTranslations("Standing");
+  const tt = useTranslations("Time");
   const { data, error, reload } = usePageData<ScoreBreakdown>((id) => api.scoreBreakdown(id));
 
   if (activeRole === "EMPLOYER") {
@@ -56,7 +61,7 @@ export default function StandingPage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader title="Your Tally Score" subtitle="Exactly what moved your score — the ledger behind the number." />
+      <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       <Card className="p-6">
         <div className="flex flex-col items-center gap-8 sm:flex-row">
@@ -71,7 +76,7 @@ export default function StandingPage() {
               <TierBadge tier={data.tier} />
               {data.progress.nextTier && (
                 <span className="text-sm text-ink-soft">
-                  {data.progress.pointsToNext} pts to {cap(data.progress.nextTier)}
+                  {t("ptsToNext", { points: data.progress.pointsToNext, tier: cap(data.progress.nextTier) })}
                 </span>
               )}
             </div>
@@ -79,18 +84,18 @@ export default function StandingPage() {
               <AnimatedBar pct={withinTier} />
             </div>
             <div className="mt-5 grid grid-cols-3 gap-3">
-              <Metric label="Shifts done" value={data.metrics.jobsCompleted} />
-              <Metric label="On-time" value={Math.round(data.metrics.onTimeRate * 100)} suffix="%" />
-              <Metric label="Sales" value={data.metrics.salesCount} />
+              <Metric label={t("shiftsDone")} value={data.metrics.jobsCompleted} />
+              <Metric label={t("onTime")} value={Math.round(data.metrics.onTimeRate * 100)} suffix="%" />
+              <Metric label={t("sales")} value={data.metrics.salesCount} />
             </div>
           </div>
         </div>
       </Card>
 
       <section>
-        <SectionHeader title="What's in your score" subtitle="Every signal, and the points it added or removed." />
+        <SectionHeader title={t("whatsIn")} subtitle={t("whatsInSub")} />
         {data.factors.length === 0 ? (
-          <EmptyPanel title="No score activity yet" body="Complete a shift or log a sale to start building." />
+          <EmptyPanel title={t("noScoreActivity")} body={t("noScoreActivityBody")} />
         ) : (
           <Card className="divide-y divide-line p-0">
             <Stagger>
@@ -116,16 +121,16 @@ export default function StandingPage() {
       </section>
 
       <section>
-        <SectionHeader title="Recent activity" subtitle="The most recent entries in your score ledger." />
+        <SectionHeader title={t("recentActivity")} subtitle={t("recentActivitySub")} />
         {data.history.length === 0 ? (
-          <EmptyPanel title="Nothing yet" />
+          <EmptyPanel title={t("nothingYet")} />
         ) : (
           <Card className="divide-y divide-line p-0">
             {data.history.map((h, i) => (
               <div key={i} className="flex items-center justify-between px-5 py-3">
                 <div>
                   <p className="text-sm font-medium text-ink">{h.label}</p>
-                  <p className="text-xs text-ink-muted">{timeAgo(h.at)}</p>
+                  <p className="text-xs text-ink-muted">{timeAgo(h.at, tt)}</p>
                 </div>
                 <Points n={h.points} />
               </div>
@@ -135,17 +140,17 @@ export default function StandingPage() {
       </section>
 
       <section>
-        <SectionHeader title="How to move it" subtitle="The score is honest — here's what changes it." />
+        <SectionHeader title={t("howToMove")} subtitle={t("howToMoveSub")} />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {TIPS.map((t) => (
-            <Card key={t.label} className="p-5">
-              <p className={`font-display text-2xl font-bold ${t.up ? "text-gold-700" : "text-error"}`}>{t.delta}</p>
-              <p className="mt-1 text-sm text-ink-soft">{t.label}</p>
+          {TIPS.map((tip) => (
+            <Card key={tip.key} className="p-5">
+              <p className={`font-display text-2xl font-bold ${tip.up ? "text-gold-700" : "text-error"}`}>{tip.delta}</p>
+              <p className="mt-1 text-sm text-ink-soft">{t(`tips.${tip.key}`)}</p>
             </Card>
           ))}
         </div>
         <p className="mt-4 text-sm text-ink-muted">
-          Banks and lenders can verify this record — it&apos;s what turns your work into credit.
+          {t("verifyNote")}
         </p>
       </section>
     </div>

@@ -505,5 +505,73 @@
     "noEscrow": "Babu escrow",
     "invited": "{count} an gayyata",
     "view": "Duba →"
+  },
+  "Time": {
+    "justNow": "yanzu-yanzu",
+    "minutes": "minti {n} da suka wuce",
+    "hours": "awa {n} da suka wuce",
+    "days": "kwana {n} da suka wuce",
+    "weeks": "mako {n} da suka wuce"
+  },
+  "Earnings": {
+    "title": "Kuɗin shiga",
+    "subtitle": "Abin da ya shiga walat ɗinka, da inda yake zuwa lokacin da ka cire.",
+    "availableNow": "Akwai yanzu",
+    "inWallet": "a cikin walat ɗin Tally",
+    "withdraw": "Cire kuɗi",
+    "addPayoutInline": "Ƙara asusun biya don karɓar cirewa.",
+    "addAccount": "Ƙara asusu",
+    "amountPlaceholder": "Adadin da za ka cire",
+    "sending": "Ana aikawa…",
+    "confirmWithdrawal": "Tabbatar da cirewa",
+    "whereLand": "Inda cirewa ke sauka",
+    "change": "Canza",
+    "noPayout": "Babu asusun biya tukuna",
+    "noPayoutBody": "Ƙara asusun banki da aka tabbatar don kuɗinka ya iso wurinka.",
+    "addPayoutAccount": "Ƙara asusun biya",
+    "recentActivity": "Ayyukan baya-bayan nan",
+    "recentActivitySub": "Kuɗi shiga, kuɗi fita — duk abin da ya taɓa walat ɗinka.",
+    "noActivity": "Babu ayyuka tukuna",
+    "noActivityBody": "Tabbatar da aiki don ganin biyanka na farko a nan.",
+    "withdrawalSent": "An aika cirewa",
+    "withdrawalSentDesc": "{amount} zuwa {bank}.",
+    "addPayoutTitle": "Ƙara asusun biya da farko",
+    "addPayoutDesc": "Tabbatar da asusunka don karɓar cirewa.",
+    "insufficient": "Kuɗi bai isa ba",
+    "insufficientDesc": "Ba za ka iya cire fiye da ma'aunin da kake da shi ba.",
+    "withdrawFailed": "Cirewa ta gaza",
+    "withdrawFailedDesc": "Da fatan sake gwadawa."
+  },
+  "Loans": {
+    "workerTitle": "Lamuni",
+    "workerSubtitle": "An gina shi daga aikin da ka yi. Yayin da kake ƙara zuwa, mun ƙara amincewa da kai.",
+    "traderTitle": "Rancen kaya",
+    "traderSubtitle": "Ka cancanci samun jarin aiki da zarar ka gina tarihin sayarwar da aka rubuta.",
+    "howTitle": "Yadda cancanta ke aiki:",
+    "howBody": "makin Tally ɗinka yana yanke shawarar samfuran da ka cancanta. Lamunin da aka amince na shiga asusun biyanka kai tsaye, kuma biya kan lokaci na ɗaga makinka — yana buɗe iyaka mafi girma na gaba."
+  },
+  "Standing": {
+    "title": "Makin Tally Ɗinka",
+    "subtitle": "Ainihin abin da ya motsa makinka — littafin da ke bayan lambar.",
+    "ptsToNext": "{points} pts zuwa {tier}",
+    "shiftsDone": "Ayyukan da aka gama",
+    "onTime": "Kan lokaci",
+    "sales": "Sayarwa",
+    "whatsIn": "Abin da ke cikin makinka",
+    "whatsInSub": "Kowane sigina, da maki da ya ƙara ko cire.",
+    "noScoreActivity": "Babu ayyukan maki tukuna",
+    "noScoreActivityBody": "Gama aiki ko rubuta sayarwa don fara ginawa.",
+    "recentActivity": "Ayyukan baya-bayan nan",
+    "recentActivitySub": "Sabbin shigarwa a cikin littafin makinka.",
+    "nothingYet": "Babu komai tukuna",
+    "howToMove": "Yadda za a motsa shi",
+    "howToMoveSub": "Makin gaskiya ne — ga abin da ke canza shi.",
+    "verifyNote": "Bankuna da masu ba da lamuni na iya tabbatar da wannan tarihin — shi ne abin da ke mai da aikinka bashi.",
+    "tips": {
+      "completeShift": "Gama aiki",
+      "showUp": "Zo kan lokaci",
+      "repayLoan": "Biya lamuni kan lokaci",
+      "noShow": "Rashin zuwa yana kashewa"
+    }
   }
 }

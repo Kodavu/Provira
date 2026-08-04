@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api, type TraderDashboard, type WorkerDashboard } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
 import { usePageData } from "@/lib/use-page-data";
@@ -21,15 +22,13 @@ export default function LoansPage() {
 
 function WorkerLoans() {
   const { userId } = useSession();
+  const t = useTranslations("Loans");
   const { data, error, reload } = usePageData<WorkerDashboard>((id) => api.workerDashboard(id));
   if (error) return <PageError message={error} onRetry={reload} />;
   if (!data) return <PageSkeleton />;
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Loans"
-        subtitle="Built off the work you've done. The more you show up, the more we trust you."
-      />
+      <PageHeader title={t("workerTitle")} subtitle={t("workerSubtitle")} />
       <FadeIn delay={0.05}>
         <LoanOffers offers={data.loanOffers} userId={userId} />
       </FadeIn>
@@ -40,15 +39,13 @@ function WorkerLoans() {
 
 function TraderLoans() {
   const { userId } = useSession();
+  const t = useTranslations("Loans");
   const { data, error, reload } = usePageData<TraderDashboard>((id) => api.traderDashboard(id));
   if (error) return <PageError message={error} onRetry={reload} />;
   if (!data) return <PageSkeleton />;
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Stock loans"
-        subtitle="Qualify for working capital once you've built a track record of logged sales."
-      />
+      <PageHeader title={t("traderTitle")} subtitle={t("traderSubtitle")} />
       <FadeIn delay={0.05}>
         <LoanOffers offers={data.loanOffers} userId={userId} />
       </FadeIn>
@@ -58,12 +55,11 @@ function TraderLoans() {
 }
 
 function HowItWorks() {
+  const t = useTranslations("Loans");
   return (
     <Card className="bg-brand-50/50 p-5">
       <p className="text-sm text-ink-soft">
-        <span className="font-semibold text-ink">How eligibility works:</span> your Tally score decides which
-        products you qualify for. Approved loans disburse straight to your payout account, and repaying on time
-        raises your score — unlocking larger limits next time.
+        <span className="font-semibold text-ink">{t("howTitle")}</span> {t("howBody")}
       </p>
     </Card>
   );

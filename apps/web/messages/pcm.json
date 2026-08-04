@@ -505,5 +505,73 @@
     "noEscrow": "No escrow",
     "invited": "{count} invited",
     "view": "View →"
+  },
+  "Time": {
+    "justNow": "just now",
+    "minutes": "{n}m ago",
+    "hours": "{n}h ago",
+    "days": "{n}d ago",
+    "weeks": "{n}w ago"
+  },
+  "Earnings": {
+    "title": "Earnings",
+    "subtitle": "Wetin enter your wallet, and where e dey go when you withdraw.",
+    "availableNow": "Available now",
+    "inWallet": "for your Tally wallet",
+    "withdraw": "Withdraw",
+    "addPayoutInline": "Add payout account make you fit receive withdrawal.",
+    "addAccount": "Add account",
+    "amountPlaceholder": "Amount wey you wan withdraw",
+    "sending": "Dey send…",
+    "confirmWithdrawal": "Confirm withdrawal",
+    "whereLand": "Where withdrawal dey land",
+    "change": "Change",
+    "noPayout": "No payout account yet",
+    "noPayoutBody": "Add bank account wey verify so your money fit reach you.",
+    "addPayoutAccount": "Add payout account",
+    "recentActivity": "Recent activity",
+    "recentActivitySub": "Money in, money out — everything wey touch your wallet.",
+    "noActivity": "No activity yet",
+    "noActivityBody": "Confirm shift make you see your first payout here.",
+    "withdrawalSent": "Withdrawal don send",
+    "withdrawalSentDesc": "{amount} go {bank}.",
+    "addPayoutTitle": "Add payout account first",
+    "addPayoutDesc": "Verify your account make you fit receive withdrawal.",
+    "insufficient": "Money no reach",
+    "insufficientDesc": "You no fit withdraw pass your available balance.",
+    "withdrawFailed": "Withdrawal fail",
+    "withdrawFailedDesc": "Abeg try again."
+  },
+  "Loans": {
+    "workerTitle": "Loans",
+    "workerSubtitle": "We build am from the work wey you don do. The more you show, the more we trust you.",
+    "traderTitle": "Stock loans",
+    "traderSubtitle": "Qualify for working capital once you don build track record of sales wey you log.",
+    "howTitle": "How eligibility dey work:",
+    "howBody": "your Tally score dey decide which product you qualify for. Loan wey approve dey enter your payout account straight, and when you pay back on time e dey raise your score — dey open bigger limit next time."
+  },
+  "Standing": {
+    "title": "Your Tally Score",
+    "subtitle": "Exactly wetin move your score — the ledger behind the number.",
+    "ptsToNext": "{points} pts to {tier}",
+    "shiftsDone": "Shifts wey done",
+    "onTime": "On-time",
+    "sales": "Sales",
+    "whatsIn": "Wetin dey your score",
+    "whatsInSub": "Every signal, and the points wey e add or remove.",
+    "noScoreActivity": "No score activity yet",
+    "noScoreActivityBody": "Complete shift or log sale make you start to build.",
+    "recentActivity": "Recent activity",
+    "recentActivitySub": "The most recent entries for your score ledger.",
+    "nothingYet": "Nothing yet",
+    "howToMove": "How to move am",
+    "howToMoveSub": "The score dey honest — na wetin dey change am be this.",
+    "verifyNote": "Banks and lenders fit verify this record — na wetin dey turn your work to credit.",
+    "tips": {
+      "completeShift": "Complete a shift",
+      "showUp": "Show up on time",
+      "repayLoan": "Repay loan on time",
+      "noShow": "No-show dey cost"
+    }
   }
 }

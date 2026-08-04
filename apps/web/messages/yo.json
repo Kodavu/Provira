@@ -505,5 +505,73 @@
     "noEscrow": "Kò sí ẹsírò",
     "invited": "{count} tí a pè",
     "view": "Wo →"
+  },
+  "Time": {
+    "justNow": "báyìí báyìí",
+    "minutes": "ìṣẹ́jú {n} sẹ́yìn",
+    "hours": "wákàtí {n} sẹ́yìn",
+    "days": "ọjọ́ {n} sẹ́yìn",
+    "weeks": "ọ̀sẹ̀ {n} sẹ́yìn"
+  },
+  "Earnings": {
+    "title": "Owó tí a rí",
+    "subtitle": "Ohun tí ó wọ àpamọ́wọ́ rẹ, àti ibi tí ó ń lọ nígbà tí o bá yọ ọ́.",
+    "availableNow": "Ó wà ní báyìí",
+    "inWallet": "nínú àpamọ́wọ́ Tally rẹ",
+    "withdraw": "Yọ owó",
+    "addPayoutInline": "Fi àkáǹtì ìsanwó kún láti gba owó tí o yọ.",
+    "addAccount": "Fi àkáǹtì kún",
+    "amountPlaceholder": "Iye owó tí o fẹ́ yọ",
+    "sending": "Ń fi ránṣẹ́…",
+    "confirmWithdrawal": "Jẹ́rìí yíyọ owó",
+    "whereLand": "Ibi tí owó tí a yọ ń dé",
+    "change": "Yí padà",
+    "noPayout": "Kò sí àkáǹtì ìsanwó síbẹ̀",
+    "noPayoutBody": "Fi àkáǹtì báńkì tí a fọwọ́sí kún kí owó rẹ lè dé ọ̀dọ̀ rẹ.",
+    "addPayoutAccount": "Fi àkáǹtì ìsanwó kún",
+    "recentActivity": "Iṣẹ́ àìpẹ́",
+    "recentActivitySub": "Owó wíwọlé, owó jíjáde — gbogbo ohun tó fọwọ́ kan àpamọ́wọ́ rẹ.",
+    "noActivity": "Kò sí iṣẹ́ síbẹ̀",
+    "noActivityBody": "Jẹ́rìí iṣẹ́ láti rí ìsanwó àkọ́kọ́ rẹ níbí.",
+    "withdrawalSent": "A ti fi owó tí a yọ ránṣẹ́",
+    "withdrawalSentDesc": "{amount} sí {bank}.",
+    "addPayoutTitle": "Fi àkáǹtì ìsanwó kún ná",
+    "addPayoutDesc": "Fọwọ́sí àkáǹtì rẹ láti gba owó tí o yọ.",
+    "insufficient": "Owó kò tó",
+    "insufficientDesc": "O kò lè yọ owó jù ìwọ̀ntúnwọ̀nsì tó wà lọ́wọ́.",
+    "withdrawFailed": "Yíyọ owó kùnà",
+    "withdrawFailedDesc": "Jọ̀wọ́ tún gbìyànjú."
+  },
+  "Loans": {
+    "workerTitle": "Awin",
+    "workerSubtitle": "A kọ́ ọ láti inú iṣẹ́ tí o ti ṣe. Bí o ṣe ń wá tó, bẹ́ẹ̀ ni a gbẹ́kẹ̀ lé ọ tó.",
+    "traderTitle": "Awin ọjà",
+    "traderSubtitle": "Yẹ fún owó-ìṣòwò ní kété tí o bá ti kọ́ àkọsílẹ̀ títà tí a ṣàkọsílẹ̀.",
+    "howTitle": "Bí yíyẹ ṣe ń ṣiṣẹ́:",
+    "howBody": "Tally score rẹ ń pinnu àwọn ọjà tí o yẹ fún. Àwọn awin tí a fọwọ́sí ń wọ àkáǹtì ìsanwó rẹ tààrà, àti sísan padà lásìkò ń gbé ìdíwọ̀n rẹ ga — ń ṣí ààlà tó tóbi jù ní ìgbà tó ń bọ̀."
+  },
+  "Standing": {
+    "title": "Tally Score Rẹ",
+    "subtitle": "Ohun gan-an tí ó mú ìdíwọ̀n rẹ yí — àkọsílẹ̀ tó wà lẹ́yìn nọ́mbà náà.",
+    "ptsToNext": "{points} pts sí {tier}",
+    "shiftsDone": "Iṣẹ́ tí a parí",
+    "onTime": "Lásìkò",
+    "sales": "Títà",
+    "whatsIn": "Ohun tó wà nínú ìdíwọ̀n rẹ",
+    "whatsInSub": "Gbogbo àmì, àti àwọn ààmì tó fi kún tàbí yọ.",
+    "noScoreActivity": "Kò sí iṣẹ́ ìdíwọ̀n síbẹ̀",
+    "noScoreActivityBody": "Parí iṣẹ́ tàbí ṣàkọsílẹ̀ títà láti bẹ̀rẹ̀ kíkọ́.",
+    "recentActivity": "Iṣẹ́ àìpẹ́",
+    "recentActivitySub": "Àwọn àkọsílẹ̀ tuntun jù nínú àkọsílẹ̀ ìdíwọ̀n rẹ.",
+    "nothingYet": "Kò sí nǹkan kan síbẹ̀",
+    "howToMove": "Bí a ṣe lè yí i",
+    "howToMoveSub": "Ìdíwọ̀n náà jẹ́ òtítọ́ — èyí ni ohun tó ń yí i padà.",
+    "verifyNote": "Àwọn báńkì àti awìnná lè fọwọ́sí àkọsílẹ̀ yìí — èyí ni ohun tó ń sọ iṣẹ́ rẹ di krẹdíìtì.",
+    "tips": {
+      "completeShift": "Parí iṣẹ́ kan",
+      "showUp": "Wá lásìkò",
+      "repayLoan": "San awin padà lásìkò",
+      "noShow": "Àìwá ń ná ọ"
+    }
   }
 }
