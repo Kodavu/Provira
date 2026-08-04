@@ -238,5 +238,89 @@
       "secondary": "Gwa anyị okwu",
       "note": "Enweghị ekwentị mkpanaka? Pịa *347*82# ma ọ bụ zitere anyị ozi na WhatsApp."
     }
+  },
+  "Auth": {
+    "headline": "Mee ka ọrụ gị ghọọ njirimara nke na-emeghe ọnụ ụzọ.",
+    "highlights": [
+      { "title": "Wuo akara ntụkwasị obi gị", "body": "Ọrụ ọ bụla, ahịa, na nkwụghachi na-agụ maka mbinye ego i nwere." },
+      { "title": "Nweta ego gị n'otu ụbọchị ahụ", "body": "Ịkwụ ụgwọ nke escrow na-akwado na-abanye n'obere akpa gị mgbe akwadoro ọrụ." },
+      { "title": "Ọ na-arụ ọrụ na-enweghị ekwentị mkpanaka", "body": "Debanye aha ma nweta ọrụ site na SMS, WhatsApp, ma ọ bụ oku ekwentị." }
+    ],
+    "createAccount": "Mepụta akaụntụ gị",
+    "welcomeBack": "Nnọọ ọzọ",
+    "phonePrompt": "Tinye nọmba ekwentị gị — anyị ga-eziga gị koodu. Ọ dịghị mkpa okwuntughe.",
+    "phoneLabel": "Nọmba ekwentị",
+    "sendCode": "Zipu koodu",
+    "enterCode": "Tinye koodu gị",
+    "codeSentTo": "Anyị zigara koodu ọnụọgụ {length} na {phone}.",
+    "devMode": "Ọnọdụ Dev — koodu gị bụ",
+    "verifyContinue": "Kwado ma gaa n'ihu",
+    "resendIn": "Zigha koodu na {seconds}s",
+    "resend": "Zigha koodu",
+    "nameTitle": "Kedu aha gị?",
+    "nameSubtitle": "Otú a ka ndị na-ewe ọrụ na ndị ahịa ga-esi hụ gị.",
+    "nameLabel": "Aha zuru ezu",
+    "namePlaceholder": "d.ọ. Amaka Okafor",
+    "continue": "Gaa n'ihu",
+    "useTitle": "Kedu ka ị ga-esi jiri Tally?",
+    "useSubtitle": "Ị nwere ike ịgbakwụnye ọrụ ọzọ ma emesịa site na dashboard gị.",
+    "createAccountBtn": "Mepụta akaụntụ",
+    "back": "Azụ",
+    "welcomeName": "Nnọọ, {name}!",
+    "youreIn": "Ị banyela!",
+    "redirecting": "Anyị na-akpọga gị na dashboard gị…",
+    "alreadyHave": "Ị nwere akaụntụ?",
+    "signIn": "Banye",
+    "newToTally": "Ọhụrụ na Tally?",
+    "createAccountLink": "Mepụta akaụntụ",
+    "types": {
+      "worker": { "label": "Onye ọrụ", "desc": "Chọọ ọrụ ma nweta ego kwa ụbọchị" },
+      "trader": { "label": "Onye ahịa", "desc": "Depụta ahịa ma zụlite mbinye ego gị" },
+      "employer": { "label": "Onye na-ewe ọrụ", "desc": "Tinye ọrụ ma were ndị ọrụ n'ụzọ a pụrụ ịdabere na ya" }
+    },
+    "errors": {
+      "invalidPhone": "Tinye nọmba ekwentị ziri ezi (d.ọ. +2348012345678).",
+      "fullCode": "Tinye koodu zuru ezu.",
+      "enterName": "Biko tinye aha gị.",
+      "expired": "Koodu ahụ agwụla — rịọ nke ọhụrụ.",
+      "invalidCode": "Koodu ahụ ezighi ezi. Lelee ma nwaa ọzọ.",
+      "tooMany": "Ị nwaala ọtụtụ ugboro. Rịọ koodu ọhụrụ.",
+      "noPending": "Ọ dịghị koodu na-arụ ọrụ — buru ụzọ zipu otu.",
+      "generic": "Ihe mere. Biko nwaa ọzọ."
+    }
+  },
+  "Shell": {
+    "account": "Akaụntụ",
+    "signOut": "Pụọ",
+    "signedOut": "Ị pụọla",
+    "signedOutDesc": "Ka ọ dị.",
+    "viewingAs": "Ị na-ele anya dị ka",
+    "switchedTo": "Ị gbanwere gaa {role}",
+    "searchPlaceholder": "Wụga na…",
+    "noMatches": "Ọ dịghị ihe dabara.",
+    "nav": {
+      "overview": "Nchịkọta",
+      "jobs": "Ọrụ",
+      "earnings": "Ego enwetara",
+      "loans": "Mbinye ego",
+      "standing": "Ọnọdụ m",
+      "profile": "Profaịlụ",
+      "sales": "Ahịa",
+      "postJob": "Tinye ọrụ",
+      "escrow": "Escrow",
+      "verify": "Kwado njirimara",
+      "settings": "Ntọala",
+      "help": "Ebe Enyemaka"
+    },
+    "roles": {
+      "WORKER": "Onye ọrụ",
+      "TRADER": "Onye ahịa",
+      "EMPLOYER": "Onye na-ewe ọrụ"
+    },
+    "searchHints": {
+      "WORKER": "Chọọ ọrụ, ego, ọnọdụ…",
+      "TRADER": "Chọọ ahịa, mbinye ego, ọnọdụ…",
+      "EMPLOYER": "Chọọ ọrụ, ndị na-etinye, escrow…"
+    }
   }
 }

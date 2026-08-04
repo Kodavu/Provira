@@ -238,5 +238,89 @@
       "secondary": "Yi magana da mu",
       "note": "Babu wayar hannu? Buga *347*82# ko aiko mana saƙo a WhatsApp."
     }
+  },
+  "Auth": {
+    "headline": "Mai da aikinka zuwa shaidar da ke buɗe ƙofofi.",
+    "highlights": [
+      { "title": "Gina makin amincinka", "body": "Kowane aiki, sayarwa, da biya na ƙidaya zuwa bashin da kake mallaka." },
+      { "title": "Karɓi kuɗinka a rana ɗaya", "body": "Biyan da escrow ke tallafawa na shiga walat ɗinka lokacin da aka tabbatar da aiki." },
+      { "title": "Yana aiki ba tare da wayar hannu ba", "body": "Yi rajista ka sami ayyuka ta SMS, WhatsApp, ko kiran waya." }
+    ],
+    "createAccount": "Ƙirƙiri asusunka",
+    "welcomeBack": "Barka da dawowa",
+    "phonePrompt": "Shigar da lambar wayarka — za mu aiko maka lamba. Ba a buƙatar kalmar sirri.",
+    "phoneLabel": "Lambar waya",
+    "sendCode": "Aika lamba",
+    "enterCode": "Shigar da lambarka",
+    "codeSentTo": "Mun aika lamba mai lamba {length} zuwa {phone}.",
+    "devMode": "Yanayin Dev — lambarka ita ce",
+    "verifyContinue": "Tabbatar ka ci gaba",
+    "resendIn": "Sake aika lamba cikin {seconds}s",
+    "resend": "Sake aika lamba",
+    "nameTitle": "Menene sunanka?",
+    "nameSubtitle": "Haka masu ɗaukar aiki da 'yan kasuwa za su gan ka.",
+    "nameLabel": "Cikakken suna",
+    "namePlaceholder": "misali Amaka Okafor",
+    "continue": "Ci gaba",
+    "useTitle": "Yaya za ka yi amfani da Tally?",
+    "useSubtitle": "Za ka iya ƙara wani matsayi daga baya daga dashboard ɗinka.",
+    "createAccountBtn": "Ƙirƙiri asusu",
+    "back": "Baya",
+    "welcomeName": "Barka, {name}!",
+    "youreIn": "Ka shiga!",
+    "redirecting": "Muna kai ka zuwa dashboard ɗinka…",
+    "alreadyHave": "Kana da asusu?",
+    "signIn": "Shiga",
+    "newToTally": "Sabo ne ga Tally?",
+    "createAccountLink": "Ƙirƙiri asusu",
+    "types": {
+      "worker": { "label": "Ma'aikaci", "desc": "Nemo ayyuka ka karɓi kuɗi kullum" },
+      "trader": { "label": "Ɗan kasuwa", "desc": "Rubuta sayarwa ka haɓaka bashinka" },
+      "employer": { "label": "Mai ɗaukar aiki", "desc": "Sanya ayyuka ka ɗauki aiki da aminci" }
+    },
+    "errors": {
+      "invalidPhone": "Shigar da lambar waya daidai (misali +2348012345678).",
+      "fullCode": "Shigar da cikakkiyar lamba.",
+      "enterName": "Da fatan shigar da sunanka.",
+      "expired": "Wannan lamba ta ƙare — nemi sabuwa.",
+      "invalidCode": "Wannan lamba ba daidai ba ce. Duba ka sake gwadawa.",
+      "tooMany": "Ka gwada sau da yawa. Nemi sabuwar lamba.",
+      "noPending": "Babu lamba mai aiki — aika ɗaya da farko.",
+      "generic": "Wani abu ya faskara. Da fatan sake gwadawa."
+    }
+  },
+  "Shell": {
+    "account": "Asusu",
+    "signOut": "Fita",
+    "signedOut": "Ka fita",
+    "signedOutDesc": "Sai an jima.",
+    "viewingAs": "Kana kallo a matsayin",
+    "switchedTo": "Ka koma zuwa {role}",
+    "searchPlaceholder": "Tsalle zuwa…",
+    "noMatches": "Babu wanda ya dace.",
+    "nav": {
+      "overview": "Bayani",
+      "jobs": "Ayyuka",
+      "earnings": "Kuɗin shiga",
+      "loans": "Lamuni",
+      "standing": "Matsayina",
+      "profile": "Bayanai",
+      "sales": "Sayarwa",
+      "postJob": "Sanya aiki",
+      "escrow": "Escrow",
+      "verify": "Tabbatar da shaida",
+      "settings": "Saituna",
+      "help": "Cibiyar Taimako"
+    },
+    "roles": {
+      "WORKER": "Ma'aikaci",
+      "TRADER": "Ɗan kasuwa",
+      "EMPLOYER": "Mai ɗaukar aiki"
+    },
+    "searchHints": {
+      "WORKER": "Nemo ayyuka, kuɗin shiga, matsayi…",
+      "TRADER": "Nemo sayarwa, lamuni, matsayi…",
+      "EMPLOYER": "Nemo ayyuka, masu nema, escrow…"
+    }
   }
 }

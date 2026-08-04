@@ -238,5 +238,89 @@
       "secondary": "Bá wa sọ̀rọ̀",
       "note": "Kò sí fóònù àlámọ̀? Tẹ *347*82# tàbí fi ìránṣẹ́ ránṣẹ́ sí wa lórí WhatsApp."
     }
+  },
+  "Auth": {
+    "headline": "Sọ iṣẹ́ rẹ di ìdánimọ̀ tó ń ṣí ilẹ̀kùn.",
+    "highlights": [
+      { "title": "Kọ́ ìdíwọ̀n ìgbẹ́kẹ̀lé rẹ", "body": "Gbogbo iṣẹ́, títà, àti ìsanpadà ń ka sí krẹdíìtì tí o ní." },
+      { "title": "Gba owó rẹ lọ́jọ́ kan náà", "body": "Ìsanwó tí ẹsírò ń ṣètìlẹ́yìn ń wọ àpamọ́wọ́ rẹ ní kété tí a bá jẹ́rìí iṣẹ́." },
+      { "title": "Ó ń ṣiṣẹ́ láìsí fóònù àlámọ̀", "body": "Forúkọsílẹ̀ kí o sì rí iṣẹ́ lórí SMS, WhatsApp, tàbí ìpè fóònù." }
+    ],
+    "createAccount": "Ṣẹ̀dá àkáǹtì rẹ",
+    "welcomeBack": "Káàbọ̀ padà",
+    "phonePrompt": "Tẹ nọ́mbà fóònù rẹ — a ó fi kóòdù ránṣẹ́ sí ọ. Kò sí ọ̀rọ̀ ìgbaniwọlé.",
+    "phoneLabel": "Nọ́mbà fóònù",
+    "sendCode": "Fi kóòdù ránṣẹ́",
+    "enterCode": "Tẹ kóòdù rẹ",
+    "codeSentTo": "A fi kóòdù oní-nọ́mbà {length} ránṣẹ́ sí {phone}.",
+    "devMode": "Ipò Dev — kóòdù rẹ ni",
+    "verifyContinue": "Jẹ́rìí kí o sì tẹ̀síwájú",
+    "resendIn": "Tún kóòdù ránṣẹ́ ní {seconds}s",
+    "resend": "Tún kóòdù ránṣẹ́",
+    "nameTitle": "Kí ni orúkọ rẹ?",
+    "nameSubtitle": "Bẹ́ẹ̀ ni àwọn agbanisíṣẹ́ àti oníṣòwò yóò rí ọ.",
+    "nameLabel": "Orúkọ kíkún",
+    "namePlaceholder": "f.a. Amaka Okafor",
+    "continue": "Tẹ̀síwájú",
+    "useTitle": "Báwo ni ìwọ yóò ṣe lo Tally?",
+    "useSubtitle": "O lè fi ipò mìíràn kún nígbà tó bá yá láti pátákó rẹ.",
+    "createAccountBtn": "Ṣẹ̀dá àkáǹtì",
+    "back": "Padà",
+    "welcomeName": "Káàbọ̀, {name}!",
+    "youreIn": "O ti wọlé!",
+    "redirecting": "À ń mú ọ lọ sí pátákó rẹ…",
+    "alreadyHave": "Ṣé o ti ní àkáǹtì?",
+    "signIn": "Wọlé",
+    "newToTally": "Tuntun sí Tally?",
+    "createAccountLink": "Ṣẹ̀dá àkáǹtì",
+    "types": {
+      "worker": { "label": "Òṣìṣẹ́", "desc": "Wá iṣẹ́ kí o sì gba owó lójoojúmọ́" },
+      "trader": { "label": "Oníṣòwò", "desc": "Ṣàkọsílẹ̀ títà kí o sì mú krẹdíìtì rẹ dàgbà" },
+      "employer": { "label": "Agbanisíṣẹ́", "desc": "Fi iṣẹ́ sílẹ̀ kí o sì gbaniṣẹ́ dáradára" }
+    },
+    "errors": {
+      "invalidPhone": "Tẹ nọ́mbà fóònù tó tọ́ (f.a. +2348012345678).",
+      "fullCode": "Tẹ kóòdù ní kíkún.",
+      "enterName": "Jọ̀wọ́ tẹ orúkọ rẹ.",
+      "expired": "Kóòdù yẹn ti pẹ́ jù — béèrè fún tuntun.",
+      "invalidCode": "Kóòdù yẹn kò tọ́. Ṣàyẹ̀wò kí o sì tún gbìyànjú.",
+      "tooMany": "O ti gbìyànjú púpọ̀ jù. Béèrè fún kóòdù tuntun.",
+      "noPending": "Kò sí kóòdù tó ń ṣiṣẹ́ — fi ọ̀kan ránṣẹ́ ná.",
+      "generic": "Nǹkan kan ṣàṣìṣe. Jọ̀wọ́ tún gbìyànjú."
+    }
+  },
+  "Shell": {
+    "account": "Àkáǹtì",
+    "signOut": "Jáde",
+    "signedOut": "O ti jáde",
+    "signedOutDesc": "Ó dàbọ̀.",
+    "viewingAs": "Ò ń wò bí",
+    "switchedTo": "O ti yí padà sí {role}",
+    "searchPlaceholder": "Fò sí…",
+    "noMatches": "Kò sí ìbámu.",
+    "nav": {
+      "overview": "Àkótán",
+      "jobs": "Iṣẹ́",
+      "earnings": "Owó tí a rí",
+      "loans": "Awin",
+      "standing": "Ipò mi",
+      "profile": "Àkọ̀ọ́lẹ̀",
+      "sales": "Títà",
+      "postJob": "Fi iṣẹ́ sílẹ̀",
+      "escrow": "Ẹsírò",
+      "verify": "Fọwọ́sí ìdánimọ̀",
+      "settings": "Ètò",
+      "help": "Ilé-ìrànlọ́wọ́"
+    },
+    "roles": {
+      "WORKER": "Òṣìṣẹ́",
+      "TRADER": "Oníṣòwò",
+      "EMPLOYER": "Agbanisíṣẹ́"
+    },
+    "searchHints": {
+      "WORKER": "Wá iṣẹ́, owó, ipò…",
+      "TRADER": "Wá títà, awin, ipò…",
+      "EMPLOYER": "Wá iṣẹ́, olùbéèrè, ẹsírò…"
+    }
   }
 }

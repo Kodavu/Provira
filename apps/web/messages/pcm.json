@@ -238,5 +238,89 @@
       "secondary": "Talk to us",
       "note": "No smartphone? Dial *347*82# or message us for WhatsApp."
     }
+  },
+  "Auth": {
+    "headline": "Turn your work into identity wey dey open door.",
+    "highlights": [
+      { "title": "Build your reliability score", "body": "Every shift, sale, and payback dey count toward credit wey be your own." },
+      { "title": "Collect your money same day", "body": "Escrow-backed payout dey enter your wallet once work confirm." },
+      { "title": "E dey work without smartphone", "body": "Sign up and get jobs for SMS, WhatsApp, or phone call." }
+    ],
+    "createAccount": "Create your account",
+    "welcomeBack": "Welcome back",
+    "phonePrompt": "Put your phone number — we go text you code. No password needed.",
+    "phoneLabel": "Phone number",
+    "sendCode": "Send code",
+    "enterCode": "Put your code",
+    "codeSentTo": "We send {length}-digit code go {phone}.",
+    "devMode": "Dev mode — your code na",
+    "verifyContinue": "Verify & continue",
+    "resendIn": "Resend code in {seconds}s",
+    "resend": "Resend code",
+    "nameTitle": "Wetin be your name?",
+    "nameSubtitle": "Na so employers and traders go see you.",
+    "nameLabel": "Full name",
+    "namePlaceholder": "e.g. Amaka Okafor",
+    "continue": "Continue",
+    "useTitle": "How you go use Tally?",
+    "useSubtitle": "You fit add another role later from your dashboard.",
+    "createAccountBtn": "Create account",
+    "back": "Back",
+    "welcomeName": "Welcome, {name}!",
+    "youreIn": "You don enter!",
+    "redirecting": "We dey take you go your dashboard…",
+    "alreadyHave": "You get account already?",
+    "signIn": "Sign in",
+    "newToTally": "New to Tally?",
+    "createAccountLink": "Create account",
+    "types": {
+      "worker": { "label": "Worker", "desc": "Find shift and collect money daily" },
+      "trader": { "label": "Trader", "desc": "Log sales and grow your credit" },
+      "employer": { "label": "Employer", "desc": "Post jobs and hire well" }
+    },
+    "errors": {
+      "invalidPhone": "Put correct phone number (e.g. +2348012345678).",
+      "fullCode": "Put the full code.",
+      "enterName": "Abeg put your name.",
+      "expired": "That code don expire — request new one.",
+      "invalidCode": "That code no correct. Check am try again.",
+      "tooMany": "You don try too many times. Request fresh code.",
+      "noPending": "No active code — send one first.",
+      "generic": "Something spoil. Abeg try again."
+    }
+  },
+  "Shell": {
+    "account": "Account",
+    "signOut": "Sign out",
+    "signedOut": "You don sign out",
+    "signedOutDesc": "See you later.",
+    "viewingAs": "You dey view as",
+    "switchedTo": "You don switch to {role}",
+    "searchPlaceholder": "Jump to…",
+    "noMatches": "Nothing match.",
+    "nav": {
+      "overview": "Overview",
+      "jobs": "Jobs",
+      "earnings": "Earnings",
+      "loans": "Loans",
+      "standing": "My standing",
+      "profile": "Profile",
+      "sales": "Sales",
+      "postJob": "Post work",
+      "escrow": "Escrow",
+      "verify": "Verify identity",
+      "settings": "Settings",
+      "help": "Help center"
+    },
+    "roles": {
+      "WORKER": "Worker",
+      "TRADER": "Trader",
+      "EMPLOYER": "Employer"
+    },
+    "searchHints": {
+      "WORKER": "Find jobs, earnings, standing…",
+      "TRADER": "Find sales, loans, standing…",
+      "EMPLOYER": "Find jobs, applicants, escrow…"
+    }
   }
 }
