@@ -23,7 +23,24 @@
         "primaryCta": "Nemo aiki",
         "secondaryCta": "Yadda yake aiki",
         "chips": ["Ingantattun masu ɗaukar aiki", "Kuɗi a rana ɗaya", "Gina makinka"]
-      }
+      },
+      "features": [
+        "Ingantattun masu ɗaukar aiki, waɗanda escrow ke tallafawa",
+        "Bayanan sana'a tare da kimantawa da sharhi",
+        "Ayyuka masu sassauci da suka dace da yankinka",
+        "Tally Score da ke buɗe bashi na gaskiya"
+      ],
+      "steps": [
+        { "title": "Gina bayananka", "body": "Yi rajista da lambar waya, ƙara ƙwarewarka da wurin zama — ba ka buƙatar wayar hannu." },
+        { "title": "Nemi ayyuka kusa da kai", "body": "Duba ingantattun ayyuka da suka dace da ƙwarewarka da yankinka, ka nema da taɓawa ɗaya ko ta USSD." },
+        { "title": "Yi aiki, karɓi kuɗinka", "body": "Tabbatar da halarta da lambar mai aiki, ka karɓi kuɗinka a rana ɗaya, kowane lokaci." }
+      ],
+      "faqs": [
+        { "q": "Da wuri nawa zan karɓi kuɗi?", "a": "A rana ɗaya. Da zarar an tabbatar da halarta da lambar mai lamba huɗu ta mai aiki, kuɗin escrow ɗinka zai shiga walat ɗin Tally, kuma za ka iya cire shi zuwa bankinka." },
+        { "q": "Ina buƙatar wayar hannu?", "a": "A'a. Za ka iya yin rajista, nema, da tabbatar da aiki ta USSD (*347*82#) ko WhatsApp. Wayar hannu na buɗe cikakkiyar app, amma ba dole ba ne." },
+        { "q": "Menene Tally Score na?", "a": "Tarihi da za a iya tabbatarwa daga ayyukan da ka gama, zuwa kan lokaci, da lamunin da ka biya. Babban maki na buɗe ayyuka mafi kyau da bashi na gaskiya wanda ba shi da tsada sosai." },
+        { "q": "Zan iya amfani da Tally a harshena?", "a": "Eh — app, USSD da WhatsApp suna aiki a Turanci, Pidgin, Yoruba, Hausa da Igbo. Zaɓi harshenka sau ɗaya, zai adana shi don gaba, a duk na'urorinka." }
+      ]
     },
     "employer": {
       "label": "Masu Ɗaukar Aiki",
@@ -35,7 +52,24 @@
         "primaryCta": "Sanya aiki",
         "secondaryCta": "Duba yadda ɗaukar aiki ke gudana",
         "chips": ["Mutane da NIN ta tabbatar", "Biya bayan tabbaci", "Nazarin ɗaukar aiki"]
-      }
+      },
+      "features": [
+        "Ma'aikata da aka tabbatar, aka kimanta, nan take",
+        "Sanya ayyuka ka sarrafa masu nema cikin mintuna",
+        "Escrow don kada ka biya wa wanda bai zo ba",
+        "Nazarin aikin da sarrafa ƙungiya"
+      ],
+      "steps": [
+        { "title": "Sanya aiki ka saka kuɗi", "body": "Saita matsayi, adadin mutane, kuɗi, wuri da lokaci, sannan ka saka jimlar kuɗi cikin escrow mai tsaro tun farko." },
+        { "title": "Gayyata ka sarrafa", "body": "Duba ma'aikatan da aka tabbatar da muke ba da shawara, gayyaci mafi kyau, ka sarrafa masu nema daga dashboard ɗaya." },
+        { "title": "Tabbatar ka biya", "body": "Raba lambar halarta a wurin; escrow zai fito da kansa kawai don aikin da aka tabbatar." }
+      ],
+      "faqs": [
+        { "q": "Ta yaya escrow ke kāre ni?", "a": "Lokacin da ka saka kuɗi a aiki, yana tsaye a asusun escrow na musamman — ba a aika ba tukuna. Yana fito ne kawai lokacin da ma'aikaci ya tabbatar da halarta da lambarka, don haka ba za ka biya wa wanda bai zo ba." },
+        { "q": "Ta yaya zan sami kyawawan ma'aikata?", "a": "Tally na ba da shawarar ma'aikatan da NIN ta tabbatar masu tarihi na gaskiya da kimantawa, waɗanda suka dace da aikinka da wurinka. Kai kake gayyatar waɗanda kake so; su tabbatar." },
+        { "q": "Nawa ne kuɗin ɗaukar aiki?", "a": "Ƙaramin kuɗi, bayyananne ga kowane ɗaukar aiki da aka gama — za mu nuna kafin ka tabbatar, ba tare da mafi ƙarancin wata ba." },
+        { "q": "Zan iya sanya ayyuka a harshen gida?", "a": "Eh. Sanya a harshen da kake so; tsarin ɗaukar aiki na aiki a Turanci, Pidgin, Yoruba, Hausa da Igbo, kuma fassarar taɓawa-ɗaya na saƙonni ga ma'aikata na kan shirin gaba." }
+      ]
     },
     "trader": {
       "label": "'Yan Kasuwa",
@@ -47,11 +81,29 @@
         "primaryCta": "Bunƙasa kasuwancinka",
         "secondaryCta": "Bincika POS",
         "chips": ["Rubuta sayarwa", "Buɗe rancen kaya", "POS na zuwa"]
-      }
+      },
+      "features": [
+        "Rubuta sayarwa ka gina tarihin kasuwanci",
+        "Buɗe rancen kaya daga tarihi na gaskiya",
+        "Cikakken kayan aikin POS da kaya (na zuwa)",
+        "Walat na dijital da biyan kuɗin kasuwanci (shirin gaba)"
+      ],
+      "steps": [
+        { "title": "Rubuta sayarwarka", "body": "Rubuta sayarwa cikin daƙiƙa — kowanne ya zama wani ɓangare na tarihin kasuwanci da za a iya tabbatarwa." },
+        { "title": "Gina tarihinka", "body": "Sayarwa mai dorewa na haɓaka Tally Score ɗinka, kuma na tabbatar da kasuwancinka ga bankuna da masu ba da lamuni." },
+        { "title": "Buɗe jari", "body": "Cancanci samun rancen kaya da jarin aiki da ya dace da sayarwarka ta gaskiya da za a iya tabbatarwa." }
+      ],
+      "faqs": [
+        { "q": "Me ya sa zan rubuta kowace sayarwa?", "a": "Kowace sayarwa da ka rubuta ta zama wani ɓangare na tarihin da za a iya tabbatarwa — kuma wannan tarihi ne ke sa ka cancanci rancen kaya. Yayin da sayarwarka ta ƙara dorewa, jarin da za ka iya samu na ƙaruwa." },
+        { "q": "POS yana nan yanzu?", "a": "Cikakken POS, kaya, da kayan aikin kasuwanci suna kan shirin gaba, kuma an yi masu alama a fili cewa Na Zuwa. Za ka iya fara gina tarihin sayarwarka yau don ka shirya tun rana ta farko." },
+        { "q": "Ta yaya rancen kaya ke aiki?", "a": "Da zarar tarihin sayarwarka ya cancanta, za ka iya samun rancen kaya da ya dace da tarihinka, wanda kake biya yayin da kake sayarwa. Biya kan lokaci na haɓaka makinka don iyaka mai girma." },
+        { "q": "POS zai goyi bayan harsunan gida?", "a": "Eh — POS na zuwa, rasit da jerin kayayyaki, ana gina su da harsuna da yawa tun rana ta farko, a Turanci, Pidgin, Yoruba, Hausa da Igbo." }
+      ]
     }
   },
   "Home": {
     "hero": {
+      "forAudience": "Ga {audience}",
       "trustLine": "Tsari guda ɗaya da ya haɗa tattalin arzikin da ba na yau da kullun ba na Najeriya — ma'aikata, masu ɗaukar aiki, da 'yan kasuwa."
     },
     "marquee": {
@@ -64,34 +116,111 @@
     },
     "features": {
       "eyebrow": "Me ya sa Tally",
-      "title": "Hanyoyin da ke sa komai aiki"
+      "title": "Hanyoyin da ke sa komai aiki",
+      "subtitle": "Biyan kuɗi, suna, daidaitawa, da samun dama — kayan aikin da aka raba da ke bauta wa kowane ɓangare na dandamalin.",
+      "escrowTitle": "Kuɗin da escrow ke tallafawa, na fita lokacin tabbaci",
+      "escrowBody": "Masu ɗaukar aiki na saka kuɗi tun farko; ana biyan ma'aikata a rana ɗaya da aka tabbatar da halartarsu. Babu takardar kuɗi, babu bibiya, babu biya wa wanda bai zo ba.",
+      "escrowChips": ["Escrow na tallafawa", "Na fita nan take", "Biyan banki"],
+      "scoreTitle": "Tally Score",
+      "scoreBody": "Suna da za a iya tabbatarwa daga aiki da sayarwa na gaskiya — mabuɗin da ke buɗe bashi.",
+      "locationTitle": "Daidaitawa ta wuri",
+      "locationBody": "Har zuwa yankinka. Ayyuka, ma'aikata, da abokan ciniki daidai, kusa da gida.",
+      "verifiedTitle": "An tabbatar da amincewa",
+      "verifiedBody": "Shaidar da NIN ta tabbatar da tarihin da aka tabbatar a kowane ɓangare na yarjejeniya.",
+      "phoneTitle": "Samun dama ta waya da farko",
+      "phoneBody": "Cikakken goyon bayan USSD da WhatsApp, don kada wayar hannu ta zama shinge."
     },
     "language": {
       "eyebrow": "An gina shi don Najeriya",
       "title1": "Fasaha da ke",
       "title2": "magana da harshenka",
-      "sub": "Yi aiki, ɗauki ma'aikata, kuma yi kasuwanci a harshen da ya fi maka sauƙi. An tsara Tally bisa yadda 'yan Najeriya ke magana da gaske — a app, a USSD, da WhatsApp."
+      "sub": "Yi aiki, ɗauki ma'aikata, kuma yi kasuwanci a harshen da ya fi maka sauƙi. An tsara Tally bisa yadda 'yan Najeriya ke magana da gaske — a app, a USSD, da WhatsApp.",
+      "bullets": [
+        "Interface, maɓalli, imel da sanarwa — a harshenka.",
+        "An adana harshenka, yana bin ka a duk na'urorinka.",
+        "Canza shi a kowane lokaci daga menu ko saitunanka."
+      ],
+      "note": "Yana kuma a USSD *347*82# da WhatsApp"
     },
     "how": {
       "eyebrow": "Yadda yake aiki",
-      "title": "Hanya bayyananniya — ga duk wanda kake"
+      "title": "Hanya bayyananniya — ga duk wanda kake",
+      "stepLabel": "Mataki na {n}"
     },
     "pos": {
       "badge": "Ga 'yan kasuwa · Yana zuwa",
       "title1": "Cikakken tsarin",
       "title2": "gudanar da kasuwanci",
+      "body": "Fara gina tarihin sayarwarka yau. Ba da daɗewa ba, Tally zai zama kanti, ɗakin ajiya, da akanta — cikakken POS da kayan aikin kasuwanci da aka gina wa 'yan kasuwan Najeriya, kan layi da wajen layi.",
       "primaryCta": "Fara sayarwa a Tally",
-      "secondaryCta": "Duba shirin gaba"
+      "secondaryCta": "Duba shirin gaba",
+      "features": [
+        "Sayarwa & rasit",
+        "Kaya & jeri",
+        "Sikanin barcode",
+        "Abokan ciniki & masu kaya",
+        "Faɗakarwar kaya",
+        "Rahoton yau da kullun & riba",
+        "Bin kashe kuɗi",
+        "Goyon bayan shaguna da yawa",
+        "Wajen layi + haɗin gizo"
+      ],
+      "more": "…da ƙari"
     },
     "roadmap": {
       "eyebrow": "Hangen samfur",
-      "title": "Inda Tally ke nufi na gaba"
+      "title": "Inda Tally ke nufi na gaba",
+      "subtitle": "Muna ginawa zuwa dandamali ɗaya da zai gudanar da aiki da kasuwanci daga farko zuwa ƙarshe. Ga abin da ke zuwa — mun yi masa alama da gaskiya don ka san abin da ke aiki yau kullum.",
+      "status": {
+        "inDev": "Muna gininsa",
+        "soon": "Na zuwa",
+        "planned": "Kan shirin mu"
+      },
+      "items": [
+        { "title": "POS System", "body": "Sayarwa, kaya, rasit da shaguna da yawa — cikakken kanti ga 'yan kasuwa." },
+        { "title": "Payroll Automation", "body": "Gudanar da biyan albashi na yau da kullun ga ma'aikatanka, kai tsaye daga ayyukan da aka tabbatar." },
+        { "title": "AI Job Matching", "body": "Daidaitawa mafi wayo tsakanin ma'aikata da masu ɗaukar aiki, har zuwa yankinka." },
+        { "title": "Digital Wallet", "body": "Riƙe, aika, da karɓar biyan kuɗin kasuwanci cikin Tally." },
+        { "title": "Inventory Intelligence", "body": "Hasashen sake cika kaya da nuna kayan da ke tafiya a hankali daga sayarwarka." },
+        { "title": "Business Loans", "body": "Jarin aiki da ya dace da tarihin Tally ɗinka da za a iya tabbatarwa." },
+        { "title": "QR Payments", "body": "Karɓi biyan kuɗi nan take a kanti da sikan ɗaya." },
+        { "title": "Financial Reports", "body": "Riba, kwararar kuɗi da taƙaitawar yau da kullun, an ƙirƙira maka su." },
+        { "title": "AI Hiring Assistant", "body": "Rubuta talla na aiki da zaɓar masu nema cikin daƙiƙa." }
+      ]
+    },
+    "stats": {
+      "items": [
+        { "label": "Na kuɗin da ke cikin escrow", "sub": "Na fita ne kawai don aikin da aka tabbatar" },
+        { "label": "Zuwa biyan rana ɗaya", "sub": "Daga tabbaci zuwa bankinka" },
+        { "label": "Ƙananan hukumomin da ake goyon baya", "sub": "Daidaitawa har zuwa yankinka" },
+        { "label": "Ma'aikata, masu ɗaukar aiki, 'yan kasuwa", "sub": "Shaida ɗaya da aka haɗa" }
+      ]
+    },
+    "integrations": {
+      "eyebrow": "Haɗin kai",
+      "title": "Yana aiki da kayan aikin da kuke amfani da su",
+      "subtitle": "Tally na haɗawa da hanyoyin biyan kuɗi, saƙo, da kasuwanci da ke sa Najeriya tafiya — tare da ƙari mai zuwa.",
+      "items": [
+        { "label": "Masu bayar da biyan kuɗi", "note": "Squad da ƙari" },
+        { "label": "Canja wurin banki", "note": "Hanyoyin NIBSS" },
+        { "label": "SMS & WhatsApp", "note": "Isa kowace waya" },
+        { "label": "Sabis na imel", "note": "Sanarwa" },
+        { "label": "Lissafin kuɗi", "note": "An shirya" },
+        { "label": "Taswira & wuri", "note": "Matakin yanki" },
+        { "label": "Kalanda & albashi", "note": "An shirya" }
+      ]
     },
     "testimonials": {
       "eyebrow": "Shaidu",
       "title": "Aiki na gaskiya. Biya na gaskiya. Amana ta gaskiya.",
       "subtitle": "Daga kowane ɓangare na dandamalin.",
-      "lovedBy": "Ma'aikata, masu ɗaukar aiki da 'yan kasuwa suna son sa"
+      "lovedBy": "Ma'aikata, masu ɗaukar aiki da 'yan kasuwa suna son sa",
+      "items": [
+        { "quote": "A dā, ina jira kwanaki kafin in karɓi kuɗi bayan aiki. Da Tally kuɗin na shiga asusuna a wannan maraice — kuma makina ya samo min rancen kaya na farko.", "name": "Amaka O.", "role": "Ma'aikaciyar ɗakin ajiya · Legas" },
+        { "quote": "A dā, ina ɗaukar mutanen da ban sani ba ina fatan za su zo. Yanzu ina ganin ma'aikatan da aka tabbatar masu tarihi na gaskiya, kuma ina biya ne kawai lokacin da aikin ya tabbata.", "name": "Bola A.", "role": "Mai ɗaukar aiki na kayan aiki · Ikeja" },
+        { "quote": "Kowace sayarwa da na rubuta na gina tarihina. Lokacin da nake buƙatar jari don sake cika kaya, banki na iya ganin tarihina da gaske. Wannan bai taɓa faruwa ba a dā.", "name": "Musa I.", "role": "Ɗan kasuwa na kasuwa · Kano" },
+        { "quote": "Babu wayar hannu, babu matsala — ina tabbatar da aiki ta USSD. Tally na ɗaukar mutane kamar ni a matsayin abokan ciniki, ba abin da aka manta ba.", "name": "Grace E.", "role": "Mai tsabtacewa · Abuja" }
+      ]
     },
     "faq": {
       "eyebrow": "Tambayoyi",
