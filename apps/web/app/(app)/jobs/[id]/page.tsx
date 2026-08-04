@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -40,6 +41,7 @@ function shiftRange(startAt: string | null, endAt: string | null): string | null
 
 export default function JobDetailPage() {
   const { activeRole } = useSession();
+  const t = useTranslations("JobDetail");
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const jobId = params.id;
@@ -82,10 +84,10 @@ export default function JobDetailPage() {
     setBusy("fund");
     try {
       await api.fundJob(jobId);
-      toast.success("Escrow funded", { description: `${formatNaira(job!.payAmount)} secured for this job.` });
+      toast.success(t("escrowFunded"), { description: t("escrowFundedDesc", { amount: formatNaira(job!.payAmount) }) });
       await load();
     } catch (e) {
-      toast.error("Funding failed", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("fundingFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
@@ -95,10 +97,10 @@ export default function JobDetailPage() {
     setBusy(`invite:${s.workerId}`);
     try {
       await api.inviteWorker(jobId, s.workerId);
-      toast.success("Invite sent", { description: `${s.workerName ?? "Worker"} was notified.` });
+      toast.success(t("inviteSent"), { description: t("inviteSentDesc", { name: s.workerName ?? t("worker") }) });
       await load();
     } catch (e) {
-      toast.error("Couldn't invite", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("inviteFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
@@ -108,10 +110,10 @@ export default function JobDetailPage() {
     setBusy(`accept:${assignmentId}`);
     try {
       await api.acceptApplication(jobId, assignmentId);
-      toast.success("Application accepted", { description: `${name ?? "Worker"} is now in the job.` });
+      toast.success(t("accepted"), { description: t("acceptedDesc", { name: name ?? t("worker") }) });
       await load();
     } catch (e) {
-      toast.error("Couldn't accept", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("acceptFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
@@ -120,7 +122,7 @@ export default function JobDetailPage() {
   return (
     <div className="space-y-6">
       <Link href="/jobs" className="inline-flex items-center gap-1 text-sm font-medium text-ink-soft transition hover:text-ink">
-        <ArrowLeft className="h-4 w-4" /> Back to jobs
+        <ArrowLeft className="h-4 w-4" /> {t("back")}
       </Link>
 
       <FadeIn>
@@ -128,10 +130,10 @@ export default function JobDetailPage() {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">{job.title}</h1>
-              {full && <Pill tone="green">Full</Pill>}
+              {full && <Pill tone="green">{t("full")}</Pill>}
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-muted">
-              <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {[job.location, job.area, job.state].filter(Boolean).join(", ") || "Location TBC"}</span>
+              <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {[job.location, job.area, job.state].filter(Boolean).join(", ") || t("locationTBC")}</span>
               {shiftRange(job.startAt, job.endAt) && (
                 <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> {shiftRange(job.startAt, job.endAt)}</span>
               )}
@@ -140,7 +142,7 @@ export default function JobDetailPage() {
           </div>
           {job.escrow && !job.escrow.funded && (
             <Button onClick={fund} disabled={busy === "fund"}>
-              <Banknote className="h-4 w-4" /> {busy === "fund" ? "Funding…" : `Fund escrow · ${formatNaira(job.payAmount)}`}
+              <Banknote className="h-4 w-4" /> {busy === "fund" ? t("funding") : t("fundEscrow", { amount: formatNaira(job.payAmount) })}
             </Button>
           )}
         </div>
@@ -153,37 +155,37 @@ export default function JobDetailPage() {
       )}
 
       <Stagger className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StaggerItem><Kpi icon={<Users className="h-4 w-4" />} label="Filled" value={<><CountUp value={job.accepted} />/{job.headcount}</>} caption="Workers in the job." /></StaggerItem>
-        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label="Per person" value={formatNaira(job.perPerson)} caption="Released on confirm." accent="amber" /></StaggerItem>
-        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label="Escrow total" value={formatNaira(job.payAmount)} caption={job.escrow?.funded ? "Funded." : "Not funded yet."} accent="neutral" /></StaggerItem>
-        <StaggerItem><Kpi icon={<UserPlus className="h-4 w-4" />} label="Applications" value={<CountUp value={job.applications.length} />} caption="Awaiting your review." /></StaggerItem>
+        <StaggerItem><Kpi icon={<Users className="h-4 w-4" />} label={t("kpiFilled")} value={<><CountUp value={job.accepted} />/{job.headcount}</>} caption={t("kpiFilledCaption")} /></StaggerItem>
+        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label={t("kpiPerPerson")} value={formatNaira(job.perPerson)} caption={t("kpiPerPersonCaption")} accent="amber" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label={t("kpiEscrow")} value={formatNaira(job.payAmount)} caption={job.escrow?.funded ? t("kpiEscrowFunded") : t("kpiEscrowNotFunded")} accent="neutral" /></StaggerItem>
+        <StaggerItem><Kpi icon={<UserPlus className="h-4 w-4" />} label={t("kpiApplications")} value={<CountUp value={job.applications.length} />} caption={t("kpiApplicationsCaption")} /></StaggerItem>
       </Stagger>
 
       {full && (
         <div className="rounded-xl bg-brand-50 px-4 py-3 text-sm font-medium text-brand-700 ring-1 ring-brand-100">
-          This job is full — no more applications or invites can be accepted.
+          {t("fullBanner")}
         </div>
       )}
 
       {/* In the job */}
-      <Section title="In the job" count={job.inJob.length} hint="Workers hired for this shift. Share the attendance code on site.">
+      <Section title={t("inJobTitle")} count={job.inJob.length} hint={t("inJobHint")}>
         {job.inJob.length === 0 ? (
-          <EmptyPanel icon={Users} title="No one in the job yet" body="Invite suggested workers or accept applications below." />
+          <EmptyPanel icon={Users} title={t("inJobEmptyTitle")} body={t("inJobEmptyBody")} />
         ) : (
           <Card className="divide-y divide-line p-0">
             {job.inJob.map((a) => (
               <div key={a.assignmentId} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
-                <WorkerButton row={a} onView={() => setProfileFor(a)} subtitle={a.attendance?.status === "CONFIRMED" ? "Attendance confirmed" : "Confirmed for the shift"} />
+                <WorkerButton row={a} onView={() => setProfileFor(a)} subtitle={a.attendance?.status === "CONFIRMED" ? t("attendanceConfirmed") : t("confirmedForShift")} />
                 <div className="flex items-center gap-3">
                   {a.attendance?.status === "CONFIRMED" ? (
-                    <Pill tone="green"><Check className="h-3.5 w-3.5" /> Confirmed & paid</Pill>
+                    <Pill tone="green"><Check className="h-3.5 w-3.5" /> {t("confirmedPaid")}</Pill>
                   ) : a.attendance?.code ? (
                     <div className="text-right">
-                      <p className="eyebrow">Attendance code</p>
+                      <p className="eyebrow">{t("attendanceCode")}</p>
                       <p className="font-display text-xl font-bold tracking-[0.3em] text-brand-800">{a.attendance.code}</p>
                     </div>
                   ) : (
-                    <Pill tone="amber">Code pending</Pill>
+                    <Pill tone="amber">{t("codePending")}</Pill>
                   )}
                 </div>
               </div>
@@ -193,22 +195,22 @@ export default function JobDetailPage() {
       </Section>
 
       {/* Applications */}
-      <Section title="Applications" count={job.applications.length} hint="Workers who applied — accept to add them to the job.">
+      <Section title={t("applicationsTitle")} count={job.applications.length} hint={t("applicationsHint")}>
         {job.applications.length === 0 ? (
-          <EmptyPanel icon={UserPlus} title="No applications yet" />
+          <EmptyPanel icon={UserPlus} title={t("applicationsEmptyTitle")} />
         ) : (
           <Card className="divide-y divide-line p-0">
             {job.applications.map((a) => (
               <div key={a.assignmentId} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
                 <WorkerButton row={a} onView={() => setProfileFor(a)} />
                 <div className="flex items-center gap-2">
-                  <Button size="sm" variant="outline" onClick={() => setProfileFor(a)}>View profile</Button>
+                  <Button size="sm" variant="outline" onClick={() => setProfileFor(a)}>{t("viewProfile")}</Button>
                   <Button
                     size="sm"
                     onClick={() => accept(a.assignmentId, a.workerName)}
                     disabled={full || busy === `accept:${a.assignmentId}`}
                   >
-                    {busy === `accept:${a.assignmentId}` ? "Accepting…" : full ? "Job full" : "Accept"}
+                    {busy === `accept:${a.assignmentId}` ? t("accepting") : full ? t("jobFull") : t("accept")}
                   </Button>
                 </div>
               </div>
@@ -219,12 +221,12 @@ export default function JobDetailPage() {
 
       {/* Pending invites */}
       {job.invites.length > 0 && (
-        <Section title="Invited — awaiting response" count={job.invites.length}>
+        <Section title={t("invitedTitle")} count={job.invites.length}>
           <Card className="divide-y divide-line p-0">
             {job.invites.map((a) => (
               <div key={a.assignmentId} className="flex items-center justify-between px-5 py-4">
                 <WorkerButton row={a} onView={() => setProfileFor(a)} />
-                <Pill tone="amber"><Clock className="h-3.5 w-3.5" /> Invited</Pill>
+                <Pill tone="amber"><Clock className="h-3.5 w-3.5" /> {t("invited")}</Pill>
               </div>
             ))}
           </Card>
@@ -232,9 +234,9 @@ export default function JobDetailPage() {
       )}
 
       {/* Suggested workers */}
-      <Section title="Suggested workers" count={suggestions.length} hint="Ranked by skills, location, and reliability. Invite the ones you want.">
+      <Section title={t("suggestedTitle")} count={suggestions.length} hint={t("suggestedHint")}>
         {suggestions.length === 0 ? (
-          <EmptyPanel icon={Sparkles} title="No suggestions right now" body="Everyone qualified has already been invited or added." />
+          <EmptyPanel icon={Sparkles} title={t("suggestedEmptyTitle")} body={t("suggestedEmptyBody")} />
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
             {suggestions.map((s) => (
@@ -242,15 +244,15 @@ export default function JobDetailPage() {
                 <div className="flex min-w-0 items-center gap-3">
                   <Avatar name={s.workerName} />
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-ink">{s.workerName ?? "Worker"}</p>
+                    <p className="truncate font-medium text-ink">{s.workerName ?? t("worker")}</p>
                     <div className="mt-0.5 flex items-center gap-2">
                       <TierBadge tier={s.tier} />
-                      <span className="text-xs text-ink-muted">{Math.round(s.matchScore * 100)}% match</span>
+                      <span className="text-xs text-ink-muted">{t("match", { pct: Math.round(s.matchScore * 100) })}</span>
                     </div>
                   </div>
                 </div>
                 <Button size="sm" variant="outline" onClick={() => invite(s)} disabled={full || busy === `invite:${s.workerId}`}>
-                  {busy === `invite:${s.workerId}` ? "Inviting…" : full ? "Full" : "Invite"}
+                  {busy === `invite:${s.workerId}` ? t("inviting") : full ? t("fullShort") : t("invite")}
                 </Button>
               </Card>
             ))}
@@ -273,16 +275,17 @@ function WorkerButton({
   onView: () => void;
   subtitle?: string;
 }) {
+  const t = useTranslations("JobDetail");
   return (
     <button onClick={onView} className="group flex items-center gap-3 text-left">
       <Avatar name={row.workerName} />
       <div>
-        <p className="font-medium text-ink group-hover:text-brand-700">{row.workerName ?? "Worker"}</p>
+        <p className="font-medium text-ink group-hover:text-brand-700">{row.workerName ?? t("worker")}</p>
         {subtitle ? (
           <p className="text-xs text-ink-muted">{subtitle}</p>
         ) : row.profile ? (
           <p className="text-xs text-ink-muted">
-            Score {row.profile.score} · {row.profile.jobsCompleted} shift{row.profile.jobsCompleted === 1 ? "" : "s"} done
+            {t("workerStats", { score: row.profile.score, count: row.profile.jobsCompleted })}
           </p>
         ) : null}
       </div>
@@ -291,6 +294,7 @@ function WorkerButton({
 }
 
 function ProfileModal({ row, onClose }: { row: JobAssignmentRow | null; onClose: () => void }) {
+  const t = useTranslations("JobDetail");
   const p = row?.profile;
   return (
     <AnimatePresence>
@@ -319,39 +323,39 @@ function ProfileModal({ row, onClose }: { row: JobAssignmentRow | null; onClose:
                 {(row.workerName ?? "?").slice(0, 2).toUpperCase()}
               </span>
               <h3 className="mt-3 flex items-center gap-1.5 font-display text-xl font-semibold text-ink">
-                {row.workerName ?? "Worker"}
+                {row.workerName ?? t("worker")}
                 {p.kycVerified && <BadgeCheck className="h-5 w-5 text-brand-600" />}
               </h3>
               <div className="mt-1.5 flex items-center gap-2">
                 <TierBadge tier={p.tier} />
                 {row.matchScore != null && (
-                  <span className="text-xs text-ink-muted">{Math.round(row.matchScore * 100)}% match</span>
+                  <span className="text-xs text-ink-muted">{t("match", { pct: Math.round(row.matchScore * 100) })}</span>
                 )}
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-3 px-6 py-4">
-              <Stat icon={<Star className="h-4 w-4" />} label="Score" value={String(p.score)} />
-              <Stat icon={<Briefcase className="h-4 w-4" />} label="Shifts" value={String(p.jobsCompleted)} />
-              <Stat icon={<Check className="h-4 w-4" />} label="On-time" value={`${Math.round(p.onTimeRate * 100)}%`} />
+              <Stat icon={<Star className="h-4 w-4" />} label={t("statScore")} value={String(p.score)} />
+              <Stat icon={<Briefcase className="h-4 w-4" />} label={t("statShifts")} value={String(p.jobsCompleted)} />
+              <Stat icon={<Check className="h-4 w-4" />} label={t("statOnTime")} value={`${Math.round(p.onTimeRate * 100)}%`} />
             </div>
 
             <div className="space-y-3 border-t border-line px-6 py-5 text-sm">
               {p.bio && <p className="text-ink-soft">{p.bio}</p>}
               {p.skills.length > 0 && (
-                <Detail icon={<Briefcase className="h-4 w-4" />} label="Skills">
+                <Detail icon={<Briefcase className="h-4 w-4" />} label={t("detailSkills")}>
                   <div className="flex flex-wrap gap-1.5">
                     {p.skills.map((s) => <Pill key={s}>{s}</Pill>)}
                   </div>
                 </Detail>
               )}
               {p.languages.length > 0 && (
-                <Detail icon={<Languages className="h-4 w-4" />} label="Languages">{p.languages.join(", ")}</Detail>
+                <Detail icon={<Languages className="h-4 w-4" />} label={t("detailLanguages")}>{p.languages.join(", ")}</Detail>
               )}
-              {p.location && <Detail icon={<MapPin className="h-4 w-4" />} label="Location">{p.location}</Detail>}
-              {p.phone && <Detail icon={<Phone className="h-4 w-4" />} label="Phone">{p.phone}</Detail>}
+              {p.location && <Detail icon={<MapPin className="h-4 w-4" />} label={t("detailLocation")}>{p.location}</Detail>}
+              {p.phone && <Detail icon={<Phone className="h-4 w-4" />} label={t("detailPhone")}>{p.phone}</Detail>}
               {p.memberSince && (
-                <Detail icon={<Calendar className="h-4 w-4" />} label="Member since">
+                <Detail icon={<Calendar className="h-4 w-4" />} label={t("detailMemberSince")}>
                   {new Date(p.memberSince).toLocaleDateString("en-NG", { month: "short", year: "numeric" })}
                 </Detail>
               )}

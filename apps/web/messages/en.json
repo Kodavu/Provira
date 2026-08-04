@@ -22,7 +22,11 @@
         "sub": "Discover verified jobs near you, confirm your shift with a code, and get paid straight to your bank — while every job builds a Tally Score that unlocks credit.",
         "primaryCta": "Find work",
         "secondaryCta": "How it works",
-        "chips": ["Verified employers", "Same-day pay", "Build your score"]
+        "chips": [
+          "Verified employers",
+          "Same-day pay",
+          "Build your score"
+        ]
       },
       "features": [
         "Verified, escrow-backed employers",
@@ -31,15 +35,36 @@
         "A Tally Score that opens real credit"
       ],
       "steps": [
-        { "title": "Build your profile", "body": "Sign up with a phone number, add your skills and location — no smartphone required." },
-        { "title": "Apply to nearby jobs", "body": "See verified jobs matched to your skills and ward, and apply in a tap or over USSD." },
-        { "title": "Work & get paid", "body": "Confirm attendance with the employer's code and get paid the same day, every time." }
+        {
+          "title": "Build your profile",
+          "body": "Sign up with a phone number, add your skills and location — no smartphone required."
+        },
+        {
+          "title": "Apply to nearby jobs",
+          "body": "See verified jobs matched to your skills and ward, and apply in a tap or over USSD."
+        },
+        {
+          "title": "Work & get paid",
+          "body": "Confirm attendance with the employer's code and get paid the same day, every time."
+        }
       ],
       "faqs": [
-        { "q": "How fast do I get paid?", "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Tally wallet and can be withdrawn to your bank." },
-        { "q": "Do I need a smartphone?", "a": "No. You can sign up, apply, and confirm shifts over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required." },
-        { "q": "What is my Tally Score?", "a": "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit." },
-        { "q": "Can I use Tally in my language?", "a": "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices." }
+        {
+          "q": "How fast do I get paid?",
+          "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Tally wallet and can be withdrawn to your bank."
+        },
+        {
+          "q": "Do I need a smartphone?",
+          "a": "No. You can sign up, apply, and confirm shifts over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required."
+        },
+        {
+          "q": "What is my Tally Score?",
+          "a": "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit."
+        },
+        {
+          "q": "Can I use Tally in my language?",
+          "a": "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices."
+        }
       ]
     },
     "employer": {
@@ -51,7 +76,11 @@
         "sub": "Post a job in minutes, invite people with real track records, and fund pay into escrow. Money is released only when attendance is confirmed — so you never pay for a no-show.",
         "primaryCta": "Post a job",
         "secondaryCta": "See hiring flow",
-        "chips": ["NIN-verified talent", "Pay on confirmation", "Hiring analytics"]
+        "chips": [
+          "NIN-verified talent",
+          "Pay on confirmation",
+          "Hiring analytics"
+        ]
       },
       "features": [
         "Verified, rated workers on tap",
@@ -60,15 +89,36 @@
         "Performance analytics & team management"
       ],
       "steps": [
-        { "title": "Post & fund a job", "body": "Set the role, headcount, pay, location and shift, then fund the total into secure escrow up front." },
-        { "title": "Invite & manage", "body": "Review suggested verified workers, invite the best, and manage applicants from one dashboard." },
-        { "title": "Confirm & pay", "body": "Share the attendance code on site; escrow releases automatically only for confirmed work." }
+        {
+          "title": "Post & fund a job",
+          "body": "Set the role, headcount, pay, location and shift, then fund the total into secure escrow up front."
+        },
+        {
+          "title": "Invite & manage",
+          "body": "Review suggested verified workers, invite the best, and manage applicants from one dashboard."
+        },
+        {
+          "title": "Confirm & pay",
+          "body": "Share the attendance code on site; escrow releases automatically only for confirmed work."
+        }
       ],
       "faqs": [
-        { "q": "How does escrow protect me?", "a": "When you fund a job the pay is held in a dedicated escrow account — not sent yet. It's released only when the worker confirms attendance with your code, so you never pay for a no-show." },
-        { "q": "How do I find good workers?", "a": "Tally suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm." },
-        { "q": "What does it cost to hire?", "a": "A small, transparent fee per completed hire — shown before you confirm, with no monthly minimums." },
-        { "q": "Can I post jobs in a local language?", "a": "Yes. Post in the language you prefer; the hiring interface works in English, Pidgin, Yoruba, Hausa and Igbo, and one-tap translation of posts for workers is on our roadmap." }
+        {
+          "q": "How does escrow protect me?",
+          "a": "When you fund a job the pay is held in a dedicated escrow account — not sent yet. It's released only when the worker confirms attendance with your code, so you never pay for a no-show."
+        },
+        {
+          "q": "How do I find good workers?",
+          "a": "Tally suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm."
+        },
+        {
+          "q": "What does it cost to hire?",
+          "a": "A small, transparent fee per completed hire — shown before you confirm, with no monthly minimums."
+        },
+        {
+          "q": "Can I post jobs in a local language?",
+          "a": "Yes. Post in the language you prefer; the hiring interface works in English, Pidgin, Yoruba, Hausa and Igbo, and one-tap translation of posts for workers is on our roadmap."
+        }
       ]
     },
     "trader": {
@@ -80,7 +130,11 @@
         "sub": "Log your sales to build a verifiable record that unlocks stock loans today — and get ready for an all-in-one business toolkit: POS, inventory, payments and analytics, coming soon.",
         "primaryCta": "Grow your business",
         "secondaryCta": "Explore the POS",
-        "chips": ["Log sales", "Unlock stock loans", "POS coming soon"]
+        "chips": [
+          "Log sales",
+          "Unlock stock loans",
+          "POS coming soon"
+        ]
       },
       "features": [
         "Log sales & build a business record",
@@ -89,15 +143,36 @@
         "Digital wallet & business payments (roadmap)"
       ],
       "steps": [
-        { "title": "Log your sales", "body": "Record sales in seconds — each one becomes part of a verifiable business track record." },
-        { "title": "Build your history", "body": "Consistent sales grow your Tally Score and prove your business to banks and lenders." },
-        { "title": "Unlock capital", "body": "Qualify for stock advances and working capital sized to your real, verifiable sales." }
+        {
+          "title": "Log your sales",
+          "body": "Record sales in seconds — each one becomes part of a verifiable business track record."
+        },
+        {
+          "title": "Build your history",
+          "body": "Consistent sales grow your Tally Score and prove your business to banks and lenders."
+        },
+        {
+          "title": "Unlock capital",
+          "body": "Qualify for stock advances and working capital sized to your real, verifiable sales."
+        }
       ],
       "faqs": [
-        { "q": "Why should I log every sale?", "a": "Each logged sale becomes part of a verifiable record — and that record is what qualifies you for stock loans. The more consistent your sales, the more capital you can access." },
-        { "q": "Is the POS available now?", "a": "The full POS, inventory, and business toolkit are on our roadmap and clearly marked Coming Soon. You can start building your sales record today so you're ready on day one." },
-        { "q": "How do stock loans work?", "a": "Once your sales history qualifies you, you can access a stock advance sized to your record, repaid as you sell. On-time repayment grows your score for larger limits." },
-        { "q": "Will the POS support local languages?", "a": "Yes — the coming POS, receipts and product listings are being built multilingual from day one, in English, Pidgin, Yoruba, Hausa and Igbo." }
+        {
+          "q": "Why should I log every sale?",
+          "a": "Each logged sale becomes part of a verifiable record — and that record is what qualifies you for stock loans. The more consistent your sales, the more capital you can access."
+        },
+        {
+          "q": "Is the POS available now?",
+          "a": "The full POS, inventory, and business toolkit are on our roadmap and clearly marked Coming Soon. You can start building your sales record today so you're ready on day one."
+        },
+        {
+          "q": "How do stock loans work?",
+          "a": "Once your sales history qualifies you, you can access a stock advance sized to your record, repaid as you sell. On-time repayment grows your score for larger limits."
+        },
+        {
+          "q": "Will the POS support local languages?",
+          "a": "Yes — the coming POS, receipts and product listings are being built multilingual from day one, in English, Pidgin, Yoruba, Hausa and Igbo."
+        }
       ]
     }
   },
@@ -120,7 +195,11 @@
       "subtitle": "Payments, reputation, matching, and access — shared infrastructure that serves every side of the platform.",
       "escrowTitle": "Escrow-backed pay, released on confirmation",
       "escrowBody": "Employers fund jobs up front; workers are paid the same day their attendance is confirmed. No invoices, no chasing, no paying for no-shows.",
-      "escrowChips": ["Escrow-backed", "Instant release", "Bank payout"],
+      "escrowChips": [
+        "Escrow-backed",
+        "Instant release",
+        "Bank payout"
+      ],
       "scoreTitle": "The Tally Score",
       "scoreBody": "A verifiable reputation built from real work and sales — the key that unlocks credit.",
       "locationTitle": "Match by location",
@@ -177,23 +256,62 @@
         "planned": "On our roadmap"
       },
       "items": [
-        { "title": "POS System", "body": "Sales, inventory, receipts and multi-store — a full till for traders." },
-        { "title": "Payroll Automation", "body": "Run recurring pay for your crew, straight from confirmed shifts." },
-        { "title": "AI Job Matching", "body": "Smarter matches between workers and employers, down to the ward." },
-        { "title": "Digital Wallet", "body": "Hold, send and receive business payments inside Tally." },
-        { "title": "Inventory Intelligence", "body": "Predict restocks and flag slow movers from your sales." },
-        { "title": "Business Loans", "body": "Working capital sized to your verifiable Tally record." },
-        { "title": "QR Payments", "body": "Take instant payments at the counter with a scan." },
-        { "title": "Financial Reports", "body": "Profit, cash flow and daily summaries, generated for you." },
-        { "title": "AI Hiring Assistant", "body": "Draft job posts and shortlist applicants in seconds." }
+        {
+          "title": "POS System",
+          "body": "Sales, inventory, receipts and multi-store — a full till for traders."
+        },
+        {
+          "title": "Payroll Automation",
+          "body": "Run recurring pay for your crew, straight from confirmed shifts."
+        },
+        {
+          "title": "AI Job Matching",
+          "body": "Smarter matches between workers and employers, down to the ward."
+        },
+        {
+          "title": "Digital Wallet",
+          "body": "Hold, send and receive business payments inside Tally."
+        },
+        {
+          "title": "Inventory Intelligence",
+          "body": "Predict restocks and flag slow movers from your sales."
+        },
+        {
+          "title": "Business Loans",
+          "body": "Working capital sized to your verifiable Tally record."
+        },
+        {
+          "title": "QR Payments",
+          "body": "Take instant payments at the counter with a scan."
+        },
+        {
+          "title": "Financial Reports",
+          "body": "Profit, cash flow and daily summaries, generated for you."
+        },
+        {
+          "title": "AI Hiring Assistant",
+          "body": "Draft job posts and shortlist applicants in seconds."
+        }
       ]
     },
     "stats": {
       "items": [
-        { "label": "Of pay held in escrow", "sub": "Released only on confirmed work" },
-        { "label": "To same-day payout", "sub": "From confirmation to your bank" },
-        { "label": "LGAs supported", "sub": "Match down to your ward" },
-        { "label": "Workers, employers, traders", "sub": "One connected identity" }
+        {
+          "label": "Of pay held in escrow",
+          "sub": "Released only on confirmed work"
+        },
+        {
+          "label": "To same-day payout",
+          "sub": "From confirmation to your bank"
+        },
+        {
+          "label": "LGAs supported",
+          "sub": "Match down to your ward"
+        },
+        {
+          "label": "Workers, employers, traders",
+          "sub": "One connected identity"
+        }
       ]
     },
     "integrations": {
@@ -201,13 +319,34 @@
       "title": "Works with the tools you already use",
       "subtitle": "Tally connects to the payment, messaging, and business rails that keep Nigeria moving — with more on the way.",
       "items": [
-        { "label": "Payment providers", "note": "Squad & more" },
-        { "label": "Bank transfers", "note": "NIBSS rails" },
-        { "label": "SMS & WhatsApp", "note": "Reach any phone" },
-        { "label": "Email services", "note": "Notifications" },
-        { "label": "Accounting", "note": "Planned" },
-        { "label": "Maps & location", "note": "Ward-level" },
-        { "label": "Calendar & payroll", "note": "Planned" }
+        {
+          "label": "Payment providers",
+          "note": "Squad & more"
+        },
+        {
+          "label": "Bank transfers",
+          "note": "NIBSS rails"
+        },
+        {
+          "label": "SMS & WhatsApp",
+          "note": "Reach any phone"
+        },
+        {
+          "label": "Email services",
+          "note": "Notifications"
+        },
+        {
+          "label": "Accounting",
+          "note": "Planned"
+        },
+        {
+          "label": "Maps & location",
+          "note": "Ward-level"
+        },
+        {
+          "label": "Calendar & payroll",
+          "note": "Planned"
+        }
       ]
     },
     "testimonials": {
@@ -216,10 +355,26 @@
       "subtitle": "From every side of the platform.",
       "lovedBy": "Loved by workers, employers & traders",
       "items": [
-        { "quote": "I used to wait days to get paid after a shift. With Tally the money hits my account the same evening — and my score got me my first stock loan.", "name": "Amaka O.", "role": "Warehouse worker · Lagos" },
-        { "quote": "Before, I hired people I didn't know and hoped they'd show up. Now I see verified workers with real track records and only pay when the job is confirmed.", "name": "Bola A.", "role": "Logistics employer · Ikeja" },
-        { "quote": "Every sale I log builds my record. When I needed capital to restock, the bank could actually see my history. That never happened before.", "name": "Musa I.", "role": "Market trader · Kano" },
-        { "quote": "No smartphone, no problem — I confirm shifts over USSD. Tally treats people like me as customers, not an afterthought.", "name": "Grace E.", "role": "Cleaner · Abuja" }
+        {
+          "quote": "I used to wait days to get paid after a shift. With Tally the money hits my account the same evening — and my score got me my first stock loan.",
+          "name": "Amaka O.",
+          "role": "Warehouse worker · Lagos"
+        },
+        {
+          "quote": "Before, I hired people I didn't know and hoped they'd show up. Now I see verified workers with real track records and only pay when the job is confirmed.",
+          "name": "Bola A.",
+          "role": "Logistics employer · Ikeja"
+        },
+        {
+          "quote": "Every sale I log builds my record. When I needed capital to restock, the bank could actually see my history. That never happened before.",
+          "name": "Musa I.",
+          "role": "Market trader · Kano"
+        },
+        {
+          "quote": "No smartphone, no problem — I confirm shifts over USSD. Tally treats people like me as customers, not an afterthought.",
+          "name": "Grace E.",
+          "role": "Cleaner · Abuja"
+        }
       ]
     },
     "faq": {
@@ -242,9 +397,18 @@
   "Auth": {
     "headline": "Turn your work into an identity that opens doors.",
     "highlights": [
-      { "title": "Build your reliability score", "body": "Every shift, sale, and repayment counts toward credit you own." },
-      { "title": "Get paid the same day", "body": "Escrow-backed payouts land in your wallet the moment work is confirmed." },
-      { "title": "Works without a smartphone", "body": "Sign up and get jobs over SMS, WhatsApp, or a phone call." }
+      {
+        "title": "Build your reliability score",
+        "body": "Every shift, sale, and repayment counts toward credit you own."
+      },
+      {
+        "title": "Get paid the same day",
+        "body": "Escrow-backed payouts land in your wallet the moment work is confirmed."
+      },
+      {
+        "title": "Works without a smartphone",
+        "body": "Sign up and get jobs over SMS, WhatsApp, or a phone call."
+      }
     ],
     "createAccount": "Create your account",
     "welcomeBack": "Welcome back",
@@ -274,9 +438,18 @@
     "newToTally": "New to Tally?",
     "createAccountLink": "Create an account",
     "types": {
-      "worker": { "label": "Worker", "desc": "Find shifts and get paid daily" },
-      "trader": { "label": "Trader", "desc": "Log sales and grow your credit" },
-      "employer": { "label": "Employer", "desc": "Post jobs and hire reliably" }
+      "worker": {
+        "label": "Worker",
+        "desc": "Find shifts and get paid daily"
+      },
+      "trader": {
+        "label": "Trader",
+        "desc": "Log sales and grow your credit"
+      },
+      "employer": {
+        "label": "Employer",
+        "desc": "Post jobs and hire reliably"
+      }
     },
     "errors": {
       "invalidPhone": "Enter a valid phone number (e.g. +2348012345678).",
@@ -324,7 +497,11 @@
     }
   },
   "Overview": {
-    "greeting": { "morning": "Good morning", "afternoon": "Good afternoon", "evening": "Good evening" },
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
     "common": {
       "unlockHigher": "Unlock higher limits",
       "available": "{amount} available",
@@ -467,7 +644,13 @@
     "subtitle": "Describe the shift and set the pay. We create the escrow account automatically.",
     "howItWorks": "How it works:",
     "howItWorksBody": "once posted, fund escrow to secure the shift, then invite suggested workers or accept applications. Pay is released only when a worker confirms attendance with their 4-digit code.",
-    "categories": { "loading": "Loading", "cleaning": "Cleaning", "driving": "Driving", "tailoring": "Tailoring", "bricklaying": "Construction" },
+    "categories": {
+      "loading": "Loading",
+      "cleaning": "Cleaning",
+      "driving": "Driving",
+      "tailoring": "Tailoring",
+      "bricklaying": "Construction"
+    },
     "jobTitle": "Job title",
     "jobTitlePlaceholder": "e.g. Warehouse loading (1 day)",
     "description": "Description",
@@ -494,7 +677,14 @@
   "JobsBoard": {
     "noJobs": "No jobs yet",
     "noJobsBody": "Post your first shift to start hiring workers.",
-    "status": { "OPEN": "Matching", "FILLED": "Filled", "IN_PROGRESS": "In progress", "COMPLETED": "Completed", "DRAFT": "Draft", "CANCELLED": "Cancelled" },
+    "status": {
+      "OPEN": "Matching",
+      "FILLED": "Filled",
+      "IN_PROGRESS": "In progress",
+      "COMPLETED": "Completed",
+      "DRAFT": "Draft",
+      "CANCELLED": "Cancelled"
+    },
     "full": "Full",
     "filled": "{filled}/{headcount} filled",
     "toReview": "{count} to review",
@@ -597,7 +787,11 @@
     "noSales": "No sales logged yet.",
     "sale": "Sale",
     "salesLogged": "{count} sales logged. Keep logging to climb.",
-    "methods": { "card": "card", "cash": "cash", "transfer": "transfer" }
+    "methods": {
+      "card": "card",
+      "cash": "cash",
+      "transfer": "transfer"
+    }
   },
   "LoanOffers": {
     "empty": "No loan offers yet. Complete more shifts to build the record that unlocks credit.",
@@ -618,7 +812,12 @@
   "Verify": {
     "title": "Verify your identity",
     "subtitle": "Verifying unlocks higher limits and loan eligibility, and lets you receive payouts. Your details are encrypted.",
-    "levels": { "NONE": "Not verified", "BASIC": "Basic", "BVN_VERIFIED": "Verified", "FULL": "Fully verified" },
+    "levels": {
+      "NONE": "Not verified",
+      "BASIC": "Basic",
+      "BVN_VERIFIED": "Verified",
+      "FULL": "Fully verified"
+    },
     "identity": "Identity (NIN)",
     "status": "Status: {level}",
     "verified": "Verified",
@@ -665,17 +864,38 @@
     "feedUpdated": "Job feed updated",
     "feedFailed": "Couldn't update job feed",
     "feeds": {
-      "ALL": { "label": "All jobs", "hint": "Every open job on Tally." },
-      "SKILLS": { "label": "Matched to my skills", "hint": "Only jobs that need what you do." },
-      "NEARBY": { "label": "Near me", "hint": "Jobs in your state, closest area first." }
+      "ALL": {
+        "label": "All jobs",
+        "hint": "Every open job on Tally."
+      },
+      "SKILLS": {
+        "label": "Matched to my skills",
+        "hint": "Only jobs that need what you do."
+      },
+      "NEARBY": {
+        "label": "Near me",
+        "hint": "Jobs in your state, closest area first."
+      }
     },
     "pauseTitle": "Pause non-urgent notifications",
     "pauseSub": "Mutes activity and offers. You'll still get security and payment alerts.",
     "categories": {
-      "ACTIVITY": { "label": "Activity", "hint": "Case replies, job offers, attendance, score changes" },
-      "MARKETING": { "label": "Tips & offers", "hint": "Occasional nudges and promotions" }
+      "ACTIVITY": {
+        "label": "Activity",
+        "hint": "Case replies, job offers, attendance, score changes"
+      },
+      "MARKETING": {
+        "label": "Tips & offers",
+        "hint": "Occasional nudges and promotions"
+      }
     },
-    "channels": { "INAPP": "In-app", "SMS": "SMS", "WHATSAPP": "WhatsApp", "PUSH": "Push", "EMAIL": "Email" },
+    "channels": {
+      "INAPP": "In-app",
+      "SMS": "SMS",
+      "WHATSAPP": "WhatsApp",
+      "PUSH": "Push",
+      "EMAIL": "Email"
+    },
     "quietHours": "Quiet hours",
     "quietHoursSub": "Hold non-urgent alerts during these hours (urgent ones still come through).",
     "from": "From",
@@ -686,5 +906,67 @@
     "resumed": "Notifications resumed",
     "quietUpdated": "Quiet hours updated",
     "settingsFailed": "Couldn't update settings"
+  },
+  "JobDetail": {
+    "back": "Back to jobs",
+    "full": "Full",
+    "locationTBC": "Location TBC",
+    "funding": "Funding…",
+    "fundEscrow": "Fund escrow · {amount}",
+    "escrowFunded": "Escrow funded",
+    "escrowFundedDesc": "{amount} secured for this job.",
+    "fundingFailed": "Funding failed",
+    "inviteSent": "Invite sent",
+    "inviteSentDesc": "{name} was notified.",
+    "inviteFailed": "Couldn't invite",
+    "accepted": "Application accepted",
+    "acceptedDesc": "{name} is now in the job.",
+    "acceptFailed": "Couldn't accept",
+    "worker": "Worker",
+    "kpiFilled": "Filled",
+    "kpiFilledCaption": "Workers in the job.",
+    "kpiPerPerson": "Per person",
+    "kpiPerPersonCaption": "Released on confirm.",
+    "kpiEscrow": "Escrow total",
+    "kpiEscrowFunded": "Funded.",
+    "kpiEscrowNotFunded": "Not funded yet.",
+    "kpiApplications": "Applications",
+    "kpiApplicationsCaption": "Awaiting your review.",
+    "fullBanner": "This job is full — no more applications or invites can be accepted.",
+    "inJobTitle": "In the job",
+    "inJobHint": "Workers hired for this shift. Share the attendance code on site.",
+    "inJobEmptyTitle": "No one in the job yet",
+    "inJobEmptyBody": "Invite suggested workers or accept applications below.",
+    "attendanceConfirmed": "Attendance confirmed",
+    "confirmedForShift": "Confirmed for the shift",
+    "confirmedPaid": "Confirmed & paid",
+    "attendanceCode": "Attendance code",
+    "codePending": "Code pending",
+    "applicationsTitle": "Applications",
+    "applicationsHint": "Workers who applied — accept to add them to the job.",
+    "applicationsEmptyTitle": "No applications yet",
+    "viewProfile": "View profile",
+    "accepting": "Accepting…",
+    "jobFull": "Job full",
+    "accept": "Accept",
+    "invitedTitle": "Invited — awaiting response",
+    "invited": "Invited",
+    "suggestedTitle": "Suggested workers",
+    "suggestedHint": "Ranked by skills, location, and reliability. Invite the ones you want.",
+    "suggestedEmptyTitle": "No suggestions right now",
+    "suggestedEmptyBody": "Everyone qualified has already been invited or added.",
+    "match": "{pct}% match",
+    "inviting": "Inviting…",
+    "fullShort": "Full",
+    "invite": "Invite",
+    "workerStats": "Score {score} · {count, plural, one {# shift} other {# shifts}} done",
+    "statScore": "Score",
+    "statShifts": "Shifts",
+    "statOnTime": "On-time",
+    "detailSkills": "Skills",
+    "detailLanguages": "Languages",
+    "detailLocation": "Location",
+    "detailPhone": "Phone",
+    "detailMemberSince": "Member since"
   }
 }
