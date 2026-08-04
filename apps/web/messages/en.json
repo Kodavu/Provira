@@ -1021,5 +1021,26 @@
     "nearby": "Nearby",
     "applying": "Applying…",
     "apply": "Apply"
+  },
+  "Escrow": {
+    "title": "Escrow",
+    "subtitle": "Money you've committed to shifts. Funds stay held until a worker confirms attendance — then they're released.",
+    "inEscrow": "In escrow",
+    "inEscrowCaption": "Funded, awaiting release.",
+    "released": "Released",
+    "releasedCaption": "Paid out to workers.",
+    "needsFunding": "Needs funding",
+    "needsFundingCaption": "Jobs awaiting escrow.",
+    "noEscrowTitle": "No escrow yet",
+    "noEscrowBody": "Post and publish a job to create its escrow account.",
+    "awaitingFunding": "Awaiting funding",
+    "fundedHeld": "Funded — held",
+    "escrowFunded": "Escrow funded",
+    "escrowFundedDesc": "{title} · {amount} secured.",
+    "fundingFailed": "Funding failed",
+    "funding": "Funding…",
+    "fund": "Fund · {amount}",
+    "fundedHeldPill": "Funded · held",
+    "defaultLocation": "Lagos"
   }
 }

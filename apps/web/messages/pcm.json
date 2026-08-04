@@ -1021,5 +1021,26 @@
     "nearby": "Near you",
     "applying": "Dey apply…",
     "apply": "Apply"
+  },
+  "Escrow": {
+    "title": "Escrow",
+    "subtitle": "Money wey you don commit to shifts. The money go dey hold until worker confirm attendance — then dem go release am.",
+    "inEscrow": "For escrow",
+    "inEscrowCaption": "Don fund, dey wait release.",
+    "released": "Don release",
+    "releasedCaption": "Dem don pay workers.",
+    "needsFunding": "Need funding",
+    "needsFundingCaption": "Jobs wey dey wait escrow.",
+    "noEscrowTitle": "No escrow yet",
+    "noEscrowBody": "Post and publish job make e create im escrow account.",
+    "awaitingFunding": "Dey wait funding",
+    "fundedHeld": "Don fund — dem hold am",
+    "escrowFunded": "Don fund escrow",
+    "escrowFundedDesc": "{title} · {amount} don secure.",
+    "fundingFailed": "Funding fail",
+    "funding": "Dey fund…",
+    "fund": "Fund · {amount}",
+    "fundedHeldPill": "Don fund · hold",
+    "defaultLocation": "Lagos"
   }
 }

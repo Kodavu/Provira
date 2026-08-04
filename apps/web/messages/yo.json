@@ -1021,5 +1021,26 @@
     "nearby": "Nítòsí",
     "applying": "À ń béèrè…",
     "apply": "Béèrè"
+  },
+  "Escrow": {
+    "title": "Escrow",
+    "subtitle": "Owó tí o ti fi sí àwọn shift. Owó náà máa dúró sí ìdìmú títí òṣìṣẹ́ yóò fi jẹ́rìí wíwàníbẹ̀ — nígbà náà ni a ó tú u sílẹ̀.",
+    "inEscrow": "Nínú escrow",
+    "inEscrowCaption": "Ti nawó, ń dúró de ìtúsílẹ̀.",
+    "released": "Ti tú sílẹ̀",
+    "releasedCaption": "A ti san án fún àwọn òṣìṣẹ́.",
+    "needsFunding": "Nílò ìnáwó",
+    "needsFundingCaption": "Àwọn iṣẹ́ tó ń dúró de escrow.",
+    "noEscrowTitle": "Kò sí escrow síbẹ̀",
+    "noEscrowBody": "Fi iṣẹ́ sílẹ̀ kí o sì tẹ̀ ẹ́ jáde láti dá àkàǹtì escrow rẹ̀.",
+    "awaitingFunding": "Ń dúró de ìnáwó",
+    "fundedHeld": "Ti nawó — ti dì mú",
+    "escrowFunded": "A ti nawó sí escrow",
+    "escrowFundedDesc": "{title} · {amount} ti pamọ́.",
+    "fundingFailed": "Ìnáwó kùnà",
+    "funding": "À ń nawó…",
+    "fund": "Nawó · {amount}",
+    "fundedHeldPill": "Ti nawó · dì mú",
+    "defaultLocation": "Èkó"
   }
 }

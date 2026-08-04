@@ -1021,5 +1021,26 @@
     "nearby": "Kusa",
     "applying": "Ana nema…",
     "apply": "Nema"
+  },
+  "Escrow": {
+    "title": "Escrow",
+    "subtitle": "Kuɗin da ka kai wa shifts. Kuɗin yana tsaye a riƙe har sai ma'aikaci ya tabbatar da halarta — sa'an nan a sake shi.",
+    "inEscrow": "A cikin escrow",
+    "inEscrowCaption": "An ba da kuɗi, ana jiran sakewa.",
+    "released": "An saki",
+    "releasedCaption": "An biya ma'aikata.",
+    "needsFunding": "Yana buƙatar kuɗi",
+    "needsFundingCaption": "Ayyukan da ke jiran escrow.",
+    "noEscrowTitle": "Babu escrow tukuna",
+    "noEscrowBody": "Sanya aiki ka buga shi don ƙirƙirar asusun escrow ɗinsa.",
+    "awaitingFunding": "Ana jiran kuɗi",
+    "fundedHeld": "An ba da kuɗi — a riƙe",
+    "escrowFunded": "An ba da kuɗin escrow",
+    "escrowFundedDesc": "{title} · an adana {amount}.",
+    "fundingFailed": "Tallafi ya kasa",
+    "funding": "Ana tallafi…",
+    "fund": "Ba da kuɗi · {amount}",
+    "fundedHeldPill": "An ba da kuɗi · a riƙe",
+    "defaultLocation": "Legas"
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Banknote, CheckCircle2, Wallet } from "lucide-react";
 import { api, type EmployerDashboard } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
@@ -13,6 +14,7 @@ import { CountUp, CountUpNaira, Stagger, StaggerItem } from "@/components/motion
 
 export default function EscrowPage() {
   const { activeRole } = useSession();
+  const t = useTranslations("Escrow");
   const router = useRouter();
   const { data, error, reload } = usePageData<EmployerDashboard>((id) => api.employerDashboard(id));
 
@@ -30,24 +32,21 @@ export default function EscrowPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Escrow"
-        subtitle="Money you've committed to shifts. Funds stay held until a worker confirms attendance — then they're released."
-      />
+      <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       <Stagger className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label="In escrow" value={<CountUpNaira amount={data.stats.committed} />} caption="Funded, awaiting release." accent="amber" /></StaggerItem>
-        <StaggerItem><Kpi icon={<Wallet className="h-4 w-4" />} label="Released" value={<CountUpNaira amount={data.stats.released} />} caption="Paid out to workers." /></StaggerItem>
-        <StaggerItem><Kpi icon={<CheckCircle2 className="h-4 w-4" />} label="Needs funding" value={<CountUp value={awaiting.length} />} caption="Jobs awaiting escrow." accent="neutral" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label={t("inEscrow")} value={<CountUpNaira amount={data.stats.committed} />} caption={t("inEscrowCaption")} accent="amber" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Wallet className="h-4 w-4" />} label={t("released")} value={<CountUpNaira amount={data.stats.released} />} caption={t("releasedCaption")} /></StaggerItem>
+        <StaggerItem><Kpi icon={<CheckCircle2 className="h-4 w-4" />} label={t("needsFunding")} value={<CountUp value={awaiting.length} />} caption={t("needsFundingCaption")} accent="neutral" /></StaggerItem>
       </Stagger>
 
       {withEscrow.length === 0 ? (
-        <EmptyPanel icon={Banknote} title="No escrow yet" body="Post and publish a job to create its escrow account." />
+        <EmptyPanel icon={Banknote} title={t("noEscrowTitle")} body={t("noEscrowBody")} />
       ) : (
         <>
-          <EscrowSection title="Awaiting funding" jobs={awaiting} onChange={reload} fundable />
-          <EscrowSection title="Funded — held" jobs={funded} onChange={reload} />
-          <EscrowSection title="Released" jobs={released} onChange={reload} />
+          <EscrowSection title={t("awaitingFunding")} jobs={awaiting} onChange={reload} fundable />
+          <EscrowSection title={t("fundedHeld")} jobs={funded} onChange={reload} />
+          <EscrowSection title={t("released")} jobs={released} onChange={reload} />
         </>
       )}
     </div>
@@ -91,6 +90,7 @@ function EscrowRow({
   onChange: () => void;
   fundable: boolean;
 }) {
+  const t = useTranslations("Escrow");
   const [busy, setBusy] = useState(false);
   const escrow = job.escrow!;
 
@@ -98,10 +98,10 @@ function EscrowRow({
     setBusy(true);
     try {
       await api.fundJob(job.id);
-      toast.success("Escrow funded", { description: `${job.title} · ${formatNaira(escrow.amount)} secured.` });
+      toast.success(t("escrowFunded"), { description: t("escrowFundedDesc", { title: job.title, amount: formatNaira(escrow.amount) }) });
       onChange();
     } catch (e) {
-      toast.error("Funding failed", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("fundingFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(false);
     }
@@ -111,16 +111,16 @@ function EscrowRow({
     <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
       <div>
         <p className="font-semibold text-ink">{job.title}</p>
-        <p className="text-sm text-ink-muted">{formatNaira(escrow.amount)} · {job.location ?? "Lagos"}</p>
+        <p className="text-sm text-ink-muted">{formatNaira(escrow.amount)} · {job.location ?? t("defaultLocation")}</p>
       </div>
       {escrow.released ? (
-        <Pill tone="green">Released</Pill>
+        <Pill tone="green">{t("released")}</Pill>
       ) : fundable ? (
         <Button size="sm" onClick={fund} disabled={busy}>
-          {busy ? "Funding…" : `Fund · ${formatNaira(escrow.amount)}`}
+          {busy ? t("funding") : t("fund", { amount: formatNaira(escrow.amount) })}
         </Button>
       ) : (
-        <Pill tone="green">Funded · held</Pill>
+        <Pill tone="green">{t("fundedHeldPill")}</Pill>
       )}
     </div>
   );

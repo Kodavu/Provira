@@ -1021,5 +1021,26 @@
     "nearby": "Nso",
     "applying": "Na-etinye arịrịọ…",
     "apply": "Tinye arịrịọ"
+  },
+  "Escrow": {
+    "title": "Escrow",
+    "subtitle": "Ego i tinyere na shifts. Ego na-anọ n'ejide ruo mgbe onye ọrụ kwadoro ọbịbịa — mgbe ahụ a ga-ahapụ ya.",
+    "inEscrow": "N'ime escrow",
+    "inEscrowCaption": "Akwadoro ego, na-echere mwepụ.",
+    "released": "Ahapụla",
+    "releasedCaption": "Akwụọla ndị ọrụ ụgwọ.",
+    "needsFunding": "Chọrọ ego",
+    "needsFundingCaption": "Ọrụ na-echere escrow.",
+    "noEscrowTitle": "Enweghị escrow ma",
+    "noEscrowBody": "Tinye ma bipụta ọrụ iji mepụta akaụntụ escrow ya.",
+    "awaitingFunding": "Na-echere ego",
+    "fundedHeld": "Akwadoro ego — ejidere",
+    "escrowFunded": "Akwadoro escrow",
+    "escrowFundedDesc": "{title} · echekwara {amount}.",
+    "fundingFailed": "Ịkwado ego dara",
+    "funding": "Na-akwado ego…",
+    "fund": "Kwado · {amount}",
+    "fundedHeldPill": "Akwadoro ego · ejidere",
+    "defaultLocation": "Legos"
   }
 }
