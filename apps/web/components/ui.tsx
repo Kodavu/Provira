@@ -32,7 +32,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 ${className}`}>
       <TallyMark />
-      <span className="text-xl font-bold tracking-tight text-ink">tally</span>
+      <span className="text-xl font-bold tracking-tight text-ink">Tally</span>
     </span>
   );
 }

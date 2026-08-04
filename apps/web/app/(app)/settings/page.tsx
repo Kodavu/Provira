@@ -17,6 +17,18 @@ const CHANNELS = ["INAPP", "SMS", "WHATSAPP", "PUSH", "EMAIL"] as const;
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
 
+function Section({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
+  return (
+    <section className="space-y-3">
+      <div>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-muted">{title}</h2>
+        {description && <p className="mt-0.5 text-sm text-ink-soft">{description}</p>}
+      </div>
+      <div className="space-y-4">{children}</div>
+    </section>
+  );
+}
+
 function Toggle({ on, onClick, disabled }: { on: boolean; onClick?: () => void; disabled?: boolean }) {
   return (
     <button
@@ -78,68 +90,72 @@ export default function SettingsPage() {
   if (!prefs) return <PageSkeleton />;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto max-w-3xl space-y-8">
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
-      <FadeIn delay={0.05} className="space-y-5">
-        <LanguagePreference />
-        <JobFeedPreference />
+      <FadeIn delay={0.05} className="space-y-8">
+        <Section title={t("general")} description={t("generalSub")}>
+          <LanguagePreference />
+          <JobFeedPreference />
+        </Section>
 
-        <Card className="flex items-center justify-between p-5">
-          <div>
-            <p className="font-semibold text-ink">{t("pauseTitle")}</p>
-            <p className="text-sm text-ink-soft">{t("pauseSub")}</p>
-          </div>
-          <Toggle on={prefs.setting.muteAll} disabled={busy} onClick={() => patchSetting({ muteAll: !prefs.setting.muteAll })} />
-        </Card>
+        <Section title={t("notifications")} description={t("notificationsSub")}>
+          <Card className="flex items-center justify-between p-5">
+            <div>
+              <p className="font-semibold text-ink">{t("pauseTitle")}</p>
+              <p className="text-sm text-ink-soft">{t("pauseSub")}</p>
+            </div>
+            <Toggle on={prefs.setting.muteAll} disabled={busy} onClick={() => patchSetting({ muteAll: !prefs.setting.muteAll })} />
+          </Card>
 
-        {MUTABLE.map((cat) => (
-          <Card key={cat} className="p-5">
-            <p className="font-semibold text-ink">{t(`categories.${cat}.label`)}</p>
-            <p className="text-sm text-ink-soft">{t(`categories.${cat}.hint`)}</p>
-            <div className="mt-4 divide-y divide-line">
-              {CHANNELS.map((ch) => (
-                <div key={ch} className="flex items-center justify-between py-2.5">
-                  <span className="text-sm text-ink">{t(`channels.${ch}`)}</span>
-                  <Toggle
-                    on={!prefs.setting.muteAll && enabled(cat, ch)}
-                    disabled={busy || prefs.setting.muteAll}
-                    onClick={() => toggle(cat, ch)}
-                  />
-                </div>
-              ))}
+          {MUTABLE.map((cat) => (
+            <Card key={cat} className="p-5">
+              <p className="font-semibold text-ink">{t(`categories.${cat}.label`)}</p>
+              <p className="text-sm text-ink-soft">{t(`categories.${cat}.hint`)}</p>
+              <div className="mt-4 divide-y divide-line">
+                {CHANNELS.map((ch) => (
+                  <div key={ch} className="flex items-center justify-between py-2.5">
+                    <span className="text-sm text-ink">{t(`channels.${ch}`)}</span>
+                    <Toggle
+                      on={!prefs.setting.muteAll && enabled(cat, ch)}
+                      disabled={busy || prefs.setting.muteAll}
+                      onClick={() => toggle(cat, ch)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+
+          <Card className="p-5">
+            <p className="font-semibold text-ink">{t("quietHours")}</p>
+            <p className="text-sm text-ink-soft">{t("quietHoursSub")}</p>
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
+              <label className="flex items-center gap-2">
+                <span className="text-ink-soft">{t("from")}</span>
+                <select
+                  value={prefs.setting.quietStart ?? ""}
+                  onChange={(e) => patchSetting({ quietStart: e.target.value === "" ? null : Number(e.target.value) })}
+                  className="rounded-lg border border-line bg-surface px-2 py-1.5 text-ink outline-none focus:border-brand-500"
+                >
+                  <option value="">{t("off")}</option>
+                  {HOURS.map((h) => <option key={h} value={h}>{String(h).padStart(2, "0")}:00</option>)}
+                </select>
+              </label>
+              <label className="flex items-center gap-2">
+                <span className="text-ink-soft">{t("to")}</span>
+                <select
+                  value={prefs.setting.quietEnd ?? ""}
+                  onChange={(e) => patchSetting({ quietEnd: e.target.value === "" ? null : Number(e.target.value) })}
+                  className="rounded-lg border border-line bg-surface px-2 py-1.5 text-ink outline-none focus:border-brand-500"
+                >
+                  <option value="">{t("off")}</option>
+                  {HOURS.map((h) => <option key={h} value={h}>{String(h).padStart(2, "0")}:00</option>)}
+                </select>
+              </label>
             </div>
           </Card>
-        ))}
-
-        <Card className="p-5">
-          <p className="font-semibold text-ink">{t("quietHours")}</p>
-          <p className="text-sm text-ink-soft">{t("quietHoursSub")}</p>
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
-            <label className="flex items-center gap-2">
-              <span className="text-ink-soft">{t("from")}</span>
-              <select
-                value={prefs.setting.quietStart ?? ""}
-                onChange={(e) => patchSetting({ quietStart: e.target.value === "" ? null : Number(e.target.value) })}
-                className="rounded-lg border border-line bg-surface px-2 py-1.5 text-ink outline-none focus:border-brand-500"
-              >
-                <option value="">{t("off")}</option>
-                {HOURS.map((h) => <option key={h} value={h}>{String(h).padStart(2, "0")}:00</option>)}
-              </select>
-            </label>
-            <label className="flex items-center gap-2">
-              <span className="text-ink-soft">{t("to")}</span>
-              <select
-                value={prefs.setting.quietEnd ?? ""}
-                onChange={(e) => patchSetting({ quietEnd: e.target.value === "" ? null : Number(e.target.value) })}
-                className="rounded-lg border border-line bg-surface px-2 py-1.5 text-ink outline-none focus:border-brand-500"
-              >
-                <option value="">{t("off")}</option>
-                {HOURS.map((h) => <option key={h} value={h}>{String(h).padStart(2, "0")}:00</option>)}
-              </select>
-            </label>
-          </div>
-        </Card>
+        </Section>
       </FadeIn>
     </div>
   );

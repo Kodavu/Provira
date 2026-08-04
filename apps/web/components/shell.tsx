@@ -15,6 +15,8 @@ import {
   LifeBuoy,
   LogOut,
   Menu,
+  PanelLeftClose,
+  PanelLeftOpen,
   PlusCircle,
   Receipt,
   Search,
@@ -69,8 +71,7 @@ const NAV_BY_ROLE: Record<Role, NavLink[]> = {
     { key: "jobs", href: "/jobs", icon: Briefcase },
     { key: "earnings", href: "/earnings", icon: Wallet },
     { key: "loans", href: "/loans", icon: HandCoins },
-    { key: "standing", href: "/standing", icon: TrendingUp },
-    { key: "profile", href: "/profile", icon: UserCircle },
+    { key: "standing", href: "/standing", icon: TrendingUp }
   ],
   TRADER: [
     { key: "overview", href: "/overview", icon: LayoutDashboard },
@@ -87,6 +88,7 @@ const NAV_BY_ROLE: Record<Role, NavLink[]> = {
 };
 
 const ACCOUNT: NavLink[] = [
+  { key: "profile", href: "/profile", icon: UserCircle },
   { key: "verify", href: "/verify", icon: ShieldCheck },
   { key: "settings", href: "/settings", icon: Settings },
   { key: "help", href: "/support", icon: LifeBuoy },
@@ -98,6 +100,100 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+function UserMenu({
+  displayName,
+  initials,
+  activeRole,
+  onSignOut,
+}: {
+  displayName: string;
+  initials: string;
+  activeRole: Role;
+  onSignOut: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const t = useTranslations("Shell");
+
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={displayName}
+        className={`grid h-9 w-9 place-items-center rounded-full bg-brand-700 text-xs font-bold text-white ring-2 ring-transparent transition hover:ring-brand-200 ${open ? "ring-brand-300" : ""
+          }`}
+      >
+        {initials}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role="menu"
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute right-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl"
+          >
+            <div className="flex items-center gap-3 border-b border-line px-4 py-3.5">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-700 text-sm font-bold text-white">
+                {initials}
+              </span>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold leading-tight text-ink">
+                  {displayName}
+                </p>
+                <p className="mt-0.5 text-[11px] leading-none text-ink-muted">
+                  {t(`roles.${activeRole}`)}
+                </p>
+              </div>
+            </div>
+
+            <div className="p-1.5">
+              <button
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false);
+                  onSignOut();
+                }}
+                className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink"
+              >
+                <LogOut className="h-[18px] w-[18px] text-ink-muted" strokeWidth={1.8} />
+                {t("signOut")}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function AppShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -106,11 +202,25 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   const navItems: NavItem[] = NAV_BY_ROLE[activeRole].map((n) => ({ ...n, label: t(`nav.${n.key}`) }));
   const accountItems: NavItem[] = ACCOUNT.map((n) => ({ ...n, label: t(`nav.${n.key}`) }));
   const displayName = fullName?.trim() || "there";
-  const initials = displayName.slice(0, 2).toUpperCase();
+  const initials = getInitials(displayName).toUpperCase() || "??";
+
+  // Restore the collapse preference on mount.
+  useEffect(() => {
+    if (localStorage.getItem("sidebar-collapsed") === "1") setCollapsed(true);
+  }, []);
+
+  function toggleCollapse() {
+    setCollapsed((v) => {
+      const next = !v;
+      localStorage.setItem("sidebar-collapsed", next ? "1" : "0");
+      return next;
+    });
+  }
 
   // Ctrl/Cmd+K opens the command menu.
   useEffect(() => {
@@ -130,54 +240,100 @@ export function AppShell({ children }: { children: ReactNode }) {
     router.push("/login");
   }
 
-  const sidebar = (
-    <>
-      <Link href="/overview" className="px-2">
-        <Wordmark />
-      </Link>
+  function renderSidebar(collapsed: boolean, showToggle: boolean) {
+    return (
+      <>
+        <Link
+          href="/overview"
+          className={collapsed ? "flex justify-center py-1" : "px-2"}
+          title="Home"
+        >
+          {collapsed ? (
+            // Replace this tile with your actual logo mark.
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-700 text-sm font-bold text-white">
+              T
+            </span>
+          ) : (
+            <Wordmark />
+          )}
+        </Link>
 
-      {roles.length > 1 && (
-        <div className="mt-6">
-          <RoleSwitcher roles={roles} active={activeRole} onChange={setActiveRole} />
-        </div>
-      )}
+        {roles.length > 1 && !collapsed && (
+          <div className="mt-6">
+            <RoleSwitcher roles={roles} active={activeRole} onChange={setActiveRole} />
+          </div>
+        )}
 
-      <nav className="mt-6 flex flex-1 flex-col gap-1">
-        {navItems.map((item) => (
-          <NavButton
-            key={item.href}
-            item={item}
-            active={isActive(pathname, item.href)}
-            onNavigate={() => setMobileOpen(false)}
-          />
-        ))}
+        <nav className="mt-6 flex flex-1 flex-col justify-between">
+          <div className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <NavButton
+                key={item.href}
+                item={item}
+                active={isActive(pathname, item.href)}
+                collapsed={collapsed}
+                onNavigate={() => setMobileOpen(false)}
+              />
+            ))}
+          </div>
 
-        <p className="eyebrow mt-6 px-3">{t("account")}</p>
-        {accountItems.map((item) => (
-          <NavButton
-            key={item.href}
-            item={item}
-            active={isActive(pathname, item.href)}
-            onNavigate={() => setMobileOpen(false)}
-          />
-        ))}
-      </nav>
+          <div className="flex flex-col gap-1">
+            {collapsed ? (
+              <div className="mx-auto mt-6 h-px w-8 bg-line" />
+            ) : (
+              <p className="eyebrow mt-6 px-3">{t("account")}</p>
+            )}
+            {accountItems.map((item) => (
+              <NavButton
+                key={item.href}
+                item={item}
+                active={isActive(pathname, item.href)}
+                collapsed={collapsed}
+                onNavigate={() => setMobileOpen(false)}
+              />
+            ))}
+          </div>
+        </nav>
 
-      <button
-        onClick={signOut}
-        className="mt-2 flex items-center gap-2.5 rounded-xl border border-line px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink"
-      >
-        <LogOut className="h-[18px] w-[18px]" strokeWidth={1.8} />
-        {t("signOut")}
-      </button>
-    </>
-  );
+        {showToggle && (
+          <button
+            onClick={toggleCollapse}
+            title={collapsed ? "Expand" : "Collapse"}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            className={`mt-2 flex items-center rounded-xl border border-line px-3 py-2.5 text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink ${collapsed ? "justify-center" : "gap-2.5"
+              }`}
+          >
+            {collapsed ? (
+              <PanelLeftOpen className="h-[18px] w-[18px]" strokeWidth={1.8} />
+            ) : (
+              <>
+                <PanelLeftClose className="h-[18px] w-[18px]" strokeWidth={1.8} />
+                Collapse
+              </>
+            )}
+          </button>
+        )}
 
+        <button
+          onClick={signOut}
+          title={collapsed ? t("signOut") : undefined}
+          className={`mt-2 flex items-center rounded-xl border border-line px-3 py-2.5 text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink ${collapsed ? "justify-center" : "gap-2.5"
+            }`}
+        >
+          <LogOut className="h-[18px] w-[18px]" strokeWidth={1.8} />
+          {!collapsed && t("signOut")}
+        </button>
+      </>
+    );
+  }
   return (
     <div className="flex min-h-screen bg-canvas">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-line bg-surface px-4 py-6 md:flex">
-        {sidebar}
+      <aside
+        className={`sticky top-0 hidden h-screen shrink-0 flex-col border-r border-line bg-surface px-4 py-6 transition-[width] duration-200 md:flex ${collapsed ? "w-20" : "w-64"
+          }`}
+      >
+        {renderSidebar(collapsed, true)}
       </aside>
 
       {/* Mobile drawer */}
@@ -198,7 +354,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
             >
-              {sidebar}
+              {renderSidebar(false, false)}
             </motion.aside>
           </div>
         )}
@@ -228,15 +384,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <NotificationBell />
 
-          <div className="flex shrink-0 items-center gap-2 rounded-xl border border-line bg-surface py-1.5 pl-1.5 pr-1.5 sm:pr-3">
-            <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">
-              {initials}
-            </span>
-            <div className="hidden text-left sm:block">
-              <p className="text-sm font-semibold leading-none text-ink">{displayName}</p>
-              <p className="mt-0.5 text-[11px] leading-none text-ink-muted">{t(`roles.${activeRole}`)}</p>
-            </div>
-          </div>
+          <UserMenu
+            displayName={displayName}
+            initials={initials}
+            activeRole={activeRole}
+            onSignOut={signOut}
+          />
         </header>
 
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
@@ -257,10 +410,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 function NavButton({
   item,
   active,
+  collapsed,
   onNavigate,
 }: {
   item: NavItem;
   active: boolean;
+  collapsed?: boolean;
   onNavigate: () => void;
 }) {
   const Ico = item.icon;
@@ -268,9 +423,10 @@ function NavButton({
     <Link
       href={item.href}
       onClick={onNavigate}
-      className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
-        active ? "text-brand-700" : "text-ink-soft hover:bg-canvas hover:text-ink"
-      }`}
+      title={collapsed ? item.label : undefined}
+      aria-label={collapsed ? item.label : undefined}
+      className={`relative flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition ${collapsed ? "justify-center" : "gap-3"
+        } ${active ? "text-brand-700" : "text-ink-soft hover:bg-canvas hover:text-ink"}`}
     >
       {active && (
         <motion.span
@@ -282,7 +438,7 @@ function NavButton({
       <span className={`relative z-10 ${active ? "text-brand-600" : "text-ink-muted"}`}>
         <Ico className="h-[18px] w-[18px]" strokeWidth={1.8} />
       </span>
-      <span className="relative z-10">{item.label}</span>
+      {!collapsed && <span className="relative z-10">{item.label}</span>}
     </Link>
   );
 }
@@ -337,9 +493,8 @@ function RoleSwitcher({
                   setOpen(false);
                   toast.success(t("switchedTo", { role: t(`roles.${r}`) }));
                 }}
-                className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition hover:bg-canvas ${
-                  r === active ? "font-semibold text-brand-700" : "text-ink-soft"
-                }`}
+                className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition hover:bg-canvas ${r === active ? "font-semibold text-brand-700" : "text-ink-soft"
+                  }`}
               >
                 {t(`roles.${r}`)}
                 {r === active && <BadgeCheck className="h-4 w-4 text-brand-600" />}
