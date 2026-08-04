@@ -23,7 +23,24 @@
         "primaryCta": "Find work",
         "secondaryCta": "How e dey work",
         "chips": ["Verified employers", "Same-day money", "Build your score"]
-      }
+      },
+      "features": [
+        "Employers wey verify, wey escrow dey back",
+        "Professional profile with rating and review",
+        "Flexible shift wey match your ward",
+        "Tally Score wey dey open real credit"
+      ],
+      "steps": [
+        { "title": "Build your profile", "body": "Sign up with phone number, add your skills and location — you no need smartphone." },
+        { "title": "Apply for jobs wey near you", "body": "See verified jobs wey match your skills and ward, apply with one tap or for USSD." },
+        { "title": "Work, collect your money", "body": "Confirm attendance with employer code, collect your money that same day, every time." }
+      ],
+      "faqs": [
+        { "q": "How quick I go collect my money?", "a": "That same day. Once attendance confirm with employer 4-digit code, your escrow money go enter your Tally wallet, and you fit withdraw am go your bank." },
+        { "q": "I need smartphone?", "a": "No. You fit sign up, apply, and confirm shift for USSD (*347*82#) or WhatsApp. Smartphone go open the full app, but e no compulsory." },
+        { "q": "Wetin be my Tally Score?", "a": "Na record wey you fit prove, wey come from jobs wey you complete, showing on time, and loans wey you pay back. Higher score dey open better jobs and real credit wey no cost too much." },
+        { "q": "I fit use Tally for my language?", "a": "Yes — the app, USSD and WhatsApp dey work for English, Pidgin, Yoruba, Hausa and Igbo. Pick your language once, e go save am for next time, for all your devices." }
+      ]
     },
     "employer": {
       "label": "Employers",
@@ -35,7 +52,24 @@
         "primaryCta": "Post work",
         "secondaryCta": "See how hiring dey go",
         "chips": ["NIN-verified people", "Pay when e confirm", "Hiring analytics"]
-      }
+      },
+      "features": [
+        "Workers wey verify, wey get rating, sharp sharp",
+        "Post work and manage applicants for minutes",
+        "Escrow so you no go pay for person wey no show",
+        "Performance analytics and team management"
+      ],
+      "steps": [
+        { "title": "Post work, put the money", "body": "Set the role, how many people, pay, location and shift, then put the full money for secure escrow first." },
+        { "title": "Invite and manage", "body": "Check verified workers wey we suggest, invite the best ones, and manage applicants from one dashboard." },
+        { "title": "Confirm and pay", "body": "Share the attendance code for site; escrow go comot by itself only for work wey confirm." }
+      ],
+      "faqs": [
+        { "q": "How escrow dey protect me?", "a": "When you put the money for a job, e dey hold for dedicated escrow account — dem never send am. E dey comot only when the worker confirm attendance with your code, so you no go pay for person wey no show." },
+        { "q": "How I go find good workers?", "a": "Tally dey suggest NIN-verified workers wey get real track record and rating, wey match your job and location. You invite the ones wey you want; dem confirm." },
+        { "q": "How much e cost to hire?", "a": "Small, clear fee for every hire wey complete — we go show am before you confirm, no monthly minimum." },
+        { "q": "I fit post work for local language?", "a": "Yes. Post for the language wey you like; the hiring interface dey work for English, Pidgin, Yoruba, Hausa and Igbo, and one-tap translation of post for workers dey for our roadmap." }
+      ]
     },
     "trader": {
       "label": "Traders",
@@ -47,11 +81,29 @@
         "primaryCta": "Grow your business",
         "secondaryCta": "Check the POS",
         "chips": ["Log sales", "Open stock loan", "POS dey come"]
-      }
+      },
+      "features": [
+        "Log sales and build business record",
+        "Open stock loan from real history",
+        "Full POS and inventory toolkit (e dey come)",
+        "Digital wallet and business payment (roadmap)"
+      ],
+      "steps": [
+        { "title": "Log your sales", "body": "Record sales for seconds — each one dey become part of business record wey you fit prove." },
+        { "title": "Build your history", "body": "Steady sales dey grow your Tally Score and dey prove your business to banks and lenders." },
+        { "title": "Open capital", "body": "Qualify for stock advance and working capital wey match your real sales wey you fit prove." }
+      ],
+      "faqs": [
+        { "q": "Why I suppose log every sale?", "a": "Every sale wey you log dey become part of record wey you fit prove — and na that record dey qualify you for stock loan. The more steady your sales, the more capital you fit reach." },
+        { "q": "POS don ready now?", "a": "The full POS, inventory, and business toolkit dey for our roadmap, and we mark am Coming Soon well well. You fit start to build your sales record today so you go ready from day one." },
+        { "q": "How stock loan dey work?", "a": "Once your sales history qualify you, you fit collect stock advance wey match your record, wey you dey pay back as you dey sell. When you pay back on time, e dey grow your score for bigger limit." },
+        { "q": "POS go support local language?", "a": "Yes — the POS wey dey come, receipt and product listing, we dey build am multilingual from day one, for English, Pidgin, Yoruba, Hausa and Igbo." }
+      ]
     }
   },
   "Home": {
     "hero": {
+      "forAudience": "For {audience}",
       "trustLine": "One ecosystem wey connect Nigeria informal economy — workers, employers, and traders."
     },
     "marquee": {
@@ -64,34 +116,111 @@
     },
     "features": {
       "eyebrow": "Why Tally",
-      "title": "Na the rails wey dey make everything work"
+      "title": "Na the rails wey dey make everything work",
+      "subtitle": "Payments, reputation, matching, and access — shared infrastructure wey dey serve every side of the platform.",
+      "escrowTitle": "Money wey escrow dey back, e dey comot when e confirm",
+      "escrowBody": "Employers dey put the money first; workers collect am that same day wey attendance confirm. No invoice, no dey chase, no dey pay for person wey no show.",
+      "escrowChips": ["Escrow dey back am", "E dey comot sharp sharp", "Bank payout"],
+      "scoreTitle": "The Tally Score",
+      "scoreBody": "Reputation wey you fit prove, wey come from real work and sales — na the key wey dey open credit.",
+      "locationTitle": "Match by location",
+      "locationBody": "Reach your ward. The correct jobs, workers, and customers, wey near you.",
+      "verifiedTitle": "Verified & trusted",
+      "verifiedBody": "NIN-verified identity and track record wey confirm for every side of the deal.",
+      "phoneTitle": "Phone-first access",
+      "phoneBody": "Full USSD and WhatsApp support, so smartphone no go ever be barrier."
     },
     "language": {
       "eyebrow": "We build am for Nigeria",
       "title1": "Technology wey",
       "title2": "dey speak your language",
-      "sub": "Work, hire, and trade for the language wey sweet you pass. We design Tally for how Naija people dey actually talk — for the app, for USSD, and for WhatsApp."
+      "sub": "Work, hire, and trade for the language wey sweet you pass. We design Tally for how Naija people dey actually talk — for the app, for USSD, and for WhatsApp.",
+      "bullets": [
+        "Interface, buttons, email and notification — all for your language.",
+        "Your language dey save, e dey follow you for all your devices.",
+        "Change am any time from the menu or your settings."
+      ],
+      "note": "E dey for USSD *347*82# and WhatsApp too"
     },
     "how": {
       "eyebrow": "How e dey work",
-      "title": "Clear road — for anybody wey you be"
+      "title": "Clear road — for anybody wey you be",
+      "stepLabel": "Step {n}"
     },
     "pos": {
       "badge": "For traders · E dey come",
       "title1": "One complete",
       "title2": "business operating system",
+      "body": "Start to build your sales record today. Soon, Tally go be the till, the store, and the accountant too — complete POS and business toolkit wey we build for Naija traders, online and offline.",
       "primaryCta": "Start to sell for Tally",
-      "secondaryCta": "Check the roadmap"
+      "secondaryCta": "Check the roadmap",
+      "features": [
+        "Sales & receipt",
+        "Inventory & catalog",
+        "Barcode scanning",
+        "Customers & suppliers",
+        "Stock alert",
+        "Daily report & profit",
+        "Expense tracking",
+        "Multi-store support",
+        "Offline + cloud sync"
+      ],
+      "more": "…and plenty more"
     },
     "roadmap": {
       "eyebrow": "Product vision",
-      "title": "Where Tally dey go next"
+      "title": "Where Tally dey go next",
+      "subtitle": "We dey build toward one platform wey go run work and business from start to finish. Na wetin dey come be this — we label am honest so you go always know wetin dey work today.",
+      "status": {
+        "inDev": "We dey build am",
+        "soon": "E dey come",
+        "planned": "For our roadmap"
+      },
+      "items": [
+        { "title": "POS System", "body": "Sales, inventory, receipt and multi-store — full till for traders." },
+        { "title": "Payroll Automation", "body": "Run recurring pay for your crew, straight from shifts wey confirm." },
+        { "title": "AI Job Matching", "body": "Better match between workers and employers, reach your ward." },
+        { "title": "Digital Wallet", "body": "Hold, send and receive business payment inside Tally." },
+        { "title": "Inventory Intelligence", "body": "Predict restock and show slow-moving goods from your sales." },
+        { "title": "Business Loans", "body": "Working capital wey match your Tally record wey you fit prove." },
+        { "title": "QR Payments", "body": "Collect payment sharp sharp for counter with one scan." },
+        { "title": "Financial Reports", "body": "Profit, cash flow and daily summary, we generate am for you." },
+        { "title": "AI Hiring Assistant", "body": "Write job post and shortlist applicants for seconds." }
+      ]
+    },
+    "stats": {
+      "items": [
+        { "label": "Of pay wey dey for escrow", "sub": "E dey comot only for work wey confirm" },
+        { "label": "To same-day payout", "sub": "From confirm reach your bank" },
+        { "label": "LGAs wey we support", "sub": "Match reach your ward" },
+        { "label": "Workers, employers, traders", "sub": "One identity wey connect" }
+      ]
+    },
+    "integrations": {
+      "eyebrow": "Integrations",
+      "title": "E dey work with the tools wey you dey already use",
+      "subtitle": "Tally dey connect to the payment, messaging, and business rails wey dey keep Naija moving — with plenty more dey come.",
+      "items": [
+        { "label": "Payment providers", "note": "Squad and more" },
+        { "label": "Bank transfer", "note": "NIBSS rails" },
+        { "label": "SMS & WhatsApp", "note": "Reach any phone" },
+        { "label": "Email services", "note": "Notification" },
+        { "label": "Accounting", "note": "We plan am" },
+        { "label": "Maps & location", "note": "Reach ward" },
+        { "label": "Calendar & payroll", "note": "We plan am" }
+      ]
     },
     "testimonials": {
       "eyebrow": "Testimonials",
       "title": "Real work. Real money. Real trust.",
       "subtitle": "From every side of the platform.",
-      "lovedBy": "Workers, employers & traders love am"
+      "lovedBy": "Workers, employers & traders love am",
+      "items": [
+        { "quote": "Before before, I go wait days make I collect money after shift. With Tally the money dey enter my account that same evening — and my score come get me my first stock loan.", "name": "Amaka O.", "role": "Warehouse worker · Lagos" },
+        { "quote": "Before, I dey hire people wey I no know and dey hope say dem go show. Now I dey see verified workers with real track record and I dey only pay when the job confirm.", "name": "Bola A.", "role": "Logistics employer · Ikeja" },
+        { "quote": "Every sale wey I log dey build my record. When I need capital to restock, the bank fit actually see my history. That one never happen before.", "name": "Musa I.", "role": "Market trader · Kano" },
+        { "quote": "No smartphone, no wahala — I dey confirm shift for USSD. Tally dey treat people like me as customers, no be afterthought.", "name": "Grace E.", "role": "Cleaner · Abuja" }
+      ]
     },
     "faq": {
       "eyebrow": "FAQ",
