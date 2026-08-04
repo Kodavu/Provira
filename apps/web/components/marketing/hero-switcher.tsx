@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { GridPattern, Glow } from "./ui";
 import { PersonaVisual } from "./persona-visual";
@@ -19,8 +20,11 @@ export function HeroSwitcher() {
   const [locked, setLocked] = useState(false); // user picked a tab → stop auto-cycling
   const [paused, setPaused] = useState(false); // hover / focus → hold current
   const reduce = useReducedMotion();
+  const tp = useTranslations("Personas");
+  const th = useTranslations("Home");
   const persona = PERSONAS.find((p) => p.id === active)!;
   const a = persona.accent;
+  const chipLabels = tp.raw(`${persona.id}.hero.chips`) as string[];
 
   // Auto-advance through the personas until the visitor interacts or hovers.
   useEffect(() => {
@@ -88,7 +92,7 @@ export function HeroSwitcher() {
                     />
                   )}
                   <Icon className="relative h-4 w-4" strokeWidth={1.9} />
-                  <span className="relative">For {p.label}</span>
+                  <span className="relative">{th("hero.forAudience", { audience: tp(`${p.id}.label`) })}</span>
                 </button>
               );
             })}
@@ -101,16 +105,16 @@ export function HeroSwitcher() {
             <AnimatePresence mode="wait">
               <motion.div key={persona.id} {...swap}>
                 <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${a.chip}`}>
-                  <Sparkles className="h-3.5 w-3.5" /> {persona.tagline}
+                  <Sparkles className="h-3.5 w-3.5" /> {tp(`${persona.id}.tagline`)}
                 </span>
                 <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
-                  {persona.hero.lead}{" "}
+                  {tp(`${persona.id}.hero.lead`)}{" "}
                   <span className={`bg-gradient-to-r ${a.gradText} bg-clip-text text-transparent`}>
-                    {persona.hero.emphasis}
+                    {tp(`${persona.id}.hero.emphasis`)}
                   </span>
                 </h1>
                 <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-ink-soft">
-                  {persona.hero.sub}
+                  {tp(`${persona.id}.hero.sub`)}
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -118,24 +122,24 @@ export function HeroSwitcher() {
                     href={persona.hero.primary.href}
                     className={`group inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-white shadow-lg transition ${a.solid}`}
                   >
-                    {persona.hero.primary.label}
+                    {tp(`${persona.id}.hero.primaryCta`)}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                   <Link
                     href={persona.hero.secondary.href}
                     className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-6 py-3 text-base font-semibold text-ink shadow-sm transition hover:border-brand-300 hover:bg-canvas"
                   >
-                    {persona.hero.secondary.label}
+                    {tp(`${persona.id}.hero.secondaryCta`)}
                   </Link>
                 </div>
 
                 <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-                  {persona.hero.chips.map((chip) => (
-                    <li key={chip.label} className="inline-flex items-center gap-1.5 text-sm text-ink-soft">
+                  {persona.hero.chips.map((chip, idx) => (
+                    <li key={idx} className="inline-flex items-center gap-1.5 text-sm text-ink-soft">
                       <span className={`grid h-5 w-5 place-items-center rounded-full ${a.softIcon}`}>
                         <chip.icon className="h-3 w-3" strokeWidth={2.2} />
                       </span>
-                      {chip.label}
+                      {chipLabels[idx]}
                     </li>
                   ))}
                 </ul>
@@ -161,7 +165,7 @@ export function HeroSwitcher() {
 
         {/* Shared trust line */}
         <p className="mt-14 text-center text-sm text-ink-muted">
-          One connected ecosystem for Nigeria&apos;s informal economy — workers, employers, and traders.
+          {th("hero.trustLine")}
         </p>
       </div>
     </section>

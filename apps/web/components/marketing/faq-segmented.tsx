@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Minus, Plus } from "lucide-react";
 import { PersonaTabs } from "./persona-tabs";
 import { PERSONA_MAP, type PersonaId } from "./personas";
@@ -13,7 +14,9 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function FaqSegmented() {
   const [active, setActive] = useState<PersonaId>("worker");
   const [open, setOpen] = useState<number | null>(0);
+  const tp = useTranslations("Personas");
   const persona = PERSONA_MAP[active];
+  const faqs = tp.raw(`${active}.faqs`) as { q: string; a: string }[];
 
   const pick = (id: PersonaId) => {
     setActive(id);
@@ -25,10 +28,10 @@ export function FaqSegmented() {
       <PersonaTabs active={active} onChange={pick} label="FAQ by audience" />
 
       <div className="mx-auto mt-10 max-w-3xl divide-y divide-line rounded-2xl border border-line bg-white">
-        {persona.faqs.map((f, i) => {
+        {faqs.map((f, i) => {
           const isOpen = open === i;
           return (
-            <div key={f.q}>
+            <div key={i}>
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}

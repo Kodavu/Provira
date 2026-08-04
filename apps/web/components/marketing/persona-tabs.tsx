@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { PERSONAS, type PersonaId } from "./personas";
 
 // Shared audience tab row for content sections (How it works, FAQ, showcase).
@@ -13,6 +14,7 @@ export function PersonaTabs({
   onChange: (id: PersonaId) => void;
   label: string;
 }) {
+  const tp = useTranslations("Personas");
   return (
     <div className="flex justify-center">
       <div role="tablist" aria-label={label} className="inline-flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-line bg-white p-1.5 shadow-card">
@@ -30,7 +32,7 @@ export function PersonaTabs({
               }`}
             >
               <Icon className="h-4 w-4" strokeWidth={1.9} />
-              {p.label}
+              {tp(`${p.id}.label`)}
             </button>
           );
         })}

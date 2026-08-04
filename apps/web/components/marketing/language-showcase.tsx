@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { BadgeCheck, Globe, Languages, MessageCircle, Wallet } from "lucide-react";
 import { Eyebrow, Glow, GridPattern } from "./ui";
 import { Reveal } from "./motion";
@@ -24,6 +25,8 @@ export function LanguageShowcase() {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
+  const tr = useTranslations("Home");
+  const bullets = tr.raw("language.bullets") as string[];
   const lang = LANGUAGES[i];
   const t = DEMO[lang.code];
 
@@ -41,14 +44,13 @@ export function LanguageShowcase() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2">
         {/* Copy */}
         <Reveal>
-          <Eyebrow><Languages className="h-3.5 w-3.5" /> Built for Nigeria</Eyebrow>
+          <Eyebrow><Languages className="h-3.5 w-3.5" /> {tr("language.eyebrow")}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
-            Technology that{" "}
-            <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">speaks your language</span>
+            {tr("language.title1")}{" "}
+            <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">{tr("language.title2")}</span>
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
-            Work, hire, and trade in the language you&apos;re most comfortable with. Tally is designed for how
-            Nigerians actually speak — on the app, over USSD, and on WhatsApp.
+            {tr("language.sub")}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2">
@@ -70,11 +72,7 @@ export function LanguageShowcase() {
           </div>
 
           <ul className="mt-7 space-y-2.5 text-sm text-ink-soft">
-            {[
-              "Interface, buttons, emails and notifications — localized.",
-              "Your language is saved and follows you across devices.",
-              "Change it any time from the menu or your settings.",
-            ].map((line) => (
+            {bullets.map((line) => (
               <li key={line} className="flex items-start gap-2.5">
                 <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-600">
                   <BadgeCheck className="h-3.5 w-3.5" strokeWidth={2} />
@@ -168,7 +166,7 @@ export function LanguageShowcase() {
 
               {/* USSD/WhatsApp note */}
               <p className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-ink-muted">
-                <MessageCircle className="h-3 w-3" /> Also on USSD *347*82# &amp; WhatsApp
+                <MessageCircle className="h-3 w-3" /> {tr("language.note")}
               </p>
             </div>
           </div>

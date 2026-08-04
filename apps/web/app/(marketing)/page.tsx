@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import {
   ArrowRight,
   Check,
@@ -32,16 +33,22 @@ export const metadata = {
     "Tally connects Nigeria's informal economy: workers find jobs and get paid same-day, employers hire verified talent and pay on confirmation, and traders build records that unlock credit — with a full business toolkit coming soon.",
 };
 
-const STATS = [
-  { to: 100, suffix: "%", label: "Of pay held in escrow", sub: "Released only on confirmed work" },
-  { to: 24, prefix: "< ", suffix: "h", label: "To same-day payout", sub: "From confirmation to your bank" },
-  { to: 774, suffix: "", label: "LGAs supported", sub: "Match down to your ward" },
-  { to: 3, suffix: "-in-1", label: "Workers, employers, traders", sub: "One connected identity" },
+// Numeric config for the stats counters; the labels/subs come from the catalog.
+const STAT_NUMBERS = [
+  { to: 100, suffix: "%" },
+  { to: 24, prefix: "< ", suffix: "h" },
+  { to: 774, suffix: "" },
+  { to: 3, suffix: "-in-1" },
 ];
 
 const PARTNERS = ["CBN-licensed bank", "Squad Payments", "NDPR compliant", "NIBSS", "WhatsApp Business", "USSD *347*82#"];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const t = await getTranslations("Home");
+  const tp = await getTranslations("Personas");
+  const stats = t.raw("stats.items") as { label: string; sub: string }[];
+  const escrowChips = t.raw("features.escrowChips") as string[];
+
   return (
     <>
       {/* ---------------- Interactive hero (3 personas) ---------------- */}
@@ -50,7 +57,7 @@ export default function HomePage() {
       {/* ---------------- Trust marquee ---------------- */}
       <section className="border-y border-line bg-canvas/60 py-8">
         <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-ink-muted">
-          Built on trusted, licensed infrastructure
+          {t("marquee.title")}
         </p>
         <Marquee speed={30} className="mx-auto max-w-6xl px-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           {PARTNERS.map((p) => (
@@ -64,41 +71,44 @@ export default function HomePage() {
       {/* ---------------- One connected ecosystem ---------------- */}
       <Section id="ecosystem" className="py-20 md:py-28">
         <SectionHeading
-          eyebrow="One connected ecosystem"
-          title="Three audiences. One shared economic identity."
-          subtitle="Workers, employers, and traders each get a product built for them — connected by the same verified identity, escrow, and Tally Score."
+          eyebrow={t("ecosystem.eyebrow")}
+          title={t("ecosystem.title")}
+          subtitle={t("ecosystem.subtitle")}
         />
         <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
-          {PERSONAS.map((p) => (
-            <RevealItem key={p.id}>
-              <div
-                id={p.id === "worker" ? "workers" : p.id === "employer" ? "employers" : "traders"}
-                className="group relative flex h-full scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-xl"
-              >
-                <span className={`grid h-12 w-12 place-items-center rounded-xl text-white ${p.accent.iconBox}`}>
-                  <p.icon className="h-6 w-6" strokeWidth={1.8} />
-                </span>
-                <p className="mt-5 text-xl font-semibold text-ink">{p.label}</p>
-                <p className="mt-1 text-sm font-medium text-ink-muted">{p.tagline}</p>
-                <ul className="mt-5 flex-1 space-y-2.5">
-                  {p.features.slice(0, 4).map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                      <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full ${p.accent.softIcon}`}>
-                        <Check className="h-3 w-3" strokeWidth={2.5} />
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={p.hero.primary.href}
-                  className={`mt-6 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition ${p.accent.solid}`}
+          {PERSONAS.map((p) => {
+            const features = tp.raw(`${p.id}.features`) as string[];
+            return (
+              <RevealItem key={p.id}>
+                <div
+                  id={p.id === "worker" ? "workers" : p.id === "employer" ? "employers" : "traders"}
+                  className="group relative flex h-full scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-xl"
                 >
-                  {p.hero.primary.label} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
-            </RevealItem>
-          ))}
+                  <span className={`grid h-12 w-12 place-items-center rounded-xl text-white ${p.accent.iconBox}`}>
+                    <p.icon className="h-6 w-6" strokeWidth={1.8} />
+                  </span>
+                  <p className="mt-5 text-xl font-semibold text-ink">{tp(`${p.id}.label`)}</p>
+                  <p className="mt-1 text-sm font-medium text-ink-muted">{tp(`${p.id}.tagline`)}</p>
+                  <ul className="mt-5 flex-1 space-y-2.5">
+                    {features.slice(0, 4).map((f) => (
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-ink-soft">
+                        <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full ${p.accent.softIcon}`}>
+                          <Check className="h-3 w-3" strokeWidth={2.5} />
+                        </span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={p.hero.primary.href}
+                    className={`mt-6 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition ${p.accent.solid}`}
+                  >
+                    {tp(`${p.id}.hero.primaryCta`)} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              </RevealItem>
+            );
+          })}
         </RevealGroup>
       </Section>
 
@@ -106,39 +116,36 @@ export default function HomePage() {
       <section className="border-y border-line bg-canvas/60 py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
-            eyebrow="Why Tally"
-            title="The rails that make it all work"
-            subtitle="Payments, reputation, matching, and access — shared infrastructure that serves every side of the platform."
+            eyebrow={t("features.eyebrow")}
+            title={t("features.title")}
+            subtitle={t("features.subtitle")}
           />
           <RevealGroup className="mt-12 grid gap-4 md:grid-cols-6">
             <RevealItem className="md:col-span-4">
               <div className="relative h-full overflow-hidden rounded-2xl border border-line bg-gradient-to-br from-brand-600 to-brand-700 p-8 text-white shadow-card">
                 <GridPattern className="text-white/10" />
                 <span className="relative grid h-11 w-11 place-items-center rounded-xl bg-white/15"><Wallet className="h-5 w-5" /></span>
-                <h3 className="relative mt-5 text-2xl font-bold">Escrow-backed pay, released on confirmation</h3>
-                <p className="relative mt-2 max-w-md text-white/80">
-                  Employers fund jobs up front; workers are paid the same day their attendance is confirmed. No invoices,
-                  no chasing, no paying for no-shows.
-                </p>
+                <h3 className="relative mt-5 text-2xl font-bold">{t("features.escrowTitle")}</h3>
+                <p className="relative mt-2 max-w-md text-white/80">{t("features.escrowBody")}</p>
                 <div className="relative mt-6 flex flex-wrap gap-2 text-sm">
-                  {["Escrow-backed", "Instant release", "Bank payout"].map((t) => (
-                    <span key={t} className="rounded-full bg-white/15 px-3 py-1 font-medium">{t}</span>
+                  {escrowChips.map((c) => (
+                    <span key={c} className="rounded-full bg-white/15 px-3 py-1 font-medium">{c}</span>
                   ))}
                 </div>
               </div>
             </RevealItem>
 
             <RevealItem className="md:col-span-2">
-              <FeatureCard icon={TrendingUp} title="The Tally Score" body="A verifiable reputation built from real work and sales — the key that unlocks credit." tint="gold" />
+              <FeatureCard icon={TrendingUp} title={t("features.scoreTitle")} body={t("features.scoreBody")} tint="gold" />
             </RevealItem>
             <RevealItem className="md:col-span-2">
-              <FeatureCard icon={MapPin} title="Match by location" body="Down to the ward. The right jobs, workers, and customers, close to home." tint="emerald" />
+              <FeatureCard icon={MapPin} title={t("features.locationTitle")} body={t("features.locationBody")} tint="emerald" />
             </RevealItem>
             <RevealItem className="md:col-span-2">
-              <FeatureCard icon={ShieldCheck} title="Verified & trusted" body="NIN-verified identities and confirmed track records on every side of a deal." tint="emerald" />
+              <FeatureCard icon={ShieldCheck} title={t("features.verifiedTitle")} body={t("features.verifiedBody")} tint="emerald" />
             </RevealItem>
             <RevealItem className="md:col-span-2">
-              <FeatureCard icon={Phone} title="Phone-first access" body="Full USSD and WhatsApp support so no smartphone is ever a barrier." tint="brand" />
+              <FeatureCard icon={Phone} title={t("features.phoneTitle")} body={t("features.phoneBody")} tint="brand" />
             </RevealItem>
           </RevealGroup>
         </div>
@@ -149,7 +156,7 @@ export default function HomePage() {
 
       {/* ---------------- How it works (tabbed by persona) ---------------- */}
       <Section id="how" className="py-20 md:py-28">
-        <SectionHeading eyebrow="How it works" title="A clear path — for whoever you are" />
+        <SectionHeading eyebrow={t("how.eyebrow")} title={t("how.title")} />
         <div className="mt-12">
           <HowItWorks />
         </div>
@@ -165,13 +172,13 @@ export default function HomePage() {
       <section className="border-y border-line bg-brand-900/[0.02]">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {STATS.map((s) => (
-              <RevealItem key={s.label} className="text-center">
+            {STAT_NUMBERS.map((s, i) => (
+              <RevealItem key={i} className="text-center">
                 <p className="text-4xl font-bold tracking-tight text-ink sm:text-5xl">
                   <CountUp to={s.to} prefix={s.prefix ?? ""} suffix={s.suffix ?? ""} />
                 </p>
-                <p className="mt-2 text-sm font-semibold text-ink">{s.label}</p>
-                <p className="mt-0.5 text-xs text-ink-muted">{s.sub}</p>
+                <p className="mt-2 text-sm font-semibold text-ink">{stats[i].label}</p>
+                <p className="mt-0.5 text-xs text-ink-muted">{stats[i].sub}</p>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -183,7 +190,7 @@ export default function HomePage() {
 
       {/* ---------------- Testimonials ---------------- */}
       <Section className="py-20 md:py-28">
-        <SectionHeading eyebrow="Testimonials" title="Real work. Real pay. Real trust." subtitle="From every side of the platform." />
+        <SectionHeading eyebrow={t("testimonials.eyebrow")} title={t("testimonials.title")} subtitle={t("testimonials.subtitle")} />
         <div className="mt-12">
           <Testimonials />
         </div>
@@ -192,13 +199,14 @@ export default function HomePage() {
       {/* ---------------- FAQ (segmented by audience) ---------------- */}
       <section id="faq" className="scroll-mt-24 border-t border-line bg-canvas/60 py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading eyebrow="FAQ" title="Questions, answered" subtitle="Pick your audience for the answers that matter to you." />
+          <SectionHeading eyebrow={t("faq.eyebrow")} title={t("faq.title")} subtitle={t("faq.subtitle")} />
           <div className="mt-10">
             <FaqSegmented />
           </div>
           <p className="mt-8 text-center text-sm text-ink-soft">
-            Still curious? <Link href="/help" className="font-semibold text-brand-700 hover:text-brand-800">Visit the Help Center</Link> or{" "}
-            <Link href="/contact" className="font-semibold text-brand-700 hover:text-brand-800">talk to us</Link>.
+            {t("faq.stillCurious")}{" "}
+            <Link href="/help" className="font-semibold text-brand-700 hover:text-brand-800">{t("faq.helpCenter")}</Link> {t("faq.or")}{" "}
+            <Link href="/contact" className="font-semibold text-brand-700 hover:text-brand-800">{t("faq.talkToUs")}</Link>.
           </p>
         </div>
       </section>
@@ -211,20 +219,18 @@ export default function HomePage() {
             <Glow className="-right-20 -top-20 h-72 w-72 opacity-30" from="#fbdd8f" to="#a3a3f8" />
             <div className="relative mx-auto max-w-2xl">
               <h2 className="text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Whoever you are, start counting your work today
+                {t("finalCta.title")}
               </h2>
-              <p className="mt-4 text-lg text-white/85">
-                Join the workers, employers, and traders building a verifiable economic identity — and getting paid faster for it.
-              </p>
+              <p className="mt-4 text-lg text-white/85">{t("finalCta.body")}</p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Link href="/signup" className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-base font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50">
-                  Get started free <ArrowRight className="h-4 w-4" />
+                  {t("finalCta.primary")} <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white transition hover:bg-white/10">
-                  <MessageSquare className="h-4 w-4" /> Talk to us
+                  <MessageSquare className="h-4 w-4" /> {t("finalCta.secondary")}
                 </Link>
               </div>
-              <p className="mt-6 text-sm text-white/70">No smartphone? Dial <span className="font-semibold text-white">*347*82#</span> or message us on WhatsApp.</p>
+              <p className="mt-6 text-sm text-white/70">{t("finalCta.note")}</p>
             </div>
           </div>
         </Reveal>

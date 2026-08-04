@@ -1,5 +1,7 @@
 import { getRequestConfig } from "next-intl/server";
+import type { AbstractIntlMessages } from "next-intl";
 import { cookies } from "next/headers";
+import enMessages from "../messages/en.json";
 
 // next-intl WITHOUT locale routing: the active language is read from the
 // `tally-lang` cookie the language selector already sets, so every existing
@@ -19,12 +21,41 @@ const COOKIE_TO_LOCALE: Record<string, Locale> = {
   IG: "ig",
 };
 
+// Deep-merge a locale's (possibly partial) catalog over English so any key a
+// translator hasn't filled in yet falls back to the English source string.
+function mergeFallback(base: Record<string, unknown>, override: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...base };
+  for (const [key, value] of Object.entries(override)) {
+    const baseValue = out[key];
+    if (
+      value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      baseValue &&
+      typeof baseValue === "object" &&
+      !Array.isArray(baseValue)
+    ) {
+      out[key] = mergeFallback(baseValue as Record<string, unknown>, value as Record<string, unknown>);
+    } else if (value !== undefined && value !== "") {
+      out[key] = value;
+    }
+  }
+  return out;
+}
+
 export default getRequestConfig(async () => {
   const cookieValue = cookies().get("tally-lang")?.value ?? "EN";
   const locale = COOKIE_TO_LOCALE[cookieValue] ?? DEFAULT_LOCALE;
 
-  return {
-    locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
-  };
+  const localeMessages =
+    locale === "en" ? enMessages : (await import(`../messages/${locale}.json`)).default;
+
+  // Arrays (used for lists via `t.raw`) are valid at runtime but not modelled by
+  // next-intl's message type, so cast the merged result.
+  const messages = mergeFallback(
+    enMessages as unknown as Record<string, unknown>,
+    localeMessages as unknown as Record<string, unknown>,
+  ) as AbstractIntlMessages;
+
+  return { locale, messages };
 });

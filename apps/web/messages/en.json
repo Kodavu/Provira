@@ -11,5 +11,232 @@
   "Common": {
     "getStartedFree": "Get started free",
     "talkToUs": "Talk to us"
+  },
+  "Personas": {
+    "worker": {
+      "label": "Workers",
+      "tagline": "Find work, get paid, grow",
+      "hero": {
+        "lead": "Find real work.",
+        "emphasis": "Get paid the same day.",
+        "sub": "Discover verified jobs near you, confirm your shift with a code, and get paid straight to your bank — while every job builds a Tally Score that unlocks credit.",
+        "primaryCta": "Find work",
+        "secondaryCta": "How it works",
+        "chips": ["Verified employers", "Same-day pay", "Build your score"]
+      },
+      "features": [
+        "Verified, escrow-backed employers",
+        "Professional profile with ratings & reviews",
+        "Flexible shifts matched to your ward",
+        "A Tally Score that opens real credit"
+      ],
+      "steps": [
+        { "title": "Build your profile", "body": "Sign up with a phone number, add your skills and location — no smartphone required." },
+        { "title": "Apply to nearby jobs", "body": "See verified jobs matched to your skills and ward, and apply in a tap or over USSD." },
+        { "title": "Work & get paid", "body": "Confirm attendance with the employer's code and get paid the same day, every time." }
+      ],
+      "faqs": [
+        { "q": "How fast do I get paid?", "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Tally wallet and can be withdrawn to your bank." },
+        { "q": "Do I need a smartphone?", "a": "No. You can sign up, apply, and confirm shifts over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required." },
+        { "q": "What is my Tally Score?", "a": "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit." },
+        { "q": "Can I use Tally in my language?", "a": "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices." }
+      ]
+    },
+    "employer": {
+      "label": "Employers",
+      "tagline": "Hire verified, pay on confirmation",
+      "hero": {
+        "lead": "Hire verified workers.",
+        "emphasis": "Pay only for confirmed work.",
+        "sub": "Post a job in minutes, invite people with real track records, and fund pay into escrow. Money is released only when attendance is confirmed — so you never pay for a no-show.",
+        "primaryCta": "Post a job",
+        "secondaryCta": "See hiring flow",
+        "chips": ["NIN-verified talent", "Pay on confirmation", "Hiring analytics"]
+      },
+      "features": [
+        "Verified, rated workers on tap",
+        "Post jobs and manage applicants in minutes",
+        "Escrow so you never pay for a no-show",
+        "Performance analytics & team management"
+      ],
+      "steps": [
+        { "title": "Post & fund a job", "body": "Set the role, headcount, pay, location and shift, then fund the total into secure escrow up front." },
+        { "title": "Invite & manage", "body": "Review suggested verified workers, invite the best, and manage applicants from one dashboard." },
+        { "title": "Confirm & pay", "body": "Share the attendance code on site; escrow releases automatically only for confirmed work." }
+      ],
+      "faqs": [
+        { "q": "How does escrow protect me?", "a": "When you fund a job the pay is held in a dedicated escrow account — not sent yet. It's released only when the worker confirms attendance with your code, so you never pay for a no-show." },
+        { "q": "How do I find good workers?", "a": "Tally suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm." },
+        { "q": "What does it cost to hire?", "a": "A small, transparent fee per completed hire — shown before you confirm, with no monthly minimums." },
+        { "q": "Can I post jobs in a local language?", "a": "Yes. Post in the language you prefer; the hiring interface works in English, Pidgin, Yoruba, Hausa and Igbo, and one-tap translation of posts for workers is on our roadmap." }
+      ]
+    },
+    "trader": {
+      "label": "Traders",
+      "tagline": "Run and grow your business",
+      "hero": {
+        "lead": "Run your business.",
+        "emphasis": "Turn every sale into credit.",
+        "sub": "Log your sales to build a verifiable record that unlocks stock loans today — and get ready for an all-in-one business toolkit: POS, inventory, payments and analytics, coming soon.",
+        "primaryCta": "Grow your business",
+        "secondaryCta": "Explore the POS",
+        "chips": ["Log sales", "Unlock stock loans", "POS coming soon"]
+      },
+      "features": [
+        "Log sales & build a business record",
+        "Unlock stock loans from real history",
+        "Full POS & inventory toolkit (coming soon)",
+        "Digital wallet & business payments (roadmap)"
+      ],
+      "steps": [
+        { "title": "Log your sales", "body": "Record sales in seconds — each one becomes part of a verifiable business track record." },
+        { "title": "Build your history", "body": "Consistent sales grow your Tally Score and prove your business to banks and lenders." },
+        { "title": "Unlock capital", "body": "Qualify for stock advances and working capital sized to your real, verifiable sales." }
+      ],
+      "faqs": [
+        { "q": "Why should I log every sale?", "a": "Each logged sale becomes part of a verifiable record — and that record is what qualifies you for stock loans. The more consistent your sales, the more capital you can access." },
+        { "q": "Is the POS available now?", "a": "The full POS, inventory, and business toolkit are on our roadmap and clearly marked Coming Soon. You can start building your sales record today so you're ready on day one." },
+        { "q": "How do stock loans work?", "a": "Once your sales history qualifies you, you can access a stock advance sized to your record, repaid as you sell. On-time repayment grows your score for larger limits." },
+        { "q": "Will the POS support local languages?", "a": "Yes — the coming POS, receipts and product listings are being built multilingual from day one, in English, Pidgin, Yoruba, Hausa and Igbo." }
+      ]
+    }
+  },
+  "Home": {
+    "hero": {
+      "forAudience": "For {audience}",
+      "trustLine": "One connected ecosystem for Nigeria's informal economy — workers, employers, and traders."
+    },
+    "marquee": {
+      "title": "Built on trusted, licensed infrastructure"
+    },
+    "ecosystem": {
+      "eyebrow": "One connected ecosystem",
+      "title": "Three audiences. One shared economic identity.",
+      "subtitle": "Workers, employers, and traders each get a product built for them — connected by the same verified identity, escrow, and Tally Score."
+    },
+    "features": {
+      "eyebrow": "Why Tally",
+      "title": "The rails that make it all work",
+      "subtitle": "Payments, reputation, matching, and access — shared infrastructure that serves every side of the platform.",
+      "escrowTitle": "Escrow-backed pay, released on confirmation",
+      "escrowBody": "Employers fund jobs up front; workers are paid the same day their attendance is confirmed. No invoices, no chasing, no paying for no-shows.",
+      "escrowChips": ["Escrow-backed", "Instant release", "Bank payout"],
+      "scoreTitle": "The Tally Score",
+      "scoreBody": "A verifiable reputation built from real work and sales — the key that unlocks credit.",
+      "locationTitle": "Match by location",
+      "locationBody": "Down to the ward. The right jobs, workers, and customers, close to home.",
+      "verifiedTitle": "Verified & trusted",
+      "verifiedBody": "NIN-verified identities and confirmed track records on every side of a deal.",
+      "phoneTitle": "Phone-first access",
+      "phoneBody": "Full USSD and WhatsApp support so no smartphone is ever a barrier."
+    },
+    "language": {
+      "eyebrow": "Built for Nigeria",
+      "title1": "Technology that",
+      "title2": "speaks your language",
+      "sub": "Work, hire, and trade in the language you're most comfortable with. Tally is designed for how Nigerians actually speak — on the app, over USSD, and on WhatsApp.",
+      "bullets": [
+        "Interface, buttons, emails and notifications — localized.",
+        "Your language is saved and follows you across devices.",
+        "Change it any time from the menu or your settings."
+      ],
+      "note": "Also on USSD *347*82# & WhatsApp"
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "A clear path — for whoever you are",
+      "stepLabel": "Step {n}"
+    },
+    "pos": {
+      "badge": "For traders · Coming soon",
+      "title1": "An all-in-one",
+      "title2": "business operating system",
+      "body": "Start building your sales record today. Soon, Tally becomes the till, the stockroom, and the accountant too — a complete POS and business toolkit built for Nigerian traders, online and offline.",
+      "primaryCta": "Start selling on Tally",
+      "secondaryCta": "View the roadmap",
+      "features": [
+        "Sales & receipts",
+        "Inventory & catalog",
+        "Barcode scanning",
+        "Customers & suppliers",
+        "Stock alerts",
+        "Daily reports & profit",
+        "Expense tracking",
+        "Multi-store support",
+        "Offline + cloud sync"
+      ],
+      "more": "…and more"
+    },
+    "roadmap": {
+      "eyebrow": "Product vision",
+      "title": "Where Tally is headed next",
+      "subtitle": "We're building toward one platform that runs work and business end to end. Here's what's coming — labelled honestly so you always know what's live today.",
+      "status": {
+        "inDev": "In development",
+        "soon": "Coming soon",
+        "planned": "On our roadmap"
+      },
+      "items": [
+        { "title": "POS System", "body": "Sales, inventory, receipts and multi-store — a full till for traders." },
+        { "title": "Payroll Automation", "body": "Run recurring pay for your crew, straight from confirmed shifts." },
+        { "title": "AI Job Matching", "body": "Smarter matches between workers and employers, down to the ward." },
+        { "title": "Digital Wallet", "body": "Hold, send and receive business payments inside Tally." },
+        { "title": "Inventory Intelligence", "body": "Predict restocks and flag slow movers from your sales." },
+        { "title": "Business Loans", "body": "Working capital sized to your verifiable Tally record." },
+        { "title": "QR Payments", "body": "Take instant payments at the counter with a scan." },
+        { "title": "Financial Reports", "body": "Profit, cash flow and daily summaries, generated for you." },
+        { "title": "AI Hiring Assistant", "body": "Draft job posts and shortlist applicants in seconds." }
+      ]
+    },
+    "stats": {
+      "items": [
+        { "label": "Of pay held in escrow", "sub": "Released only on confirmed work" },
+        { "label": "To same-day payout", "sub": "From confirmation to your bank" },
+        { "label": "LGAs supported", "sub": "Match down to your ward" },
+        { "label": "Workers, employers, traders", "sub": "One connected identity" }
+      ]
+    },
+    "integrations": {
+      "eyebrow": "Integrations",
+      "title": "Works with the tools you already use",
+      "subtitle": "Tally connects to the payment, messaging, and business rails that keep Nigeria moving — with more on the way.",
+      "items": [
+        { "label": "Payment providers", "note": "Squad & more" },
+        { "label": "Bank transfers", "note": "NIBSS rails" },
+        { "label": "SMS & WhatsApp", "note": "Reach any phone" },
+        { "label": "Email services", "note": "Notifications" },
+        { "label": "Accounting", "note": "Planned" },
+        { "label": "Maps & location", "note": "Ward-level" },
+        { "label": "Calendar & payroll", "note": "Planned" }
+      ]
+    },
+    "testimonials": {
+      "eyebrow": "Testimonials",
+      "title": "Real work. Real pay. Real trust.",
+      "subtitle": "From every side of the platform.",
+      "lovedBy": "Loved by workers, employers & traders",
+      "items": [
+        { "quote": "I used to wait days to get paid after a shift. With Tally the money hits my account the same evening — and my score got me my first stock loan.", "name": "Amaka O.", "role": "Warehouse worker · Lagos" },
+        { "quote": "Before, I hired people I didn't know and hoped they'd show up. Now I see verified workers with real track records and only pay when the job is confirmed.", "name": "Bola A.", "role": "Logistics employer · Ikeja" },
+        { "quote": "Every sale I log builds my record. When I needed capital to restock, the bank could actually see my history. That never happened before.", "name": "Musa I.", "role": "Market trader · Kano" },
+        { "quote": "No smartphone, no problem — I confirm shifts over USSD. Tally treats people like me as customers, not an afterthought.", "name": "Grace E.", "role": "Cleaner · Abuja" }
+      ]
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered",
+      "subtitle": "Pick your audience for the answers that matter to you.",
+      "stillCurious": "Still curious?",
+      "helpCenter": "Visit the Help Center",
+      "or": "or",
+      "talkToUs": "talk to us"
+    },
+    "finalCta": {
+      "title": "Whoever you are, start counting your work today",
+      "body": "Join the workers, employers, and traders building a verifiable economic identity — and getting paid faster for it.",
+      "primary": "Get started free",
+      "secondary": "Talk to us",
+      "note": "No smartphone? Dial *347*82# or message us on WhatsApp."
+    }
   }
 }
