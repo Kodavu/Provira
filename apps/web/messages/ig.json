@@ -573,5 +573,46 @@
       "repayLoan": "Kwụghachi mbinye ego n'oge",
       "noShow": "Ọ na-efu ma abịaghị"
     }
+  },
+  "Sales": {
+    "title": "Ahịa",
+    "subtitle": "Depụta ahịa ọ bụla — ọ na-ewu ndekọ na-emeghe mbinye ngwaahịa.",
+    "thisWeek": "Izu a",
+    "thisWeekCap": "Nke edepụtara n'ụbọchị 7 gara aga.",
+    "allTime": "Oge niile",
+    "allTimeCap": "N'ofe ndekọ gị niile.",
+    "transactions": "Azụmahịa",
+    "transactionsCap": "Ahịa niile edepụtara.",
+    "history": "Akụkọ ahịa",
+    "historySub": "Ahịa ọ bụla i depụtara, nke ọhụrụ na mbụ.",
+    "logSaleEyebrow": "Depụta ahịa",
+    "recordWhat": "Depụta ihe i rere",
+    "logging": "Na-edepụta…",
+    "logSale": "Depụta ahịa",
+    "enterAmount": "Tinye ego",
+    "saleLogged": "Edepụtala ahịa",
+    "saleLoggedDesc": "{amount} · {method}",
+    "logFailed": "Enweghị ike idepụta ahịa",
+    "logNote": "Ahịa ọ bụla edepụtara na-ewu ndekọ ntụkwasị obi gị — ọ na-emeghekwa mbinye ngwaahịa.",
+    "noSales": "Edepụtabeghị ahịa ọ bụla.",
+    "sale": "Ahịa",
+    "salesLogged": "{count} ahịa edepụtara. Nọgide na-edepụta ka ị rịgoro.",
+    "methods": { "card": "kaadị", "cash": "ego", "transfer": "mbufe" }
+  },
+  "LoanOffers": {
+    "empty": "Ọ dịghị onyinye mbinye ego ka. Mezuo ọrụ ndị ọzọ iji wuo ndekọ na-emeghe mbinye ego.",
+    "approved": "Akwadoro",
+    "eligible": "Tozuru",
+    "locked": "Akpọchiri",
+    "upToNeeds": "Ruo {amount} · ọ chọrọ akara {minScore}+",
+    "approvedCheck": "Akwadoro ✓",
+    "submitting": "Na-eziga…",
+    "requestLoan": "Rịọ mbinye ego",
+    "keepBuilding": "Nọgide na-ewu",
+    "loanApproved": "Akwadoro mbinye ego!",
+    "loanApprovedDesc": "Ruo {amount} na {name}. Anyị ga-ezipu ya n'akaụntụ ịkwụ ụgwọ gị.",
+    "notApproved": "Akwadobeghị ya",
+    "notApprovedFallback": "Nọgide na-ewu akara gị ma nwaa ọzọ.",
+    "submitFailed": "Enweghị ike izipu"
   }
 }

@@ -573,5 +573,46 @@
       "repayLoan": "San awin padà lásìkò",
       "noShow": "Àìwá ń ná ọ"
     }
+  },
+  "Sales": {
+    "title": "Títà",
+    "subtitle": "Ṣàkọsílẹ̀ gbogbo títà — ó ń kọ́ àkọsílẹ̀ tó ń ṣí awin ọjà.",
+    "thisWeek": "Ọ̀sẹ̀ yìí",
+    "thisWeekCap": "Èyí tí a ṣàkọsílẹ̀ ní ọjọ́ 7 sẹ́yìn.",
+    "allTime": "Ìgbà gbogbo",
+    "allTimeCap": "Kọjá àkọsílẹ̀ rẹ.",
+    "transactions": "Àwọn ìṣòwò",
+    "transactionsCap": "Gbogbo títà tí a ṣàkọsílẹ̀.",
+    "history": "Ìtàn títà",
+    "historySub": "Gbogbo títà tí o ti ṣàkọsílẹ̀, tuntun jù ní àkọ́kọ́.",
+    "logSaleEyebrow": "Ṣàkọsílẹ̀ títà",
+    "recordWhat": "Ṣàkọsílẹ̀ ohun tí o tà",
+    "logging": "Ń ṣàkọsílẹ̀…",
+    "logSale": "Ṣàkọsílẹ̀ títà",
+    "enterAmount": "Tẹ iye owó",
+    "saleLogged": "A ti ṣàkọsílẹ̀ títà",
+    "saleLoggedDesc": "{amount} · {method}",
+    "logFailed": "A kò lè ṣàkọsílẹ̀ títà",
+    "logNote": "Gbogbo títà tí a ṣàkọsílẹ̀ ń kọ́ àkọsílẹ̀ ìgbẹ́kẹ̀lé rẹ — ó sì ń ṣí awin ọjà.",
+    "noSales": "O kò tíì ṣàkọsílẹ̀ títà kankan.",
+    "sale": "Títà",
+    "salesLogged": "{count} títà tí a ṣàkọsílẹ̀. Máa ṣàkọsílẹ̀ láti gòkè.",
+    "methods": { "card": "káàdì", "cash": "owó", "transfer": "ìfìránṣẹ́" }
+  },
+  "LoanOffers": {
+    "empty": "Kò sí ìpèsè awin síbẹ̀. Parí àwọn iṣẹ́ sí i láti kọ́ àkọsílẹ̀ tó ń ṣí krẹdíìtì.",
+    "approved": "A ti fọwọ́sí",
+    "eligible": "Ó yẹ",
+    "locked": "Ó dì",
+    "upToNeeds": "Títí dé {amount} · ó nílò ìdíwọ̀n {minScore}+",
+    "approvedCheck": "A ti fọwọ́sí ✓",
+    "submitting": "Ń fi sílẹ̀…",
+    "requestLoan": "Béèrè awin",
+    "keepBuilding": "Máa kọ́ ọ",
+    "loanApproved": "A ti fọwọ́sí awin!",
+    "loanApprovedDesc": "Títí dé {amount} lórí {name}. A ó san án sí àkáǹtì ìsanwó rẹ.",
+    "notApproved": "A kò tíì fọwọ́sí i",
+    "notApprovedFallback": "Máa kọ́ ìdíwọ̀n rẹ kí o sì tún gbìyànjú.",
+    "submitFailed": "A kò lè fi sílẹ̀"
   }
 }

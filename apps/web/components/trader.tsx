@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { api, TraderDashboard } from "@/lib/api";
 import {
   Button,
@@ -19,6 +20,7 @@ export function LogSaleCard({
   userId: string;
   onLogged: () => void;
 }) {
+  const t = useTranslations("Sales");
   const [amount, setAmount] = useState("");
   const [method, setMethod] = useState<"card" | "cash" | "transfer">("card");
   const [loading, setLoading] = useState(false);
@@ -27,19 +29,19 @@ export function LogSaleCard({
   async function submit() {
     const naira = Number(amount);
     if (!naira || naira <= 0) {
-      setError("Enter an amount");
+      setError(t("enterAmount"));
       return;
     }
     setLoading(true);
     setError(null);
     try {
       await api.logSale(userId, String(Math.round(naira * 100)), method);
-      toast.success("Sale logged", { description: `${formatNaira(String(Math.round(naira * 100)))} · ${method}` });
+      toast.success(t("saleLogged"), { description: t("saleLoggedDesc", { amount: formatNaira(String(Math.round(naira * 100))), method: t(`methods.${method}`) }) });
       setAmount("");
       onLogged();
     } catch (e) {
       setError((e as Error).message);
-      toast.error("Couldn't log sale", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("logFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setLoading(false);
     }
@@ -47,9 +49,9 @@ export function LogSaleCard({
 
   return (
     <Card className="p-6">
-      <p className="eyebrow">Log a sale</p>
+      <p className="eyebrow">{t("logSaleEyebrow")}</p>
       <h2 className="mb-4 mt-1 font-display text-xl font-semibold text-ink">
-        Record what you sold
+        {t("recordWhat")}
       </h2>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="flex flex-1 items-center rounded-xl border border-line bg-surface px-3.5">
@@ -71,23 +73,24 @@ export function LogSaleCard({
                 method === m ? "bg-brand-700 text-white" : "text-ink-soft hover:bg-canvas"
               }`}
             >
-              {m}
+              {t(`methods.${m}`)}
             </button>
           ))}
         </div>
         <Button onClick={submit} disabled={loading}>
-          {loading ? "Logging…" : "Log sale"}
+          {loading ? t("logging") : t("logSale")}
         </Button>
       </div>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
       <p className="mt-3 text-sm text-ink-muted">
-        Every logged sale builds your reliability record — and unlocks stock loans.
+        {t("logNote")}
       </p>
     </Card>
   );
 }
 
 export function TraderStanding({ score }: { score: TraderDashboard["score"] }) {
+  const t = useTranslations("Sales");
   return (
     <Card className="flex h-full flex-col items-center justify-center p-6 text-center">
       <p className="font-display text-6xl font-bold tracking-tight text-ink">{score.value}</p>
@@ -95,7 +98,7 @@ export function TraderStanding({ score }: { score: TraderDashboard["score"] }) {
         <TierBadge tier={score.tier} />
       </div>
       <p className="mt-3 text-sm text-ink-soft">
-        {score.salesCount} sales logged. Keep logging to climb.
+        {t("salesLogged", { count: score.salesCount })}
       </p>
     </Card>
   );
@@ -108,10 +111,11 @@ const METHOD_TONE: Record<string, "green" | "amber" | "neutral"> = {
 };
 
 export function SalesList({ sales }: { sales: TraderDashboard["sales"] }) {
+  const t = useTranslations("Sales");
   if (sales.length === 0)
     return (
       <Card className="p-6">
-        <p className="text-sm text-ink-muted">No sales logged yet.</p>
+        <p className="text-sm text-ink-muted">{t("noSales")}</p>
       </Card>
     );
   return (
@@ -125,14 +129,14 @@ export function SalesList({ sales }: { sales: TraderDashboard["sales"] }) {
               </svg>
             </span>
             <div>
-              <p className="text-sm font-medium text-ink">Sale</p>
+              <p className="text-sm font-medium text-ink">{t("sale")}</p>
               <p className="text-xs text-ink-muted">
                 {new Date(s.occurredAt).toLocaleDateString("en-NG", { day: "numeric", month: "short" })}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Pill tone={METHOD_TONE[s.method] ?? "neutral"}>{s.method}</Pill>
+            <Pill tone={METHOD_TONE[s.method] ?? "neutral"}>{["card", "cash", "transfer"].includes(s.method) ? t(`methods.${s.method}`) : s.method}</Pill>
             <span className="font-display font-semibold text-gold-700">
               +{formatNaira(s.amount)}
             </span>

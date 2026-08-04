@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Banknote, Receipt, TrendingUp } from "lucide-react";
 import { api, type TraderDashboard } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
@@ -13,6 +14,7 @@ import { LogSaleCard, SalesList } from "@/components/trader";
 export default function SalesPage() {
   const { userId, activeRole } = useSession();
   const router = useRouter();
+  const t = useTranslations("Sales");
   const { data, error, reload } = usePageData<TraderDashboard>((id) => api.traderDashboard(id));
 
   if (activeRole !== "TRADER") {
@@ -24,15 +26,12 @@ export default function SalesPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Sales"
-        subtitle="Log every sale — it builds the track record that unlocks stock loans."
-      />
+      <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       <Stagger className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <StaggerItem><Kpi icon={<Receipt className="h-4 w-4" />} label="This week" value={<CountUpNaira amount={data.totals.thisWeek} />} caption="Logged in last 7 days." /></StaggerItem>
-        <StaggerItem><Kpi icon={<TrendingUp className="h-4 w-4" />} label="All-time" value={<CountUpNaira amount={data.totals.allTime} />} caption="Across your record." accent="amber" /></StaggerItem>
-        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label="Transactions" value={<CountUp value={data.totals.count} />} caption="Total sales logged." accent="neutral" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Receipt className="h-4 w-4" />} label={t("thisWeek")} value={<CountUpNaira amount={data.totals.thisWeek} />} caption={t("thisWeekCap")} /></StaggerItem>
+        <StaggerItem><Kpi icon={<TrendingUp className="h-4 w-4" />} label={t("allTime")} value={<CountUpNaira amount={data.totals.allTime} />} caption={t("allTimeCap")} accent="amber" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label={t("transactions")} value={<CountUp value={data.totals.count} />} caption={t("transactionsCap")} accent="neutral" /></StaggerItem>
       </Stagger>
 
       <FadeIn delay={0.05}>
@@ -40,7 +39,7 @@ export default function SalesPage() {
       </FadeIn>
 
       <section>
-        <SectionHeader title="Sales history" subtitle="Every sale you've logged, most recent first." />
+        <SectionHeader title={t("history")} subtitle={t("historySub")} />
         <SalesList sales={data.sales} />
       </section>
     </div>

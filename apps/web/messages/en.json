@@ -573,5 +573,46 @@
       "repayLoan": "Repay a loan on time",
       "noShow": "A no-show costs"
     }
+  },
+  "Sales": {
+    "title": "Sales",
+    "subtitle": "Log every sale — it builds the track record that unlocks stock loans.",
+    "thisWeek": "This week",
+    "thisWeekCap": "Logged in last 7 days.",
+    "allTime": "All-time",
+    "allTimeCap": "Across your record.",
+    "transactions": "Transactions",
+    "transactionsCap": "Total sales logged.",
+    "history": "Sales history",
+    "historySub": "Every sale you've logged, most recent first.",
+    "logSaleEyebrow": "Log a sale",
+    "recordWhat": "Record what you sold",
+    "logging": "Logging…",
+    "logSale": "Log sale",
+    "enterAmount": "Enter an amount",
+    "saleLogged": "Sale logged",
+    "saleLoggedDesc": "{amount} · {method}",
+    "logFailed": "Couldn't log sale",
+    "logNote": "Every logged sale builds your reliability record — and unlocks stock loans.",
+    "noSales": "No sales logged yet.",
+    "sale": "Sale",
+    "salesLogged": "{count} sales logged. Keep logging to climb.",
+    "methods": { "card": "card", "cash": "cash", "transfer": "transfer" }
+  },
+  "LoanOffers": {
+    "empty": "No loan offers yet. Complete more shifts to build the record that unlocks credit.",
+    "approved": "Approved",
+    "eligible": "Eligible",
+    "locked": "Locked",
+    "upToNeeds": "Up to {amount} · needs score {minScore}+",
+    "approvedCheck": "Approved ✓",
+    "submitting": "Submitting…",
+    "requestLoan": "Request loan",
+    "keepBuilding": "Keep building",
+    "loanApproved": "Loan approved!",
+    "loanApprovedDesc": "Up to {amount} on {name}. We'll disburse to your payout account.",
+    "notApproved": "Not approved yet",
+    "notApprovedFallback": "Keep building your score and try again.",
+    "submitFailed": "Couldn't submit"
   }
 }

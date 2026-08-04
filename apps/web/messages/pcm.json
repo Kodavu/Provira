@@ -573,5 +573,46 @@
       "repayLoan": "Repay loan on time",
       "noShow": "No-show dey cost"
     }
+  },
+  "Sales": {
+    "title": "Sales",
+    "subtitle": "Log every sale — e dey build the track record wey dey open stock loan.",
+    "thisWeek": "This week",
+    "thisWeekCap": "Wetin you log for last 7 days.",
+    "allTime": "All-time",
+    "allTimeCap": "For your whole record.",
+    "transactions": "Transactions",
+    "transactionsCap": "All sales wey you log.",
+    "history": "Sales history",
+    "historySub": "Every sale wey you don log, the recent one first.",
+    "logSaleEyebrow": "Log a sale",
+    "recordWhat": "Record wetin you sell",
+    "logging": "Dey log…",
+    "logSale": "Log sale",
+    "enterAmount": "Put amount",
+    "saleLogged": "Sale don log",
+    "saleLoggedDesc": "{amount} · {method}",
+    "logFailed": "We no fit log sale",
+    "logNote": "Every sale wey you log dey build your reliability record — and e dey open stock loan.",
+    "noSales": "You never log any sale.",
+    "sale": "Sale",
+    "salesLogged": "{count} sales don log. Continue to log make you climb.",
+    "methods": { "card": "card", "cash": "cash", "transfer": "transfer" }
+  },
+  "LoanOffers": {
+    "empty": "No loan offer yet. Complete more shift make you build the record wey dey open credit.",
+    "approved": "Approved",
+    "eligible": "Eligible",
+    "locked": "Locked",
+    "upToNeeds": "Reach {amount} · e need score {minScore}+",
+    "approvedCheck": "Approved ✓",
+    "submitting": "Dey submit…",
+    "requestLoan": "Request loan",
+    "keepBuilding": "Continue to build",
+    "loanApproved": "Loan don approve!",
+    "loanApprovedDesc": "Reach {amount} on {name}. We go send am go your payout account.",
+    "notApproved": "Dem never approve am",
+    "notApprovedFallback": "Continue to build your score and try again.",
+    "submitFailed": "We no fit submit"
   }
 }

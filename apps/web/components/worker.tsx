@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { api, WorkerDashboard } from "@/lib/api";
 import { Clock, TrendingUp, Wallet } from "lucide-react";
 import {
@@ -353,11 +354,12 @@ export function LoanOffers({
   offers: WorkerDashboard["loanOffers"];
   userId: string;
 }) {
+  const t = useTranslations("LoanOffers");
   if (offers.length === 0)
     return (
       <Card className="p-6">
         <p className="text-sm text-ink-muted">
-          No loan offers yet. Complete more shifts to build the record that unlocks credit.
+          {t("empty")}
         </p>
       </Card>
     );
@@ -377,6 +379,7 @@ function LoanOfferCard({
   offer: WorkerDashboard["loanOffers"][number];
   userId: string;
 }) {
+  const t = useTranslations("LoanOffers");
   const [busy, setBusy] = useState(false);
   const [applied, setApplied] = useState<null | "APPROVED" | "REJECTED" | "PENDING">(null);
 
@@ -386,16 +389,16 @@ function LoanOfferCard({
       const res = await api.applyForLoan(userId, o.productId, o.maxAmount);
       setApplied(res.status);
       if (res.status === "APPROVED") {
-        toast.success("Loan approved!", {
-          description: `Up to ${formatNaira(o.maxAmount)} on ${o.name}. We'll disburse to your payout account.`,
+        toast.success(t("loanApproved"), {
+          description: t("loanApprovedDesc", { amount: formatNaira(o.maxAmount), name: o.name }),
         });
       } else {
-        toast.error("Not approved yet", {
-          description: res.decisionReason ?? "Keep building your score and try again.",
+        toast.error(t("notApproved"), {
+          description: res.decisionReason ?? t("notApprovedFallback"),
         });
       }
     } catch (e) {
-      toast.error("Couldn't submit", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("submitFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(false);
     }
@@ -410,26 +413,26 @@ function LoanOfferCard({
           </svg>
         </span>
         {applied === "APPROVED" ? (
-          <Pill tone="green">Approved</Pill>
+          <Pill tone="green">{t("approved")}</Pill>
         ) : o.eligible ? (
-          <Pill tone="green">Eligible</Pill>
+          <Pill tone="green">{t("eligible")}</Pill>
         ) : (
-          <Pill>Locked</Pill>
+          <Pill>{t("locked")}</Pill>
         )}
       </div>
       <p className="mt-3 font-semibold text-ink">{o.name}</p>
       <p className="text-sm text-ink-muted">
-        Up to {formatNaira(o.maxAmount)} · needs score {o.minScore}+
+        {t("upToNeeds", { amount: formatNaira(o.maxAmount), minScore: o.minScore })}
       </p>
       <div className="mt-4">
         <Button disabled={!o.eligible || busy || applied === "APPROVED"} size="sm" onClick={request}>
           {applied === "APPROVED"
-            ? "Approved ✓"
+            ? t("approvedCheck")
             : busy
-              ? "Submitting…"
+              ? t("submitting")
               : o.eligible
-                ? "Request loan"
-                : "Keep building"}
+                ? t("requestLoan")
+                : t("keepBuilding")}
         </Button>
       </div>
     </Card>

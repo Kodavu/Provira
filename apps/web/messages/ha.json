@@ -573,5 +573,46 @@
       "repayLoan": "Biya lamuni kan lokaci",
       "noShow": "Rashin zuwa yana kashewa"
     }
+  },
+  "Sales": {
+    "title": "Sayarwa",
+    "subtitle": "Rubuta kowace sayarwa — tana gina tarihin da ke buɗe rancen kaya.",
+    "thisWeek": "Wannan mako",
+    "thisWeekCap": "Wanda aka rubuta a kwanaki 7 da suka wuce.",
+    "allTime": "Kowane lokaci",
+    "allTimeCap": "A duk tarihinka.",
+    "transactions": "Ma'amaloli",
+    "transactionsCap": "Duk sayarwar da aka rubuta.",
+    "history": "Tarihin sayarwa",
+    "historySub": "Kowace sayarwa da ka rubuta, sabuwa da farko.",
+    "logSaleEyebrow": "Rubuta sayarwa",
+    "recordWhat": "Rubuta abin da ka sayar",
+    "logging": "Ana rubutawa…",
+    "logSale": "Rubuta sayarwa",
+    "enterAmount": "Shigar da adadi",
+    "saleLogged": "An rubuta sayarwa",
+    "saleLoggedDesc": "{amount} · {method}",
+    "logFailed": "Ba a iya rubuta sayarwa ba",
+    "logNote": "Kowace sayarwa da aka rubuta na gina tarihin amincinka — kuma tana buɗe rancen kaya.",
+    "noSales": "Ba a rubuta wata sayarwa ba tukuna.",
+    "sale": "Sayarwa",
+    "salesLogged": "{count} sayarwa an rubuta. Ci gaba da rubutawa don hawa.",
+    "methods": { "card": "kati", "cash": "tsabar kuɗi", "transfer": "canja wuri" }
+  },
+  "LoanOffers": {
+    "empty": "Babu tayin lamuni tukuna. Gama ƙarin ayyuka don gina tarihin da ke buɗe bashi.",
+    "approved": "An amince",
+    "eligible": "Ya cancanta",
+    "locked": "A kulle",
+    "upToNeeds": "Har zuwa {amount} · yana buƙatar maki {minScore}+",
+    "approvedCheck": "An amince ✓",
+    "submitting": "Ana ƙaddamarwa…",
+    "requestLoan": "Nemi lamuni",
+    "keepBuilding": "Ci gaba da ginawa",
+    "loanApproved": "An amince da lamuni!",
+    "loanApprovedDesc": "Har zuwa {amount} a {name}. Za mu tura zuwa asusun biyanka.",
+    "notApproved": "Ba a amince ba tukuna",
+    "notApprovedFallback": "Ci gaba da gina makinka ka sake gwadawa.",
+    "submitFailed": "Ba a iya ƙaddamarwa ba"
   }
 }
