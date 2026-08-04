@@ -27,6 +27,7 @@ const TIER_MIN: Record<string, number> = {
 const cap = (s: string) => s[0] + s.slice(1).toLowerCase();
 
 export function StandingCard({ score }: { score: WorkerDashboard["score"] }) {
+  const t = useTranslations("Worker");
   const idx = TIER_ORDER.indexOf(score.tier);
   const nextTier = TIER_ORDER[idx + 1];
   const pts = nextTier ? Math.max(0, TIER_MIN[nextTier] - score.value) : 0;
@@ -46,19 +47,21 @@ export function StandingCard({ score }: { score: WorkerDashboard["score"] }) {
       <div className="rounded-xl bg-canvas p-4">
         <div className="flex items-center justify-between text-sm">
           <span className="font-semibold text-ink">
-            {nextTier ? `Next: ${cap(nextTier)}` : "Top tier reached"}
+            {nextTier ? t("nextTier", { tier: cap(nextTier) }) : t("topTier")}
           </span>
-          {nextTier && <span className="text-ink-muted">{pts} pts to go</span>}
+          {nextTier && <span className="text-ink-muted">{t("ptsToGo", { pts })}</span>}
         </div>
         <div className="mt-2">
           <ProgressBar pct={pct} />
         </div>
         <p className="mt-3 text-sm text-ink-soft">
           {nextTier
-            ? `${score.jobsCompleted} shifts done · ${Math.round(
-                score.onTimeRate * 100,
-              )}% on time. Keep showing up to reach ${cap(nextTier)}.`
-            : "You're at the highest reliability tier. Keep it up."}
+            ? t("progressNote", {
+                shifts: score.jobsCompleted,
+                pct: Math.round(score.onTimeRate * 100),
+                tier: cap(nextTier),
+              })
+            : t("topTierNote")}
         </p>
       </div>
     </Card>
@@ -74,6 +77,7 @@ export function HustleStats({
   assignments: WorkerDashboard["assignments"];
   wallet: WorkerDashboard["wallet"];
 }) {
+  const t = useTranslations("Worker");
   const confirmed = assignments.filter(
     (a) => a.attendance?.status === "CONFIRMED",
   );
@@ -81,38 +85,38 @@ export function HustleStats({
 
   return (
     <Card className="p-6">
-      <p className="eyebrow">This week</p>
+      <p className="eyebrow">{t("thisWeek")}</p>
       <div className="mb-5 flex items-center justify-between">
         <h2 className="font-display text-2xl font-semibold text-ink">
-          Your hustle, counted
+          {t("hustleTitle")}
         </h2>
-        <Pill>Mon — Sun</Pill>
+        <Pill>{t("monSun")}</Pill>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Kpi
           icon={<TrendingUp className="h-4 w-4" />}
-          label="Earnings"
+          label={t("earnings")}
           value={<CountUpNaira amount={earned} />}
-          caption={earned ? `From ${confirmed.length} confirmed shift(s).` : "No earnings yet this week."}
+          caption={earned ? t("earningsFrom", { count: confirmed.length }) : t("noEarnings")}
         />
         <Kpi
           icon={<Clock className="h-4 w-4" />}
-          label="Shifts"
+          label={t("shifts")}
           value={<CountUp value={confirmed.length} />}
-          caption={confirmed.length ? "Confirmed & paid." : "No shifts completed yet."}
+          caption={confirmed.length ? t("shiftsConfirmedPaid") : t("noShifts")}
           accent="neutral"
         />
         <Kpi
           icon={<TrendingUp className="h-4 w-4" />}
-          label="On-time rate"
+          label={t("onTimeRate")}
           value={<><CountUp value={Math.round(score.onTimeRate * 100)} />%</>}
-          caption={`Across ${score.jobsCompleted} completed shift(s).`}
+          caption={t("onTimeAcross", { count: score.jobsCompleted })}
         />
         <Kpi
           icon={<Wallet className="h-4 w-4" />}
-          label="Wallet"
+          label={t("wallet")}
           value={<CountUpNaira amount={wallet.balance} />}
-          caption="Available to withdraw."
+          caption={t("availableWithdraw")}
           accent="amber"
         />
       </div>
@@ -121,6 +125,7 @@ export function HustleStats({
 }
 
 export function NextGoal({ done, target }: { done: number; target: number }) {
+  const t = useTranslations("Worker");
   return (
     <Card className="bg-brand-50/60 p-6">
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
@@ -131,11 +136,11 @@ export function NextGoal({ done, target }: { done: number; target: number }) {
             </svg>
           </span>
           <div>
-            <p className="eyebrow text-brand-700">Your next goal</p>
+            <p className="eyebrow text-brand-700">{t("nextGoal")}</p>
             <p className="mt-1 max-w-md font-medium text-ink">
-              Finish {target} paid shifts this month to unlock the streak badge.
+              {t("nextGoalDesc", { target })}
             </p>
-            <p className="mt-0.5 text-sm text-ink-soft">Streak badge plus bonus payout.</p>
+            <p className="mt-0.5 text-sm text-ink-soft">{t("nextGoalSub")}</p>
           </div>
         </div>
         <div className="md:text-right">
@@ -148,7 +153,7 @@ export function NextGoal({ done, target }: { done: number; target: number }) {
             ))}
           </div>
           <p className="mt-2 text-sm text-ink-soft">
-            {done} of {target} jobs
+            {t("ofJobs", { done, target })}
           </p>
         </div>
       </div>
@@ -165,35 +170,34 @@ export function ApplyCodeBanner({
   code: string | null;
   onDismiss: () => void;
 }) {
+  const t = useTranslations("Worker");
   return (
     <Card className="border-brand-200 bg-brand-50/70 p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="eyebrow text-brand-700">You applied — {jobTitle}</p>
+          <p className="eyebrow text-brand-700">{t("applied", { title: jobTitle })}</p>
           {code ? (
             <>
               <p className="mt-1 text-ink">
-                Your confirmation code is{" "}
+                {t("codeIntro")}{" "}
                 <span className="font-display text-2xl font-semibold tracking-[0.3em] text-brand-800">
                   {code}
                 </span>
               </p>
               <p className="mt-1 text-sm text-ink-soft">
-                The employer confirms this on site. Enter it under{" "}
-                <strong>Your jobs</strong> to confirm attendance and get paid.
+                {t.rich("codeHelp", { b: (chunks) => <strong>{chunks}</strong> })}
               </p>
             </>
           ) : (
             <p className="mt-1 text-sm text-ink-soft">
-              You&apos;ve already applied — find this shift under{" "}
-              <strong>Your jobs</strong>.
+              {t.rich("alreadyApplied", { b: (chunks) => <strong>{chunks}</strong> })}
             </p>
           )}
         </div>
         <button
           onClick={onDismiss}
           className="rounded-lg p-1 text-ink-muted hover:bg-brand-100"
-          aria-label="Dismiss"
+          aria-label={t("dismiss")}
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2}>
             <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />
@@ -211,11 +215,12 @@ export function AssignmentsList({
   assignments: WorkerDashboard["assignments"];
   onConfirmed: () => void;
 }) {
+  const t = useTranslations("Worker");
   if (assignments.length === 0)
     return (
       <Card className="p-6">
         <p className="text-sm text-ink-muted">
-          No active jobs yet. Apply to a job nearby to get started.
+          {t("noActive")}
         </p>
       </Card>
     );
@@ -233,12 +238,12 @@ export function AssignmentsList({
             <div>
               <p className="font-semibold text-ink">{a.job.title}</p>
               <p className="text-sm text-ink-muted">
-                {formatNaira(a.job.payAmount)} · {a.status.toLowerCase()}
+                {formatNaira(a.job.payAmount)} · {STATUS_KEYS.has(a.status) ? t(`statuses.${a.status}`) : a.status.toLowerCase()}
               </p>
             </div>
           </div>
           {a.attendance?.status === "CONFIRMED" ? (
-            <Pill tone="green">Confirmed · paid</Pill>
+            <Pill tone="green">{t("confirmedPaidPill")}</Pill>
           ) : (
             <ConfirmForm assignmentId={a.id} onConfirmed={onConfirmed} />
           )}
@@ -248,6 +253,8 @@ export function AssignmentsList({
   );
 }
 
+const STATUS_KEYS = new Set(["APPLIED", "INVITED", "ACCEPTED", "CONFIRMED", "COMPLETED", "CANCELLED"]);
+
 function ConfirmForm({
   assignmentId,
   onConfirmed,
@@ -255,6 +262,7 @@ function ConfirmForm({
   assignmentId: string;
   onConfirmed: () => void;
 }) {
+  const t = useTranslations("Worker");
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -264,13 +272,13 @@ function ConfirmForm({
     setError(null);
     try {
       await api.confirmAttendance(assignmentId, code);
-      toast.success("Attendance confirmed", { description: "Your payout is on the way." });
+      toast.success(t("attendanceConfirmed"), { description: t("payoutOnWay") });
       onConfirmed();
     } catch (e) {
       const wrong = (e as Error).message.includes("Invalid");
-      setError(wrong ? "Wrong code" : "Failed");
-      toast.error(wrong ? "That code isn't right" : "Couldn't confirm", {
-        description: wrong ? "Check the 4-digit code with the employer." : "Please try again.",
+      setError(wrong ? t("wrongCode") : t("failed"));
+      toast.error(wrong ? t("codeNotRight") : t("couldntConfirm"), {
+        description: wrong ? t("checkCode") : t("tryAgain"),
       });
     } finally {
       setLoading(false);
@@ -284,13 +292,13 @@ function ConfirmForm({
           <Input
             value={code}
             onChange={setCode}
-            placeholder="4-digit code"
+            placeholder={t("codePlaceholder")}
             inputMode="numeric"
             maxLength={4}
           />
         </div>
         <Button onClick={submit} disabled={loading || code.length !== 4}>
-          {loading ? "…" : "Confirm"}
+          {loading ? "…" : t("confirm")}
         </Button>
       </div>
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
@@ -307,11 +315,12 @@ export function JobsNearby({
   onApply: (jobId: string) => void;
   applyingId: string | null;
 }) {
+  const t = useTranslations("Worker");
   if (jobs.length === 0)
     return (
       <Card className="p-6">
         <p className="text-sm text-ink-muted">
-          No new jobs nearby right now — you&apos;ve applied to what&apos;s open.
+          {t("noNearby")}
         </p>
       </Card>
     );
@@ -323,7 +332,7 @@ export function JobsNearby({
             <div>
               <p className="font-semibold text-ink">{j.title}</p>
               <p className="mt-0.5 text-sm text-ink-muted">
-                {j.location?.label ?? "Nearby"}
+                {j.location?.label ?? t("nearby")}
                 {j.skills.length > 0 && ` · ${j.skills.map((s) => s.skill.name).join(", ")}`}
               </p>
             </div>
@@ -338,7 +347,7 @@ export function JobsNearby({
               onClick={() => onApply(j.id)}
               disabled={applyingId === j.id}
             >
-              {applyingId === j.id ? "Applying…" : "Apply"}
+              {applyingId === j.id ? t("applying") : t("apply")}
             </Button>
           </div>
         </Card>
