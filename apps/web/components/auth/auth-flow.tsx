@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import {
   ArrowLeft,
   ArrowRight,
@@ -31,25 +32,26 @@ type Step = "phone" | "otp" | "profile" | "type" | "success";
 const OTP_LENGTH = 4;
 const RESEND_SECONDS = 30;
 
-const TYPES: { value: UserType; label: string; desc: string; icon: typeof HardHat }[] = [
-  { value: "worker", label: "Worker", desc: "Find shifts and get paid daily", icon: HardHat },
-  { value: "trader", label: "Trader", desc: "Log sales and grow your credit", icon: Store },
-  { value: "employer", label: "Employer", desc: "Post jobs and hire reliably", icon: Briefcase },
+const TYPES: { value: UserType; icon: typeof HardHat }[] = [
+  { value: "worker", icon: HardHat },
+  { value: "trader", icon: Store },
+  { value: "employer", icon: Briefcase },
 ];
-
-// Friendlier copy for the API's terse auth errors.
-function friendly(msg: string): string {
-  const m = msg.replace(/^API \d+:\s*/, "");
-  if (/expired/i.test(m)) return "That code has expired — request a new one.";
-  if (/invalid code/i.test(m)) return "That code isn't right. Check and try again.";
-  if (/too many/i.test(m)) return "Too many attempts. Request a fresh code.";
-  if (/no pending/i.test(m)) return "No active code — send one first.";
-  return m || "Something went wrong. Please try again.";
-}
 
 export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
   const router = useRouter();
   const reduce = useReducedMotion();
+  const t = useTranslations("Auth");
+
+  // Map the API's terse auth errors to friendly, localized copy.
+  function showError(e: unknown) {
+    const m = (e as Error).message.replace(/^API \d+:\s*/, "");
+    if (/expired/i.test(m)) return setError(t("errors.expired"));
+    if (/invalid code/i.test(m)) return setError(t("errors.invalidCode"));
+    if (/too many/i.test(m)) return setError(t("errors.tooMany"));
+    if (/no pending/i.test(m)) return setError(t("errors.noPending"));
+    setError(m || t("errors.generic"));
+  }
 
   const [booting, setBooting] = useState(true); // checking for an existing session
   const [step, setStep] = useState<Step>("phone");
@@ -94,7 +96,7 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
   const goto = useCallback((s: Step) => { setError(null); setStep(s); }, []);
 
   async function sendCode() {
-    if (!isValidPhone(phone)) { setError("Enter a valid phone number (e.g. +2348012345678)."); return; }
+    if (!isValidPhone(phone)) { setError(t("errors.invalidPhone")); return; }
     setLoading(true); setError(null);
     try {
       const { devCode } = await requestOtp(phone);
@@ -102,13 +104,13 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
       setCode("");
       setResendIn(RESEND_SECONDS);
       goto("otp");
-    } catch (e) { setError(friendly((e as Error).message)); }
+    } catch (e) { showError(e); }
     finally { setLoading(false); }
   }
 
   async function submitCode(value?: string) {
     const c = value ?? code;
-    if (c.length !== OTP_LENGTH) { setError("Enter the full code."); return; }
+    if (c.length !== OTP_LENGTH) { setError(t("errors.fullCode")); return; }
     setLoading(true); setError(null);
     try {
       const v = await verifyOtp(phone, c);
@@ -120,12 +122,12 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
         goto("success");
         redirectSoon(routeForRoles(v.roles));
       }
-    } catch (e) { setError(friendly((e as Error).message)); }
+    } catch (e) { showError(e); }
     finally { setLoading(false); }
   }
 
   function submitProfile() {
-    if (fullName.trim().length < 2) { setError("Please enter your name."); return; }
+    if (fullName.trim().length < 2) { setError(t("errors.enterName")); return; }
     goto("type");
   }
 
@@ -136,7 +138,7 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
       const route = await completeOnboarding(verified.userId, fullName, type);
       goto("success");
       redirectSoon(route);
-    } catch (e) { setError(friendly((e as Error).message)); }
+    } catch (e) { showError(e); }
     finally { setLoading(false); }
   }
 
@@ -173,12 +175,12 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
         >
           {step === "phone" && (
             <StepShell
-              title={mode === "signup" ? "Create your account" : "Welcome back"}
-              subtitle="Enter your phone number — we'll text you a code. No password needed."
+              title={mode === "signup" ? t("createAccount") : t("welcomeBack")}
+              subtitle={t("phonePrompt")}
             >
               <Field
                 icon={Phone}
-                label="Phone number"
+                label={t("phoneLabel")}
                 value={phone}
                 onChange={setPhone}
                 onEnter={sendCode}
@@ -187,7 +189,7 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
                 autoFocus
               />
               <PrimaryButton onClick={sendCode} loading={loading}>
-                Send code <ArrowRight className="h-4 w-4" />
+                {t("sendCode")} <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
               <SwitchMode mode={mode} />
             </StepShell>
@@ -195,13 +197,13 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
 
           {step === "otp" && (
             <StepShell
-              title="Enter your code"
-              subtitle={<>We sent a {OTP_LENGTH}-digit code to <span className="font-medium text-ink">{phone}</span>.</>}
+              title={t("enterCode")}
+              subtitle={t("codeSentTo", { length: OTP_LENGTH, phone })}
               onBack={() => goto("phone")}
             >
               {devCode && (
                 <div className="rounded-xl bg-gold-50 px-3.5 py-2.5 text-sm text-gold-700 ring-1 ring-gold-200">
-                  Dev mode — your code is <strong className="tabular-nums tracking-widest">{devCode}</strong>
+                  {t("devMode")} <strong className="tabular-nums tracking-widest">{devCode}</strong>
                 </div>
               )}
               <OtpInput
@@ -213,7 +215,7 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
                 onComplete={(v) => submitCode(v)}
               />
               <PrimaryButton onClick={() => submitCode()} loading={loading}>
-                Verify &amp; continue
+                {t("verifyContinue")}
               </PrimaryButton>
               <button
                 type="button"
@@ -221,46 +223,46 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
                 disabled={resendIn > 0 || loading}
                 className="mx-auto block text-sm font-medium text-brand-600 transition enabled:hover:text-brand-700 disabled:text-ink-muted"
               >
-                {resendIn > 0 ? `Resend code in ${resendIn}s` : "Resend code"}
+                {resendIn > 0 ? t("resendIn", { seconds: resendIn }) : t("resend")}
               </button>
             </StepShell>
           )}
 
           {step === "profile" && (
             <StepShell
-              title="What's your name?"
-              subtitle="This is how employers and traders will see you."
+              title={t("nameTitle")}
+              subtitle={t("nameSubtitle")}
               onBack={() => goto("otp")}
             >
               <Field
                 icon={User}
-                label="Full name"
+                label={t("nameLabel")}
                 value={fullName}
                 onChange={setFullName}
                 onEnter={submitProfile}
-                placeholder="e.g. Amaka Okafor"
+                placeholder={t("namePlaceholder")}
                 autoFocus
               />
               <PrimaryButton onClick={submitProfile} loading={false}>
-                Continue <ArrowRight className="h-4 w-4" />
+                {t("continue")} <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
             </StepShell>
           )}
 
           {step === "type" && (
             <StepShell
-              title="How will you use Tally?"
-              subtitle="You can add another role later from your dashboard."
+              title={t("useTitle")}
+              subtitle={t("useSubtitle")}
               onBack={() => goto("profile")}
             >
               <div className="space-y-3">
-                {TYPES.map((t) => {
-                  const active = type === t.value;
+                {TYPES.map((ty) => {
+                  const active = type === ty.value;
                   return (
                     <button
-                      key={t.value}
+                      key={ty.value}
                       type="button"
-                      onClick={() => { setType(t.value); setError(null); }}
+                      onClick={() => { setType(ty.value); setError(null); }}
                       aria-pressed={active}
                       className={`flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition
                         ${active
@@ -269,11 +271,11 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
                     >
                       <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl transition
                         ${active ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-600"}`}>
-                        <t.icon className="h-5 w-5" strokeWidth={2} />
+                        <ty.icon className="h-5 w-5" strokeWidth={2} />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block font-semibold text-ink">{t.label}</span>
-                        <span className="block text-sm text-ink-soft">{t.desc}</span>
+                        <span className="block font-semibold text-ink">{t(`types.${ty.value}.label`)}</span>
+                        <span className="block text-sm text-ink-soft">{t(`types.${ty.value}.desc`)}</span>
                       </span>
                       <span className={`grid h-5 w-5 place-items-center rounded-full border transition
                         ${active ? "border-brand-600 bg-brand-600 text-white" : "border-line"}`}>
@@ -284,7 +286,7 @@ export function AuthFlow({ mode }: { mode: "login" | "signup" }) {
                 })}
               </div>
               <PrimaryButton onClick={submitType} loading={loading} disabled={!type}>
-                Create account
+                {t("createAccountBtn")}
               </PrimaryButton>
             </StepShell>
           )}
@@ -320,6 +322,7 @@ function StepShell({
   children: React.ReactNode;
   onBack?: () => void;
 }) {
+  const t = useTranslations("Auth");
   return (
     <div>
       {onBack && (
@@ -328,7 +331,7 @@ function StepShell({
           onClick={onBack}
           className="mb-4 inline-flex items-center gap-1 text-sm font-medium text-ink-soft transition hover:text-ink"
         >
-          <ArrowLeft className="h-4 w-4" /> Back
+          <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
       )}
       <h1 className="text-2xl font-semibold tracking-tight text-ink">{title}</h1>
@@ -403,20 +406,22 @@ function PrimaryButton({
 }
 
 function SwitchMode({ mode }: { mode: "login" | "signup" }) {
+  const t = useTranslations("Auth");
   return mode === "signup" ? (
     <p className="text-center text-sm text-ink-soft">
-      Already have an account?{" "}
-      <Link href="/login" className="font-semibold text-brand-600 hover:text-brand-700">Sign in</Link>
+      {t("alreadyHave")}{" "}
+      <Link href="/login" className="font-semibold text-brand-600 hover:text-brand-700">{t("signIn")}</Link>
     </p>
   ) : (
     <p className="text-center text-sm text-ink-soft">
-      New to Tally?{" "}
-      <Link href="/signup" className="font-semibold text-brand-600 hover:text-brand-700">Create an account</Link>
+      {t("newToTally")}{" "}
+      <Link href="/signup" className="font-semibold text-brand-600 hover:text-brand-700">{t("createAccountLink")}</Link>
     </p>
   );
 }
 
 function SuccessState({ reduce, name }: { reduce: boolean; name: string | null }) {
+  const t = useTranslations("Auth");
   return (
     <div className="flex flex-col items-center py-8 text-center">
       <motion.div
@@ -439,7 +444,7 @@ function SuccessState({ reduce, name }: { reduce: boolean; name: string | null }
         transition={{ delay: 0.25 }}
         className="mt-6 text-2xl font-semibold text-ink"
       >
-        {name ? `Welcome, ${name.split(" ")[0]}!` : "You're in!"}
+        {name ? t("welcomeName", { name: name.split(" ")[0] }) : t("youreIn")}
       </motion.h1>
       <motion.p
         initial={reduce ? false : { opacity: 0 }}
@@ -447,7 +452,7 @@ function SuccessState({ reduce, name }: { reduce: boolean; name: string | null }
         transition={{ delay: 0.35 }}
         className="mt-1.5 flex items-center gap-2 text-ink-soft"
       >
-        <Loader2 className="h-4 w-4 animate-spin" /> Taking you to your dashboard…
+        <Loader2 className="h-4 w-4 animate-spin" /> {t("redirecting")}
       </motion.p>
     </div>
   );

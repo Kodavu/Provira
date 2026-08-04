@@ -238,5 +238,89 @@
       "secondary": "Talk to us",
       "note": "No smartphone? Dial *347*82# or message us on WhatsApp."
     }
+  },
+  "Auth": {
+    "headline": "Turn your work into an identity that opens doors.",
+    "highlights": [
+      { "title": "Build your reliability score", "body": "Every shift, sale, and repayment counts toward credit you own." },
+      { "title": "Get paid the same day", "body": "Escrow-backed payouts land in your wallet the moment work is confirmed." },
+      { "title": "Works without a smartphone", "body": "Sign up and get jobs over SMS, WhatsApp, or a phone call." }
+    ],
+    "createAccount": "Create your account",
+    "welcomeBack": "Welcome back",
+    "phonePrompt": "Enter your phone number — we'll text you a code. No password needed.",
+    "phoneLabel": "Phone number",
+    "sendCode": "Send code",
+    "enterCode": "Enter your code",
+    "codeSentTo": "We sent a {length}-digit code to {phone}.",
+    "devMode": "Dev mode — your code is",
+    "verifyContinue": "Verify & continue",
+    "resendIn": "Resend code in {seconds}s",
+    "resend": "Resend code",
+    "nameTitle": "What's your name?",
+    "nameSubtitle": "This is how employers and traders will see you.",
+    "nameLabel": "Full name",
+    "namePlaceholder": "e.g. Amaka Okafor",
+    "continue": "Continue",
+    "useTitle": "How will you use Tally?",
+    "useSubtitle": "You can add another role later from your dashboard.",
+    "createAccountBtn": "Create account",
+    "back": "Back",
+    "welcomeName": "Welcome, {name}!",
+    "youreIn": "You're in!",
+    "redirecting": "Taking you to your dashboard…",
+    "alreadyHave": "Already have an account?",
+    "signIn": "Sign in",
+    "newToTally": "New to Tally?",
+    "createAccountLink": "Create an account",
+    "types": {
+      "worker": { "label": "Worker", "desc": "Find shifts and get paid daily" },
+      "trader": { "label": "Trader", "desc": "Log sales and grow your credit" },
+      "employer": { "label": "Employer", "desc": "Post jobs and hire reliably" }
+    },
+    "errors": {
+      "invalidPhone": "Enter a valid phone number (e.g. +2348012345678).",
+      "fullCode": "Enter the full code.",
+      "enterName": "Please enter your name.",
+      "expired": "That code has expired — request a new one.",
+      "invalidCode": "That code isn't right. Check and try again.",
+      "tooMany": "Too many attempts. Request a fresh code.",
+      "noPending": "No active code — send one first.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "Shell": {
+    "account": "Account",
+    "signOut": "Sign out",
+    "signedOut": "Signed out",
+    "signedOutDesc": "See you soon.",
+    "viewingAs": "Viewing as",
+    "switchedTo": "Switched to {role}",
+    "searchPlaceholder": "Jump to…",
+    "noMatches": "No matches.",
+    "nav": {
+      "overview": "Overview",
+      "jobs": "Jobs",
+      "earnings": "Earnings",
+      "loans": "Loans",
+      "standing": "My standing",
+      "profile": "Profile",
+      "sales": "Sales",
+      "postJob": "Post a job",
+      "escrow": "Escrow",
+      "verify": "Verify identity",
+      "settings": "Settings",
+      "help": "Help center"
+    },
+    "roles": {
+      "WORKER": "Worker",
+      "TRADER": "Trader",
+      "EMPLOYER": "Employer"
+    },
+    "searchHints": {
+      "WORKER": "Search jobs, earnings, standing…",
+      "TRADER": "Search sales, loans, standing…",
+      "EMPLOYER": "Search jobs, applicants, escrow…"
+    }
   }
 }

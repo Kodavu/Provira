@@ -2,20 +2,19 @@
 
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ShieldCheck, TrendingUp, Wallet } from "lucide-react";
 import { Wordmark } from "@/components/ui";
 import { LanguageMenu } from "@/components/i18n/language-menu";
 
-const HIGHLIGHTS = [
-  { icon: TrendingUp, title: "Build your reliability score", body: "Every shift, sale, and repayment counts toward credit you own." },
-  { icon: Wallet, title: "Get paid the same day", body: "Escrow-backed payouts land in your wallet the moment work is confirmed." },
-  { icon: ShieldCheck, title: "Works without a smartphone", body: "Sign up and get jobs over SMS, WhatsApp, or a phone call." },
-];
+const HIGHLIGHT_ICONS = [TrendingUp, Wallet, ShieldCheck];
 
 // Two-column auth shell: a branded gradient panel (desktop) beside the form.
 // On mobile the panel collapses to a compact header so the form leads.
 export function AuthLayout({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
+  const t = useTranslations("Auth");
+  const highlights = t.raw("highlights") as { title: string; body: string }[];
 
   return (
     <div className="flex min-h-screen bg-canvas">
@@ -40,26 +39,29 @@ export function AuthLayout({ children }: { children: ReactNode }) {
           className="relative z-10 px-10 pb-16"
         >
           <h2 className="max-w-md text-3xl font-semibold leading-tight text-white">
-            Turn your work into an identity that opens doors.
+            {t("headline")}
           </h2>
           <ul className="mt-8 space-y-5">
-            {HIGHLIGHTS.map((h, i) => (
-              <motion.li
-                key={h.title}
-                initial={reduce ? false : { opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.15 + i * 0.08, duration: 0.4 }}
-                className="flex items-start gap-3.5"
-              >
-                <span className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-gold-500 ring-1 ring-white/15">
-                  <h.icon className="h-5 w-5" strokeWidth={2} />
-                </span>
-                <div>
-                  <p className="font-medium text-white">{h.title}</p>
-                  <p className="text-sm leading-relaxed text-white/70">{h.body}</p>
-                </div>
-              </motion.li>
-            ))}
+            {highlights.map((h, i) => {
+              const Icon = HIGHLIGHT_ICONS[i] ?? TrendingUp;
+              return (
+                <motion.li
+                  key={i}
+                  initial={reduce ? false : { opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15 + i * 0.08, duration: 0.4 }}
+                  className="flex items-start gap-3.5"
+                >
+                  <span className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-gold-500 ring-1 ring-white/15">
+                    <Icon className="h-5 w-5" strokeWidth={2} />
+                  </span>
+                  <div>
+                    <p className="font-medium text-white">{h.title}</p>
+                    <p className="text-sm leading-relaxed text-white/70">{h.body}</p>
+                  </div>
+                </motion.li>
+              );
+            })}
           </ul>
         </motion.div>
       </aside>

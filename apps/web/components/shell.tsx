@@ -26,9 +26,10 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { clearSession } from "@/lib/session";
 import { useSession } from "@/lib/session-context";
-import { ROLE_LABEL, type Role } from "@/lib/auth";
+import { type Role } from "@/lib/auth";
 import { Wordmark } from "@/components/ui";
 import { NotificationBell } from "@/components/notification-bell";
 
@@ -49,6 +50,13 @@ export const icons = {
 export type { Role };
 
 interface NavLink {
+  key: string; // Shell.nav.* i18n key
+  href: string;
+  icon: LucideIcon;
+}
+
+// Resolved nav item with a translated label, used by the sidebar + command menu.
+interface NavItem {
   label: string;
   href: string;
   icon: LucideIcon;
@@ -57,31 +65,31 @@ interface NavLink {
 // Each role's sidebar — every entry is a real route, no scroll anchors.
 const NAV_BY_ROLE: Record<Role, NavLink[]> = {
   WORKER: [
-    { label: "Overview", href: "/overview", icon: LayoutDashboard },
-    { label: "Jobs", href: "/jobs", icon: Briefcase },
-    { label: "Earnings", href: "/earnings", icon: Wallet },
-    { label: "Loans", href: "/loans", icon: HandCoins },
-    { label: "My standing", href: "/standing", icon: TrendingUp },
-    { label: "Profile", href: "/profile", icon: UserCircle },
+    { key: "overview", href: "/overview", icon: LayoutDashboard },
+    { key: "jobs", href: "/jobs", icon: Briefcase },
+    { key: "earnings", href: "/earnings", icon: Wallet },
+    { key: "loans", href: "/loans", icon: HandCoins },
+    { key: "standing", href: "/standing", icon: TrendingUp },
+    { key: "profile", href: "/profile", icon: UserCircle },
   ],
   TRADER: [
-    { label: "Overview", href: "/overview", icon: LayoutDashboard },
-    { label: "Sales", href: "/sales", icon: Receipt },
-    { label: "Loans", href: "/loans", icon: HandCoins },
-    { label: "My standing", href: "/standing", icon: TrendingUp },
+    { key: "overview", href: "/overview", icon: LayoutDashboard },
+    { key: "sales", href: "/sales", icon: Receipt },
+    { key: "loans", href: "/loans", icon: HandCoins },
+    { key: "standing", href: "/standing", icon: TrendingUp },
   ],
   EMPLOYER: [
-    { label: "Overview", href: "/overview", icon: LayoutDashboard },
-    { label: "Jobs", href: "/jobs", icon: Briefcase },
-    { label: "Post a job", href: "/jobs/new", icon: PlusCircle },
-    { label: "Escrow", href: "/escrow", icon: Banknote },
+    { key: "overview", href: "/overview", icon: LayoutDashboard },
+    { key: "jobs", href: "/jobs", icon: Briefcase },
+    { key: "postJob", href: "/jobs/new", icon: PlusCircle },
+    { key: "escrow", href: "/escrow", icon: Banknote },
   ],
 };
 
 const ACCOUNT: NavLink[] = [
-  { label: "Verify identity", href: "/verify", icon: ShieldCheck },
-  { label: "Settings", href: "/settings", icon: Settings },
-  { label: "Help center", href: "/support", icon: LifeBuoy },
+  { key: "verify", href: "/verify", icon: ShieldCheck },
+  { key: "settings", href: "/settings", icon: Settings },
+  { key: "help", href: "/support", icon: LifeBuoy },
 ];
 
 function isActive(pathname: string, href: string): boolean {
@@ -90,21 +98,17 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-const SEARCH_HINTS: Record<Role, string> = {
-  WORKER: "Search jobs, earnings, standing…",
-  TRADER: "Search sales, loans, standing…",
-  EMPLOYER: "Search jobs, applicants, escrow…",
-};
-
 export function AppShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { fullName, roles, activeRole, setActiveRole } = useSession();
+  const t = useTranslations("Shell");
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
 
-  const nav = NAV_BY_ROLE[activeRole];
+  const navItems: NavItem[] = NAV_BY_ROLE[activeRole].map((n) => ({ ...n, label: t(`nav.${n.key}`) }));
+  const accountItems: NavItem[] = ACCOUNT.map((n) => ({ ...n, label: t(`nav.${n.key}`) }));
   const displayName = fullName?.trim() || "there";
   const initials = displayName.slice(0, 2).toUpperCase();
 
@@ -122,7 +126,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   function signOut() {
     clearSession();
-    toast.success("Signed out", { description: "See you soon." });
+    toast.success(t("signedOut"), { description: t("signedOutDesc") });
     router.push("/login");
   }
 
@@ -139,7 +143,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       )}
 
       <nav className="mt-6 flex flex-1 flex-col gap-1">
-        {nav.map((item) => (
+        {navItems.map((item) => (
           <NavButton
             key={item.href}
             item={item}
@@ -148,8 +152,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
         ))}
 
-        <p className="eyebrow mt-6 px-3">Account</p>
-        {ACCOUNT.map((item) => (
+        <p className="eyebrow mt-6 px-3">{t("account")}</p>
+        {accountItems.map((item) => (
           <NavButton
             key={item.href}
             item={item}
@@ -164,7 +168,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         className="mt-2 flex items-center gap-2.5 rounded-xl border border-line px-3 py-2.5 text-left text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink"
       >
         <LogOut className="h-[18px] w-[18px]" strokeWidth={1.8} />
-        Sign out
+        {t("signOut")}
       </button>
     </>
   );
@@ -216,7 +220,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5 text-left text-ink-muted transition hover:border-brand-200"
           >
             <Search className="h-4 w-4 shrink-0" strokeWidth={2} />
-            <span className="min-w-0 flex-1 truncate text-sm">{SEARCH_HINTS[activeRole]}</span>
+            <span className="min-w-0 flex-1 truncate text-sm">{t(`searchHints.${activeRole}`)}</span>
             <kbd className="hidden rounded-md border border-line px-1.5 py-0.5 text-[10px] sm:inline">
               Ctrl K
             </kbd>
@@ -230,7 +234,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <div className="hidden text-left sm:block">
               <p className="text-sm font-semibold leading-none text-ink">{displayName}</p>
-              <p className="mt-0.5 text-[11px] leading-none text-ink-muted">{ROLE_LABEL[activeRole]}</p>
+              <p className="mt-0.5 text-[11px] leading-none text-ink-muted">{t(`roles.${activeRole}`)}</p>
             </div>
           </div>
         </header>
@@ -243,7 +247,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <CommandMenu
         open={cmdOpen}
         onClose={() => setCmdOpen(false)}
-        nav={[...nav, ...ACCOUNT]}
+        nav={[...navItems, ...accountItems]}
         onSignOut={signOut}
       />
     </div>
@@ -255,7 +259,7 @@ function NavButton({
   active,
   onNavigate,
 }: {
-  item: NavLink;
+  item: NavItem;
   active: boolean;
   onNavigate: () => void;
 }) {
@@ -294,6 +298,7 @@ function RoleSwitcher({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const t = useTranslations("Shell");
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -310,8 +315,8 @@ function RoleSwitcher({
         className="flex w-full items-center justify-between rounded-xl border border-line bg-canvas px-3 py-2.5 text-left transition hover:border-brand-200"
       >
         <span>
-          <span className="eyebrow block">Viewing as</span>
-          <span className="text-sm font-semibold text-ink">{ROLE_LABEL[active]}</span>
+          <span className="eyebrow block">{t("viewingAs")}</span>
+          <span className="text-sm font-semibold text-ink">{t(`roles.${active}`)}</span>
         </span>
         <ChevronsUpDown className="h-4 w-4 text-ink-muted" />
       </button>
@@ -330,13 +335,13 @@ function RoleSwitcher({
                 onClick={() => {
                   onChange(r);
                   setOpen(false);
-                  toast.success(`Switched to ${ROLE_LABEL[r]}`);
+                  toast.success(t("switchedTo", { role: t(`roles.${r}`) }));
                 }}
                 className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition hover:bg-canvas ${
                   r === active ? "font-semibold text-brand-700" : "text-ink-soft"
                 }`}
               >
-                {ROLE_LABEL[r]}
+                {t(`roles.${r}`)}
                 {r === active && <BadgeCheck className="h-4 w-4 text-brand-600" />}
               </button>
             ))}
@@ -355,10 +360,11 @@ function CommandMenu({
 }: {
   open: boolean;
   onClose: () => void;
-  nav: NavLink[];
+  nav: NavItem[];
   onSignOut: () => void;
 }) {
   const router = useRouter();
+  const t = useTranslations("Shell");
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -415,14 +421,14 @@ function CommandMenu({
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && results[0]) go(results[0].href);
                 }}
-                placeholder="Jump to…"
+                placeholder={t("searchPlaceholder")}
                 className="w-full bg-transparent py-3.5 text-sm text-ink outline-none placeholder:text-ink-muted"
               />
               <kbd className="rounded-md border border-line px-1.5 py-0.5 text-[10px] text-ink-muted">Esc</kbd>
             </div>
             <div className="max-h-80 overflow-y-auto p-2">
               {results.length === 0 ? (
-                <p className="px-3 py-6 text-center text-sm text-ink-muted">No matches.</p>
+                <p className="px-3 py-6 text-center text-sm text-ink-muted">{t("noMatches")}</p>
               ) : (
                 results.map((n) => {
                   const Ico = n.icon;
@@ -446,7 +452,7 @@ function CommandMenu({
                 className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-ink-soft transition hover:bg-canvas hover:text-ink"
               >
                 <LogOut className="h-[18px] w-[18px] text-ink-muted" strokeWidth={1.8} />
-                Sign out
+                {t("signOut")}
               </button>
             </div>
           </motion.div>
