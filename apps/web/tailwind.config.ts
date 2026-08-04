@@ -33,14 +33,28 @@ const config: Config = {
           800: "#22218c",
           900: "#1f1e70",
         },
-        // Accent: warm gold — money & score moments only.
+        // Accent: warm gold — money & score moments only. Also the Trader persona.
         gold: {
           50: "#fef7e6",
           100: "#fdecc2",
           200: "#fbdd8f",
+          400: "#f7c948",
           500: "#f5b301",
           600: "#d99a00",
           700: "#a67600",
+        },
+        // Employer persona accent — corporate, trustworthy emerald.
+        emerald: {
+          50: "#ecfdf5",
+          100: "#d1fae5",
+          200: "#a7f3d0",
+          300: "#6ee7b7",
+          400: "#34d399",
+          500: "#10b981",
+          600: "#059669",
+          700: "#047857",
+          800: "#065f46",
+          900: "#064e3b",
         },
         accent: "#f5b301",
         success: "#16a34a",
