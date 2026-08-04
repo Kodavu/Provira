@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import {
   Calendar,
   Check,
@@ -46,6 +47,7 @@ function shiftLabel(startAt?: string | null, endAt?: string | null): string | nu
 
 function WorkerJobs() {
   const { userId } = useSession();
+  const t = useTranslations("Jobs");
   const { data, error, reload } = usePageData<WorkerDashboard>((id) => api.workerDashboard(id));
 
   if (error) return <PageError message={error} onRetry={reload} />;
@@ -57,11 +59,11 @@ function WorkerJobs() {
 
   return (
     <div className="space-y-8">
-      <PageHeader title="Jobs" subtitle="Search and apply for shifts, respond to invitations, and confirm attendance to get paid." />
+      <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       {invitations.length > 0 && (
         <section>
-          <SectionHeader title="Invitations" subtitle="Employers invited you to these shifts. Accept to join." />
+          <SectionHeader title={t("invitations")} subtitle={t("invitationsHint")} />
           <Stagger className="space-y-2.5">
             {invitations.map((a) => (
               <StaggerItem key={a.id}>
@@ -73,9 +75,9 @@ function WorkerJobs() {
       )}
 
       <section>
-        <SectionHeader title="Your shifts" subtitle="Jobs you're in. Get the code from your employer on site and confirm to get paid." />
+        <SectionHeader title={t("yourShifts")} subtitle={t("yourShiftsHint")} />
         {shifts.length === 0 ? (
-          <EmptyPanel icon={Users} title="No shifts yet" body="Apply to a job or accept an invitation to get started." />
+          <EmptyPanel icon={Users} title={t("noShifts")} body={t("noShiftsBody")} />
         ) : (
           <Stagger className="space-y-2.5">
             {shifts.map((a) => (
@@ -89,7 +91,7 @@ function WorkerJobs() {
 
       {applications.length > 0 && (
         <section>
-          <SectionHeader title="Pending applications" subtitle="Waiting for the employer to accept." />
+          <SectionHeader title={t("pending")} subtitle={t("pendingHint")} />
           <Card className="divide-y divide-line p-0">
             {applications.map((a) => (
               <div key={a.id} className="flex items-center justify-between px-5 py-3.5">
@@ -97,7 +99,7 @@ function WorkerJobs() {
                   <p className="font-medium text-ink">{a.job.title}</p>
                   <p className="text-sm text-ink-muted">{formatNaira(a.job.payAmount)}{a.job.location ? ` · ${a.job.location}` : ""}</p>
                 </div>
-                <Pill tone="amber"><Clock className="h-3.5 w-3.5" /> Applied</Pill>
+                <Pill tone="amber"><Clock className="h-3.5 w-3.5" /> {t("applied")}</Pill>
               </div>
             ))}
           </Card>
@@ -122,16 +124,17 @@ function InvitationCard({
   userId: string;
   onChange: () => void;
 }) {
+  const t = useTranslations("Jobs");
   const [busy, setBusy] = useState<string | null>(null);
 
   async function accept() {
     setBusy("accept");
     try {
       await api.acceptInvite(a.id, userId);
-      toast.success("Invitation accepted", { description: `You're in "${a.job.title}". Your employer will give you the code on site.` });
+      toast.success(t("accepted"), { description: t("acceptedDesc", { title: a.job.title }) });
       onChange();
     } catch (e) {
-      toast.error("Couldn't accept", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("acceptFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
@@ -140,10 +143,10 @@ function InvitationCard({
     setBusy("decline");
     try {
       await api.declineInvite(a.id, userId);
-      toast("Invitation declined");
+      toast(t("declined"));
       onChange();
     } catch (e) {
-      toast.error("Couldn't decline", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("declineFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
@@ -153,7 +156,7 @@ function InvitationCard({
     <Card className="border-brand-200 bg-brand-50/40 p-5">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="eyebrow text-brand-700">Invitation{a.job.employerName ? ` · ${a.job.employerName}` : ""}</p>
+          <p className="eyebrow text-brand-700">{t("invitationEyebrow")}{a.job.employerName ? ` · ${a.job.employerName}` : ""}</p>
           <p className="mt-1 font-semibold text-ink">{a.job.title}</p>
           <p className="mt-0.5 text-sm text-ink-muted">
             {formatNaira(a.job.payAmount)}
@@ -162,8 +165,8 @@ function InvitationCard({
           </p>
         </div>
         <div className="flex gap-2">
-          <Button size="sm" onClick={accept} disabled={!!busy}>{busy === "accept" ? "Accepting…" : "Accept"}</Button>
-          <Button size="sm" variant="outline" onClick={decline} disabled={!!busy}>{busy === "decline" ? "…" : "Decline"}</Button>
+          <Button size="sm" onClick={accept} disabled={!!busy}>{busy === "accept" ? t("accepting") : t("accept")}</Button>
+          <Button size="sm" variant="outline" onClick={decline} disabled={!!busy}>{busy === "decline" ? "…" : t("decline")}</Button>
         </div>
       </div>
     </Card>
@@ -177,6 +180,7 @@ function ShiftCard({
   assignment: WorkerDashboard["assignments"][number];
   onConfirmed: () => void;
 }) {
+  const t = useTranslations("Jobs");
   const confirmed = a.attendance?.status === "CONFIRMED" || a.status === "CONFIRMED";
   return (
     <Card className="p-5">
@@ -189,15 +193,15 @@ function ShiftCard({
             {shiftLabel(a.job.startAt, a.job.endAt) ? ` · ${shiftLabel(a.job.startAt, a.job.endAt)}` : ""}
           </p>
         </div>
-        {confirmed && <Pill tone="green"><Check className="h-3.5 w-3.5" /> Confirmed & paid</Pill>}
+        {confirmed && <Pill tone="green"><Check className="h-3.5 w-3.5" /> {t("confirmedPaid")}</Pill>}
       </div>
 
       {!confirmed && (
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-4">
           <div>
-            <p className="eyebrow">Confirm attendance</p>
+            <p className="eyebrow">{t("confirmAttendance")}</p>
             <p className="mt-0.5 max-w-xs text-xs text-ink-muted">
-              Ask your employer for the 4-digit code on site, then enter it here to confirm and get paid.
+              {t("confirmHint")}
             </p>
           </div>
           <ConfirmCode assignmentId={a.id} onConfirmed={onConfirmed} />
@@ -208,6 +212,7 @@ function ShiftCard({
 }
 
 function ConfirmCode({ assignmentId, onConfirmed }: { assignmentId: string; onConfirmed: () => void }) {
+  const t = useTranslations("Jobs");
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -215,12 +220,12 @@ function ConfirmCode({ assignmentId, onConfirmed }: { assignmentId: string; onCo
     setBusy(true);
     try {
       await api.confirmAttendance(assignmentId, code);
-      toast.success("Attendance confirmed", { description: "Your payout is on the way." });
+      toast.success(t("attendanceConfirmed"), { description: t("attendanceConfirmedDesc") });
       onConfirmed();
     } catch (e) {
       const wrong = (e as Error).message.includes("Invalid");
-      toast.error(wrong ? "That code isn't right" : "Couldn't confirm", {
-        description: wrong ? "Check the code and try again." : "Please try again.",
+      toast.error(wrong ? t("wrongCode") : t("confirmFailed"), {
+        description: wrong ? t("wrongCodeDesc") : t("confirmFailedDesc"),
       });
     } finally {
       setBusy(false);
@@ -230,9 +235,9 @@ function ConfirmCode({ assignmentId, onConfirmed }: { assignmentId: string; onCo
   return (
     <div className="flex items-center gap-2">
       <div className="w-28">
-        <Input value={code} onChange={setCode} placeholder="4-digit code" inputMode="numeric" maxLength={4} />
+        <Input value={code} onChange={setCode} placeholder={t("codePlaceholder")} inputMode="numeric" maxLength={4} />
       </div>
-      <Button onClick={submit} disabled={busy || code.length !== 4}>{busy ? "…" : "Confirm"}</Button>
+      <Button onClick={submit} disabled={busy || code.length !== 4}>{busy ? "…" : t("confirm")}</Button>
     </div>
   );
 }
@@ -246,6 +251,7 @@ function JobSearch({
   onApplied: () => void;
   syncKey: string;
 }) {
+  const t = useTranslations("Jobs");
   const [query, setQuery] = useState("");
   const [items, setItems] = useState<JobSearchItem[] | null>(null);
   const [feed, setFeed] = useState<string | null>(null); // null until the saved pref loads
@@ -264,43 +270,45 @@ function JobSearch({
   // Debounced search as the worker types; also re-runs when their assignment
   // statuses change (e.g. after accepting an invite), so cards stay accurate.
   useEffect(() => {
-    const t = setTimeout(() => run(query, feed ?? undefined), 300);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => run(query, feed ?? undefined), 300);
+    return () => clearTimeout(timer);
   }, [query, run, syncKey, feed]);
 
   async function apply(job: JobSearchItem) {
     setBusy(job.id);
     try {
       await api.applyToJob(job.id, userId);
-      toast.success("Applied!", { description: `The employer will review your application for "${job.title}".` });
+      toast.success(t("appliedToast"), { description: t("appliedToastDesc", { title: job.title }) });
       await run(query, feed ?? undefined);
       onApplied();
     } catch (e) {
-      toast.error("Couldn't apply", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("applyFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setBusy(null);
     }
   }
 
+  const feeds = [
+    { key: "ALL", label: t("feedAll") },
+    { key: "SKILLS", label: t("feedSkills") },
+    { key: "NEARBY", label: t("feedNearby") },
+  ];
+
   return (
     <section>
-      <SectionHeader title="Find work" subtitle="Search open jobs and apply in one tap. Tune the feed to your skills or your area." />
+      <SectionHeader title={t("findWork")} subtitle={t("findWorkHint")} />
       <FadeIn>
         <div className="mb-3 flex items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5">
           <Search className="h-4 w-4 shrink-0 text-ink-muted" strokeWidth={2} />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by title, skill, or place…"
+            placeholder={t("searchPlaceholder")}
             className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted"
           />
         </div>
         <div className="mb-4 inline-flex rounded-xl border border-line bg-surface p-1">
-          {[
-            { key: "ALL", label: "All jobs" },
-            { key: "SKILLS", label: "My skills" },
-            { key: "NEARBY", label: "Near me" },
-          ].map((f) => (
+          {feeds.map((f) => (
             <button
               key={f.key}
               onClick={() => setFeed(f.key)}
@@ -317,7 +325,7 @@ function JobSearch({
       {items === null ? (
         <div className="h-24 animate-pulse rounded-2xl bg-line/40" />
       ) : items.length === 0 ? (
-        <EmptyPanel icon={Search} title="No jobs found" body="Try a different search, or check back soon." />
+        <EmptyPanel icon={Search} title={t("noJobsFound")} body={t("noJobsBody")} />
       ) : (
         <div className="grid gap-3 sm:grid-cols-2">
           {items.map((j) => (
@@ -327,7 +335,7 @@ function JobSearch({
                   <p className="font-semibold text-ink">{j.title}</p>
                   <p className="mt-0.5 flex items-center gap-1 text-sm text-ink-muted">
                     <MapPin className="h-3.5 w-3.5" />
-                    {[j.area, j.state].filter(Boolean).join(", ") || j.location || "Location TBC"}
+                    {[j.area, j.state].filter(Boolean).join(", ") || j.location || t("locationTbc")}
                     {j.employerName ? ` · ${j.employerName}` : ""}
                   </p>
                 </div>
@@ -336,31 +344,31 @@ function JobSearch({
 
               {(j.proximity || j.matchesSkills) && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {j.proximity === "area" && <Pill tone="green">Near you</Pill>}
-                  {j.proximity === "state" && <Pill tone="green">In {j.state}</Pill>}
-                  {j.matchesSkills && <Pill tone="amber">Matches your skills</Pill>}
+                  {j.proximity === "area" && <Pill tone="green">{t("nearYou")}</Pill>}
+                  {j.proximity === "state" && <Pill tone="green">{t("inState", { state: j.state })}</Pill>}
+                  {j.matchesSkills && <Pill tone="amber">{t("matchesSkills")}</Pill>}
                 </div>
               )}
 
               {j.description && <p className="mt-2 line-clamp-2 text-sm text-ink-soft">{j.description}</p>}
 
               <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted">
-                <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5" /> {j.accepted}/{j.headcount} filled</span>
+                <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5" /> {t("filled", { accepted: j.accepted, headcount: j.headcount })}</span>
                 {shiftLabel(j.startAt, j.endAt) && <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {shiftLabel(j.startAt, j.endAt)}</span>}
               </div>
 
               <div className="mt-3">
                 {j.myStatus === "APPLIED" ? (
-                  <Pill tone="amber">Applied</Pill>
+                  <Pill tone="amber">{t("applied")}</Pill>
                 ) : j.myStatus === "ACCEPTED" || j.myStatus === "CONFIRMED" ? (
-                  <Pill tone="green">You're in this job</Pill>
+                  <Pill tone="green">{t("youreInJob")}</Pill>
                 ) : j.myStatus === "INVITED" ? (
-                  <Pill tone="amber">Invited — respond above</Pill>
+                  <Pill tone="amber">{t("invitedRespond")}</Pill>
                 ) : j.filled ? (
-                  <Pill>Full</Pill>
+                  <Pill>{t("full")}</Pill>
                 ) : (
                   <Button size="sm" variant="outline" onClick={() => apply(j)} disabled={busy === j.id}>
-                    {busy === j.id ? "Applying…" : "Apply"}
+                    {busy === j.id ? t("applying") : t("apply")}
                   </Button>
                 )}
               </div>
@@ -375,6 +383,7 @@ function JobSearch({
 // ---------------- Employer ----------------
 
 function EmployerJobs() {
+  const t = useTranslations("Jobs");
   const { data, error, reload } = usePageData<EmployerDashboard>((id) => api.employerDashboard(id));
 
   if (error) return <PageError message={error} onRetry={reload} />;
@@ -383,11 +392,11 @@ function EmployerJobs() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Your jobs"
-        subtitle="Fund escrow, invite suggested workers, and accept applications. Tap a job to manage it."
+        title={t("employerTitle")}
+        subtitle={t("employerSubtitle")}
         action={
           <Link href="/jobs/new">
-            <Button><PlusCircle className="h-4 w-4" /> Post a job</Button>
+            <Button><PlusCircle className="h-4 w-4" /> {t("postJob")}</Button>
           </Link>
         }
       />
