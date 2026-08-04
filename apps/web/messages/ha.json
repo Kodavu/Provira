@@ -1,8 +1,8 @@
 {
   "Nav": {
-    "product": "Product",
-    "company": "Company",
-    "resources": "Resources",
+    "product": "Kaya",
+    "company": "Kamfani",
+    "resources": "Kayan taimako",
     "howItWorks": "Yadda yake aiki",
     "signIn": "Shiga",
     "getStarted": "Fara",
@@ -11,5 +11,103 @@
   "Common": {
     "getStartedFree": "Fara kyauta",
     "talkToUs": "Yi magana da mu"
+  },
+  "Personas": {
+    "worker": {
+      "label": "Ma'aikata",
+      "tagline": "Nemo aiki, karɓi kuɗi, ci gaba",
+      "hero": {
+        "lead": "Nemo aiki na gaskiya.",
+        "emphasis": "Karɓi kuɗinka a rana ɗaya.",
+        "sub": "Gano ingantattun ayyuka kusa da kai, tabbatar da aikinka da lamba, kuma karɓi kuɗinka kai tsaye zuwa bankinka — yayin da kowane aiki ke gina Tally Score ɗinka wanda zai buɗe bashi.",
+        "primaryCta": "Nemo aiki",
+        "secondaryCta": "Yadda yake aiki",
+        "chips": ["Ingantattun masu ɗaukar aiki", "Kuɗi a rana ɗaya", "Gina makinka"]
+      }
+    },
+    "employer": {
+      "label": "Masu Ɗaukar Aiki",
+      "tagline": "Ɗauki wanda aka tabbatar, biya bayan tabbaci",
+      "hero": {
+        "lead": "Ɗauki ma'aikata da aka tabbatar.",
+        "emphasis": "Biya kawai don aikin da aka tabbatar.",
+        "sub": "Sanya aiki cikin mintuna kaɗan, gayyaci mutane masu tarihi na gaskiya, kuma sanya kuɗi cikin ajiya (escrow). Kuɗi na fita ne kawai lokacin da aka tabbatar da halarta — don haka ba za ka taɓa biya wa wanda bai zo ba.",
+        "primaryCta": "Sanya aiki",
+        "secondaryCta": "Duba yadda ɗaukar aiki ke gudana",
+        "chips": ["Mutane da NIN ta tabbatar", "Biya bayan tabbaci", "Nazarin ɗaukar aiki"]
+      }
+    },
+    "trader": {
+      "label": "'Yan Kasuwa",
+      "tagline": "Gudanar da kasuwancinka ka bunƙasa shi",
+      "hero": {
+        "lead": "Gudanar da kasuwancinka.",
+        "emphasis": "Mai da kowace sayarwa zuwa bashi.",
+        "sub": "Rubuta sayarwarka don gina tarihin da za a iya tabbatarwa, wanda ke buɗe rancen kaya a yau — kuma ka shirya don cikakkun kayan aikin kasuwanci: POS, kaya, biyan kuɗi da nazari, suna zuwa nan ba da jimawa ba.",
+        "primaryCta": "Bunƙasa kasuwancinka",
+        "secondaryCta": "Bincika POS",
+        "chips": ["Rubuta sayarwa", "Buɗe rancen kaya", "POS na zuwa"]
+      }
+    }
+  },
+  "Home": {
+    "hero": {
+      "trustLine": "Tsari guda ɗaya da ya haɗa tattalin arzikin da ba na yau da kullun ba na Najeriya — ma'aikata, masu ɗaukar aiki, da 'yan kasuwa."
+    },
+    "marquee": {
+      "title": "An gina shi a kan ingantattun kayayyakin more rayuwa masu lasisi"
+    },
+    "ecosystem": {
+      "eyebrow": "Tsari guda ɗaya haɗe",
+      "title": "Nau'i uku na mutane. Shaidar tattalin arziki guda ɗaya da aka raba.",
+      "subtitle": "Ma'aikata, masu ɗaukar aiki, da 'yan kasuwa — kowanne yana da samfurin da aka gina masa, waɗanda shaida guda, escrow, da Tally Score ke haɗawa."
+    },
+    "features": {
+      "eyebrow": "Me ya sa Tally",
+      "title": "Hanyoyin da ke sa komai aiki"
+    },
+    "language": {
+      "eyebrow": "An gina shi don Najeriya",
+      "title1": "Fasaha da ke",
+      "title2": "magana da harshenka",
+      "sub": "Yi aiki, ɗauki ma'aikata, kuma yi kasuwanci a harshen da ya fi maka sauƙi. An tsara Tally bisa yadda 'yan Najeriya ke magana da gaske — a app, a USSD, da WhatsApp."
+    },
+    "how": {
+      "eyebrow": "Yadda yake aiki",
+      "title": "Hanya bayyananniya — ga duk wanda kake"
+    },
+    "pos": {
+      "badge": "Ga 'yan kasuwa · Yana zuwa",
+      "title1": "Cikakken tsarin",
+      "title2": "gudanar da kasuwanci",
+      "primaryCta": "Fara sayarwa a Tally",
+      "secondaryCta": "Duba shirin gaba"
+    },
+    "roadmap": {
+      "eyebrow": "Hangen samfur",
+      "title": "Inda Tally ke nufi na gaba"
+    },
+    "testimonials": {
+      "eyebrow": "Shaidu",
+      "title": "Aiki na gaskiya. Biya na gaskiya. Amana ta gaskiya.",
+      "subtitle": "Daga kowane ɓangare na dandamalin.",
+      "lovedBy": "Ma'aikata, masu ɗaukar aiki da 'yan kasuwa suna son sa"
+    },
+    "faq": {
+      "eyebrow": "Tambayoyi",
+      "title": "Tambayoyi, an amsa su",
+      "subtitle": "Zaɓi wanda kake domin amsoshin da suka shafe ka.",
+      "stillCurious": "Har yanzu kana son sani?",
+      "helpCenter": "Ziyarci Cibiyar Taimako",
+      "or": "ko",
+      "talkToUs": "yi magana da mu"
+    },
+    "finalCta": {
+      "title": "Duk wanda kake, fara ƙidaya aikinka yau",
+      "body": "Haɗu da ma'aikata, masu ɗaukar aiki, da 'yan kasuwa da ke gina shaidar tattalin arziki da za a iya tabbatarwa — kuma suna karɓar kuɗi da sauri saboda haka.",
+      "primary": "Fara kyauta",
+      "secondary": "Yi magana da mu",
+      "note": "Babu wayar hannu? Buga *347*82# ko aiko mana saƙo a WhatsApp."
+    }
   }
 }

@@ -1,15 +1,113 @@
 {
   "Nav": {
-    "product": "Product",
-    "company": "Company",
-    "resources": "Resources",
-    "howItWorks": "Bi o se n sise",
-    "signIn": "Wole",
-    "getStarted": "Bere",
-    "language": "Ede"
+    "product": "Ọjà",
+    "company": "Ilé-iṣẹ́",
+    "resources": "Àwọn ohun-ìrànlọ́wọ́",
+    "howItWorks": "Bí ó ṣe ń ṣiṣẹ́",
+    "signIn": "Wọlé",
+    "getStarted": "Bẹ̀rẹ̀",
+    "language": "Èdè"
   },
   "Common": {
-    "getStartedFree": "Bere ofe",
-    "talkToUs": "Ba wa soro"
+    "getStartedFree": "Bẹ̀rẹ̀ ọ̀fẹ́",
+    "talkToUs": "Bá wa sọ̀rọ̀"
+  },
+  "Personas": {
+    "worker": {
+      "label": "Àwọn Òṣìṣẹ́",
+      "tagline": "Wá iṣẹ́, gba owó, dàgbà",
+      "hero": {
+        "lead": "Wá iṣẹ́ gidi.",
+        "emphasis": "Gba owó rẹ lọ́jọ́ kan náà.",
+        "sub": "Ṣàwárí àwọn iṣẹ́ tí a fọwọ́sí nítòsí rẹ, fi kóòdù jẹ́rìí sí iṣẹ́ rẹ, kí o sì gba owó rẹ tààrà sí báńkì rẹ — bí iṣẹ́ kọ̀ọ̀kan ṣe ń kọ́ Tally Score rẹ tí yóò ṣí ọ̀nà krẹdíìtì sílẹ̀.",
+        "primaryCta": "Wá iṣẹ́",
+        "secondaryCta": "Bí ó ṣe ń ṣiṣẹ́",
+        "chips": ["Àwọn agbanisíṣẹ́ tí a fọwọ́sí", "Owó lọ́jọ́ kan náà", "Kọ́ Tally Score rẹ"]
+      }
+    },
+    "employer": {
+      "label": "Àwọn Agbanisíṣẹ́",
+      "tagline": "Gba òṣìṣẹ́ tí a fọwọ́sí, san nígbà ìjẹ́rìí",
+      "hero": {
+        "lead": "Gba àwọn òṣìṣẹ́ tí a fọwọ́sí.",
+        "emphasis": "San owó fún iṣẹ́ tí a jẹ́rìí sí nìkan.",
+        "sub": "Fi iṣẹ́ sílẹ̀ láàárín ìṣẹ́jú díẹ̀, pe àwọn ènìyàn tí wọ́n ní àkọsílẹ̀ gidi, kí o sì fi owó sí ẹsírò. Owó yóò jáde nìkan nígbà tí a bá jẹ́rìí wíwá — nítorí náà o kì yóò san fún ẹni tí kò dé.",
+        "primaryCta": "Fi iṣẹ́ sílẹ̀",
+        "secondaryCta": "Wo bí ìgbanisíṣẹ́ ṣe ń lọ",
+        "chips": ["Ènìyàn tí NIN fọwọ́sí", "San nígbà ìjẹ́rìí", "Ìtúpalẹ̀ ìgbanisíṣẹ́"]
+      }
+    },
+    "trader": {
+      "label": "Àwọn Oníṣòwò",
+      "tagline": "Ṣàkóso kí o sì mú òwò rẹ dàgbà",
+      "hero": {
+        "lead": "Ṣàkóso òwò rẹ.",
+        "emphasis": "Sọ gbogbo títà di krẹdíìtì.",
+        "sub": "Ṣàkọsílẹ̀ àwọn ọjà tí o tà kí o lè kọ́ àkọsílẹ̀ tí a lè jẹ́rìí, tí yóò ṣí awin ọjà sílẹ̀ lónìí — kí o sì múra fún ọ̀pọ̀ irinṣẹ́ òwò: POS, ìṣàkóso ọjà, ìsanwó àti ìtúpalẹ̀, tí ń bọ̀ láìpẹ́.",
+        "primaryCta": "Mú òwò rẹ dàgbà",
+        "secondaryCta": "Ṣàwárí POS",
+        "chips": ["Ṣàkọsílẹ̀ títà", "Ṣí awin ọjà", "POS ń bọ̀"]
+      }
+    }
+  },
+  "Home": {
+    "hero": {
+      "trustLine": "Ẹ̀rọ ìṣọ̀kan kan fún ọrọ̀-ajé àìjẹ́-àbọ̀ ti Nàìjíríà — òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò."
+    },
+    "marquee": {
+      "title": "A kọ́ ọ lórí àwọn amáyédẹrùn tí a fọkàntán, tí wọ́n ní ìwé àṣẹ"
+    },
+    "ecosystem": {
+      "eyebrow": "Ẹ̀rọ ìṣọ̀kan kan",
+      "title": "Ẹgbẹ́ mẹ́ta. Ìdánimọ̀ ọrọ̀-ajé kan tí wọ́n pín.",
+      "subtitle": "Òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò — ọ̀kọ̀ọ̀kan ní ọjà tí a kọ́ fún wọn, tí ìdánimọ̀ kan náà, ẹsírò, àti Tally Score ń so pọ̀."
+    },
+    "features": {
+      "eyebrow": "Kí ló dé Tally",
+      "title": "Àwọn ọ̀nà tó ń mú gbogbo rẹ̀ ṣiṣẹ́"
+    },
+    "language": {
+      "eyebrow": "A kọ́ ọ fún Nàìjíríà",
+      "title1": "Ẹ̀rọ tó ń",
+      "title2": "sọ èdè rẹ",
+      "sub": "Ṣiṣẹ́, gba òṣìṣẹ́, kí o sì ṣòwò ní èdè tó bá ọ mu jù. A ṣe Tally fún bí àwọn ọmọ Nàìjíríà ṣe ń sọ̀rọ̀ gan-an — lórí áàpù, lórí USSD, àti lórí WhatsApp."
+    },
+    "how": {
+      "eyebrow": "Bí ó ṣe ń ṣiṣẹ́",
+      "title": "Ọ̀nà tó ṣe kedere — fún ẹnikẹ́ni tí o bá jẹ́"
+    },
+    "pos": {
+      "badge": "Fún oníṣòwò · Ń bọ̀ láìpẹ́",
+      "title1": "Ẹ̀rọ ìṣàkóso òwò",
+      "title2": "gbogbo-nínú-ọ̀kan",
+      "primaryCta": "Bẹ̀rẹ̀ sí í tà lórí Tally",
+      "secondaryCta": "Wo ètò-ọ̀nà"
+    },
+    "roadmap": {
+      "eyebrow": "Ìran ọjà",
+      "title": "Ibi tí Tally ń lọ tókàn"
+    },
+    "testimonials": {
+      "eyebrow": "Ẹ̀rí",
+      "title": "Iṣẹ́ gidi. Owó gidi. Ìgbẹ́kẹ̀lé gidi.",
+      "subtitle": "Láti gbogbo ẹ̀gbẹ́ pátákó náà.",
+      "lovedBy": "Àwọn òṣìṣẹ́, agbanisíṣẹ́ àti oníṣòwò nífẹ̀ẹ́ rẹ̀"
+    },
+    "faq": {
+      "eyebrow": "Ìbéèrè",
+      "title": "Àwọn ìbéèrè, pẹ̀lú ìdáhùn",
+      "subtitle": "Yan ẹni tí o jẹ́ fún àwọn ìdáhùn tó ṣe pàtàkì fún ọ.",
+      "stillCurious": "Ṣé o ṣì fẹ́ mọ̀ sí i?",
+      "helpCenter": "Ṣèbẹ̀wò sí Ilé-ìrànlọ́wọ́",
+      "or": "tàbí",
+      "talkToUs": "bá wa sọ̀rọ̀"
+    },
+    "finalCta": {
+      "title": "Ẹnikẹ́ni tí o bá jẹ́, bẹ̀rẹ̀ sí í ka iṣẹ́ rẹ lónìí",
+      "body": "Darapọ̀ mọ́ àwọn òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò tí wọ́n ń kọ́ ìdánimọ̀ ọrọ̀-ajé tí a lè jẹ́rìí — tí wọ́n sì ń gba owó kíákíá nítorí rẹ̀.",
+      "primary": "Bẹ̀rẹ̀ ọ̀fẹ́",
+      "secondary": "Bá wa sọ̀rọ̀",
+      "note": "Kò sí fóònù àlámọ̀? Tẹ *347*82# tàbí fi ìránṣẹ́ ránṣẹ́ sí wa lórí WhatsApp."
+    }
   }
 }

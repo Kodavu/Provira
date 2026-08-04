@@ -1,15 +1,113 @@
 {
   "Nav": {
-    "product": "Product",
-    "company": "Company",
-    "resources": "Resources",
-    "howItWorks": "Otu o si aru oru",
+    "product": "Ngwaahịa",
+    "company": "Ụlọ ọrụ",
+    "resources": "Akụrụngwa enyemaka",
+    "howItWorks": "Otú ọ si arụ ọrụ",
     "signIn": "Banye",
     "getStarted": "Malite",
-    "language": "Asusu"
+    "language": "Asụsụ"
   },
   "Common": {
     "getStartedFree": "Malite n'efu",
-    "talkToUs": "Gwa anyi okwu"
+    "talkToUs": "Gwa anyị okwu"
+  },
+  "Personas": {
+    "worker": {
+      "label": "Ndị Ọrụ",
+      "tagline": "Chọọ ọrụ, nweta ego, too",
+      "hero": {
+        "lead": "Chọta ezigbo ọrụ.",
+        "emphasis": "Nweta ego gị n'otu ụbọchị ahụ.",
+        "sub": "Chọta ọrụ ndị enyochara nọ gị nso, jiri koodu kwado ọrụ gị, ma nweta ego gị ozugbo na akaụntụ bankị gị — ka ọrụ ọ bụla na-ewuli Tally Score gị nke ga-emeghe ụzọ maka mbinye ego.",
+        "primaryCta": "Chọọ ọrụ",
+        "secondaryCta": "Otú ọ si arụ ọrụ",
+        "chips": ["Ndị na-ewe ọrụ enyochara", "Ego n'otu ụbọchị", "Wuo Tally Score gị"]
+      }
+    },
+    "employer": {
+      "label": "Ndị Na-ewe Ọrụ",
+      "tagline": "Were onye enyochara, kwụọ mgbe akwadoro",
+      "hero": {
+        "lead": "Were ndị ọrụ enyochara.",
+        "emphasis": "Kwụọ naanị maka ọrụ akwadoro.",
+        "sub": "Tinye ọrụ n'ime nkeji ole na ole, kpọọ ndị nwere ezigbo akụkọ ọrụ, ma tinye ego n'ime escrow. Ego na-apụ naanị mgbe akwadoro ọbịbịa — ya mere ị gaghị akwụ ụgwọ maka onye na-abịaghị.",
+        "primaryCta": "Tinye ọrụ",
+        "secondaryCta": "Hụ otú nlereanya ọrụ si aga",
+        "chips": ["Ndị NIN kwadoro", "Kwụọ mgbe akwadoro", "Nyocha inye ọrụ"]
+      }
+    },
+    "trader": {
+      "label": "Ndị Ahịa",
+      "tagline": "Jikwaa ma mepụta azụmahịa gị",
+      "hero": {
+        "lead": "Jikwaa azụmahịa gị.",
+        "emphasis": "Mee ka salị ọ bụla ghọọ mbinye ego.",
+        "sub": "Depụta ahịa gị iji wuo ndekọ enwere ike ịkwado, nke na-emeghe mbinye ngwaahịa taa — ma jikere maka ngwa azụmahịa zuru ezu: POS, ngwaahịa, ịkwụ ụgwọ na nyocha, na-abịa n'oge na-adịghị anya.",
+        "primaryCta": "Mepụta azụmahịa gị",
+        "secondaryCta": "Nyochaa POS",
+        "chips": ["Depụta ahịa", "Meghee mbinye ngwaahịa", "POS na-abịa"]
+      }
+    }
+  },
+  "Home": {
+    "hero": {
+      "trustLine": "Otu usoro jikọrọ ọnụ maka akụ na ụba anaghị akwụ ụgwọ nke Naịjirịa — ndị ọrụ, ndị na-ewe ọrụ, na ndị ahịa."
+    },
+    "marquee": {
+      "title": "E wuru ya n'akụrụngwa a tụkwasịrị obi, nke nwere ikike"
+    },
+    "ecosystem": {
+      "eyebrow": "Otu usoro jikọrọ ọnụ",
+      "title": "Ụdị mmadụ atọ. Otu njirimara akụ na ụba e kekọrịtara.",
+      "subtitle": "Ndị ọrụ, ndị na-ewe ọrụ, na ndị ahịa — onye ọ bụla nwere ngwaahịa e wuuru ya, nke otu njirimara, escrow, na Tally Score na-ejikọ."
+    },
+    "features": {
+      "eyebrow": "Gịnị mere Tally",
+      "title": "Ụzọ ndị na-eme ka ihe niile rụọ ọrụ"
+    },
+    "language": {
+      "eyebrow": "E wuru ya maka Naịjirịa",
+      "title1": "Teknụzụ nke na-",
+      "title2": "asụ asụsụ gị",
+      "sub": "Rụọ ọrụ, were ndị ọrụ, ma zụọ ahịa n'asụsụ kachasị amasị gị. E mere Tally maka otú ndị Naịjirịa si ekwu okwu n'ezie — na app, na USSD, na WhatsApp."
+    },
+    "how": {
+      "eyebrow": "Otú ọ si arụ ọrụ",
+      "title": "Ụzọ doro anya — maka onye ọ bụla ị bụ"
+    },
+    "pos": {
+      "badge": "Maka ndị ahịa · Na-abịa",
+      "title1": "Usoro azụmahịa",
+      "title2": "zuru oke",
+      "primaryCta": "Malite ire ahịa na Tally",
+      "secondaryCta": "Lelee atụmatụ ihu"
+    },
+    "roadmap": {
+      "eyebrow": "Ọhụụ ngwaahịa",
+      "title": "Ebe Tally na-aga ọzọ"
+    },
+    "testimonials": {
+      "eyebrow": "Akaebe",
+      "title": "Ezigbo ọrụ. Ezigbo ụgwọ. Ezigbo ntụkwasị obi.",
+      "subtitle": "Site n'akụkụ ọ bụla nke ikpo okwu.",
+      "lovedBy": "Ndị ọrụ, ndị na-ewe ọrụ na ndị ahịa hụrụ ya n'anya"
+    },
+    "faq": {
+      "eyebrow": "Ajụjụ",
+      "title": "Ajụjụ, azaghachiri ha",
+      "subtitle": "Họrọ onye ị bụ maka azịza ndị metụtara gị.",
+      "stillCurious": "Ị ka chọrọ ịmata?",
+      "helpCenter": "Gaa na Ebe Enyemaka",
+      "or": "ma ọ bụ",
+      "talkToUs": "gwa anyị okwu"
+    },
+    "finalCta": {
+      "title": "Onye ọ bụla ị bụ, malite ịgụ ọrụ gị taa",
+      "body": "Sonye na ndị ọrụ, ndị na-ewe ọrụ, na ndị ahịa na-ewu njirimara akụ na ụba enwere ike ịkwado — ma na-enweta ego ngwa ngwa n'ihi ya.",
+      "primary": "Malite n'efu",
+      "secondary": "Gwa anyị okwu",
+      "note": "Enweghị ekwentị mkpanaka? Pịa *347*82# ma ọ bụ zitere anyị ozi na WhatsApp."
+    }
   }
 }
