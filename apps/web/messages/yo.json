@@ -23,7 +23,24 @@
         "primaryCta": "Wá iṣẹ́",
         "secondaryCta": "Bí ó ṣe ń ṣiṣẹ́",
         "chips": ["Àwọn agbanisíṣẹ́ tí a fọwọ́sí", "Owó lọ́jọ́ kan náà", "Kọ́ Tally Score rẹ"]
-      }
+      },
+      "features": [
+        "Àwọn agbanisíṣẹ́ tí a fọwọ́sí, tí ẹsírò ń ṣètìlẹ́yìn",
+        "Àkọ̀ọ́lẹ̀ ọ̀jọ̀gbọ́n pẹ̀lú ìdíwọ̀n àti àtúnyẹ̀wò",
+        "Àwọn iṣẹ́ tó rọrùn tí ó bá agbègbè rẹ mu",
+        "Tally Score tó ń ṣí krẹdíìtì gidi"
+      ],
+      "steps": [
+        { "title": "Kọ́ àkọ̀ọ́lẹ̀ rẹ", "body": "Forúkọsílẹ̀ pẹ̀lú nọ́mbà fóònù, fi àwọn ọgbọ́n àti ibùgbé rẹ kún — o kò nílò fóònù àlámọ̀." },
+        { "title": "Béèrè fún àwọn iṣẹ́ nítòsí rẹ", "body": "Wo àwọn iṣẹ́ tí a fọwọ́sí tí ó bá ọgbọ́n rẹ àti agbègbè rẹ mu, kí o sì béèrè pẹ̀lú ìfọwọ́kan kan tàbí lórí USSD." },
+        { "title": "Ṣiṣẹ́, gba owó rẹ", "body": "Fi kóòdù agbanisíṣẹ́ jẹ́rìí wíwá, kí o sì gba owó rẹ lọ́jọ́ kan náà, nígbà gbogbo." }
+      ],
+      "faqs": [
+        { "q": "Ìgbà wo ni màá gba owó?", "a": "Lọ́jọ́ kan náà. Ní kété tí a bá jẹ́rìí wíwá pẹ̀lú kóòdù oní-nọ́mbà mẹ́rin ti agbanisíṣẹ́, owó ẹsírò rẹ yóò wọ àpamọ́wọ́ Tally rẹ, o sì lè yọ ọ́ sí báńkì rẹ." },
+        { "q": "Ṣé mo nílò fóònù àlámọ̀?", "a": "Rárá. O lè forúkọsílẹ̀, béèrè, kí o sì jẹ́rìí iṣẹ́ lórí USSD (*347*82#) tàbí WhatsApp. Fóònù àlámọ̀ yóò ṣí áàpù ní kíkún, ṣùgbọ́n kì í ṣe dandan." },
+        { "q": "Kí ni Tally Score mi?", "a": "Àkọsílẹ̀ tí a lè jẹ́rìí tí ó wá láti àwọn iṣẹ́ tí o parí, wíwá lásìkò, àti àwọn awin tí o san padà. Ìdíwọ̀n gíga ń ṣí àwọn iṣẹ́ tó dára jù àti krẹdíìtì gidi tí kò wọ́n." },
+        { "q": "Ṣé mo lè lo Tally ní èdè mi?", "a": "Bẹ́ẹ̀ ni — áàpù, USSD àti WhatsApp ń ṣiṣẹ́ ní Gẹ̀ẹ́sì, Pidgin, Yorùbá, Hausa àti Igbo. Yan èdè rẹ lẹ́ẹ̀kan, yóò sì fi pamọ́ fún ìgbà tó ń bọ̀, kọjá àwọn ẹ̀rọ rẹ." }
+      ]
     },
     "employer": {
       "label": "Àwọn Agbanisíṣẹ́",
@@ -35,7 +52,24 @@
         "primaryCta": "Fi iṣẹ́ sílẹ̀",
         "secondaryCta": "Wo bí ìgbanisíṣẹ́ ṣe ń lọ",
         "chips": ["Ènìyàn tí NIN fọwọ́sí", "San nígbà ìjẹ́rìí", "Ìtúpalẹ̀ ìgbanisíṣẹ́"]
-      }
+      },
+      "features": [
+        "Àwọn òṣìṣẹ́ tí a fọwọ́sí, tí a fún ní ìdíwọ̀n, lẹ́sẹ̀kẹsẹ̀",
+        "Fi iṣẹ́ sílẹ̀, kí o sì ṣàkóso àwọn olùbéèrè láàárín ìṣẹ́jú",
+        "Ẹsírò kí o má bàa san fún ẹni tí kò dé",
+        "Ìtúpalẹ̀ iṣẹ́ àti ìṣàkóso ẹgbẹ́"
+      ],
+      "steps": [
+        { "title": "Fi iṣẹ́ sílẹ̀, kí o sì fi owó sí i", "body": "Ṣètò ipò náà, iye ènìyàn, owó, ibùdó àti àkókò, kí o sì fi gbogbo owó sí ẹsírò tó ní ààbò ṣáájú." },
+        { "title": "Pè, kí o sì ṣàkóso", "body": "Ṣàyẹ̀wò àwọn òṣìṣẹ́ tí a fọwọ́sí tí a dábàá, pe àwọn tó dára jù, kí o sì ṣàkóso àwọn olùbéèrè láti pátákó kan." },
+        { "title": "Jẹ́rìí, kí o sì san", "body": "Pín kóòdù wíwá níbi iṣẹ́; ẹsírò yóò jáde fúnra rẹ̀ fún iṣẹ́ tí a jẹ́rìí nìkan." }
+      ],
+      "faqs": [
+        { "q": "Báwo ni ẹsírò ṣe ń dáàbò bò mí?", "a": "Nígbà tí o bá fi owó sí iṣẹ́, ó dúró sí àkáǹtì ẹsírò pàtàkì — a kò tíì fi ránṣẹ́. Ó ń jáde nìkan nígbà tí òṣìṣẹ́ bá fi kóòdù rẹ jẹ́rìí wíwá, nítorí náà o kì yóò san fún ẹni tí kò dé." },
+        { "q": "Báwo ni màá ṣe rí àwọn òṣìṣẹ́ tó dára?", "a": "Tally ń dábàá àwọn òṣìṣẹ́ tí NIN fọwọ́sí tí wọ́n ní àkọsílẹ̀ gidi àti ìdíwọ̀n, tí ó bá iṣẹ́ àti ibùdó rẹ mu. O pe àwọn tí o fẹ́; wọ́n jẹ́rìí." },
+        { "q": "Kí ni ó ná láti gbaniṣẹ́?", "a": "Owó kékeré, tí ó ṣe kedere fún gbogbo ìgbaniṣẹ́ tí ó parí — a ó fi hàn ọ́ ṣáájú kí o tó jẹ́rìí, láìsí owó oṣù tó kéré jù." },
+        { "q": "Ṣé mo lè fi iṣẹ́ sílẹ̀ ní èdè ìbílẹ̀?", "a": "Bẹ́ẹ̀ ni. Fi sílẹ̀ ní èdè tí o fẹ́; ìṣàkóso ìgbaniṣẹ́ ń ṣiṣẹ́ ní Gẹ̀ẹ́sì, Pidgin, Yorùbá, Hausa àti Igbo, ìtumọ̀ ìfọwọ́kan-kan ti àwọn ìfìwéránṣẹ́ fún àwọn òṣìṣẹ́ sì wà lórí ètò-ọ̀nà wa." }
+      ]
     },
     "trader": {
       "label": "Àwọn Oníṣòwò",
@@ -47,11 +81,29 @@
         "primaryCta": "Mú òwò rẹ dàgbà",
         "secondaryCta": "Ṣàwárí POS",
         "chips": ["Ṣàkọsílẹ̀ títà", "Ṣí awin ọjà", "POS ń bọ̀"]
-      }
+      },
+      "features": [
+        "Ṣàkọsílẹ̀ títà kí o sì kọ́ àkọsílẹ̀ òwò",
+        "Ṣí awin ọjà láti inú ìtàn gidi",
+        "Ọ̀pọ̀ irinṣẹ́ POS àti ìṣàkóso ọjà (ń bọ̀ láìpẹ́)",
+        "Àpamọ́wọ́ dígítà àti ìsanwó òwò (ètò-ọ̀nà)"
+      ],
+      "steps": [
+        { "title": "Ṣàkọsílẹ̀ títà rẹ", "body": "Ṣàkọsílẹ̀ títà láàárín ìṣẹ́jú-àáyá — ọ̀kọ̀ọ̀kan di apá kan àkọsílẹ̀ òwò tí a lè jẹ́rìí." },
+        { "title": "Kọ́ ìtàn rẹ", "body": "Títà tí ó dúró ṣinṣin ń mú Tally Score rẹ dàgbà, ó sì ń jẹ́rìí òwò rẹ fún àwọn báńkì àti awìnná." },
+        { "title": "Ṣí owó-ìṣòwò", "body": "Yẹ fún owó ọjà àti owó-ìṣòwò tí ó bá títà gidi rẹ mu tí a lè jẹ́rìí." }
+      ],
+      "faqs": [
+        { "q": "Kí nìdí tí màá fi ṣàkọsílẹ̀ gbogbo títà?", "a": "Gbogbo títà tí o bá ṣàkọsílẹ̀ di apá kan àkọsílẹ̀ tí a lè jẹ́rìí — àkọsílẹ̀ yìí sì ni ó ń jẹ́ kí o yẹ fún awin ọjà. Bí títà rẹ ṣe dúró ṣinṣin tó, bẹ́ẹ̀ ni owó tí o lè rí pọ̀ tó." },
+        { "q": "Ṣé POS ti wà báyìí?", "a": "POS ní kíkún, ìṣàkóso ọjà, àti àwọn irinṣẹ́ òwò wà lórí ètò-ọ̀nà wa, a sì fi hàn kedere pé Ń Bọ̀ Láìpẹ́. O lè bẹ̀rẹ̀ sí í kọ́ àkọsílẹ̀ títà rẹ lónìí kí o lè múra láti ọjọ́ kìíní." },
+        { "q": "Báwo ni awin ọjà ṣe ń ṣiṣẹ́?", "a": "Ní kété tí ìtàn títà rẹ bá yẹ ọ́, o lè rí owó ọjà tí ó bá àkọsílẹ̀ rẹ mu, tí o ó san padà bí o ṣe ń tà. Sísan padà lásìkò ń mú ìdíwọ̀n rẹ dàgbà fún àwọn ààlà tó tóbi jù." },
+        { "q": "Ṣé POS yóò ṣètìlẹ́yìn fún àwọn èdè ìbílẹ̀?", "a": "Bẹ́ẹ̀ ni — POS tó ń bọ̀, àwọn ìwé-ẹ̀rí àti àkọ̀ọ́lẹ̀ ọjà, a ń kọ́ wọn ní èdè púpọ̀ láti ọjọ́ kìíní, ní Gẹ̀ẹ́sì, Pidgin, Yorùbá, Hausa àti Igbo." }
+      ]
     }
   },
   "Home": {
     "hero": {
+      "forAudience": "Fún {audience}",
       "trustLine": "Ẹ̀rọ ìṣọ̀kan kan fún ọrọ̀-ajé àìjẹ́-àbọ̀ ti Nàìjíríà — òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò."
     },
     "marquee": {
@@ -64,34 +116,111 @@
     },
     "features": {
       "eyebrow": "Kí ló dé Tally",
-      "title": "Àwọn ọ̀nà tó ń mú gbogbo rẹ̀ ṣiṣẹ́"
+      "title": "Àwọn ọ̀nà tó ń mú gbogbo rẹ̀ ṣiṣẹ́",
+      "subtitle": "Ìsanwó, orúkọ rere, ìbámu, àti ìwọlé — amáyédẹrùn tí a pín tí ń ṣe ìránṣẹ́ fún gbogbo ẹ̀gbẹ́ pátákó náà.",
+      "escrowTitle": "Owó tí ẹsírò ń ṣètìlẹ́yìn, tó ń jáde nígbà ìjẹ́rìí",
+      "escrowBody": "Àwọn agbanisíṣẹ́ ń fi owó sí iṣẹ́ ṣáájú; a ń san àwọn òṣìṣẹ́ lọ́jọ́ kan náà tí a bá jẹ́rìí wíwá wọn. Kò sí ìwé-owó, kò sí ìlépa, kò sí sísan fún ẹni tí kò dé.",
+      "escrowChips": ["Ẹsírò ń ṣètìlẹ́yìn", "Ó ń jáde lẹ́sẹ̀kẹsẹ̀", "Ìsanwó báńkì"],
+      "scoreTitle": "Tally Score",
+      "scoreBody": "Orúkọ rere tí a lè jẹ́rìí tí ó wá láti iṣẹ́ àti títà gidi — kọ́kọ́rọ́ tó ń ṣí krẹdíìtì.",
+      "locationTitle": "Ìbámu nípa ibùdó",
+      "locationBody": "Débi agbègbè rẹ. Àwọn iṣẹ́, òṣìṣẹ́, àti oníbàárà tó tọ́, tí ó súnmọ́ ilé.",
+      "verifiedTitle": "Fọwọ́sí àti ìgbẹ́kẹ̀lé",
+      "verifiedBody": "Ìdánimọ̀ tí NIN fọwọ́sí àti àkọsílẹ̀ tí a jẹ́rìí ní gbogbo ẹ̀gbẹ́ àdéhùn.",
+      "phoneTitle": "Ìwọlé pẹ̀lú fóònù ṣáájú",
+      "phoneBody": "Àtìlẹ́yìn USSD àti WhatsApp ní kíkún, kí fóònù àlámọ̀ má bàa jẹ́ ìdíwọ́ láé."
     },
     "language": {
       "eyebrow": "A kọ́ ọ fún Nàìjíríà",
       "title1": "Ẹ̀rọ tó ń",
       "title2": "sọ èdè rẹ",
-      "sub": "Ṣiṣẹ́, gba òṣìṣẹ́, kí o sì ṣòwò ní èdè tó bá ọ mu jù. A ṣe Tally fún bí àwọn ọmọ Nàìjíríà ṣe ń sọ̀rọ̀ gan-an — lórí áàpù, lórí USSD, àti lórí WhatsApp."
+      "sub": "Ṣiṣẹ́, gba òṣìṣẹ́, kí o sì ṣòwò ní èdè tó bá ọ mu jù. A ṣe Tally fún bí àwọn ọmọ Nàìjíríà ṣe ń sọ̀rọ̀ gan-an — lórí áàpù, lórí USSD, àti lórí WhatsApp.",
+      "bullets": [
+        "Ìsopọ̀, àwọn bọ́tìnì, ìmẹ́ìlì àti ìfitónilétí — ní èdè rẹ.",
+        "A ń fi èdè rẹ pamọ́, ó sì ń tẹ̀lé ọ kọjá àwọn ẹ̀rọ rẹ.",
+        "Yí i padà nígbàkúgbà láti inú àkójọ tàbí ètò rẹ."
+      ],
+      "note": "Ó tún wà lórí USSD *347*82# àti WhatsApp"
     },
     "how": {
       "eyebrow": "Bí ó ṣe ń ṣiṣẹ́",
-      "title": "Ọ̀nà tó ṣe kedere — fún ẹnikẹ́ni tí o bá jẹ́"
+      "title": "Ọ̀nà tó ṣe kedere — fún ẹnikẹ́ni tí o bá jẹ́",
+      "stepLabel": "Ìgbésẹ̀ {n}"
     },
     "pos": {
       "badge": "Fún oníṣòwò · Ń bọ̀ láìpẹ́",
       "title1": "Ẹ̀rọ ìṣàkóso òwò",
       "title2": "gbogbo-nínú-ọ̀kan",
+      "body": "Bẹ̀rẹ̀ sí í kọ́ àkọsílẹ̀ títà rẹ lónìí. Láìpẹ́, Tally yóò di ẹ̀rọ-owó, ilé-ìtọ́jú ọjà, àti akáǹtì náà pẹ̀lú — POS ní kíkún àti irinṣẹ́ òwò tí a kọ́ fún àwọn oníṣòwò Nàìjíríà, orí- layn àti láìsí ìtakùn.",
       "primaryCta": "Bẹ̀rẹ̀ sí í tà lórí Tally",
-      "secondaryCta": "Wo ètò-ọ̀nà"
+      "secondaryCta": "Wo ètò-ọ̀nà",
+      "features": [
+        "Títà & ìwé-ẹ̀rí",
+        "Ọjà & àkọ̀ọ́lẹ̀",
+        "Ṣíṣàyẹ̀wò báákóòdù",
+        "Oníbàárà & olùpèsè",
+        "Ìkìlọ̀ ọjà",
+        "Ìròyìn ojoojúmọ́ & èrè",
+        "Ṣíṣàkóso ìnáwó",
+        "Àtìlẹ́yìn ọ̀pọ̀ ilé-ìtajà",
+        "Àìsí-íńtánẹ́ẹ̀tì + ìmúdọ́gba ìkùkù"
+      ],
+      "more": "…àti púpọ̀ sí i"
     },
     "roadmap": {
       "eyebrow": "Ìran ọjà",
-      "title": "Ibi tí Tally ń lọ tókàn"
+      "title": "Ibi tí Tally ń lọ tókàn",
+      "subtitle": "A ń kọ́ sí ìtòsọ́nà pátákó kan tí yóò ṣàkóso iṣẹ́ àti òwò láti ìbẹ̀rẹ̀ dé òpin. Èyí ni ohun tó ń bọ̀ — a fi àmì sí i ní òtítọ́ kí o lè mọ ohun tó ń ṣiṣẹ́ lónìí nígbà gbogbo.",
+      "status": {
+        "inDev": "A ń kọ́ ọ",
+        "soon": "Ń bọ̀ láìpẹ́",
+        "planned": "Lórí ètò-ọ̀nà wa"
+      },
+      "items": [
+        { "title": "POS System", "body": "Títà, ọjà, ìwé-ẹ̀rí àti ọ̀pọ̀-ilé-ìtajà — ẹ̀rọ-owó kíkún fún oníṣòwò." },
+        { "title": "Payroll Automation", "body": "Ṣe ìsanwó ọ̀wọ́ fún àwọn òṣìṣẹ́ rẹ, tààrà láti iṣẹ́ tí a jẹ́rìí." },
+        { "title": "AI Job Matching", "body": "Ìbámu tó gbọ́n jù láàárín àwọn òṣìṣẹ́ àti agbanisíṣẹ́, débi agbègbè rẹ." },
+        { "title": "Digital Wallet", "body": "Di, fi ránṣẹ́, kí o sì gba ìsanwó òwò nínú Tally." },
+        { "title": "Inventory Intelligence", "body": "Sọ àsọtẹ́lẹ̀ ìtúnkún ọjà, kí o sì ṣàfihàn ọjà tó ń lọ díẹ̀díẹ̀ láti títà rẹ." },
+        { "title": "Business Loans", "body": "Owó-ìṣòwò tí ó bá àkọsílẹ̀ Tally rẹ mu tí a lè jẹ́rìí." },
+        { "title": "QR Payments", "body": "Gba ìsanwó lẹ́sẹ̀kẹsẹ̀ níbi ìtajà pẹ̀lú ọ̀wọ̀kọ̀kan." },
+        { "title": "Financial Reports", "body": "Èrè, ìṣàn owó àti àkópọ̀ ojoojúmọ́, a ṣe wọ́n fún ọ." },
+        { "title": "AI Hiring Assistant", "body": "Kọ ìfìwéránṣẹ́ iṣẹ́, kí o sì yan àwọn olùbéèrè láàárín ìṣẹ́jú-àáyá." }
+      ]
+    },
+    "stats": {
+      "items": [
+        { "label": "Nínú owó tó wà nínú ẹsírò", "sub": "Ó ń jáde fún iṣẹ́ tí a jẹ́rìí nìkan" },
+        { "label": "Sí ìsanwó ọjọ́ kan náà", "sub": "Láti ìjẹ́rìí dé báńkì rẹ" },
+        { "label": "Àwọn ìjọba ìbílẹ̀ tí a ṣètìlẹ́yìn fún", "sub": "Ìbámu débi agbègbè rẹ" },
+        { "label": "Òṣìṣẹ́, agbanisíṣẹ́, oníṣòwò", "sub": "Ìdánimọ̀ kan tí a so pọ̀" }
+      ]
+    },
+    "integrations": {
+      "eyebrow": "Ìsopọ̀",
+      "title": "Ó ń ṣiṣẹ́ pẹ̀lú àwọn irinṣẹ́ tí o ti ń lo",
+      "subtitle": "Tally ń darapọ̀ mọ́ àwọn ọ̀nà ìsanwó, fífiránṣẹ́, àti òwò tí ń mú kí Nàìjíríà máa lọ — pẹ̀lú púpọ̀ tó ń bọ̀.",
+      "items": [
+        { "label": "Àwọn olùpèsè ìsanwó", "note": "Squad àti bẹ́ẹ̀ bẹ́ẹ̀ lọ" },
+        { "label": "Ìfiránṣẹ́ báńkì", "note": "Ọ̀nà NIBSS" },
+        { "label": "SMS & WhatsApp", "note": "Dé fóònù èyíkéyìí" },
+        { "label": "Iṣẹ́ ìmẹ́ìlì", "note": "Ìfitónilétí" },
+        { "label": "Ìṣirò-owó", "note": "A gbìmọ̀ rẹ̀" },
+        { "label": "Àwòrán ilẹ̀ & ibùdó", "note": "Ìpele agbègbè" },
+        { "label": "Kàlẹ́ńdà & ìsanwó-oṣù", "note": "A gbìmọ̀ rẹ̀" }
+      ]
     },
     "testimonials": {
       "eyebrow": "Ẹ̀rí",
       "title": "Iṣẹ́ gidi. Owó gidi. Ìgbẹ́kẹ̀lé gidi.",
       "subtitle": "Láti gbogbo ẹ̀gbẹ́ pátákó náà.",
-      "lovedBy": "Àwọn òṣìṣẹ́, agbanisíṣẹ́ àti oníṣòwò nífẹ̀ẹ́ rẹ̀"
+      "lovedBy": "Àwọn òṣìṣẹ́, agbanisíṣẹ́ àti oníṣòwò nífẹ̀ẹ́ rẹ̀",
+      "items": [
+        { "quote": "Tẹ́lẹ̀, mo máa ń dúró fún ọjọ́ púpọ̀ kí n tó gba owó lẹ́yìn iṣẹ́. Pẹ̀lú Tally owó náà ń wọ àkáǹtì mi ní ìrọ̀lẹ́ ọjọ́ kan náà — ìdíwọ̀n mi sì gba awin ọjà àkọ́kọ́ mi fún mi.", "name": "Amaka O.", "role": "Òṣìṣẹ́ ilé-ìtọ́jú ọjà · Èkó" },
+        { "quote": "Tẹ́lẹ̀, mo máa ń gba àwọn ènìyàn tí n kò mọ̀, mo sì ń retí pé wọ́n á dé. Nísinsìnyí mo ń rí àwọn òṣìṣẹ́ tí a fọwọ́sí tí wọ́n ní àkọsílẹ̀ gidi, mo sì ń san nìkan nígbà tí iṣẹ́ bá jẹ́rìí.", "name": "Bola A.", "role": "Agbanisíṣẹ́ ọ̀nà-ìpèsè · Ìkẹjà" },
+        { "quote": "Gbogbo títà tí mo bá ṣàkọsílẹ̀ ń kọ́ àkọsílẹ̀ mi. Nígbà tí mo nílò owó láti tún ọjà kún, báńkì lè rí ìtàn mi ní tòótọ́. Ìyẹn kò ṣẹlẹ̀ rí tẹ́lẹ̀.", "name": "Musa I.", "role": "Oníṣòwò ọjà · Kánò" },
+        { "quote": "Kò sí fóònù àlámọ̀, kò sí wàhálà — mo ń jẹ́rìí iṣẹ́ lórí USSD. Tally ń tọ́jú àwọn ènìyàn bí èmi gẹ́gẹ́ bí oníbàárà, kì í ṣe ohun ìkẹyìn.", "name": "Grace E.", "role": "Olùfọ̀mọ́ · Abuja" }
+      ]
     },
     "faq": {
       "eyebrow": "Ìbéèrè",
