@@ -322,5 +322,67 @@
       "TRADER": "Nemo sayarwa, lamuni, matsayi…",
       "EMPLOYER": "Nemo ayyuka, masu nema, escrow…"
     }
+  },
+  "Overview": {
+    "greeting": { "morning": "Ina kwana", "afternoon": "Ina wuni", "evening": "Ina yamma" },
+    "common": {
+      "unlockHigher": "Buɗe iyakoki masu girma",
+      "available": "{amount} akwai",
+      "scoreHint": "Maki {value}",
+      "eligible": "{count} sun cancanta",
+      "myStanding": "Matsayina",
+      "verifyIdentity": "Tabbatar da shaida"
+    },
+    "worker": {
+      "subtitle": "Matsayinka, ayyukanka, da abin da ka samu — a wuri ɗaya.",
+      "findWork": "Nemo aiki",
+      "invitations": "Kana da {count, plural, one {gayyatar aiki #} other {gayyatar aiki #}} da ke jira.",
+      "respond": "Amsa",
+      "activeShifts": "Ayyuka masu gudana",
+      "manageJobs": "Sarrafa ayyuka",
+      "noActivePre": "Babu aiki mai gudana. Je zuwa",
+      "noActiveLink": "Ayyuka",
+      "noActivePost": "don nema.",
+      "awaitingConfirmation": "Ana jiran tabbaci",
+      "earnings": "Kuɗin shiga",
+      "loans": "Lamuni"
+    },
+    "trader": {
+      "subtitle": "Kowace sayarwa da ka rubuta na gina tarihin da ke buɗe rancen kaya",
+      "logSale": "Rubuta sayarwa",
+      "thisWeek": "Wannan mako",
+      "thisWeekCap": "Wanda aka rubuta a kwanaki 7 da suka wuce.",
+      "allTime": "Kowane lokaci",
+      "allTimeCap": "A duk tarihinka.",
+      "transactions": "Ma'amaloli",
+      "transactionsCap": "Duk sayarwar da aka rubuta.",
+      "recentSales": "Sayarwa na baya-bayan nan",
+      "viewAll": "Duba duka",
+      "noSales": "Babu sayarwa tukuna. Rubuta ta farko daga shafin Sayarwa.",
+      "saleMethod": "Sayarwa · {method}",
+      "stockLoans": "Rancen kaya"
+    },
+    "employer": {
+      "subtitle": "Sanya aiki, saka kuɗi a escrow tun farko, ka saki biya lokacin da lambar halarta ta tabbata.",
+      "postJob": "Sanya aiki",
+      "activeJobs": "Ayyuka masu gudana",
+      "activeJobsCap": "A buɗe ko ana ci gaba.",
+      "applicants": "Masu nema",
+      "applicantsCap": "A duk ayyukanka.",
+      "inEscrow": "A cikin escrow",
+      "inEscrowCap": "An saka kuɗi, ana jiran saki.",
+      "paidOut": "An biya",
+      "paidOutCap": "An saki wa ma'aikata.",
+      "recentJobs": "Ayyuka na baya-bayan nan",
+      "manageJobs": "Sarrafa ayyuka",
+      "noJobs": "Babu ayyuka tukuna. Sanya aikinka na farko don farawa.",
+      "applicantCount": "{count, plural, one {mai nema #} other {masu nema #}}",
+      "released": "An saki",
+      "escrowFunded": "An saka kuɗi a escrow",
+      "needsFunding": "Yana buƙatar kuɗi",
+      "escrow": "Escrow",
+      "committed": "{amount} da aka ware",
+      "verifyBusiness": "Tabbatar da kasuwanci"
+    }
   }
 }

@@ -322,5 +322,67 @@
       "TRADER": "Chọọ ahịa, mbinye ego, ọnọdụ…",
       "EMPLOYER": "Chọọ ọrụ, ndị na-etinye, escrow…"
     }
+  },
+  "Overview": {
+    "greeting": { "morning": "Ụtụtụ ọma", "afternoon": "Ehihie ọma", "evening": "Mgbede ọma" },
+    "common": {
+      "unlockHigher": "Meghee oke ndị dị elu",
+      "available": "{amount} dị",
+      "scoreHint": "Akara {value}",
+      "eligible": "{count} tozuru",
+      "myStanding": "Ọnọdụ m",
+      "verifyIdentity": "Kwado njirimara"
+    },
+    "worker": {
+      "subtitle": "Ọnọdụ gị, ọrụ gị, na ihe ị rịtara — n'otu ebe.",
+      "findWork": "Chọọ ọrụ",
+      "invitations": "Ị nwere {count, plural, one {òkù ọrụ #} other {òkù ọrụ #}} na-eche.",
+      "respond": "Zaghachi",
+      "activeShifts": "Ọrụ na-aga",
+      "manageJobs": "Jikwaa ọrụ",
+      "noActivePre": "Ọ dịghị ọrụ na-aga. Gaa na",
+      "noActiveLink": "Ọrụ",
+      "noActivePost": "ka i tinye.",
+      "awaitingConfirmation": "Na-eche nkwado",
+      "earnings": "Ego enwetara",
+      "loans": "Mbinye ego"
+    },
+    "trader": {
+      "subtitle": "Ahịa ọ bụla i depụtara na-ewu ndekọ na-emeghe mbinye ngwaahịa",
+      "logSale": "Depụta ahịa",
+      "thisWeek": "Izu a",
+      "thisWeekCap": "Nke edepụtara n'ụbọchị 7 gara aga.",
+      "allTime": "Oge niile",
+      "allTimeCap": "N'ofe ndekọ gị niile.",
+      "transactions": "Azụmahịa",
+      "transactionsCap": "Ahịa niile edepụtara.",
+      "recentSales": "Ahịa ndị na-adịbeghị anya",
+      "viewAll": "Lee ihe niile",
+      "noSales": "Ọ dịghị ahịa ka. Depụta nke mbụ gị site na ibe Ahịa.",
+      "saleMethod": "Ahịa · {method}",
+      "stockLoans": "Mbinye ngwaahịa"
+    },
+    "employer": {
+      "subtitle": "Tinye ọrụ, tinye ego na escrow na mbụ, ma hapụ ịkwụ ụgwọ mgbe koodu ọbịbịa kwadoro.",
+      "postJob": "Tinye ọrụ",
+      "activeJobs": "Ọrụ na-aga",
+      "activeJobsCap": "Emeghere ma ọ bụ na-aga n'ihu.",
+      "applicants": "Ndị na-etinye",
+      "applicantsCap": "N'ofe ọrụ gị niile.",
+      "inEscrow": "Na escrow",
+      "inEscrowCap": "Etinyere ego, na-eche mwepụ.",
+      "paidOut": "Akwụọla",
+      "paidOutCap": "Ewepụtara nye ndị ọrụ.",
+      "recentJobs": "Ọrụ ndị na-adịbeghị anya",
+      "manageJobs": "Jikwaa ọrụ",
+      "noJobs": "Ọ dịghị ọrụ ka. Tinye ọrụ mbụ gị ka ị malite.",
+      "applicantCount": "{count, plural, one {onye na-etinye #} other {ndị na-etinye #}}",
+      "released": "Ewepụtara",
+      "escrowFunded": "Etinyere ego escrow",
+      "needsFunding": "Ọ chọrọ ego",
+      "escrow": "Escrow",
+      "committed": "{amount} ekenyere",
+      "verifyBusiness": "Kwado azụmahịa"
+    }
   }
 }

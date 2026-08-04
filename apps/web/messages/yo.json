@@ -322,5 +322,67 @@
       "TRADER": "Wá títà, awin, ipò…",
       "EMPLOYER": "Wá iṣẹ́, olùbéèrè, ẹsírò…"
     }
+  },
+  "Overview": {
+    "greeting": { "morning": "Ẹ káàárọ̀", "afternoon": "Ẹ káàsán", "evening": "Ẹ kúùrọ̀lẹ́" },
+    "common": {
+      "unlockHigher": "Ṣí àwọn ààlà tó ga jù",
+      "available": "{amount} wà",
+      "scoreHint": "Ìdíwọ̀n {value}",
+      "eligible": "{count} yẹ",
+      "myStanding": "Ipò mi",
+      "verifyIdentity": "Fọwọ́sí ìdánimọ̀"
+    },
+    "worker": {
+      "subtitle": "Ipò rẹ, àwọn iṣẹ́ rẹ, àti ohun tí o ti rí — ní ojú kan.",
+      "findWork": "Wá iṣẹ́",
+      "invitations": "O ní {count, plural, one {ìpè iṣẹ́ #} other {ìpè iṣẹ́ #}} tó ń dúró.",
+      "respond": "Dáhùn",
+      "activeShifts": "Àwọn iṣẹ́ tó ń lọ",
+      "manageJobs": "Ṣàkóso iṣẹ́",
+      "noActivePre": "Kò sí iṣẹ́ tó ń lọ. Lọ sí",
+      "noActiveLink": "Iṣẹ́",
+      "noActivePost": "láti béèrè.",
+      "awaitingConfirmation": "Ń dúró de ìjẹ́rìí",
+      "earnings": "Owó tí a rí",
+      "loans": "Awin"
+    },
+    "trader": {
+      "subtitle": "Gbogbo títà tí o ṣàkọsílẹ̀ ń kọ́ àkọsílẹ̀ tó ń ṣí awin ọjà",
+      "logSale": "Ṣàkọsílẹ̀ títà",
+      "thisWeek": "Ọ̀sẹ̀ yìí",
+      "thisWeekCap": "Èyí tí a ṣàkọsílẹ̀ ní ọjọ́ 7 sẹ́yìn.",
+      "allTime": "Ìgbà gbogbo",
+      "allTimeCap": "Kọjá àkọsílẹ̀ rẹ.",
+      "transactions": "Àwọn ìṣòwò",
+      "transactionsCap": "Gbogbo títà tí a ṣàkọsílẹ̀.",
+      "recentSales": "Títà àìpẹ́",
+      "viewAll": "Wo gbogbo rẹ̀",
+      "noSales": "Kò sí títà síbẹ̀. Ṣàkọsílẹ̀ àkọ́kọ́ rẹ láti ojú-ìwé Títà.",
+      "saleMethod": "Títà · {method}",
+      "stockLoans": "Awin ọjà"
+    },
+    "employer": {
+      "subtitle": "Fi iṣẹ́ sílẹ̀, fi owó sí ẹsírò ṣáájú, kí o sì tú owó sílẹ̀ nígbà tí kóòdù wíwá bá jẹ́rìí.",
+      "postJob": "Fi iṣẹ́ sílẹ̀",
+      "activeJobs": "Iṣẹ́ tó ń lọ",
+      "activeJobsCap": "Ó ṣí tàbí ó ń lọ lọ́wọ́.",
+      "applicants": "Olùbéèrè",
+      "applicantsCap": "Kọjá gbogbo iṣẹ́ rẹ.",
+      "inEscrow": "Nínú ẹsírò",
+      "inEscrowCap": "A fi owó sí i, ń dúró de ìtúsílẹ̀.",
+      "paidOut": "A ti san",
+      "paidOutCap": "A tú sí àwọn òṣìṣẹ́.",
+      "recentJobs": "Iṣẹ́ àìpẹ́",
+      "manageJobs": "Ṣàkóso iṣẹ́",
+      "noJobs": "Kò sí iṣẹ́ síbẹ̀. Fi iṣẹ́ àkọ́kọ́ rẹ sílẹ̀ láti bẹ̀rẹ̀.",
+      "applicantCount": "{count, plural, one {olùbéèrè #} other {olùbéèrè #}}",
+      "released": "A ti tú sílẹ̀",
+      "escrowFunded": "A fi owó sí ẹsírò",
+      "needsFunding": "Ó nílò owó",
+      "escrow": "Ẹsírò",
+      "committed": "{amount} tí a fi sí i",
+      "verifyBusiness": "Fọwọ́sí òwò"
+    }
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   ArrowRight,
   Banknote,
@@ -20,11 +21,11 @@ import { CountUp, CountUpNaira, FadeIn, Stagger, StaggerItem } from "@/component
 import { StandingCard, HustleStats, NextGoal } from "@/components/worker";
 import { TraderStanding } from "@/components/trader";
 
-function greeting(): string {
+function greetingKey(): "morning" | "afternoon" | "evening" {
   const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 17) return "Good afternoon";
-  return "Good evening";
+  if (h < 12) return "morning";
+  if (h < 17) return "afternoon";
+  return "evening";
 }
 
 // A row of quick links to the dedicated pages — the overview is a hub.
@@ -59,6 +60,7 @@ function QuickLink({
 
 export function WorkerOverview() {
   const { fullName } = useSession();
+  const t = useTranslations("Overview");
   const { data, error, reload } = usePageData<WorkerDashboard>((id) => api.workerDashboard(id));
 
   if (error) return <PageError message={error} onRetry={reload} />;
@@ -74,12 +76,12 @@ export function WorkerOverview() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={`${greeting()}, ${firstName}`}
-        subtitle="Your standing, your shifts, and what you've earned — at a glance."
+        title={`${t(`greeting.${greetingKey()}`)}, ${firstName}`}
+        subtitle={t("worker.subtitle")}
         action={
           <Link href="/jobs">
             <Button>
-              <Briefcase className="h-4 w-4" /> Find work
+              <Briefcase className="h-4 w-4" /> {t("worker.findWork")}
             </Button>
           </Link>
         }
@@ -96,21 +98,21 @@ export function WorkerOverview() {
         <Link href="/jobs">
           <Card className="flex items-center justify-between gap-3 border-brand-200 bg-brand-50/50 p-4 transition hover:shadow-md">
             <p className="text-sm font-medium text-ink">
-              You have {invitations.length} job invitation{invitations.length === 1 ? "" : "s"} waiting.
+              {t("worker.invitations", { count: invitations.length })}
             </p>
             <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-700">
-              Respond <ArrowRight className="h-3.5 w-3.5" />
+              {t("worker.respond")} <ArrowRight className="h-3.5 w-3.5" />
             </span>
           </Card>
         </Link>
       )}
 
       <div>
-        <SectionRow title="Active shifts" href="/jobs" cta="Manage jobs" />
+        <SectionRow title={t("worker.activeShifts")} href="/jobs" cta={t("worker.manageJobs")} />
         {activeAssignments.length === 0 ? (
           <Card className="p-6">
             <p className="text-sm text-ink-muted">
-              No active shifts. Head to <Link href="/jobs" className="font-medium text-brand-700">Jobs</Link> to apply.
+              {t("worker.noActivePre")} <Link href="/jobs" className="font-medium text-brand-700">{t("worker.noActiveLink")}</Link> {t("worker.noActivePost")}
             </p>
           </Card>
         ) : (
@@ -122,7 +124,7 @@ export function WorkerOverview() {
                     <p className="font-semibold text-ink">{a.job.title}</p>
                     <p className="text-sm text-ink-muted">{formatNaira(a.job.payAmount)} · {a.status.toLowerCase()}</p>
                   </div>
-                  <Pill tone="amber">Awaiting confirmation</Pill>
+                  <Pill tone="amber">{t("worker.awaitingConfirmation")}</Pill>
                 </Card>
               </StaggerItem>
             ))}
@@ -131,10 +133,10 @@ export function WorkerOverview() {
       </div>
 
       <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <StaggerItem><QuickLink href="/earnings" icon={Wallet} label="Earnings" hint={`${formatNaira(data.wallet.balance)} available`} /></StaggerItem>
-        <StaggerItem><QuickLink href="/standing" icon={TrendingUp} label="My standing" hint={`Score ${data.score.value}`} /></StaggerItem>
-        <StaggerItem><QuickLink href="/loans" icon={HandCoins} label="Loans" hint={`${data.loanOffers.filter((o) => o.eligible).length} eligible`} /></StaggerItem>
-        <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label="Verify identity" hint="Unlock higher limits" /></StaggerItem>
+        <StaggerItem><QuickLink href="/earnings" icon={Wallet} label={t("worker.earnings")} hint={t("common.available", { amount: formatNaira(data.wallet.balance) })} /></StaggerItem>
+        <StaggerItem><QuickLink href="/standing" icon={TrendingUp} label={t("common.myStanding")} hint={t("common.scoreHint", { value: data.score.value })} /></StaggerItem>
+        <StaggerItem><QuickLink href="/loans" icon={HandCoins} label={t("worker.loans")} hint={t("common.eligible", { count: data.loanOffers.filter((o) => o.eligible).length })} /></StaggerItem>
+        <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label={t("common.verifyIdentity")} hint={t("common.unlockHigher")} /></StaggerItem>
       </Stagger>
     </div>
   );
@@ -144,6 +146,7 @@ export function WorkerOverview() {
 
 export function TraderOverview() {
   const { fullName } = useSession();
+  const t = useTranslations("Overview");
   const { data, error, reload } = usePageData<TraderDashboard>((id) => api.traderDashboard(id));
 
   if (error) return <PageError message={error} onRetry={reload} />;
@@ -154,13 +157,13 @@ export function TraderOverview() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={`${greeting()}, ${name}`}
+        title={`${t(`greeting.${greetingKey()}`)}, ${name}`}
         subtitle={
-          <>Every logged sale builds the record that unlocks stock loans{data.user.marketName ? ` · ${data.user.marketName}` : ""}.</>
+          <>{t("trader.subtitle")}{data.user.marketName ? ` · ${data.user.marketName}` : ""}.</>
         }
         action={
           <Link href="/sales">
-            <Button><Receipt className="h-4 w-4" /> Log a sale</Button>
+            <Button><Receipt className="h-4 w-4" /> {t("trader.logSale")}</Button>
           </Link>
         }
       />
@@ -168,22 +171,22 @@ export function TraderOverview() {
       <FadeIn delay={0.05} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
         <TraderStanding score={data.score} />
         <Stagger className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <StaggerItem><Kpi icon={<Receipt className="h-4 w-4" />} label="This week" value={<CountUpNaira amount={data.totals.thisWeek} />} caption="Logged in last 7 days." /></StaggerItem>
-          <StaggerItem><Kpi icon={<TrendingUp className="h-4 w-4" />} label="All-time" value={<CountUpNaira amount={data.totals.allTime} />} caption="Across your record." accent="amber" /></StaggerItem>
-          <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label="Transactions" value={<CountUp value={data.totals.count} />} caption="Total sales logged." accent="neutral" /></StaggerItem>
+          <StaggerItem><Kpi icon={<Receipt className="h-4 w-4" />} label={t("trader.thisWeek")} value={<CountUpNaira amount={data.totals.thisWeek} />} caption={t("trader.thisWeekCap")} /></StaggerItem>
+          <StaggerItem><Kpi icon={<TrendingUp className="h-4 w-4" />} label={t("trader.allTime")} value={<CountUpNaira amount={data.totals.allTime} />} caption={t("trader.allTimeCap")} accent="amber" /></StaggerItem>
+          <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label={t("trader.transactions")} value={<CountUp value={data.totals.count} />} caption={t("trader.transactionsCap")} accent="neutral" /></StaggerItem>
         </Stagger>
       </FadeIn>
 
       <div>
-        <SectionRow title="Recent sales" href="/sales" cta="View all" />
+        <SectionRow title={t("trader.recentSales")} href="/sales" cta={t("trader.viewAll")} />
         {data.sales.length === 0 ? (
-          <Card className="p-6"><p className="text-sm text-ink-muted">No sales yet. Log your first from the Sales page.</p></Card>
+          <Card className="p-6"><p className="text-sm text-ink-muted">{t("trader.noSales")}</p></Card>
         ) : (
           <Card className="divide-y divide-line p-0">
             {data.sales.slice(0, 5).map((s) => (
               <div key={s.id} className="flex items-center justify-between px-5 py-3.5">
                 <div>
-                  <p className="text-sm font-medium text-ink">Sale · {s.method}</p>
+                  <p className="text-sm font-medium text-ink">{t("trader.saleMethod", { method: s.method })}</p>
                   <p className="text-xs text-ink-muted">{new Date(s.occurredAt).toLocaleDateString("en-NG", { day: "numeric", month: "short" })}</p>
                 </div>
                 <span className="font-display font-semibold text-gold-700">+{formatNaira(s.amount)}</span>
@@ -194,9 +197,9 @@ export function TraderOverview() {
       </div>
 
       <Stagger className="grid gap-3 sm:grid-cols-3">
-        <StaggerItem><QuickLink href="/loans" icon={HandCoins} label="Stock loans" hint={`${data.loanOffers.filter((o) => o.eligible).length} eligible`} /></StaggerItem>
-        <StaggerItem><QuickLink href="/standing" icon={TrendingUp} label="My standing" hint={`Score ${data.score.value}`} /></StaggerItem>
-        <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label="Verify identity" hint="Unlock higher limits" /></StaggerItem>
+        <StaggerItem><QuickLink href="/loans" icon={HandCoins} label={t("trader.stockLoans")} hint={t("common.eligible", { count: data.loanOffers.filter((o) => o.eligible).length })} /></StaggerItem>
+        <StaggerItem><QuickLink href="/standing" icon={TrendingUp} label={t("common.myStanding")} hint={t("common.scoreHint", { value: data.score.value })} /></StaggerItem>
+        <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label={t("common.verifyIdentity")} hint={t("common.unlockHigher")} /></StaggerItem>
       </Stagger>
     </div>
   );
@@ -206,6 +209,7 @@ export function TraderOverview() {
 
 export function EmployerOverview() {
   const { fullName } = useSession();
+  const t = useTranslations("Overview");
   const { data, error, reload } = usePageData<EmployerDashboard>((id) => api.employerDashboard(id));
 
   if (error) return <PageError message={error} onRetry={reload} />;
@@ -217,26 +221,26 @@ export function EmployerOverview() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={`${greeting()}, ${name}`}
-        subtitle="Post a shift, fund escrow up front, and release pay on a confirmed attendance code."
+        title={`${t(`greeting.${greetingKey()}`)}, ${name}`}
+        subtitle={t("employer.subtitle")}
         action={
           <Link href="/jobs/new">
-            <Button><Briefcase className="h-4 w-4" /> Post a job</Button>
+            <Button><Briefcase className="h-4 w-4" /> {t("employer.postJob")}</Button>
           </Link>
         }
       />
 
       <Stagger className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <StaggerItem><Kpi icon={<Briefcase className="h-4 w-4" />} label="Active jobs" value={<CountUp value={data.stats.activeJobs} />} caption="Open or in progress." /></StaggerItem>
-        <StaggerItem><Kpi icon={<TrendingUp className="h-4 w-4" />} label="Applicants" value={<CountUp value={totalApplicants} />} caption="Across all your jobs." accent="neutral" /></StaggerItem>
-        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label="In escrow" value={<CountUpNaira amount={data.stats.committed} />} caption="Funded, awaiting release." accent="amber" /></StaggerItem>
-        <StaggerItem><Kpi icon={<Wallet className="h-4 w-4" />} label="Paid out" value={<CountUpNaira amount={data.stats.released} />} caption="Released to workers." /></StaggerItem>
+        <StaggerItem><Kpi icon={<Briefcase className="h-4 w-4" />} label={t("employer.activeJobs")} value={<CountUp value={data.stats.activeJobs} />} caption={t("employer.activeJobsCap")} /></StaggerItem>
+        <StaggerItem><Kpi icon={<TrendingUp className="h-4 w-4" />} label={t("employer.applicants")} value={<CountUp value={totalApplicants} />} caption={t("employer.applicantsCap")} accent="neutral" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Banknote className="h-4 w-4" />} label={t("employer.inEscrow")} value={<CountUpNaira amount={data.stats.committed} />} caption={t("employer.inEscrowCap")} accent="amber" /></StaggerItem>
+        <StaggerItem><Kpi icon={<Wallet className="h-4 w-4" />} label={t("employer.paidOut")} value={<CountUpNaira amount={data.stats.released} />} caption={t("employer.paidOutCap")} /></StaggerItem>
       </Stagger>
 
       <div>
-        <SectionRow title="Recent jobs" href="/jobs" cta="Manage jobs" />
+        <SectionRow title={t("employer.recentJobs")} href="/jobs" cta={t("employer.manageJobs")} />
         {data.jobs.length === 0 ? (
-          <Card className="p-6"><p className="text-sm text-ink-muted">No jobs yet. Post your first shift to get started.</p></Card>
+          <Card className="p-6"><p className="text-sm text-ink-muted">{t("employer.noJobs")}</p></Card>
         ) : (
           <Stagger className="space-y-2.5">
             {data.jobs.slice(0, 4).map((j) => (
@@ -245,15 +249,15 @@ export function EmployerOverview() {
                   <div>
                     <p className="font-semibold text-ink">{j.title}</p>
                     <p className="text-sm text-ink-muted">
-                      {formatNaira(j.payAmount)} · {j.applicants} applicant{j.applicants === 1 ? "" : "s"}
+                      {formatNaira(j.payAmount)} · {t("employer.applicantCount", { count: j.applicants })}
                     </p>
                   </div>
                   {j.escrow?.released ? (
-                    <Pill tone="green">Released</Pill>
+                    <Pill tone="green">{t("employer.released")}</Pill>
                   ) : j.escrow?.funded ? (
-                    <Pill tone="green">Escrow funded</Pill>
+                    <Pill tone="green">{t("employer.escrowFunded")}</Pill>
                   ) : (
-                    <Pill tone="amber">Needs funding</Pill>
+                    <Pill tone="amber">{t("employer.needsFunding")}</Pill>
                   )}
                 </Card>
               </StaggerItem>
@@ -263,8 +267,8 @@ export function EmployerOverview() {
       </div>
 
       <Stagger className="grid gap-3 sm:grid-cols-2">
-        <StaggerItem><QuickLink href="/escrow" icon={Banknote} label="Escrow" hint={`${formatNaira(data.stats.committed)} committed`} /></StaggerItem>
-        <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label="Verify business" hint="Unlock higher limits" /></StaggerItem>
+        <StaggerItem><QuickLink href="/escrow" icon={Banknote} label={t("employer.escrow")} hint={t("employer.committed", { amount: formatNaira(data.stats.committed) })} /></StaggerItem>
+        <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label={t("employer.verifyBusiness")} hint={t("common.unlockHigher")} /></StaggerItem>
       </Stagger>
     </div>
   );

@@ -322,5 +322,67 @@
       "TRADER": "Find sales, loans, standing…",
       "EMPLOYER": "Find jobs, applicants, escrow…"
     }
+  },
+  "Overview": {
+    "greeting": { "morning": "Good morning", "afternoon": "Good afternoon", "evening": "Good evening" },
+    "common": {
+      "unlockHigher": "Unlock higher limits",
+      "available": "{amount} available",
+      "scoreHint": "Score {value}",
+      "eligible": "{count} eligible",
+      "myStanding": "My standing",
+      "verifyIdentity": "Verify identity"
+    },
+    "worker": {
+      "subtitle": "Your standing, your shifts, and wetin you don earn — for one place.",
+      "findWork": "Find work",
+      "invitations": "You get {count, plural, one {# job invitation} other {# job invitations}} wey dey wait.",
+      "respond": "Respond",
+      "activeShifts": "Active shifts",
+      "manageJobs": "Manage jobs",
+      "noActivePre": "No active shift. Go",
+      "noActiveLink": "Jobs",
+      "noActivePost": "make you apply.",
+      "awaitingConfirmation": "Dey wait confirmation",
+      "earnings": "Earnings",
+      "loans": "Loans"
+    },
+    "trader": {
+      "subtitle": "Every sale wey you log dey build the record wey dey open stock loan",
+      "logSale": "Log a sale",
+      "thisWeek": "This week",
+      "thisWeekCap": "Wetin you log for last 7 days.",
+      "allTime": "All-time",
+      "allTimeCap": "For your whole record.",
+      "transactions": "Transactions",
+      "transactionsCap": "All sales wey you log.",
+      "recentSales": "Recent sales",
+      "viewAll": "View all",
+      "noSales": "No sale yet. Log your first one from the Sales page.",
+      "saleMethod": "Sale · {method}",
+      "stockLoans": "Stock loans"
+    },
+    "employer": {
+      "subtitle": "Post shift, fund escrow first, and release pay when attendance code confirm.",
+      "postJob": "Post work",
+      "activeJobs": "Active jobs",
+      "activeJobsCap": "Open or dey go on.",
+      "applicants": "Applicants",
+      "applicantsCap": "For all your jobs.",
+      "inEscrow": "For escrow",
+      "inEscrowCap": "Funded, dey wait release.",
+      "paidOut": "Don pay",
+      "paidOutCap": "Release go workers.",
+      "recentJobs": "Recent jobs",
+      "manageJobs": "Manage jobs",
+      "noJobs": "No job yet. Post your first shift make you start.",
+      "applicantCount": "{count, plural, one {# applicant} other {# applicants}}",
+      "released": "Don release",
+      "escrowFunded": "Escrow funded",
+      "needsFunding": "E need funding",
+      "escrow": "Escrow",
+      "committed": "{amount} committed",
+      "verifyBusiness": "Verify business"
+    }
   }
 }
