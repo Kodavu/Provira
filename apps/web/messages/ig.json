@@ -22,7 +22,11 @@
         "sub": "Chọta ọrụ ndị enyochara nọ gị nso, jiri koodu kwado ọrụ gị, ma nweta ego gị ozugbo na akaụntụ bankị gị — ka ọrụ ọ bụla na-ewuli Tally Score gị nke ga-emeghe ụzọ maka mbinye ego.",
         "primaryCta": "Chọọ ọrụ",
         "secondaryCta": "Otú ọ si arụ ọrụ",
-        "chips": ["Ndị na-ewe ọrụ enyochara", "Ego n'otu ụbọchị", "Wuo Tally Score gị"]
+        "chips": [
+          "Ndị na-ewe ọrụ enyochara",
+          "Ego n'otu ụbọchị",
+          "Wuo Tally Score gị"
+        ]
       },
       "features": [
         "Ndị na-ewe ọrụ enyochara, ndị escrow na-akwado",
@@ -31,15 +35,36 @@
         "Tally Score nke na-emeghe ezigbo mbinye ego"
       ],
       "steps": [
-        { "title": "Wuo profaịlụ gị", "body": "Debanye aha jiri nọmba ekwentị, tinye nkà na ebe obibi gị — ị chọghị ekwentị mkpanaka." },
-        { "title": "Tinye maka ọrụ ndị dị gị nso", "body": "Hụ ọrụ ndị enyochara nke dabara na nkà gị na ógbè gị, tinye site na mmetụ otu ma ọ bụ na USSD." },
-        { "title": "Rụọ ọrụ, nweta ego gị", "body": "Jiri koodu onye na-ewe ọrụ kwado ọbịbịa, nweta ego gị n'otu ụbọchị ahụ, oge ọ bụla." }
+        {
+          "title": "Wuo profaịlụ gị",
+          "body": "Debanye aha jiri nọmba ekwentị, tinye nkà na ebe obibi gị — ị chọghị ekwentị mkpanaka."
+        },
+        {
+          "title": "Tinye maka ọrụ ndị dị gị nso",
+          "body": "Hụ ọrụ ndị enyochara nke dabara na nkà gị na ógbè gị, tinye site na mmetụ otu ma ọ bụ na USSD."
+        },
+        {
+          "title": "Rụọ ọrụ, nweta ego gị",
+          "body": "Jiri koodu onye na-ewe ọrụ kwado ọbịbịa, nweta ego gị n'otu ụbọchị ahụ, oge ọ bụla."
+        }
       ],
       "faqs": [
-        { "q": "Kedu ọsọ ọsọ m ga-enweta ego?", "a": "N'otu ụbọchị ahụ. Ozugbo akwadoro ọbịbịa jiri koodu ọnụọgụ anọ nke onye na-ewe ọrụ, ego escrow gị ga-abanye na obere akpa Tally gị, ị nwekwara ike iwepụ ya na bankị gị." },
-        { "q": "M chọrọ ekwentị mkpanaka?", "a": "Mba. Ị nwere ike ịdebanye aha, tinye, ma kwado ọrụ na USSD (*347*82#) ma ọ bụ WhatsApp. Ekwentị mkpanaka na-emeghe app zuru oke, mana ọ dịghị mkpa." },
-        { "q": "Gịnị bụ Tally Score m?", "a": "Ndekọ enwere ike ịkwado nke sitere na ọrụ ị rụchara, ịbịa n'oge, na mbinye ego ị kwụghachiri. Akara dị elu na-emeghe ọrụ ka mma na ezigbo mbinye ego na-adịghị ọnụ nke ukwuu." },
-        { "q": "Enwere m ike iji Tally n'asụsụ m?", "a": "Ee — app, USSD na WhatsApp na-arụ ọrụ na Bekee, Pidgin, Yoruba, Hausa na Igbo. Họrọ asụsụ gị otu ugboro, ọ ga-echekwa ya maka oge ọzọ, n'ọtụtụ ngwaọrụ gị." }
+        {
+          "q": "Kedu ọsọ ọsọ m ga-enweta ego?",
+          "a": "N'otu ụbọchị ahụ. Ozugbo akwadoro ọbịbịa jiri koodu ọnụọgụ anọ nke onye na-ewe ọrụ, ego escrow gị ga-abanye na obere akpa Tally gị, ị nwekwara ike iwepụ ya na bankị gị."
+        },
+        {
+          "q": "M chọrọ ekwentị mkpanaka?",
+          "a": "Mba. Ị nwere ike ịdebanye aha, tinye, ma kwado ọrụ na USSD (*347*82#) ma ọ bụ WhatsApp. Ekwentị mkpanaka na-emeghe app zuru oke, mana ọ dịghị mkpa."
+        },
+        {
+          "q": "Gịnị bụ Tally Score m?",
+          "a": "Ndekọ enwere ike ịkwado nke sitere na ọrụ ị rụchara, ịbịa n'oge, na mbinye ego ị kwụghachiri. Akara dị elu na-emeghe ọrụ ka mma na ezigbo mbinye ego na-adịghị ọnụ nke ukwuu."
+        },
+        {
+          "q": "Enwere m ike iji Tally n'asụsụ m?",
+          "a": "Ee — app, USSD na WhatsApp na-arụ ọrụ na Bekee, Pidgin, Yoruba, Hausa na Igbo. Họrọ asụsụ gị otu ugboro, ọ ga-echekwa ya maka oge ọzọ, n'ọtụtụ ngwaọrụ gị."
+        }
       ]
     },
     "employer": {
@@ -51,7 +76,11 @@
         "sub": "Tinye ọrụ n'ime nkeji ole na ole, kpọọ ndị nwere ezigbo akụkọ ọrụ, ma tinye ego n'ime escrow. Ego na-apụ naanị mgbe akwadoro ọbịbịa — ya mere ị gaghị akwụ ụgwọ maka onye na-abịaghị.",
         "primaryCta": "Tinye ọrụ",
         "secondaryCta": "Hụ otú nlereanya ọrụ si aga",
-        "chips": ["Ndị NIN kwadoro", "Kwụọ mgbe akwadoro", "Nyocha inye ọrụ"]
+        "chips": [
+          "Ndị NIN kwadoro",
+          "Kwụọ mgbe akwadoro",
+          "Nyocha inye ọrụ"
+        ]
       },
       "features": [
         "Ndị ọrụ enyochara, e nyere ntule, ozugbo",
@@ -60,15 +89,36 @@
         "Nyocha arụmọrụ na njikwa otu"
       ],
       "steps": [
-        { "title": "Tinye ọrụ ma tinye ego", "body": "Tọọ ọkwa ahụ, ọnụọgụ mmadụ, ụgwọ, ebe na oge, wee tinye ego niile n'ime escrow echekwara na mbụ." },
-        { "title": "Kpọọ ma jikwaa", "body": "Nyochaa ndị ọrụ enyochara anyị tụrụ aro, kpọọ ndị kacha mma, ma jikwaa ndị na-etinye site na otu dashboard." },
-        { "title": "Kwado ma kwụọ", "body": "Kesaa koodu ọbịbịa n'ebe ahụ; escrow ga-apụ n'onwe ya naanị maka ọrụ akwadoro." }
+        {
+          "title": "Tinye ọrụ ma tinye ego",
+          "body": "Tọọ ọkwa ahụ, ọnụọgụ mmadụ, ụgwọ, ebe na oge, wee tinye ego niile n'ime escrow echekwara na mbụ."
+        },
+        {
+          "title": "Kpọọ ma jikwaa",
+          "body": "Nyochaa ndị ọrụ enyochara anyị tụrụ aro, kpọọ ndị kacha mma, ma jikwaa ndị na-etinye site na otu dashboard."
+        },
+        {
+          "title": "Kwado ma kwụọ",
+          "body": "Kesaa koodu ọbịbịa n'ebe ahụ; escrow ga-apụ n'onwe ya naanị maka ọrụ akwadoro."
+        }
       ],
       "faqs": [
-        { "q": "Kedu ka escrow si echebe m?", "a": "Mgbe ị tinyere ego n'ọrụ, ọ na-anọ n'akaụntụ escrow pụrụ iche — e zigaghị ya ka. Ọ na-apụ naanị mgbe onye ọrụ kwadoro ọbịbịa jiri koodu gị, ya mere ị gaghị akwụ ụgwọ maka onye na-abịaghị." },
-        { "q": "Kedu ka m ga-esi chọta ezigbo ndị ọrụ?", "a": "Tally na-atụ aro ndị ọrụ NIN kwadoro nwere ezigbo akụkọ ọrụ na ntule, ndị dabara na ọrụ na ebe gị. Ị na-akpọ ndị ị chọrọ; ha kwado." },
-        { "q": "Ego ole ka inye ọrụ na-efu?", "a": "Obere ụgwọ, nke doro anya maka inye ọrụ ọ bụla mezuru — anyị ga-egosi ya tupu ị kwado, na-enweghị ọnụ ọnụ kwa ọnwa." },
-        { "q": "Enwere m ike itinye ọrụ n'asụsụ obodo?", "a": "Ee. Tinye n'asụsụ ọ masịrị gị; usoro inye ọrụ na-arụ ọrụ na Bekee, Pidgin, Yoruba, Hausa na Igbo, ntụgharị mmetụ-otu nke ihe edeturu maka ndị ọrụ dịkwa n'atụmatụ ihu anyị." }
+        {
+          "q": "Kedu ka escrow si echebe m?",
+          "a": "Mgbe ị tinyere ego n'ọrụ, ọ na-anọ n'akaụntụ escrow pụrụ iche — e zigaghị ya ka. Ọ na-apụ naanị mgbe onye ọrụ kwadoro ọbịbịa jiri koodu gị, ya mere ị gaghị akwụ ụgwọ maka onye na-abịaghị."
+        },
+        {
+          "q": "Kedu ka m ga-esi chọta ezigbo ndị ọrụ?",
+          "a": "Tally na-atụ aro ndị ọrụ NIN kwadoro nwere ezigbo akụkọ ọrụ na ntule, ndị dabara na ọrụ na ebe gị. Ị na-akpọ ndị ị chọrọ; ha kwado."
+        },
+        {
+          "q": "Ego ole ka inye ọrụ na-efu?",
+          "a": "Obere ụgwọ, nke doro anya maka inye ọrụ ọ bụla mezuru — anyị ga-egosi ya tupu ị kwado, na-enweghị ọnụ ọnụ kwa ọnwa."
+        },
+        {
+          "q": "Enwere m ike itinye ọrụ n'asụsụ obodo?",
+          "a": "Ee. Tinye n'asụsụ ọ masịrị gị; usoro inye ọrụ na-arụ ọrụ na Bekee, Pidgin, Yoruba, Hausa na Igbo, ntụgharị mmetụ-otu nke ihe edeturu maka ndị ọrụ dịkwa n'atụmatụ ihu anyị."
+        }
       ]
     },
     "trader": {
@@ -80,7 +130,11 @@
         "sub": "Depụta ahịa gị iji wuo ndekọ enwere ike ịkwado, nke na-emeghe mbinye ngwaahịa taa — ma jikere maka ngwa azụmahịa zuru ezu: POS, ngwaahịa, ịkwụ ụgwọ na nyocha, na-abịa n'oge na-adịghị anya.",
         "primaryCta": "Mepụta azụmahịa gị",
         "secondaryCta": "Nyochaa POS",
-        "chips": ["Depụta ahịa", "Meghee mbinye ngwaahịa", "POS na-abịa"]
+        "chips": [
+          "Depụta ahịa",
+          "Meghee mbinye ngwaahịa",
+          "POS na-abịa"
+        ]
       },
       "features": [
         "Depụta ahịa ma wuo ndekọ azụmahịa",
@@ -89,15 +143,36 @@
         "Obere akpa dijitalụ na ịkwụ ụgwọ azụmahịa (atụmatụ)"
       ],
       "steps": [
-        { "title": "Depụta ahịa gị", "body": "Depụta ahịa n'ime sekọnd — nke ọ bụla na-aghọ akụkụ nke ndekọ azụmahịa enwere ike ịkwado." },
-        { "title": "Wuo akụkọ gị", "body": "Ire ahịa na-adịgide na-eme ka Tally Score gị too, na-akwadokwa azụmahịa gị nye ụlọ akụ na ndị na-ebinye ego." },
-        { "title": "Meghee ego mmalite", "body": "Tozuo maka mbinye ngwaahịa na ego ọrụ nke dabara n'ezigbo ahịa gị enwere ike ịkwado." }
+        {
+          "title": "Depụta ahịa gị",
+          "body": "Depụta ahịa n'ime sekọnd — nke ọ bụla na-aghọ akụkụ nke ndekọ azụmahịa enwere ike ịkwado."
+        },
+        {
+          "title": "Wuo akụkọ gị",
+          "body": "Ire ahịa na-adịgide na-eme ka Tally Score gị too, na-akwadokwa azụmahịa gị nye ụlọ akụ na ndị na-ebinye ego."
+        },
+        {
+          "title": "Meghee ego mmalite",
+          "body": "Tozuo maka mbinye ngwaahịa na ego ọrụ nke dabara n'ezigbo ahịa gị enwere ike ịkwado."
+        }
       ],
       "faqs": [
-        { "q": "Gịnị mere m ga-eji depụta ahịa ọ bụla?", "a": "Ahịa ọ bụla ị depụtara na-aghọ akụkụ nke ndekọ enwere ike ịkwado — ọ bụkwa ndekọ ahụ na-eme ka i tozuo maka mbinye ngwaahịa. Ka ahịa gị na-adịgide, otú ahụ ka ego ị nwere ike inweta na-abawanye." },
-        { "q": "POS ọ dị ugbu a?", "a": "POS zuru oke, ngwaahịa, na ngwa azụmahịa dị n'atụmatụ ihu anyị, e jikwa akara doro anya na ọ Na-abịa. Ị nwere ike ịmalite iwu ndekọ ahịa gị taa ka ị dị njikere site n'ụbọchị mbụ." },
-        { "q": "Kedu ka mbinye ngwaahịa si arụ ọrụ?", "a": "Ozugbo akụkọ ahịa gị tozuru gị, ị nwere ike inweta mbinye ngwaahịa dabara na ndekọ gị, nke ị na-akwụghachi ka ị na-ere ahịa. Ịkwụghachi n'oge na-eme ka akara gị too maka oke ka ukwuu." },
-        { "q": "POS ọ ga-akwado asụsụ obodo?", "a": "Ee — POS na-abịa, akwụkwọ nnata na ndepụta ngwaahịa, a na-ewu ha n'asụsụ dị iche iche site n'ụbọchị mbụ, na Bekee, Pidgin, Yoruba, Hausa na Igbo." }
+        {
+          "q": "Gịnị mere m ga-eji depụta ahịa ọ bụla?",
+          "a": "Ahịa ọ bụla ị depụtara na-aghọ akụkụ nke ndekọ enwere ike ịkwado — ọ bụkwa ndekọ ahụ na-eme ka i tozuo maka mbinye ngwaahịa. Ka ahịa gị na-adịgide, otú ahụ ka ego ị nwere ike inweta na-abawanye."
+        },
+        {
+          "q": "POS ọ dị ugbu a?",
+          "a": "POS zuru oke, ngwaahịa, na ngwa azụmahịa dị n'atụmatụ ihu anyị, e jikwa akara doro anya na ọ Na-abịa. Ị nwere ike ịmalite iwu ndekọ ahịa gị taa ka ị dị njikere site n'ụbọchị mbụ."
+        },
+        {
+          "q": "Kedu ka mbinye ngwaahịa si arụ ọrụ?",
+          "a": "Ozugbo akụkọ ahịa gị tozuru gị, ị nwere ike inweta mbinye ngwaahịa dabara na ndekọ gị, nke ị na-akwụghachi ka ị na-ere ahịa. Ịkwụghachi n'oge na-eme ka akara gị too maka oke ka ukwuu."
+        },
+        {
+          "q": "POS ọ ga-akwado asụsụ obodo?",
+          "a": "Ee — POS na-abịa, akwụkwọ nnata na ndepụta ngwaahịa, a na-ewu ha n'asụsụ dị iche iche site n'ụbọchị mbụ, na Bekee, Pidgin, Yoruba, Hausa na Igbo."
+        }
       ]
     }
   },
@@ -120,7 +195,11 @@
       "subtitle": "Ịkwụ ụgwọ, aha ọma, ndakọrịta, na ohere — akụrụngwa e kekọrịtara nke na-eje ozi maka akụkụ ọ bụla nke ikpo okwu.",
       "escrowTitle": "Ụgwọ nke escrow na-akwado, nke na-apụ mgbe akwadoro",
       "escrowBody": "Ndị na-ewe ọrụ na-etinye ego na mbụ; a na-akwụ ndị ọrụ n'otu ụbọchị ahụ akwadoro ọbịbịa ha. Enweghị akwụkwọ ụgwọ, enweghị ịchụso, enweghị ịkwụ ụgwọ maka onye na-abịaghị.",
-      "escrowChips": ["Escrow na-akwado", "Ọ na-apụ ozugbo", "Ịkwụ ụgwọ bankị"],
+      "escrowChips": [
+        "Escrow na-akwado",
+        "Ọ na-apụ ozugbo",
+        "Ịkwụ ụgwọ bankị"
+      ],
       "scoreTitle": "Tally Score",
       "scoreBody": "Aha ọma enwere ike ịkwado nke sitere n'ezigbo ọrụ na ahịa — igodo nke na-emeghe mbinye ego.",
       "locationTitle": "Ndakọrịta site n'ebe",
@@ -177,23 +256,62 @@
         "planned": "N'atụmatụ anyị"
       },
       "items": [
-        { "title": "POS System", "body": "Ahịa, ngwaahịa, akwụkwọ nnata na ọtụtụ ụlọ ahịa — ebe a na-ere ahịa zuru oke maka ndị ahịa." },
-        { "title": "Payroll Automation", "body": "Gba ụgwọ ọnwa na-emegharị maka ndị ọrụ gị, ozugbo site n'ọrụ akwadoro." },
-        { "title": "AI Job Matching", "body": "Ndakọrịta ka amamihe n'etiti ndị ọrụ na ndị na-ewe ọrụ, ruo n'ógbè gị." },
-        { "title": "Digital Wallet", "body": "Jide, zipu, ma nata ịkwụ ụgwọ azụmahịa n'ime Tally." },
-        { "title": "Inventory Intelligence", "body": "Buo amụma nrụnwe ngwaahịa ma gosi ngwaahịa na-aga nwayọọ site n'ahịa gị." },
-        { "title": "Business Loans", "body": "Ego ọrụ dabara na ndekọ Tally gị enwere ike ịkwado." },
-        { "title": "QR Payments", "body": "Nata ịkwụ ụgwọ ozugbo n'ebe a na-ere ahịa site na nyocha otu." },
-        { "title": "Financial Reports", "body": "Uru, mmefe ego na nchịkọta kwa ụbọchị, e mepụtara maka gị." },
-        { "title": "AI Hiring Assistant", "body": "Dee ozi ọrụ ma họrọ ndị na-etinye n'ime sekọnd." }
+        {
+          "title": "POS System",
+          "body": "Ahịa, ngwaahịa, akwụkwọ nnata na ọtụtụ ụlọ ahịa — ebe a na-ere ahịa zuru oke maka ndị ahịa."
+        },
+        {
+          "title": "Payroll Automation",
+          "body": "Gba ụgwọ ọnwa na-emegharị maka ndị ọrụ gị, ozugbo site n'ọrụ akwadoro."
+        },
+        {
+          "title": "AI Job Matching",
+          "body": "Ndakọrịta ka amamihe n'etiti ndị ọrụ na ndị na-ewe ọrụ, ruo n'ógbè gị."
+        },
+        {
+          "title": "Digital Wallet",
+          "body": "Jide, zipu, ma nata ịkwụ ụgwọ azụmahịa n'ime Tally."
+        },
+        {
+          "title": "Inventory Intelligence",
+          "body": "Buo amụma nrụnwe ngwaahịa ma gosi ngwaahịa na-aga nwayọọ site n'ahịa gị."
+        },
+        {
+          "title": "Business Loans",
+          "body": "Ego ọrụ dabara na ndekọ Tally gị enwere ike ịkwado."
+        },
+        {
+          "title": "QR Payments",
+          "body": "Nata ịkwụ ụgwọ ozugbo n'ebe a na-ere ahịa site na nyocha otu."
+        },
+        {
+          "title": "Financial Reports",
+          "body": "Uru, mmefe ego na nchịkọta kwa ụbọchị, e mepụtara maka gị."
+        },
+        {
+          "title": "AI Hiring Assistant",
+          "body": "Dee ozi ọrụ ma họrọ ndị na-etinye n'ime sekọnd."
+        }
       ]
     },
     "stats": {
       "items": [
-        { "label": "Nke ụgwọ nọ na escrow", "sub": "Ọ na-apụ naanị maka ọrụ akwadoro" },
-        { "label": "Ruo ịkwụ ụgwọ n'otu ụbọchị", "sub": "Site na nkwado ruo bankị gị" },
-        { "label": "LGA ndị akwadoro", "sub": "Ndakọrịta ruo n'ógbè gị" },
-        { "label": "Ndị ọrụ, ndị na-ewe ọrụ, ndị ahịa", "sub": "Otu njirimara ejikọrọ" }
+        {
+          "label": "Nke ụgwọ nọ na escrow",
+          "sub": "Ọ na-apụ naanị maka ọrụ akwadoro"
+        },
+        {
+          "label": "Ruo ịkwụ ụgwọ n'otu ụbọchị",
+          "sub": "Site na nkwado ruo bankị gị"
+        },
+        {
+          "label": "LGA ndị akwadoro",
+          "sub": "Ndakọrịta ruo n'ógbè gị"
+        },
+        {
+          "label": "Ndị ọrụ, ndị na-ewe ọrụ, ndị ahịa",
+          "sub": "Otu njirimara ejikọrọ"
+        }
       ]
     },
     "integrations": {
@@ -201,13 +319,34 @@
       "title": "Ọ na-arụ ọrụ na ngwaọrụ ị na-ejizi",
       "subtitle": "Tally na-ejikọ na ụzọ ịkwụ ụgwọ, ozi, na azụmahịa nke na-eme ka Naịjirịa na-aga — na ọtụtụ ọzọ na-abịa.",
       "items": [
-        { "label": "Ndị na-enye ịkwụ ụgwọ", "note": "Squad na ọzọ" },
-        { "label": "Mbufe bankị", "note": "Ụzọ NIBSS" },
-        { "label": "SMS & WhatsApp", "note": "Ruo ekwentị ọ bụla" },
-        { "label": "Ọrụ email", "note": "Ọkwa" },
-        { "label": "Ịgụ ego", "note": "A haziri" },
-        { "label": "Maapụ & ebe", "note": "Ọkwa ógbè" },
-        { "label": "Kalịnda & ụgwọ ọnwa", "note": "A haziri" }
+        {
+          "label": "Ndị na-enye ịkwụ ụgwọ",
+          "note": "Squad na ọzọ"
+        },
+        {
+          "label": "Mbufe bankị",
+          "note": "Ụzọ NIBSS"
+        },
+        {
+          "label": "SMS & WhatsApp",
+          "note": "Ruo ekwentị ọ bụla"
+        },
+        {
+          "label": "Ọrụ email",
+          "note": "Ọkwa"
+        },
+        {
+          "label": "Ịgụ ego",
+          "note": "A haziri"
+        },
+        {
+          "label": "Maapụ & ebe",
+          "note": "Ọkwa ógbè"
+        },
+        {
+          "label": "Kalịnda & ụgwọ ọnwa",
+          "note": "A haziri"
+        }
       ]
     },
     "testimonials": {
@@ -216,10 +355,26 @@
       "subtitle": "Site n'akụkụ ọ bụla nke ikpo okwu.",
       "lovedBy": "Ndị ọrụ, ndị na-ewe ọrụ na ndị ahịa hụrụ ya n'anya",
       "items": [
-        { "quote": "N'oge gara aga, m na-eche ụbọchị tupu m nweta ego mgbe ọrụ gasịrị. Site na Tally ego na-abanye n'akaụntụ m n'otu mgbede ahụ — akara m wetakwaara m mbinye ngwaahịa mbụ m.", "name": "Amaka O.", "role": "Onye ọrụ ụlọ nkwakọba · Legọs" },
-        { "quote": "N'oge gara aga, m na-ewe ndị m na-amaghị ma na-atụ anya na ha ga-abịa. Ugbu a m na-ahụ ndị ọrụ enyochara nwere ezigbo akụkọ, m na-akwụkwa ụgwọ naanị mgbe akwadoro ọrụ.", "name": "Bola A.", "role": "Onye na-ewe ọrụ mbufe · Ikeja" },
-        { "quote": "Ahịa ọ bụla m depụtara na-ewu ndekọ m. Mgbe m chọrọ ego iji nweta ngwaahịa ọzọ, bankị nwere ike ịhụ akụkọ m n'ezie. Nke ahụ emebeghị mbụ.", "name": "Musa I.", "role": "Onye ahịa ahịa · Kano" },
-        { "quote": "Enweghị ekwentị mkpanaka, enweghị nsogbu — m na-akwado ọrụ na USSD. Tally na-emeso ndị dịka m dịka ndị ahịa, ọ bụghị ihe e chefuru echefu.", "name": "Grace E.", "role": "Onye nhicha · Abuja" }
+        {
+          "quote": "N'oge gara aga, m na-eche ụbọchị tupu m nweta ego mgbe ọrụ gasịrị. Site na Tally ego na-abanye n'akaụntụ m n'otu mgbede ahụ — akara m wetakwaara m mbinye ngwaahịa mbụ m.",
+          "name": "Amaka O.",
+          "role": "Onye ọrụ ụlọ nkwakọba · Legọs"
+        },
+        {
+          "quote": "N'oge gara aga, m na-ewe ndị m na-amaghị ma na-atụ anya na ha ga-abịa. Ugbu a m na-ahụ ndị ọrụ enyochara nwere ezigbo akụkọ, m na-akwụkwa ụgwọ naanị mgbe akwadoro ọrụ.",
+          "name": "Bola A.",
+          "role": "Onye na-ewe ọrụ mbufe · Ikeja"
+        },
+        {
+          "quote": "Ahịa ọ bụla m depụtara na-ewu ndekọ m. Mgbe m chọrọ ego iji nweta ngwaahịa ọzọ, bankị nwere ike ịhụ akụkọ m n'ezie. Nke ahụ emebeghị mbụ.",
+          "name": "Musa I.",
+          "role": "Onye ahịa ahịa · Kano"
+        },
+        {
+          "quote": "Enweghị ekwentị mkpanaka, enweghị nsogbu — m na-akwado ọrụ na USSD. Tally na-emeso ndị dịka m dịka ndị ahịa, ọ bụghị ihe e chefuru echefu.",
+          "name": "Grace E.",
+          "role": "Onye nhicha · Abuja"
+        }
       ]
     },
     "faq": {
@@ -242,9 +397,18 @@
   "Auth": {
     "headline": "Mee ka ọrụ gị ghọọ njirimara nke na-emeghe ọnụ ụzọ.",
     "highlights": [
-      { "title": "Wuo akara ntụkwasị obi gị", "body": "Ọrụ ọ bụla, ahịa, na nkwụghachi na-agụ maka mbinye ego i nwere." },
-      { "title": "Nweta ego gị n'otu ụbọchị ahụ", "body": "Ịkwụ ụgwọ nke escrow na-akwado na-abanye n'obere akpa gị mgbe akwadoro ọrụ." },
-      { "title": "Ọ na-arụ ọrụ na-enweghị ekwentị mkpanaka", "body": "Debanye aha ma nweta ọrụ site na SMS, WhatsApp, ma ọ bụ oku ekwentị." }
+      {
+        "title": "Wuo akara ntụkwasị obi gị",
+        "body": "Ọrụ ọ bụla, ahịa, na nkwụghachi na-agụ maka mbinye ego i nwere."
+      },
+      {
+        "title": "Nweta ego gị n'otu ụbọchị ahụ",
+        "body": "Ịkwụ ụgwọ nke escrow na-akwado na-abanye n'obere akpa gị mgbe akwadoro ọrụ."
+      },
+      {
+        "title": "Ọ na-arụ ọrụ na-enweghị ekwentị mkpanaka",
+        "body": "Debanye aha ma nweta ọrụ site na SMS, WhatsApp, ma ọ bụ oku ekwentị."
+      }
     ],
     "createAccount": "Mepụta akaụntụ gị",
     "welcomeBack": "Nnọọ ọzọ",
@@ -274,9 +438,18 @@
     "newToTally": "Ọhụrụ na Tally?",
     "createAccountLink": "Mepụta akaụntụ",
     "types": {
-      "worker": { "label": "Onye ọrụ", "desc": "Chọọ ọrụ ma nweta ego kwa ụbọchị" },
-      "trader": { "label": "Onye ahịa", "desc": "Depụta ahịa ma zụlite mbinye ego gị" },
-      "employer": { "label": "Onye na-ewe ọrụ", "desc": "Tinye ọrụ ma were ndị ọrụ n'ụzọ a pụrụ ịdabere na ya" }
+      "worker": {
+        "label": "Onye ọrụ",
+        "desc": "Chọọ ọrụ ma nweta ego kwa ụbọchị"
+      },
+      "trader": {
+        "label": "Onye ahịa",
+        "desc": "Depụta ahịa ma zụlite mbinye ego gị"
+      },
+      "employer": {
+        "label": "Onye na-ewe ọrụ",
+        "desc": "Tinye ọrụ ma were ndị ọrụ n'ụzọ a pụrụ ịdabere na ya"
+      }
     },
     "errors": {
       "invalidPhone": "Tinye nọmba ekwentị ziri ezi (d.ọ. +2348012345678).",
@@ -324,7 +497,11 @@
     }
   },
   "Overview": {
-    "greeting": { "morning": "Ụtụtụ ọma", "afternoon": "Ehihie ọma", "evening": "Mgbede ọma" },
+    "greeting": {
+      "morning": "Ụtụtụ ọma",
+      "afternoon": "Ehihie ọma",
+      "evening": "Mgbede ọma"
+    },
     "common": {
       "unlockHigher": "Meghee oke ndị dị elu",
       "available": "{amount} dị",
@@ -467,7 +644,13 @@
     "subtitle": "Kọwaa ọrụ ma tọọ ụgwọ. Anyị na-emepụta akaụntụ escrow n'akpaghị aka.",
     "howItWorks": "Otú ọ si arụ ọrụ:",
     "howItWorksBody": "ozugbo i tinyere ya, tinye ego na escrow iji chekwaa ọrụ ahụ, wee kpọọ ndị ọrụ a tụrụ aro ma ọ bụ nabata ntinye. A na-ewepụta ụgwọ naanị mgbe onye ọrụ kwadoro ọbịbịa jiri koodu ọnụọgụ anọ.",
-    "categories": { "loading": "Ibu ibu", "cleaning": "Nhicha", "driving": "Ịnya ụgbọ", "tailoring": "Ịkwa akwa", "bricklaying": "Iwu ụlọ" },
+    "categories": {
+      "loading": "Ibu ibu",
+      "cleaning": "Nhicha",
+      "driving": "Ịnya ụgbọ",
+      "tailoring": "Ịkwa akwa",
+      "bricklaying": "Iwu ụlọ"
+    },
     "jobTitle": "Aha ọrụ",
     "jobTitlePlaceholder": "d.ọ. Ibu ibu n'ụlọ nkwakọba (otu ụbọchị)",
     "description": "Nkọwa",
@@ -494,7 +677,14 @@
   "JobsBoard": {
     "noJobs": "Ọ dịghị ọrụ ka",
     "noJobsBody": "Tinye ọrụ mbụ gị ka ị malite iwe ndị ọrụ.",
-    "status": { "OPEN": "Na-adakọ", "FILLED": "Ejuola", "IN_PROGRESS": "Na-aga n'ihu", "COMPLETED": "Emechaala", "DRAFT": "Edemede", "CANCELLED": "Akagburu" },
+    "status": {
+      "OPEN": "Na-adakọ",
+      "FILLED": "Ejuola",
+      "IN_PROGRESS": "Na-aga n'ihu",
+      "COMPLETED": "Emechaala",
+      "DRAFT": "Edemede",
+      "CANCELLED": "Akagburu"
+    },
     "full": "Ejuola",
     "filled": "{filled}/{headcount} juru",
     "toReview": "{count} ka a ga-enyocha",
@@ -597,7 +787,11 @@
     "noSales": "Edepụtabeghị ahịa ọ bụla.",
     "sale": "Ahịa",
     "salesLogged": "{count} ahịa edepụtara. Nọgide na-edepụta ka ị rịgoro.",
-    "methods": { "card": "kaadị", "cash": "ego", "transfer": "mbufe" }
+    "methods": {
+      "card": "kaadị",
+      "cash": "ego",
+      "transfer": "mbufe"
+    }
   },
   "LoanOffers": {
     "empty": "Ọ dịghị onyinye mbinye ego ka. Mezuo ọrụ ndị ọzọ iji wuo ndekọ na-emeghe mbinye ego.",
@@ -614,5 +808,101 @@
     "notApproved": "Akwadobeghị ya",
     "notApprovedFallback": "Nọgide na-ewu akara gị ma nwaa ọzọ.",
     "submitFailed": "Enweghị ike izipu"
+  },
+  "Verify": {
+    "title": "Kwado njirimara gị",
+    "subtitle": "Ịkwado na-emeghe oke dị elu na ntozu inwe mbinye ego, ma na-enye gị ohere ịnata ego gị. E zoro nkọwa gị.",
+    "levels": {
+      "NONE": "Akwadobeghị",
+      "BASIC": "Nke bụ isi",
+      "BVN_VERIFIED": "Akwadoro",
+      "FULL": "Akwadoro nke ọma"
+    },
+    "identity": "Njirimara (NIN)",
+    "status": "Ọnọdụ: {level}",
+    "verified": "Akwadoro",
+    "inReview": "A na-enyocha — anyị ga-agwa gị mgbe e kpebisiri ya.",
+    "declined": "Ajụrụ arịrịọ gị gara aga: {reason}. Biko zigharịa ya.",
+    "ninLabel": "Nọmba Njirimara Mba (NIN)",
+    "ninPlaceholder": "NIN nwere ọnụọgụ iri na otu",
+    "ninEncrypted": "E chekwara ya na nzuzo — anyị anaghị edebe nọmba mbụ ahụ.",
+    "enterNin": "Tinye NIN gị nwere ọnụọgụ iri na otu.",
+    "submitting": "Na-ezite…",
+    "submitForVerification": "Zipu maka nkwado",
+    "submitted": "Ezitere maka nkwado",
+    "submittedDesc": "Anyị ga-agwa gị mgbe e kpebisiri ya.",
+    "submitFailed": "Enweghị ike izipu",
+    "payoutAccount": "Akaụntụ ịkwụ ụgwọ",
+    "payoutSub": "Ebe ị na-anata ego gị. Anyị na-akwado aha tupu anyị echekwaa.",
+    "change": "Gbanwee",
+    "bank": "Ụlọ akụ",
+    "selectBank": "Họrọ ụlọ akụ gị…",
+    "accountNumber": "Nọmba akaụntụ",
+    "accountNumberPlaceholder": "Nọmba akaụntụ nwere ọnụọgụ iri",
+    "accountName": "Aha akaụntụ",
+    "checking": "Na-elele…",
+    "verifyAccount": "Kwado akaụntụ",
+    "saving": "Na-echekwa…",
+    "saveAccount": "Chekwaa akaụntụ",
+    "edit": "Dezie",
+    "cancel": "Kagbuo",
+    "accountFound": "Achọtara akaụntụ",
+    "accountVerifyFailed": "Enweghị ike ịkwado akaụntụ",
+    "payoutSaved": "Echekwara akaụntụ ịkwụ ụgwọ",
+    "payoutSavedDesc": "{name} · ••••{last4}",
+    "saveFailed": "Enweghị ike ịchekwa akaụntụ"
+  },
+  "Settings": {
+    "title": "Ntọala mkpọsa",
+    "subtitle": "Họrọ ka Tally ga-esi ruo gị. A na-eziga mkpọsa nchekwa na ịkwụ ụgwọ mgbe niile.",
+    "language": "Asụsụ",
+    "languageSub": "Asụsụ Tally na-eji n'ime ngwa, ozi-e na mkpọsa. E chekwara ya na ngwaọrụ a.",
+    "jobFeed": "Ndepụta ọrụ",
+    "jobFeedSub": "Họrọ ọrụ ndị ga-ebu ụzọ pụta mgbe ị na-achọ ọrụ.",
+    "feedUpdated": "Emelitere ndepụta ọrụ",
+    "feedFailed": "Enweghị ike imelite ndepụta ọrụ",
+    "feeds": {
+      "ALL": {
+        "label": "Ọrụ niile",
+        "hint": "Ọrụ ọ bụla mepere emepe na Tally."
+      },
+      "SKILLS": {
+        "label": "Dabara na nkà m",
+        "hint": "Naanị ọrụ chọrọ ihe ị na-eme."
+      },
+      "NEARBY": {
+        "label": "Nso m",
+        "hint": "Ọrụ na steeti gị, mpaghara kachasị nso na mbụ."
+      }
+    },
+    "pauseTitle": "Kwụsịtụ mkpọsa na-adịghị ngwa ngwa",
+    "pauseSub": "Ọ na-agbachi ọrụ na onyinye. Ị ga-anata mkpọsa nchekwa na ịkwụ ụgwọ.",
+    "categories": {
+      "ACTIVITY": {
+        "label": "Ọrụ",
+        "hint": "Nzaghachi ikpe, onyinye ọrụ, ọbịbịa, mgbanwe akara"
+      },
+      "MARKETING": {
+        "label": "Ndụmọdụ & onyinye",
+        "hint": "Nkwanye na mgbasa ozi mgbe ụfọdụ"
+      }
+    },
+    "channels": {
+      "INAPP": "N'ime ngwa",
+      "SMS": "SMS",
+      "WHATSAPP": "WhatsApp",
+      "PUSH": "Nkwanye",
+      "EMAIL": "Ozi-e"
+    },
+    "quietHours": "Awa jụụ",
+    "quietHoursSub": "Jide mkpọsa na-adịghị ngwa ngwa n'oge awa ndị a (ndị ngwa ngwa ga-abata).",
+    "from": "Site na",
+    "to": "ruo",
+    "off": "Gbanyụọ",
+    "prefFailed": "Enweghị ike imelite mmasị",
+    "paused": "Akwụsịtụrụ mkpọsa na-adịghị ngwa ngwa",
+    "resumed": "Maliteghachiri mkpọsa",
+    "quietUpdated": "Emelitere awa jụụ",
+    "settingsFailed": "Enweghị ike imelite ntọala"
   }
 }
