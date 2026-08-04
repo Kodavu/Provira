@@ -654,10 +654,12 @@
     "saveFailed": "Couldn't save account"
   },
   "Settings": {
-    "title": "Notification settings",
-    "subtitle": "Choose how Tally reaches you. Security and payment alerts are always sent.",
+    "title": "General settings",
+    "subtitle": "Choose how Tally reaches you and your preferred language.",
     "language": "Language",
     "languageSub": "The language Tally uses across the app, emails and notifications. Saved to this device.",
+    "notifications": "Notifications",
+    "notificationsSub": "Choose how you want to be notified about important updates.",
     "jobFeed": "Job feed",
     "jobFeedSub": "Choose which jobs show up first when you look for work.",
     "feedUpdated": "Job feed updated",

@@ -853,10 +853,12 @@
     "saveFailed": "No fit save account"
   },
   "Settings": {
-    "title": "Notification settings",
-    "subtitle": "Choose how Tally go reach you. We dey always send security and payment alert.",
+    "title": "General settings",
+    "subtitle": "Choose how Tally go reach you and the language you want make we follow you yarn.",
     "language": "Language",
     "languageSub": "The language wey Tally dey use for the app, email and notification. We save am for this device.",
+    "notifications": "Notifications",
+    "notificationsSub": "Choose how you want make we notify about updates wey dey important.",
     "jobFeed": "Job feed",
     "jobFeedSub": "Choose which job go show first when you dey find work.",
     "feedUpdated": "Don update job feed",

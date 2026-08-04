@@ -853,10 +853,12 @@
     "saveFailed": "An kasa adana asusu"
   },
   "Settings": {
-    "title": "Saitunan sanarwa",
-    "subtitle": "Zaɓi yadda Tally zai isa gare ka. Ana aika sanarwar tsaro da biya kullum.",
+    "title": "SaitSaitunan Gabaɗayaunan",
+    "subtitle": "Zaɓi yadda Tally zai isa gare ku da kuma harshen da kuka fi so.",
     "language": "Harshe",
     "languageSub": "Harshen da Tally ke amfani da shi a cikin manhaja, imel da sanarwa. An adana shi a wannan na'urar.",
+    "notifications": "Saitunan sanarwa",
+    "notificationsSub": "Zaɓi yadda Tally zai sanar da kai game da ayyuka, kuɗin shiga, lamuni, da sauran abubuwa.",
     "jobFeed": "Jerin ayyuka",
     "jobFeedSub": "Zaɓi waɗanne ayyuka za su fara bayyana sa'ad da kake neman aiki.",
     "feedUpdated": "An sabunta jerin ayyuka",

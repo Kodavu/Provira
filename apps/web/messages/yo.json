@@ -853,10 +853,12 @@
     "saveFailed": "Kò lè fi àkàǹtì pamọ́"
   },
   "Settings": {
-    "title": "Ètò ìfitọ́nilétí",
-    "subtitle": "Yan bí Tally ṣe máa dé ọ̀dọ̀ rẹ. A máa ń fi ìtanilólobó ààbò àti ìsanwó ránṣẹ́ nígbà gbogbo.",
+    "title": "Ètò Gbogbogbò",
+    "subtitle": "Yan bí Tally ṣe dé ọ̀dọ̀ rẹ àti èdè tí o fẹ́.",
     "language": "Èdè",
     "languageSub": "Èdè tí Tally ń lò ní gbogbo ẹ̀rọ ìṣàmúlò, ímeèlì àti ìfitọ́nilétí. A fi pamọ́ sí ẹ̀rọ yìí.",
+    "notifications": "Ètò ìfitọ́nilétí",
+    "notificationsSub": "Yan bí o fẹ́ máa dé ọ̀dọ̀ rẹ. A máa ń fi ìtanilólobó ààbò àti ìsanwó ránṣẹ́ nígbà gbogbo.",
     "jobFeed": "Àtòjọ iṣẹ́",
     "jobFeedSub": "Yan àwọn iṣẹ́ tí yóò kọ́kọ́ farahàn nígbà tí o bá ń wá iṣẹ́.",
     "feedUpdated": "A ti ṣàtúnṣe àtòjọ iṣẹ́",

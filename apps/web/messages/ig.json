@@ -853,10 +853,12 @@
     "saveFailed": "Enweghị ike ịchekwa akaụntụ"
   },
   "Settings": {
-    "title": "Ntọala mkpọsa",
-    "subtitle": "Họrọ ka Tally ga-esi ruo gị. A na-eziga mkpọsa nchekwa na ịkwụ ụgwọ mgbe niile.",
+    "title": "Ntọala izugbe",
+    "subtitle": "Họrọ otu Tally si erute gị na asụsụ ị họọrọ.",
     "language": "Asụsụ",
     "languageSub": "Asụsụ Tally na-eji n'ime ngwa, ozi-e na mkpọsa. E chekwara ya na ngwaọrụ a.",
+    "notifications": "Ntọala mkpọsa",
+    "notificationsSub": "Họrọ ọrụ ndị ga-ebu ụzọ pụta mgbe ị na-achọ ọrụ.",
     "jobFeed": "Ndepụta ọrụ",
     "jobFeedSub": "Họrọ ọrụ ndị ga-ebu ụzọ pụta mgbe ị na-achọ ọrụ.",
     "feedUpdated": "Emelitere ndepụta ọrụ",
