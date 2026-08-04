@@ -1,0 +1,15 @@
+{
+  "Nav": {
+    "product": "Product",
+    "company": "Company",
+    "resources": "Resources",
+    "howItWorks": "How it works",
+    "signIn": "Sign in",
+    "getStarted": "Get started",
+    "language": "Language"
+  },
+  "Common": {
+    "getStartedFree": "Get started free",
+    "talkToUs": "Talk to us"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "Nav": {
+    "product": "Product",
+    "company": "Company",
+    "resources": "Resources",
+    "howItWorks": "Bi o se n sise",
+    "signIn": "Wole",
+    "getStarted": "Bere",
+    "language": "Ede"
+  },
+  "Common": {
+    "getStartedFree": "Bere ofe",
+    "talkToUs": "Ba wa soro"
+  }
+}

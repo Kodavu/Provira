@@ -1,0 +1,15 @@
+{
+  "Nav": {
+    "product": "Product",
+    "company": "Company",
+    "resources": "Resources",
+    "howItWorks": "Otu o si aru oru",
+    "signIn": "Banye",
+    "getStarted": "Malite",
+    "language": "Asusu"
+  },
+  "Common": {
+    "getStartedFree": "Malite n'efu",
+    "talkToUs": "Gwa anyi okwu"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "Nav": {
+    "product": "Product",
+    "company": "Company",
+    "resources": "Resources",
+    "howItWorks": "Yadda yake aiki",
+    "signIn": "Shiga",
+    "getStarted": "Fara",
+    "language": "Harshe"
+  },
+  "Common": {
+    "getStartedFree": "Fara kyauta",
+    "talkToUs": "Yi magana da mu"
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Single source of truth for the languages Tally speaks at launch. The seed
 // UI translations live in @tally/i18n; here we keep the presentation metadata
@@ -33,6 +34,7 @@ export type LangCode = LanguageOption["code"];
  */
 export function useLanguagePreference() {
   const [code, setCode] = useState<LangCode>("EN");
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -52,7 +54,9 @@ export function useLanguagePreference() {
     } catch {
       /* ignore */
     }
-  }, []);
+    // Re-render server components so next-intl serves the new locale's messages.
+    router.refresh();
+  }, [router]);
 
   return { code, choose };
 }

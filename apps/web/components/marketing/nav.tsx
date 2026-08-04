@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Banknote,
@@ -56,6 +57,7 @@ export function MarketingNav() {
   const [open, setOpen] = useState(false); // mobile
   const [menu, setMenu] = useState<string | null>(null); // desktop dropdown
   const pathname = usePathname();
+  const t = useTranslations("Nav");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -79,26 +81,26 @@ export function MarketingNav() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex" onMouseLeave={() => setMenu(null)}>
-          <Dropdown label="Product" items={PRODUCT} open={menu === "product"} onOpen={() => setMenu("product")} />
+          <Dropdown label={t("product")} items={PRODUCT} open={menu === "product"} onOpen={() => setMenu("product")} />
           {SIMPLE.map((l) => (
             <Link key={l.href} href={l.href} className="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink">
-              {l.label}
+              {t("howItWorks")}
             </Link>
           ))}
-          <Dropdown label="Company" items={COMPANY} open={menu === "company"} onOpen={() => setMenu("company")} />
-          <Dropdown label="Resources" items={RESOURCES} open={menu === "resources"} onOpen={() => setMenu("resources")} />
+          <Dropdown label={t("company")} items={COMPANY} open={menu === "company"} onOpen={() => setMenu("company")} />
+          <Dropdown label={t("resources")} items={RESOURCES} open={menu === "resources"} onOpen={() => setMenu("resources")} />
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
           <LanguageMenu />
           <Link href="/login" className="rounded-lg px-3.5 py-2 text-sm font-semibold text-ink-soft transition hover:text-ink">
-            Sign in
+            {t("signIn")}
           </Link>
           <Link
             href="/signup"
             className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-600/25 transition hover:bg-brand-700"
           >
-            Get started
+            {t("getStarted")}
           </Link>
         </div>
 
@@ -128,17 +130,17 @@ export function MarketingNav() {
               </button>
             </div>
             <div className="max-h-[calc(100vh-4rem)] overflow-y-auto px-4 py-4">
-              <MobileGroup title="Product" items={PRODUCT} />
-              <MobileGroup title="Company" items={COMPANY} />
-              <MobileGroup title="Resources" items={RESOURCES} />
-              <Link href="/#how" className="block border-b border-line py-3 text-base font-medium text-ink">How it works</Link>
+              <MobileGroup title={t("product")} items={PRODUCT} />
+              <MobileGroup title={t("company")} items={COMPANY} />
+              <MobileGroup title={t("resources")} items={RESOURCES} />
+              <Link href="/#how" className="block border-b border-line py-3 text-base font-medium text-ink">{t("howItWorks")}</Link>
               <div className="border-b border-line py-4">
-                <p className="mb-2 px-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">Language</p>
+                <p className="mb-2 px-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">{t("language")}</p>
                 <LanguageMenu align="left" />
               </div>
               <div className="mt-6 flex flex-col gap-3">
-                <Link href="/login" className="rounded-xl border border-line py-3 text-center font-semibold text-ink">Sign in</Link>
-                <Link href="/signup" className="rounded-xl bg-brand-600 py-3 text-center font-semibold text-white">Get started</Link>
+                <Link href="/login" className="rounded-xl border border-line py-3 text-center font-semibold text-ink">{t("signIn")}</Link>
+                <Link href="/signup" className="rounded-xl bg-brand-600 py-3 text-center font-semibold text-white">{t("getStarted")}</Link>
               </div>
             </div>
           </motion.div>
