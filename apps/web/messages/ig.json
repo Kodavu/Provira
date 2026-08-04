@@ -384,5 +384,24 @@
       "committed": "{amount} ekenyere",
       "verifyBusiness": "Kwado azụmahịa"
     }
+  },
+  "Profile": {
+    "title": "Profaịlụ gị",
+    "subtitle": "Nke a bụ ihe ndị na-ewe ọrụ na-ahụ mgbe ị na-etinye. Tinye nkà na ebe gị ka ọrụ ndị kwesịrị ekwesị — na ọrụ ndị dị gị nso — chọta gị.",
+    "fullName": "Aha zuru ezu",
+    "namePlaceholder": "d.ọ. Amaka Okafor",
+    "about": "Banyere gị",
+    "aboutPlaceholder": "Ahịrịokwu otu ma ọ bụ abụọ banyere ahụmịhe gị na ihe ị maara nke ọma.",
+    "skills": "Nkà",
+    "skillsHint": "Họrọ ihe ị na-eme — enwere ike igosi ọrụ ndị dabara ha na mbụ.",
+    "languages": "Asụsụ",
+    "whereYouWork": "Ebe ị na-arụ ọrụ",
+    "whereHint": "Eji ya egosi gị ọrụ ndị dị gị nso.",
+    "save": "Chekwaa profaịlụ",
+    "saving": "Na-echekwa…",
+    "addName": "Tinye aha gị",
+    "saved": "Echekwara profaịlụ",
+    "savedDesc": "Ndị na-ewe ọrụ ga-ahụ profaịlụ gị emelitere.",
+    "saveFailed": "Enweghị ike ịchekwa"
   }
 }

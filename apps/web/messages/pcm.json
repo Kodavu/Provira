@@ -384,5 +384,24 @@
       "committed": "{amount} committed",
       "verifyBusiness": "Verify business"
     }
+  },
+  "Profile": {
+    "title": "Your profile",
+    "subtitle": "Na wetin employers dey see when you apply. Add your skills and location so the correct jobs — and jobs wey near you — go find you.",
+    "fullName": "Full name",
+    "namePlaceholder": "e.g. Amaka Okafor",
+    "about": "About you",
+    "aboutPlaceholder": "One or two sentence about your experience and wetin you sabi do well.",
+    "skills": "Skills",
+    "skillsHint": "Pick wetin you dey do — jobs wey match dem fit show first.",
+    "languages": "Languages",
+    "whereYouWork": "Where you dey work",
+    "whereHint": "We dey use am show you jobs wey near you.",
+    "save": "Save profile",
+    "saving": "Dey save…",
+    "addName": "Add your name",
+    "saved": "Profile don save",
+    "savedDesc": "Employers go see your updated profile.",
+    "saveFailed": "We no fit save"
   }
 }

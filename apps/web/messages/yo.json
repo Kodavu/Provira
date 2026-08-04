@@ -384,5 +384,24 @@
       "committed": "{amount} tí a fi sí i",
       "verifyBusiness": "Fọwọ́sí òwò"
     }
+  },
+  "Profile": {
+    "title": "Àkọ̀ọ́lẹ̀ rẹ",
+    "subtitle": "Èyí ni ohun tí àwọn agbanisíṣẹ́ ń rí nígbà tí o bá béèrè. Fi àwọn ọgbọ́n àti ibùdó rẹ kún kí àwọn iṣẹ́ tó tọ́ — àti iṣẹ́ nítòsí rẹ — lè rí ọ.",
+    "fullName": "Orúkọ kíkún",
+    "namePlaceholder": "f.a. Amaka Okafor",
+    "about": "Nípa rẹ",
+    "aboutPlaceholder": "Gbólóhùn kan tàbí méjì nípa ìrírí rẹ àti ohun tí o mọ̀ dáradára.",
+    "skills": "Àwọn ọgbọ́n",
+    "skillsHint": "Yan ohun tí o ń ṣe — a lè kọ́kọ́ fi àwọn iṣẹ́ tó bá wọn mu hàn.",
+    "languages": "Àwọn èdè",
+    "whereYouWork": "Ibi tí o ti ń ṣiṣẹ́",
+    "whereHint": "A lò ó láti fi àwọn iṣẹ́ nítòsí rẹ hàn ọ́.",
+    "save": "Fi àkọ̀ọ́lẹ̀ pamọ́",
+    "saving": "Ń fi pamọ́…",
+    "addName": "Fi orúkọ rẹ kún",
+    "saved": "A ti fi àkọ̀ọ́lẹ̀ pamọ́",
+    "savedDesc": "Àwọn agbanisíṣẹ́ yóò rí àkọ̀ọ́lẹ̀ rẹ tí a ṣàtúnṣe.",
+    "saveFailed": "A kò lè fi pamọ́"
   }
 }

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Check, MapPin, User } from "lucide-react";
 import { api, type Skill, type WorkerProfileEdit } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
@@ -25,6 +26,7 @@ const fieldCls =
 export default function ProfilePage() {
   const { userId, activeRole, refresh } = useSession();
   const router = useRouter();
+  const t = useTranslations("Profile");
 
   const [profile, setProfile] = useState<WorkerProfileEdit | null>(null);
   const [catalog, setCatalog] = useState<Skill[]>([]);
@@ -73,7 +75,7 @@ export default function ProfilePage() {
   }
 
   async function save() {
-    if (fullName.trim().length < 2) return toast.error("Add your name");
+    if (fullName.trim().length < 2) return toast.error(t("addName"));
     setSaving(true);
     try {
       await api.updateWorkerProfile(userId, {
@@ -86,9 +88,9 @@ export default function ProfilePage() {
         ward: loc.ward || undefined,
       });
       await refresh();
-      toast.success("Profile saved", { description: "Employers will see your updated profile." });
+      toast.success(t("saved"), { description: t("savedDesc") });
     } catch (e) {
-      toast.error("Couldn't save", { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
+      toast.error(t("saveFailed"), { description: (e as Error).message.replace(/^API \d+:\s*/, "") });
     } finally {
       setSaving(false);
     }
@@ -97,28 +99,28 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <PageHeader
-        title="Your profile"
-        subtitle="This is what employers see when you apply. Add your skills and location so the right jobs — and jobs near you — find you."
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <FadeIn delay={0.05} className="space-y-5">
         <Card className="p-5">
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-ink-soft">Full name</span>
+            <span className="mb-1.5 block text-sm font-medium text-ink-soft">{t("fullName")}</span>
             <div className="relative">
               <User className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
-              <input className={`${fieldCls} pl-9`} value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Amaka Okafor" />
+              <input className={`${fieldCls} pl-9`} value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder={t("namePlaceholder")} />
             </div>
           </label>
           <label className="mt-4 block">
-            <span className="mb-1.5 block text-sm font-medium text-ink-soft">About you</span>
-            <textarea className={`${fieldCls} min-h-[80px] resize-y`} value={bio} onChange={(e) => setBio(e.target.value)} placeholder="A sentence or two about your experience and what you're good at." />
+            <span className="mb-1.5 block text-sm font-medium text-ink-soft">{t("about")}</span>
+            <textarea className={`${fieldCls} min-h-[80px] resize-y`} value={bio} onChange={(e) => setBio(e.target.value)} placeholder={t("aboutPlaceholder")} />
           </label>
         </Card>
 
         <Card className="p-5">
-          <p className="font-semibold text-ink">Skills</p>
-          <p className="text-sm text-ink-soft">Pick what you do — jobs matching these can be shown first.</p>
+          <p className="font-semibold text-ink">{t("skills")}</p>
+          <p className="text-sm text-ink-soft">{t("skillsHint")}</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {catalog.map((s) => {
               const on = skills.has(s.slug);
@@ -140,7 +142,7 @@ export default function ProfilePage() {
         </Card>
 
         <Card className="p-5">
-          <p className="font-semibold text-ink">Languages</p>
+          <p className="font-semibold text-ink">{t("languages")}</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {LANGUAGES.map((l) => {
               const on = langs.has(l.code);
@@ -162,15 +164,15 @@ export default function ProfilePage() {
         </Card>
 
         <Card className="p-5">
-          <p className="flex items-center gap-1.5 font-semibold text-ink"><MapPin className="h-4 w-4 text-brand-600" /> Where you work</p>
-          <p className="text-sm text-ink-soft">Used to show you jobs near you.</p>
+          <p className="flex items-center gap-1.5 font-semibold text-ink"><MapPin className="h-4 w-4 text-brand-600" /> {t("whereYouWork")}</p>
+          <p className="text-sm text-ink-soft">{t("whereHint")}</p>
           <div className="mt-3">
             <LocationPicker value={loc} onChange={setLoc} />
           </div>
         </Card>
 
         <div className="flex justify-end">
-          <Button onClick={save} disabled={saving}>{saving ? "Saving…" : "Save profile"}</Button>
+          <Button onClick={save} disabled={saving}>{saving ? t("saving") : t("save")}</Button>
         </div>
       </FadeIn>
     </div>

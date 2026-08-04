@@ -384,5 +384,24 @@
       "committed": "{amount} committed",
       "verifyBusiness": "Verify business"
     }
+  },
+  "Profile": {
+    "title": "Your profile",
+    "subtitle": "This is what employers see when you apply. Add your skills and location so the right jobs — and jobs near you — find you.",
+    "fullName": "Full name",
+    "namePlaceholder": "e.g. Amaka Okafor",
+    "about": "About you",
+    "aboutPlaceholder": "A sentence or two about your experience and what you're good at.",
+    "skills": "Skills",
+    "skillsHint": "Pick what you do — jobs matching these can be shown first.",
+    "languages": "Languages",
+    "whereYouWork": "Where you work",
+    "whereHint": "Used to show you jobs near you.",
+    "save": "Save profile",
+    "saving": "Saving…",
+    "addName": "Add your name",
+    "saved": "Profile saved",
+    "savedDesc": "Employers will see your updated profile.",
+    "saveFailed": "Couldn't save"
   }
 }

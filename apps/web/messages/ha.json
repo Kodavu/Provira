@@ -384,5 +384,24 @@
       "committed": "{amount} da aka ware",
       "verifyBusiness": "Tabbatar da kasuwanci"
     }
+  },
+  "Profile": {
+    "title": "Bayananka",
+    "subtitle": "Wannan shi ne abin da masu ɗaukar aiki ke gani lokacin da ka nema. Ƙara ƙwarewarka da wurinka don ayyukan da suka dace — da ayyuka kusa da kai — su same ka.",
+    "fullName": "Cikakken suna",
+    "namePlaceholder": "misali Amaka Okafor",
+    "about": "Game da kai",
+    "aboutPlaceholder": "Jimla ɗaya ko biyu game da gwanintarka da abin da ka iya sosai.",
+    "skills": "Ƙwarewa",
+    "skillsHint": "Zaɓi abin da kake yi — ana iya nuna ayyukan da suka dace da farko.",
+    "languages": "Harsuna",
+    "whereYouWork": "Inda kake aiki",
+    "whereHint": "Ana amfani da shi don nuna maka ayyuka kusa da kai.",
+    "save": "Ajiye bayanai",
+    "saving": "Ana ajiyewa…",
+    "addName": "Ƙara sunanka",
+    "saved": "An ajiye bayanai",
+    "savedDesc": "Masu ɗaukar aiki za su ga sabon bayananka.",
+    "saveFailed": "Ba a iya ajiyewa ba"
   }
 }
