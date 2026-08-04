@@ -11,5 +11,103 @@
   "Common": {
     "getStartedFree": "Start free",
     "talkToUs": "Talk to us"
+  },
+  "Personas": {
+    "worker": {
+      "label": "Workers",
+      "tagline": "Find work, collect money, grow",
+      "hero": {
+        "lead": "Find better work.",
+        "emphasis": "Collect your money that same day.",
+        "sub": "See verified jobs near you, confirm your shift with code, and collect your money straight to your bank — as every job dey build your Tally Score wey go open credit for you.",
+        "primaryCta": "Find work",
+        "secondaryCta": "How e dey work",
+        "chips": ["Verified employers", "Same-day money", "Build your score"]
+      }
+    },
+    "employer": {
+      "label": "Employers",
+      "tagline": "Hire verified, pay when e confirm",
+      "hero": {
+        "lead": "Hire workers wey verify.",
+        "emphasis": "Pay only for work wey confirm.",
+        "sub": "Post work for few minutes, invite people wey get real track record, and put the money for escrow. Money go only comot when attendance confirm — so you no go ever pay for person wey no show.",
+        "primaryCta": "Post work",
+        "secondaryCta": "See how hiring dey go",
+        "chips": ["NIN-verified people", "Pay when e confirm", "Hiring analytics"]
+      }
+    },
+    "trader": {
+      "label": "Traders",
+      "tagline": "Run your business, make am grow",
+      "hero": {
+        "lead": "Run your business.",
+        "emphasis": "Turn every sale to credit.",
+        "sub": "Log your sales make you build record wey you fit prove, wey go open stock loan for you today — and get ready for full business toolkit: POS, inventory, payments and analytics, e dey come soon.",
+        "primaryCta": "Grow your business",
+        "secondaryCta": "Check the POS",
+        "chips": ["Log sales", "Open stock loan", "POS dey come"]
+      }
+    }
+  },
+  "Home": {
+    "hero": {
+      "trustLine": "One ecosystem wey connect Nigeria informal economy — workers, employers, and traders."
+    },
+    "marquee": {
+      "title": "We build am on top trusted, licensed infrastructure"
+    },
+    "ecosystem": {
+      "eyebrow": "One ecosystem wey connect",
+      "title": "Three kind people. One economic identity wey una dey share.",
+      "subtitle": "Workers, employers, and traders — each one get product wey we build for dem, wey the same verified identity, escrow, and Tally Score dey connect."
+    },
+    "features": {
+      "eyebrow": "Why Tally",
+      "title": "Na the rails wey dey make everything work"
+    },
+    "language": {
+      "eyebrow": "We build am for Nigeria",
+      "title1": "Technology wey",
+      "title2": "dey speak your language",
+      "sub": "Work, hire, and trade for the language wey sweet you pass. We design Tally for how Naija people dey actually talk — for the app, for USSD, and for WhatsApp."
+    },
+    "how": {
+      "eyebrow": "How e dey work",
+      "title": "Clear road — for anybody wey you be"
+    },
+    "pos": {
+      "badge": "For traders · E dey come",
+      "title1": "One complete",
+      "title2": "business operating system",
+      "primaryCta": "Start to sell for Tally",
+      "secondaryCta": "Check the roadmap"
+    },
+    "roadmap": {
+      "eyebrow": "Product vision",
+      "title": "Where Tally dey go next"
+    },
+    "testimonials": {
+      "eyebrow": "Testimonials",
+      "title": "Real work. Real money. Real trust.",
+      "subtitle": "From every side of the platform.",
+      "lovedBy": "Workers, employers & traders love am"
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Question, we don answer am",
+      "subtitle": "Pick who you be make you see the answers wey concern you.",
+      "stillCurious": "You still wan know?",
+      "helpCenter": "Check the Help Center",
+      "or": "or",
+      "talkToUs": "talk to us"
+    },
+    "finalCta": {
+      "title": "Anybody wey you be, start to count your work today",
+      "body": "Join the workers, employers, and traders wey dey build economic identity wey you fit prove — and dey collect money faster because of am.",
+      "primary": "Start free",
+      "secondary": "Talk to us",
+      "note": "No smartphone? Dial *347*82# or message us for WhatsApp."
+    }
   }
 }
