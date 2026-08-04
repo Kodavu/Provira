@@ -1,11 +1,7 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgeCheck,
-  Banknote,
   Check,
-  Clock,
-  Landmark,
   MapPin,
   MessageSquare,
   Phone,
@@ -14,12 +10,10 @@ import {
   Wallet,
 } from "lucide-react";
 import {
-  Eyebrow,
   Glow,
   GridPattern,
   Section,
   SectionHeading,
-  LinkArrow,
 } from "@/components/marketing/ui";
 import { CountUp, Marquee, Reveal, RevealGroup, RevealItem } from "@/components/marketing/motion";
 import { HeroSwitcher } from "@/components/marketing/hero-switcher";
@@ -156,73 +150,6 @@ export default function HomePage() {
           <HowItWorks />
         </div>
       </Section>
-
-      {/* ---------------- Tally Score showcase ---------------- */}
-      <section className="border-y border-line bg-canvas/60 py-20 md:py-28">
-        <Section id="score" container>
-          <div className="grid items-center gap-14 lg:grid-cols-2">
-            <Reveal>
-              <Eyebrow><TrendingUp className="h-3.5 w-3.5" /> The Tally Score</Eyebrow>
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Your work, counted into credit</h2>
-              <p className="mt-4 text-lg leading-relaxed text-ink-soft">
-                For millions of hard-working Nigerians, a lifetime of work leaves no paper trail. Tally changes that —
-                every job, sale, and on-time repayment becomes a verifiable signal a bank can trust.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {[
-                  { icon: BadgeCheck, t: "Every completed job and logged sale adds to your score." },
-                  { icon: Clock, t: "Show up on time, repay on time — reliability is rewarded." },
-                  { icon: Landmark, t: "Lenders can verify it, so it opens real, affordable credit." },
-                ].map((row) => (
-                  <li key={row.t} className="flex items-start gap-3">
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-600">
-                      <row.icon className="h-4 w-4" strokeWidth={2} />
-                    </span>
-                    <span className="text-ink-soft">{row.t}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8">
-                <LinkArrow href="/signup">Start building your score</LinkArrow>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="relative">
-                <Glow className="inset-6 opacity-30" from="#7b79f5" to="#fbdd8f" />
-                <div className="relative rounded-3xl border border-line bg-white p-8 shadow-xl">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-ink-muted">Tally Score</p>
-                    <span className="rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold text-gold-700">Emerging</span>
-                  </div>
-                  <p className="mt-2 text-6xl font-bold tracking-tight text-ink">540</p>
-                  <div className="mt-6 space-y-3">
-                    {[
-                      { label: "Jobs & sales", val: "48", pct: 80 },
-                      { label: "On-time rate", val: "94%", pct: 94 },
-                      { label: "Loans repaid", val: "3 / 3", pct: 100 },
-                    ].map((r) => (
-                      <div key={r.label}>
-                        <div className="mb-1 flex items-center justify-between text-sm">
-                          <span className="text-ink-soft">{r.label}</span>
-                          <span className="font-semibold text-ink">{r.val}</span>
-                        </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-canvas">
-                          <div className="h-full rounded-full bg-brand-500" style={{ width: `${r.pct}%` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 flex items-center gap-3 rounded-2xl bg-gold-50 p-4">
-                    <Banknote className="h-6 w-6 shrink-0 text-gold-700" />
-                    <p className="text-sm text-ink-soft">Score 540 unlocks a <span className="font-semibold text-ink">₦50,000</span> advance.</p>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </Section>
-      </section>
 
       {/* ---------------- Trader / POS spotlight ---------------- */}
       <PosSpotlight />

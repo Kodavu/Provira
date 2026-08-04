@@ -30,8 +30,8 @@ interface MenuItem {
 const PRODUCT: MenuItem[] = [
   { label: "For workers", href: "/#workers", desc: "Find jobs, get paid same-day", icon: Users },
   { label: "For employers", href: "/#employers", desc: "Hire verified workers, pay on confirmation", icon: Briefcase },
-  { label: "For traders", href: "/#traders", desc: "Log sales, unlock stock loans", icon: Store },
-  { label: "Tally Score", href: "/#score", desc: "Turn work into verifiable credit", icon: TrendingUp },
+  { label: "For traders", href: "/#traders", desc: "Log sales, grow your business", icon: Store },
+  { label: "Roadmap", href: "/#roadmap", desc: "POS, payments & what's next", icon: TrendingUp },
 ];
 
 const COMPANY: MenuItem[] = [

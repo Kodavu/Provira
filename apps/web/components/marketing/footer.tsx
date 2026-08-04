@@ -12,7 +12,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
       { label: "For workers", href: "/#workers" },
       { label: "For employers", href: "/#employers" },
       { label: "For traders", href: "/#traders" },
-      { label: "Tally Score", href: "/#score" },
+      { label: "Roadmap", href: "/#roadmap" },
     ],
   },
   {

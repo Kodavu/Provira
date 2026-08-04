@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
@@ -9,15 +9,35 @@ import { PersonaVisual } from "./persona-visual";
 import { PERSONAS, type PersonaId } from "./personas";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const ROTATE_MS = 5000;
 
-// The centrepiece: one hero that tells three stories. Switching the audience
-// tab swaps the headline, copy, CTAs, feature list and product mockup with
-// framer-motion transitions — so every visitor immediately sees themselves.
+// The centrepiece: one hero that tells three stories. It cycles through the
+// audiences on its own, and a visitor can also pick their own tab — each swaps
+// the headline, copy, CTAs, feature list and product mockup with framer-motion.
 export function HeroSwitcher() {
   const [active, setActive] = useState<PersonaId>("worker");
+  const [locked, setLocked] = useState(false); // user picked a tab → stop auto-cycling
+  const [paused, setPaused] = useState(false); // hover / focus → hold current
   const reduce = useReducedMotion();
   const persona = PERSONAS.find((p) => p.id === active)!;
   const a = persona.accent;
+
+  // Auto-advance through the personas until the visitor interacts or hovers.
+  useEffect(() => {
+    if (reduce || locked || paused) return;
+    const t = setInterval(() => {
+      setActive((prev) => {
+        const i = PERSONAS.findIndex((p) => p.id === prev);
+        return PERSONAS[(i + 1) % PERSONAS.length].id;
+      });
+    }, ROTATE_MS);
+    return () => clearInterval(t);
+  }, [reduce, locked, paused]);
+
+  const pick = (id: PersonaId) => {
+    setActive(id);
+    setLocked(true);
+  };
 
   const swap = reduce
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.2 } }
@@ -29,7 +49,13 @@ export function HeroSwitcher() {
       };
 
   return (
-    <section className="relative overflow-hidden">
+    <section
+      className="relative overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
+    >
       <GridPattern className="text-slate-200" />
       <Glow className="-left-40 -top-40 h-[36rem] w-[36rem] opacity-40" from="#a3a3f8" to="#fbdd8f" />
 
@@ -49,7 +75,7 @@ export function HeroSwitcher() {
                   key={p.id}
                   role="tab"
                   aria-selected={isActive}
-                  onClick={() => setActive(p.id)}
+                  onClick={() => pick(p.id)}
                   className={`relative inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition ${
                     isActive ? "text-white" : "text-ink-soft hover:text-ink"
                   }`}
