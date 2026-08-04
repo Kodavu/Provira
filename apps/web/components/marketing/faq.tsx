@@ -29,6 +29,22 @@ const FAQS: { q: string; a: string }[] = [
     q: "Is Tally available across Nigeria?",
     a: "We're rolling out state by state, starting in Lagos. Workers and employers anywhere in Nigeria can sign up now and set their location down to the ward, so we match you the moment jobs go live near you.",
   },
+  {
+    q: "Can I use Tally in Yoruba, Hausa, Igbo or Pidgin?",
+    a: "Yes. Tally's interface, buttons, emails and notifications are built to work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — it's saved and follows you across devices.",
+  },
+  {
+    q: "Can I change my language at any time?",
+    a: "Any time — from the language menu in the navigation or from your settings. Your choice is remembered and used automatically the next time you visit or sign in.",
+  },
+  {
+    q: "Will emails and notifications be translated too?",
+    a: "Yes. System messages — one-time codes, job offers, attendance prompts and payout alerts — are localized to your chosen language across the app, SMS, USSD and WhatsApp.",
+  },
+  {
+    q: "Can employers post jobs and traders sell in local languages?",
+    a: "You can write posts and listings in your own language today. One-tap translation of user-generated content — job posts, product descriptions, receipts and chats — is on our roadmap, so a worker who prefers Hausa can read a post written in English, and vice versa.",
+  },
 ];
 
 export function Faq() {

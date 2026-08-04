@@ -23,6 +23,7 @@ import { Testimonials } from "@/components/marketing/testimonials";
 import { PosSpotlight } from "@/components/marketing/pos-spotlight";
 import { Roadmap } from "@/components/marketing/roadmap";
 import { Integrations } from "@/components/marketing/integrations";
+import { LanguageShowcase } from "@/components/marketing/language-showcase";
 import { PERSONAS } from "@/components/marketing/personas";
 
 export const metadata = {
@@ -142,6 +143,9 @@ export default function HomePage() {
           </RevealGroup>
         </div>
       </section>
+
+      {/* ---------------- Multilingual (built for Nigeria) ---------------- */}
+      <LanguageShowcase />
 
       {/* ---------------- How it works (tabbed by persona) ---------------- */}
       <Section id="how" className="py-20 md:py-28">

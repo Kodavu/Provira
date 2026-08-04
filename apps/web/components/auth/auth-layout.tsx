@@ -4,6 +4,7 @@ import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, TrendingUp, Wallet } from "lucide-react";
 import { Wordmark } from "@/components/ui";
+import { LanguageMenu } from "@/components/i18n/language-menu";
 
 const HIGHLIGHTS = [
   { icon: TrendingUp, title: "Build your reliability score", body: "Every shift, sale, and repayment counts toward credit you own." },
@@ -65,8 +66,13 @@ export function AuthLayout({ children }: { children: ReactNode }) {
 
       {/* Form column */}
       <main className="flex w-full flex-col lg:w-1/2">
-        <div className="flex items-center justify-between px-6 pt-6 lg:hidden">
-          <Wordmark />
+        <div className="flex items-center justify-between px-6 pt-6">
+          <div className="lg:hidden">
+            <Wordmark />
+          </div>
+          <div className="ml-auto">
+            <LanguageMenu />
+          </div>
         </div>
         <div className="flex flex-1 items-center justify-center px-6 py-10 sm:px-10">
           <div className="w-full max-w-md">{children}</div>

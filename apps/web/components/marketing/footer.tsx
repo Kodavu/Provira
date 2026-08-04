@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Wordmark } from "@/components/ui";
 import { Newsletter } from "@/components/landing/newsletter";
-import { LanguageSwitcher } from "@/components/landing/lang-switcher";
+import { LanguageMenu } from "@/components/i18n/language-menu";
 
 const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] = [
   {
@@ -125,7 +125,7 @@ export function MarketingFooter() {
             <span className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted">
               <span className="h-2 w-2 rounded-full bg-success" /> All systems operational
             </span>
-            <LanguageSwitcher />
+            <LanguageMenu />
           </div>
         </div>
       </div>

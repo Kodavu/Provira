@@ -1,5 +1,6 @@
 import { MarketingNav } from "@/components/marketing/nav";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { LanguageOnboarding } from "@/components/i18n/language-onboarding";
 
 // Shared chrome for the public marketing site: sticky nav + full footer around
 // every page. Auth (/login, /signup) and the app (/overview…) live outside this
@@ -10,6 +11,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <MarketingNav />
       <main className="flex-1">{children}</main>
       <MarketingFooter />
+      <LanguageOnboarding />
     </div>
   );
 }

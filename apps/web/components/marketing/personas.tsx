@@ -153,6 +153,7 @@ export const PERSONAS: Persona[] = [
       { q: "How fast do I get paid?", a: "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Tally wallet and can be withdrawn to your bank." },
       { q: "Do I need a smartphone?", a: "No. You can sign up, apply, and confirm shifts over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required." },
       { q: "What is my Tally Score?", a: "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit." },
+      { q: "Can I use Tally in my language?", a: "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices." },
     ],
   },
   {
@@ -189,6 +190,7 @@ export const PERSONAS: Persona[] = [
       { q: "How does escrow protect me?", a: "When you fund a job the pay is held in a dedicated escrow account — not sent yet. It's released only when the worker confirms attendance with your code, so you never pay for a no-show." },
       { q: "How do I find good workers?", a: "Tally suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm." },
       { q: "What does it cost to hire?", a: "A small, transparent fee per completed hire — shown before you confirm, with no monthly minimums." },
+      { q: "Can I post jobs in a local language?", a: "Yes. Post in the language you prefer; the hiring interface works in English, Pidgin, Yoruba, Hausa and Igbo, and one-tap translation of posts for workers is on our roadmap." },
     ],
   },
   {
@@ -225,6 +227,7 @@ export const PERSONAS: Persona[] = [
       { q: "Why should I log every sale?", a: "Each logged sale becomes part of a verifiable record — and that record is what qualifies you for stock loans. The more consistent your sales, the more capital you can access." },
       { q: "Is the POS available now?", a: "The full POS, inventory, and business toolkit are on our roadmap and clearly marked Coming Soon. You can start building your sales record today so you're ready on day one." },
       { q: "How do stock loans work?", a: "Once your sales history qualifies you, you can access a stock advance sized to your record, repaid as you sell. On-time repayment grows your score for larger limits." },
+      { q: "Will the POS support local languages?", a: "Yes — the coming POS, receipts and product listings are being built multilingual from day one, in English, Pidgin, Yoruba, Hausa and Igbo." },
     ],
   },
 ];

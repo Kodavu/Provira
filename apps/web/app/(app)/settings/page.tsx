@@ -9,6 +9,7 @@ import { usePageData } from "@/lib/use-page-data";
 import { Card } from "@/components/ui";
 import { PageHeader, PageError, PageSkeleton } from "@/components/page";
 import { FadeIn } from "@/components/motion";
+import { LANGUAGES, useLanguagePreference } from "@/components/i18n/languages";
 
 const MUTABLE = [
   { key: "ACTIVITY", label: "Activity", hint: "Case replies, job offers, attendance, score changes" },
@@ -92,6 +93,7 @@ export default function SettingsPage() {
       />
 
       <FadeIn delay={0.05} className="space-y-5">
+        <LanguagePreference />
         <JobFeedPreference />
 
         <Card className="flex items-center justify-between p-5">
@@ -210,6 +212,39 @@ function JobFeedPreference() {
                 <span className="block text-xs text-ink-muted">{o.hint}</span>
               </span>
               <span className={`grid h-5 w-5 place-items-center rounded-full border ${on ? "border-brand-600 bg-brand-600 text-white" : "border-line"}`}>
+                {on && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </Card>
+  );
+}
+
+function LanguagePreference() {
+  const { code, choose } = useLanguagePreference();
+  return (
+    <Card className="p-5">
+      <p className="font-semibold text-ink">Language</p>
+      <p className="text-sm text-ink-soft">The language Tally uses across the app, emails and notifications. Saved to this device.</p>
+      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+        {LANGUAGES.map((l) => {
+          const on = code === l.code;
+          return (
+            <button
+              key={l.code}
+              onClick={() => choose(l.code)}
+              className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${
+                on ? "border-brand-500 bg-brand-50" : "border-line bg-surface hover:bg-canvas"
+              }`}
+            >
+              <span className="text-lg" aria-hidden>{l.flag}</span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-ink">{l.native}</span>
+                <span className="block text-xs text-ink-muted">{l.label}</span>
+              </span>
+              <span className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border ${on ? "border-brand-600 bg-brand-600 text-white" : "border-line"}`}>
                 {on && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
               </span>
             </button>

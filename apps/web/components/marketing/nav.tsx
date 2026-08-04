@@ -19,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import { Wordmark } from "@/components/ui";
+import { LanguageMenu } from "@/components/i18n/language-menu";
 
 interface MenuItem {
   label: string;
@@ -89,6 +90,7 @@ export function MarketingNav() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          <LanguageMenu />
           <Link href="/login" className="rounded-lg px-3.5 py-2 text-sm font-semibold text-ink-soft transition hover:text-ink">
             Sign in
           </Link>
@@ -130,6 +132,10 @@ export function MarketingNav() {
               <MobileGroup title="Company" items={COMPANY} />
               <MobileGroup title="Resources" items={RESOURCES} />
               <Link href="/#how" className="block border-b border-line py-3 text-base font-medium text-ink">How it works</Link>
+              <div className="border-b border-line py-4">
+                <p className="mb-2 px-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">Language</p>
+                <LanguageMenu align="left" />
+              </div>
               <div className="mt-6 flex flex-col gap-3">
                 <Link href="/login" className="rounded-xl border border-line py-3 text-center font-semibold text-ink">Sign in</Link>
                 <Link href="/signup" className="rounded-xl bg-brand-600 py-3 text-center font-semibold text-white">Get started</Link>
