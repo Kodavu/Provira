@@ -94,7 +94,7 @@ export default function SettingsPage() {
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       <FadeIn delay={0.05} className="space-y-8">
-        <Section title={t("general")} description={t("generalSub")}>
+        <Section title={t("language")} description={t("languageSub")}>
           <LanguagePreference />
           <JobFeedPreference />
         </Section>
@@ -229,8 +229,6 @@ function LanguagePreference() {
   const t = useTranslations("Settings");
   return (
     <Card className="p-5">
-      <p className="font-semibold text-ink">{t("language")}</p>
-      <p className="text-sm text-ink-soft">{t("languageSub")}</p>
       <div className="mt-4 grid gap-2 sm:grid-cols-2">
         {LANGUAGES.map((l) => {
           const on = code === l.code;
