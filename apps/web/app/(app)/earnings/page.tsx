@@ -107,7 +107,7 @@ export default function EarningsPage() {
                       className="w-full bg-transparent px-2 py-2.5 text-sm outline-none"
                     />
                   </div>
-                  <Button onClick={withdraw} disabled={busy}>{busy ? t("sending") : t("confirmWithdrawal")}</Button>
+                  <Button onClick={withdraw} loading={busy}>{t("confirmWithdrawal")}</Button>
                 </div>
               )}
             </div>
