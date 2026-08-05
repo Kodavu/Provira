@@ -396,11 +396,17 @@ function PrimaryButton({
       type="button"
       onClick={onClick}
       disabled={loading || disabled}
+      aria-busy={loading || undefined}
       whileTap={{ scale: 0.985 }}
-      className="flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition
+      className="relative flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition
         hover:bg-brand-700 focus-visible:ring-4 focus-visible:ring-brand-200 disabled:cursor-not-allowed disabled:opacity-50"
     >
-      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : children}
+      <span className={`flex items-center gap-2 transition-opacity ${loading ? "opacity-0" : "opacity-100"}`}>{children}</span>
+      {loading && (
+        <span className="absolute inset-0 grid place-items-center">
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </span>
+      )}
     </motion.button>
   );
 }
