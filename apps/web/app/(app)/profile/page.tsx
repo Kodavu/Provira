@@ -9,6 +9,7 @@ import { api, type EmployerProfileEdit, type Skill, type WorkerProfileEdit } fro
 import { useSession } from "@/lib/session-context";
 import { LocationPicker, type LocationValue } from "@/components/location-picker";
 import { ImageUploader } from "@/components/image-uploader";
+import { PortfolioManager } from "@/components/portfolio-manager";
 import { Button, Card } from "@/components/ui";
 import { PageHeader, PageError, PageSkeleton } from "@/components/page";
 import { FadeIn } from "@/components/motion";
@@ -174,6 +175,8 @@ function WorkerEditor() {
           <p className="text-sm text-ink-soft">{t("whereHint")}</p>
           <div className="mt-3"><LocationPicker value={loc} onChange={setLoc} /></div>
         </Card>
+
+        <PortfolioManager userId={userId} />
 
         <div className="flex justify-end">
           <Button onClick={save} loading={saving}>{t("save")}</Button>

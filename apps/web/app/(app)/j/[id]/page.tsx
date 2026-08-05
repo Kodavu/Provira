@@ -10,6 +10,7 @@ import { useSession } from "@/lib/session-context";
 import { Button, Card, Pill } from "@/components/ui";
 import { PageError, PageSkeleton } from "@/components/page";
 import { CountUp, FadeIn } from "@/components/motion";
+import { Stars } from "@/components/reviews";
 
 function shiftRange(startAt: string | null, endAt: string | null): string | null {
   if (!startAt) return null;
@@ -113,6 +114,27 @@ export default function WorkerJobDetailPage() {
         <div className="flex items-center gap-2 rounded-xl bg-brand-50 px-4 py-3 text-sm font-medium text-brand-700 ring-1 ring-brand-100">
           <Check className="h-4 w-4" /> {STATUS_LABEL[job.myStatus] ?? job.myStatus}
         </div>
+      )}
+
+      {job.employerReview && (
+        <Card className="p-5">
+          <div className="flex items-center justify-between">
+            <p className="font-semibold text-ink">How the employer rated you</p>
+            <Stars rating={job.employerReview.rating} size={18} />
+          </div>
+          {job.employerReview.comment && (
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft">“{job.employerReview.comment}”</p>
+          )}
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            {([["Communication", job.employerReview.communication], ["Professionalism", job.employerReview.professionalism], ["Quality", job.employerReview.quality]] as [string, number | null][])
+              .filter(([, v]) => v != null)
+              .map(([label, v]) => (
+                <span key={label} className="inline-flex items-center gap-1 text-xs text-ink-muted">
+                  {label} <Stars rating={v as number} size={11} />
+                </span>
+              ))}
+          </div>
+        </Card>
       )}
 
       {code && (

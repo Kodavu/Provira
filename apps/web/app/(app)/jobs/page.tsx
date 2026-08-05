@@ -97,7 +97,7 @@ function WorkerJobs() {
             {applications.map((a) => (
               <div key={a.id} className="flex items-center justify-between px-5 py-3.5">
                 <div>
-                  <p className="font-medium text-ink">{a.job.title}</p>
+                  <Link href={`/j/${a.job.id}`} className="font-medium text-ink hover:text-brand-700 hover:underline">{a.job.title}</Link>
                   <p className="text-sm text-ink-muted">{formatNaira(a.job.payAmount)}{a.job.location ? ` · ${a.job.location}` : ""}</p>
                 </div>
                 <Pill tone="amber"><Clock className="h-3.5 w-3.5" /> {t("applied")}</Pill>
@@ -158,7 +158,7 @@ function InvitationCard({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="eyebrow text-brand-700">{t("invitationEyebrow")}{a.job.employerName ? ` · ${a.job.employerName}` : ""}</p>
-          <p className="mt-1 font-semibold text-ink">{a.job.title}</p>
+          <Link href={`/j/${a.job.id}`} className="mt-1 block font-semibold text-ink hover:text-brand-700 hover:underline">{a.job.title}</Link>
           <p className="mt-0.5 text-sm text-ink-muted">
             {formatNaira(a.job.payAmount)}
             {a.job.location ? ` · ${a.job.location}` : ""}
@@ -166,8 +166,8 @@ function InvitationCard({
           </p>
         </div>
         <div className="flex gap-2">
-          <Button size="sm" onClick={accept} disabled={!!busy}>{busy === "accept" ? t("accepting") : t("accept")}</Button>
-          <Button size="sm" variant="outline" onClick={decline} disabled={!!busy}>{busy === "decline" ? "…" : t("decline")}</Button>
+          <Button size="sm" onClick={accept} loading={busy === "accept"} disabled={!!busy}>{t("accept")}</Button>
+          <Button size="sm" variant="outline" onClick={decline} loading={busy === "decline"} disabled={!!busy}>{t("decline")}</Button>
         </div>
       </div>
     </Card>
@@ -187,7 +187,7 @@ function ShiftCard({
     <Card className="p-5">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="font-semibold text-ink">{a.job.title}</p>
+          <Link href={`/j/${a.job.id}`} className="font-semibold text-ink hover:text-brand-700 hover:underline">{a.job.title}</Link>
           <p className="mt-0.5 text-sm text-ink-muted">
             {formatNaira(a.job.payAmount)}
             {a.job.location ? ` · ${a.job.location}` : ""}
@@ -201,6 +201,11 @@ function ShiftCard({
           </div>
         )}
       </div>
+      {confirmed && (
+        <Link href={`/j/${a.job.id}`} className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-800">
+          View job & how you were rated →
+        </Link>
+      )}
 
       {!confirmed && (
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-4">
