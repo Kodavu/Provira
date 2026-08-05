@@ -20,6 +20,7 @@ import { usePageData } from "@/lib/use-page-data";
 import { Button, Card, Input, Pill, SectionHeader, formatNaira } from "@/components/ui";
 import { PageHeader, PageError, PageSkeleton, EmptyPanel } from "@/components/page";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion";
+import { ReviewButton } from "@/components/review-dialog";
 import { JobsBoard } from "@/components/employer";
 
 export default function JobsPage() {
@@ -193,7 +194,12 @@ function ShiftCard({
             {shiftLabel(a.job.startAt, a.job.endAt) ? ` · ${shiftLabel(a.job.startAt, a.job.endAt)}` : ""}
           </p>
         </div>
-        {confirmed && <Pill tone="green"><Check className="h-3.5 w-3.5" /> {t("confirmedPaid")}</Pill>}
+        {confirmed && (
+          <div className="flex items-center gap-2">
+            <Pill tone="green"><Check className="h-3.5 w-3.5" /> {t("confirmedPaid")}</Pill>
+            <ReviewButton assignmentId={a.id} subjectName={a.job.employerName ?? undefined} onSubmitted={onConfirmed} label="Review" />
+          </div>
+        )}
       </div>
 
       {!confirmed && (

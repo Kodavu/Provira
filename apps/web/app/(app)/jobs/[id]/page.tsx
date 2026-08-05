@@ -28,6 +28,7 @@ import { useSession } from "@/lib/session-context";
 import { Button, Card, Kpi, Pill, TierBadge, formatNaira } from "@/components/ui";
 import { PageError, PageSkeleton, EmptyPanel } from "@/components/page";
 import { CountUp, FadeIn, Stagger, StaggerItem } from "@/components/motion";
+import { ReviewButton } from "@/components/review-dialog";
 
 function shiftRange(startAt: string | null, endAt: string | null): string | null {
   if (!startAt) return null;
@@ -178,7 +179,10 @@ export default function JobDetailPage() {
                 <WorkerButton row={a} onView={() => setProfileFor(a)} subtitle={a.attendance?.status === "CONFIRMED" ? t("attendanceConfirmed") : t("confirmedForShift")} />
                 <div className="flex items-center gap-3">
                   {a.attendance?.status === "CONFIRMED" ? (
-                    <Pill tone="green"><Check className="h-3.5 w-3.5" /> {t("confirmedPaid")}</Pill>
+                    <>
+                      <Pill tone="green"><Check className="h-3.5 w-3.5" /> {t("confirmedPaid")}</Pill>
+                      <ReviewButton assignmentId={a.assignmentId} subjectName={a.workerName ?? undefined} onSubmitted={load} label="Review" />
+                    </>
                   ) : a.attendance?.code ? (
                     <div className="text-right">
                       <p className="eyebrow">{t("attendanceCode")}</p>
