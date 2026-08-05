@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { api, WorkerDashboard } from "@/lib/api";
@@ -330,7 +331,7 @@ export function JobsNearby({
         <Card key={j.id} className="p-4">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="font-semibold text-ink">{j.title}</p>
+              <Link href={`/j/${j.id}`} className="font-semibold text-ink hover:text-brand-700 hover:underline">{j.title}</Link>
               <p className="mt-0.5 text-sm text-ink-muted">
                 {j.location?.label ?? t("nearby")}
                 {j.skills.length > 0 && ` · ${j.skills.map((s) => s.skill.name).join(", ")}`}

@@ -349,7 +349,7 @@ function JobSearch({
             <Card key={j.id} className="flex flex-col p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-semibold text-ink">{j.title}</p>
+                  <Link href={`/j/${j.id}`} className="font-semibold text-ink hover:text-brand-700 hover:underline">{j.title}</Link>
                   <p className="mt-0.5 flex flex-wrap items-center gap-1 text-sm text-ink-muted">
                     <MapPin className="h-3.5 w-3.5" />
                     {[j.area, j.state].filter(Boolean).join(", ") || j.location || t("locationTbc")}
