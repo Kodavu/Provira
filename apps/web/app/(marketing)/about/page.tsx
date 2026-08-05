@@ -1,4 +1,5 @@
 import { Sparkles, Target, HeartHandshake, Compass, Users, Building2, MapPin } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/marketing/ui";
 import { Reveal, RevealGroup, RevealItem, CountUp } from "@/components/marketing/motion";
 import { PageHero, CtaBand } from "@/components/marketing/page-shell";
@@ -9,26 +10,33 @@ export const metadata = {
     "Tally exists to give Nigeria's informal workers, employers, and traders a verifiable economic identity — turning everyday work into pay, trust, and credit.",
 };
 
-const VALUES = [
-  { icon: Target, title: "Dignity first", body: "The informal economy powers Nigeria. We build for its people as customers, never an afterthought." },
-  { icon: HeartHandshake, title: "Trust by design", body: "Escrow, verified identities, and honest records mean both sides of a job can rely on us — and each other." },
-  { icon: Compass, title: "Access over gatekeeping", body: "USSD, WhatsApp, and low-data flows so a smartphone is never the price of admission to earning." },
-  { icon: Sparkles, title: "Earn it, own it", body: "Your record belongs to you. It follows you across jobs, sales, and lenders — a real, portable identity." },
+const VALUE_META = [
+  { id: "dignity", icon: Target },
+  { id: "trust", icon: HeartHandshake },
+  { id: "access", icon: Compass },
+  { id: "own", icon: Sparkles },
 ];
 
-const STATS = [
-  { to: 65, suffix: "%", label: "of Nigeria's workforce is informal" },
-  { to: 774, suffix: "", label: "LGAs we're building to reach" },
-  { display: "∞", label: "invisible work — until now" },
+const CARD_META = [
+  { id: "workers", icon: Users },
+  { id: "employers", icon: Building2 },
+  { id: "ward", icon: MapPin },
+  { id: "traders", icon: HeartHandshake },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const t = await getTranslations("About");
+  const STATS = [
+    { to: 65, suffix: "%", label: t("stat1label") },
+    { to: 774, suffix: "", label: t("stat2label") },
+    { display: "∞", label: t("stat3label") },
+  ];
   return (
     <>
       <PageHero
-        eyebrow={<><Sparkles className="h-3.5 w-3.5" /> Our mission</>}
-        title="Turning everyday work into economic identity"
-        lede="Millions of Nigerians work hard every single day, yet a lifetime of effort leaves no paper trail a bank can trust. Tally changes that — one job, one sale, one confirmed shift at a time."
+        eyebrow={<><Sparkles className="h-3.5 w-3.5" /> {t("heroEyebrow")}</>}
+        title={t("heroTitle")}
+        lede={t("heroLede")}
       />
 
       {/* Story */}
@@ -37,39 +45,33 @@ export default function AboutPage() {
           <Reveal>
             <SectionHeading
               align="left"
-              eyebrow="Why we exist"
-              title="The economy runs on work that stays invisible"
+              eyebrow={t("whyEyebrow")}
+              title={t("whyTitle")}
             />
             <div className="mt-6 space-y-4 text-ink-soft">
+              <p>{t("storyP1")}</p>
               <p>
-                The market trader who restocks at dawn, the crew that loads a warehouse overnight, the cleaner who
-                never misses a shift — they keep the country moving. But when they need capital, a fair wage on time,
-                or simply proof of what they&apos;ve done, the system has nothing to show.
-              </p>
-              <p>
-                Tally gives that work a memory. Every completed job, logged sale, and on-time repayment becomes part of
-                a verifiable record — the <strong className="font-semibold text-ink">Tally Score</strong> — that
-                employers, banks, and lenders can actually check. Work becomes reputation. Reputation becomes credit.
+                {t.rich("storyP2", {
+                  s: (chunks) => <strong className="font-semibold text-ink">{chunks}</strong>,
+                })}
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
             <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                { icon: Users, k: "For workers", v: "Same-day pay and a record that opens real credit." },
-                { icon: Building2, k: "For employers", v: "Hire verified people; pay only on confirmed work." },
-                { icon: MapPin, k: "Ward-level reach", v: "Matching that works down to your neighbourhood." },
-                { icon: HeartHandshake, k: "For traders", v: "Log sales, build history, unlock stock advances." },
-              ].map((c) => (
-                <div key={c.k} className="rounded-2xl border border-line bg-white p-5 shadow-card">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
-                    <c.icon className="h-5 w-5" strokeWidth={1.8} />
-                  </span>
-                  <p className="mt-4 text-sm font-semibold text-ink">{c.k}</p>
-                  <p className="mt-1 text-sm text-ink-soft">{c.v}</p>
-                </div>
-              ))}
+              {CARD_META.map((c) => {
+                const Icon = c.icon;
+                return (
+                  <div key={c.id} className="rounded-2xl border border-line bg-white p-5 shadow-card">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                      <Icon className="h-5 w-5" strokeWidth={1.8} />
+                    </span>
+                    <p className="mt-4 text-sm font-semibold text-ink">{t(`cards.${c.id}.k`)}</p>
+                    <p className="mt-1 text-sm text-ink-soft">{t(`cards.${c.id}.v`)}</p>
+                  </div>
+                );
+              })}
             </div>
           </Reveal>
         </div>
@@ -93,28 +95,31 @@ export default function AboutPage() {
 
       {/* Values */}
       <Section className="py-16 md:py-24">
-        <SectionHeading eyebrow="What we believe" title="The principles behind every decision" />
+        <SectionHeading eyebrow={t("believeEyebrow")} title={t("believeTitle")} />
         <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2">
-          {VALUES.map((v) => (
-            <RevealItem key={v.title}>
-              <div className="flex h-full gap-4 rounded-2xl border border-line bg-white p-6 shadow-card">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-white shadow-lg shadow-brand-600/20">
-                  <v.icon className="h-5 w-5" strokeWidth={1.8} />
-                </span>
-                <div>
-                  <h3 className="text-lg font-semibold text-ink">{v.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{v.body}</p>
+          {VALUE_META.map((v) => {
+            const Icon = v.icon;
+            return (
+              <RevealItem key={v.id}>
+                <div className="flex h-full gap-4 rounded-2xl border border-line bg-white p-6 shadow-card">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-white shadow-lg shadow-brand-600/20">
+                    <Icon className="h-5 w-5" strokeWidth={1.8} />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-ink">{t(`values.${v.id}.title`)}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{t(`values.${v.id}.body`)}</p>
+                  </div>
                 </div>
-              </div>
-            </RevealItem>
-          ))}
+              </RevealItem>
+            );
+          })}
         </RevealGroup>
       </Section>
 
       <CtaBand
-        title="Help us make work count"
-        body="Whether you're here to earn, to hire, or to build with us — there's a place for you at Tally."
-        secondary={{ label: "See open roles", href: "/careers" }}
+        title={t("ctaTitle")}
+        body={t("ctaBody")}
+        secondary={{ label: t("ctaSecondary"), href: "/careers" }}
       />
     </>
   );

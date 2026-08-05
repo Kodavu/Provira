@@ -1240,5 +1240,110 @@
       "terms": "Usoro ọrụ",
       "cookies": "Iwu kuki"
     }
+  },
+  "Marketing": {
+    "ctaTitle": "Ị dịla njikere ịgụ ọrụ gị?",
+    "ctaBody": "Sonye na ndị ọrụ, ndị were ọrụ, na ndị ahịa na-ewu njirimara akụ na ụba enwere ike ịkwado."
+  },
+  "About": {
+    "heroEyebrow": "Ebumnuche anyị",
+    "heroTitle": "Ịtụgharị ọrụ kwa ụbọchị ka ọ bụrụ njirimara akụ na ụba",
+    "heroLede": "Ọtụtụ nde ndị Naịjirịa na-arụsi ọrụ ike kwa ụbọchị, ma mgbalị nke ndụ dum anaghị ahapụ akwụkwọ ọ bụla ụlọ akụ nwere ike ịtụkwasị obi. Tally na-agbanwe nke ahụ — otu ọrụ, otu ahịa, otu shift akwadoro n'otu oge.",
+    "whyEyebrow": "Ihe mere anyị ji dị",
+    "whyTitle": "Akụ na ụba na-agba ọsọ n'ọrụ na-anọgide na-anaghị ahụ anya",
+    "storyP1": "Onye ahịa ahịa na-emeju ngwongwo n'isi ụtụtụ, ndị ọrụ na-ebu ibu n'ụlọ nkwakọba ihe n'abalị, onye na-ehicha ihe na-adịghị atụfu shift — ha na-eme ka obodo na-aga n'ihu. Mana mgbe ha chọrọ isi obi, ụgwọ ọrụ ziri ezi n'oge, ma ọ bụ naanị ihe àmà nke ihe ha mere, usoro ahụ enweghị ihe ọ ga-egosi.",
+    "storyP2": "Tally na-enye ọrụ ahụ ncheta. Ọrụ ọ bụla emechara, ahịa e depụtara, na ịkwụghachi n'oge na-aghọ akụkụ nke ndekọ enwere ike ịkwado — <s>Tally Score</s> — nke ndị were ọrụ, ụlọ akụ, na ndị na-agbazinye ego nwere ike ịlele n'ezie. Ọrụ na-aghọ aha ọma. Aha ọma na-aghọ kredit.",
+    "cards": {
+      "workers": {
+        "k": "Maka ndị ọrụ",
+        "v": "Ịkwụ ụgwọ n'otu ụbọchị na ndekọ na-emeghe kredit n'ezie."
+      },
+      "employers": {
+        "k": "Maka ndị were ọrụ",
+        "v": "Were ndị akwadoro; kwụọ ụgwọ naanị maka ọrụ akwadoro."
+      },
+      "ward": {
+        "k": "Iru ọkwa ebe obibi",
+        "v": "Nmekọrịta na-arụ ọrụ ruo n'agbataobi gị."
+      },
+      "traders": {
+        "k": "Maka ndị ahịa",
+        "v": "Depụta ahịa, wuo akụkọ, mepee inye ngwongwo."
+      }
+    },
+    "stat1label": "nke ndị ọrụ Naịjirịa bụ ndị na-akwadoghị",
+    "stat2label": "Ọchịchị ime obodo anyị na-ewu iji ruo",
+    "stat3label": "ọrụ a na-adịghị ahụ anya — ruo ugbu a",
+    "believeEyebrow": "Ihe anyị kwenyere",
+    "believeTitle": "Ụkpụrụ dị n'azụ mkpebi ọ bụla",
+    "values": {
+      "dignity": {
+        "title": "Ugwu na mbụ",
+        "body": "Akụ na ụba na-akwadoghị na-akwado Naịjirịa. Anyị na-ewuru ndị ya dị ka ndị ahịa, ọ bụghị ihe e chetara emesịa."
+      },
+      "trust": {
+        "title": "Ntụkwasị obi site na nhazi",
+        "body": "Escrow, njirimara akwadoro, na ndekọ ndị eziokwu pụtara na akụkụ abụọ nke ọrụ nwere ike ịdabere na anyị — nakwa n'onwe ha."
+      },
+      "access": {
+        "title": "Nnweta karịa mgbochi",
+        "body": "USSD, WhatsApp, na ụzọ data dị ntakịrị ka ekwentị mkpanaka ghara ịbụ ọnụ ahịa nnweta inweta ego."
+      },
+      "own": {
+        "title": "Nweta ya, nwee ya",
+        "body": "Ndekọ gị bụ nke gị. Ọ na-eso gị n'ọrụ, ahịa, na ndị na-agbazinye ego — njirimara n'ezie, nke enwere ike ibugharị."
+      }
+    },
+    "ctaTitle": "Nyere anyị aka ime ka ọrụ gụọ",
+    "ctaBody": "Ma ị nọ ebe a iji nweta ego, iji were ọrụ, ma ọ bụ iji wuo anyị — enwere ọnọdụ maka gị na Tally.",
+    "ctaSecondary": "Lee ọkwá ndị mepere emepe"
+  },
+  "Faq": {
+    "heroEyebrow": "Ajụjụ ndị a na-ajụkarị",
+    "heroTitle": "Ihe niile ị kwesịrị ịmara",
+    "heroLede": "Ị ka nwere mmasị mgbe ị gụchara? Ụlọ ọrụ enyemaka na-aga omimi karị, ma ọ bụ ị nwere ike irute mmadụ oge ọ bụla.",
+    "cantFind": "Ị chọtaghị azịza gị? <help>Chọgharịa Ụlọ ọrụ enyemaka</help> ma ọ bụ <contact>kpọtụrụ anyị</contact>.",
+    "items": {
+      "speed": {
+        "q": "Kedu ka ndị ọrụ si enweta ụgwọ ngwa ngwa n'ezie?",
+        "a": "Otu ụbọchị. Ozugbo akwadoro ọbịbịa site na koodu onye were ọrụ nwere ọnụọgụ anọ, a na-ahapụ ụgwọ escrow n'obere akpa ego Tally nke onye ọrụ ma nwee ike ịwepụ ya na ụlọ akụ ya — enweghị ichere ụbọchị maka akwụkwọ ọnụ ahịa."
+      },
+      "smartphone": {
+        "q": "Achọrọ m ekwentị mkpanaka iji jiri Tally?",
+        "a": "Mba. E wuru Tally na ekwentị-mbụ: ị nwere ike ịdebanye aha, kwado shifts, ma lelee nguzo gị site na USSD (*347*82#) ma ọ bụ WhatsApp. Ekwentị mkpanaka na-emeghe ngwa zuru ezu, mana ọ bụghị mkpa mgbe niile."
+      },
+      "score": {
+        "q": "Kedu ka Tally Score si arụ ọrụ?",
+        "a": "Ọrụ ọ bụla emechara, ịbịa n'oge, ahịa e depụtara, na mbinye ego akwụghachiri na-agbakwụnye n'akara gị. Enweghị ọbịbịa na esemokwu na-ewepụ. Ọ bụ ndekọ eziokwu enwere ike ịkwado nke ụlọ akụ na ndị na-agbazinye ego nwere ike ịlele — nke bụ ihe na-atụgharị ọrụ gị ka ọ bụrụ kredit n'ezie."
+      },
+      "protection": {
+        "q": "Kedu ka esi echebe ego m?",
+        "a": "A na-ejide ego ndị were ọrụ na escrow site na ụlọ akụ mmekọ nwere ikike CBN ma na-ahapụ ya naanị na ọbịbịa akwadoro. Ịkwụ ụgwọ na-agafe site na onye na-enye ụgwọ nwere ikike, na njirimara ndị dị mkpa dị ka NIN gị ka a na-echekwa n'ezoro ezo, ọ bụghị n'ihe doro anya."
+      },
+      "cost": {
+        "q": "Gịnị ka ọ na-efu?",
+        "a": "Ịdebanye aha, inweta ụgwọ, na iwu akara gị bụ n'efu maka ndị ọrụ na ndị ahịa. Ndị were ọrụ na-akwụ obere ụgwọ doro anya kwa mmezu ọ bụla e goro — na-enweghị obere ọnwa ọ bụla."
+      },
+      "availability": {
+        "q": "Tally ọ dị na Naịjirịa dum?",
+        "a": "Anyị na-ewepụta steeti na steeti, na-amalite na Legos. Ndị ọrụ na ndị were ọrụ ebe ọ bụla na Naịjirịa nwere ike ịdebanye aha ugbu a ma tọọ ọnọdụ ha ruo n'ebe obibi, ka anyị kwekọọ gị ozugbo ọrụ malitere dị nso gị."
+      },
+      "languages": {
+        "q": "Enwere m ike iji Tally na Yoruba, Hausa, Igbo ma ọ bụ Pidgin?",
+        "a": "Ee. E wuru ihu Tally, bọtịnụ, ozi-e na mkpọsa ka ha rụọ ọrụ na Bekee, Pidgin Naịjirịa, Yoruba, Hausa na Igbo. Họrọ asụsụ gị site na menu — echekwara ya ma na-eso gị n'ọtụtụ ngwaọrụ."
+      },
+      "changeLang": {
+        "q": "Enwere m ike ịgbanwe asụsụ m oge ọ bụla?",
+        "a": "Oge ọ bụla — site na menu asụsụ na nchọgharị ma ọ bụ site na ntọala gị. A na-echeta nhọrọ gị ma jiri ya na-akpaghị aka oge ọzọ ị gara ma ọ bụ banye."
+      },
+      "notifications": {
+        "q": "A ga-atụgharịkwa ozi-e na mkpọsa?",
+        "a": "Ee. Ozi sistemụ — koodu otu oge, onyinye ọrụ, ọkpụkpọ ọbịbịa na mkpọsa ịkwụ ụgwọ — ka a na-atụgharị gaa n'asụsụ ị họọrọ n'ofe ngwa, SMS, USSD na WhatsApp."
+      },
+      "ugc": {
+        "q": "Ndị were ọrụ nwere ike ịtinye ọrụ ndị ahịa ree n'asụsụ obodo?",
+        "a": "Ị nwere ike ide post na ndepụta n'asụsụ nke gị taa. Ntụgharị otu mkpịsị aka nke ọdịnaya ndị ọrụ mepụtara — post ọrụ, nkọwa ngwaahịa, akwụkwọ nnata na mkparịta ụka — dị na atụmatụ ihu ọzọ anyị, ka onye ọrụ nke masịrị Hausa nwee ike ịgụ post e dere na Bekee, na ọzọ."
+      }
+    }
   }
 }

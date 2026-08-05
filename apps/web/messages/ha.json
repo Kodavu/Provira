@@ -1240,5 +1240,110 @@
       "terms": "Sharuɗɗan sabis",
       "cookies": "Manufar kuki"
     }
+  },
+  "Marketing": {
+    "ctaTitle": "Ka shirya don ƙidaya aikinka?",
+    "ctaBody": "Haɗa kai da ma'aikata, masu ɗaukar aiki, da 'yan kasuwa masu gina shaidar tattalin arziki da za a iya tabbatarwa."
+  },
+  "About": {
+    "heroEyebrow": "Manufarmu",
+    "heroTitle": "Mai da aiki na yau da kullun zuwa shaidar tattalin arziki",
+    "heroLede": "Miliyoyin 'yan Najeriya suna aiki tuƙuru kowace rana, duk da haka ƙoƙarin rayuwa gaba ɗaya baya barin wata alama da banki zai iya amincewa. Tally yana canza wannan — aiki ɗaya, saya ɗaya, shift ɗaya da aka tabbatar a lokaci guda.",
+    "whyEyebrow": "Dalilin wanzuwarmu",
+    "whyTitle": "Tattalin arziki yana gudana akan aikin da ke ci gaba da kasancewa a ɓoye",
+    "storyP1": "Ɗan kasuwar da ke sake cika kaya da sassafe, ma'aikatan da ke ɗora kaya a ma'ajiya da dare, mai tsaftar da ba ya rasa shift — su ne ke sa ƙasa ta ci gaba da tafiya. Amma sa'ad da suke buƙatar jari, albashi mai adalci a kan lokaci, ko kuma kawai tabbacin abin da suka yi, tsarin ba shi da kome da zai nuna.",
+    "storyP2": "Tally yana ba wannan aikin ƙwaƙwalwa. Kowane aikin da aka gama, sayar da aka rubuta, da biyan bashi a kan lokaci yana zama wani ɓangare na tarihin da za a iya tabbatarwa — <s>Tally Score</s> — wanda masu ɗaukar aiki, bankuna, da masu ba da bashi za su iya duba a zahiri. Aiki yana zama suna. Suna yana zama bashi.",
+    "cards": {
+      "workers": {
+        "k": "Ga ma'aikata",
+        "v": "Biya rana ɗaya da tarihin da ke buɗe ainihin bashi."
+      },
+      "employers": {
+        "k": "Ga masu ɗaukar aiki",
+        "v": "Ɗauki mutane da aka tabbatar; biya kawai don aikin da aka tabbatar."
+      },
+      "ward": {
+        "k": "Isa matakin unguwa",
+        "v": "Daidaitawar da ke aiki har zuwa unguwarka."
+      },
+      "traders": {
+        "k": "Ga 'yan kasuwa",
+        "v": "Rubuta tallace-tallace, gina tarihi, buɗe ci gaban kaya."
+      }
+    },
+    "stat1label": "na ma'aikatan Najeriya na yau da kullun ne",
+    "stat2label": "Ƙananan Hukumomin da muke ginawa don kaiwa",
+    "stat3label": "aikin da ba a gani — har yanzu",
+    "believeEyebrow": "Abin da muka yi imani",
+    "believeTitle": "Ƙa'idodin da ke bayan kowace shawara",
+    "values": {
+      "dignity": {
+        "title": "Mutunci da farko",
+        "body": "Tattalin arzikin da ba na yau da kullun yana ƙarfafa Najeriya. Muna gina wa mutanenta a matsayin abokan ciniki, ba wani abu na baya ba."
+      },
+      "trust": {
+        "title": "Amana ta zane",
+        "body": "Escrow, shaidun da aka tabbatar, da tarihi na gaskiya suna nufin bangarorin biyu na aiki za su iya dogara da mu — da juna."
+      },
+      "access": {
+        "title": "Damar shiga fiye da hana shiga",
+        "body": "USSD, WhatsApp, da hanyoyin ƙarancin bayanai domin wayar hannu ba ta zama farashin shiga samun kuɗi ba."
+      },
+      "own": {
+        "title": "Sami shi, mallake shi",
+        "body": "Tarihinka naka ne. Yana bin ka a ayyuka, tallace-tallace, da masu ba da bashi — ainihin shaida mai ɗaukuwa."
+      }
+    },
+    "ctaTitle": "Taimaka mana mu sa aiki ya ƙidaya",
+    "ctaBody": "Ko kana nan don samun kuɗi, don ɗaukar aiki, ko don ginawa da mu — akwai wuri gare ka a Tally.",
+    "ctaSecondary": "Duba buɗaɗɗun mukamai"
+  },
+  "Faq": {
+    "heroEyebrow": "Tambayoyin da ake yawan yi",
+    "heroTitle": "Duk abin da kake buƙatar sani",
+    "heroLede": "Har yanzu kana da sha'awa bayan karantawa? Cibiyar Taimako tana zurfafawa, ko kuma za ka iya kaiwa ga mutum kowane lokaci.",
+    "cantFind": "Ba za ka iya samun amsarka ba? <help>Bincika Cibiyar Taimako</help> ko <contact>tuntuɓe mu</contact>.",
+    "items": {
+      "speed": {
+        "q": "Yaya sauri ma'aikata ke samun biya a zahiri?",
+        "a": "Rana ɗaya. Da zarar an tabbatar da halarta da lambar ma'aikaci mai lamba huɗu, ana sakin kuɗin escrow zuwa walat ɗin Tally na ma'aikaci kuma za a iya cirewa zuwa bankinsa — babu jiran kwanaki don takardar biya."
+      },
+      "smartphone": {
+        "q": "Ina buƙatar wayar hannu don amfani da Tally?",
+        "a": "A'a. An gina Tally da waya-farko: za ka iya yin rajista, tabbatar da shifts, da duba ma'aunin ka ta USSD (*347*82#) ko WhatsApp. Wayar hannu tana buɗe cikakkiyar manhaja, amma ba lallai ba ne."
+      },
+      "score": {
+        "q": "Yaya Tally Score ke aiki?",
+        "a": "Kowane aikin da aka gama, isowa kan lokaci, sayar da aka rubuta, da bashin da aka biya yana ƙara wa makinka. Rashin zuwa da rigingimu suna ragewa. Tarihi ne na gaskiya da za a iya tabbatarwa da bankuna da masu ba da bashi za su iya duba — wanda shi ne ke mai da aikinka zuwa ainihin bashi."
+      },
+      "protection": {
+        "q": "Yaya ake kare kuɗina?",
+        "a": "Ana riƙe kuɗin masu ɗaukar aiki a escrow tare da banki abokin tarayya mai lasisin CBN kuma ana sakin su ne kawai a kan halartar da aka tabbatar. Biyan kuɗi yana gudana ta hanyar mai ba da biya mai lasisi, kuma masu shaida masu mahimmanci kamar NIN ɗinka ana adana su a ɓoye, ba a fili ba."
+      },
+      "cost": {
+        "q": "Nawa ne kuɗinsa?",
+        "a": "Yin rajista, samun biya, da gina makinka kyauta ne ga ma'aikata da 'yan kasuwa. Masu ɗaukar aiki suna biyan ƙaramin kuɗi mai gaskiya ga kowane ɗaukar aikin da aka gama — ba tare da mafi ƙarancin wata-wata ba."
+      },
+      "availability": {
+        "q": "Tally yana samuwa a duk faɗin Najeriya?",
+        "a": "Muna fitarwa jiha-jiha, farawa a Legas. Ma'aikata da masu ɗaukar aiki a ko'ina a Najeriya za su iya yin rajista yanzu su saita wurinsu har zuwa unguwa, don mu daidaita ka daidai lokacin da ayyuka suka fara kusa da kai."
+      },
+      "languages": {
+        "q": "Zan iya amfani da Tally a Yoruba, Hausa, Igbo ko Pidgin?",
+        "a": "I. An gina fuskar Tally, maɓalli, imel da sanarwa don yin aiki a Turanci, Pidgin na Najeriya, Yoruba, Hausa da Igbo. Zaɓi harshenka daga menu — an adana shi kuma yana bin ka a na'urori daban-daban."
+      },
+      "changeLang": {
+        "q": "Zan iya canza harshena a kowane lokaci?",
+        "a": "Kowane lokaci — daga menu na harshe a cikin kewayawa ko daga saitunanka. An tuna zaɓinka kuma ana amfani da shi kai tsaye lokaci na gaba da ka ziyarta ko ka shiga."
+      },
+      "notifications": {
+        "q": "Za a fassara imel da sanarwa ma?",
+        "a": "I. Saƙonnin tsarin — lambobi na lokaci ɗaya, tayin ayyuka, gargaɗin halarta da gargaɗin biya — ana fassara su zuwa harshen da ka zaɓa a manhaja, SMS, USSD da WhatsApp."
+      },
+      "ugc": {
+        "q": "Masu ɗaukar aiki za su iya sanya ayyuka kuma 'yan kasuwa su sayar da harsunan gida?",
+        "a": "Za ka iya rubuta saƙonni da jerin abubuwa a harshenka a yau. Fassarar taɓawa ɗaya na abubuwan da masu amfani suka ƙirƙira — saƙonnin ayyuka, bayanan samfur, rasit da hirarraki — yana kan tsarinmu na gaba, don ma'aikacin da ya fi son Hausa ya iya karanta saƙon da aka rubuta a Turanci, da akasin haka."
+      }
+    }
   }
 }

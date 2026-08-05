@@ -1240,5 +1240,110 @@
       "terms": "Terms of service",
       "cookies": "Cookie policy"
     }
+  },
+  "Marketing": {
+    "ctaTitle": "You ready to count your work?",
+    "ctaBody": "Join the workers, employers, and traders wey dey build verifiable economic identity."
+  },
+  "About": {
+    "heroEyebrow": "Our mission",
+    "heroTitle": "Turning everyday work into economic identity",
+    "heroLede": "Millions of Nigerians dey work hard every single day, but a lifetime of effort no dey leave any paper trail wey bank fit trust. Tally dey change that — one job, one sale, one confirmed shift at a time.",
+    "whyEyebrow": "Why we exist",
+    "whyTitle": "The economy dey run on work wey stay invisible",
+    "storyP1": "The market trader wey dey restock for early morning, the crew wey dey load warehouse for night, the cleaner wey no dey miss shift — na dem dey keep the country moving. But when dem need capital, fair wage on time, or just proof of wetin dem don do, the system no get anything to show.",
+    "storyP2": "Tally dey give that work memory. Every completed job, logged sale, and on-time repayment dey become part of verifiable record — the <s>Tally Score</s> — wey employers, banks, and lenders fit actually check. Work dey become reputation. Reputation dey become credit.",
+    "cards": {
+      "workers": {
+        "k": "For workers",
+        "v": "Same-day pay and record wey dey open real credit."
+      },
+      "employers": {
+        "k": "For employers",
+        "v": "Hire verified people; pay only on confirmed work."
+      },
+      "ward": {
+        "k": "Ward-level reach",
+        "v": "Matching wey dey work down to your neighbourhood."
+      },
+      "traders": {
+        "k": "For traders",
+        "v": "Log sales, build history, unlock stock advances."
+      }
+    },
+    "stat1label": "of Nigeria workforce na informal",
+    "stat2label": "LGAs wey we dey build to reach",
+    "stat3label": "invisible work — until now",
+    "believeEyebrow": "What we believe",
+    "believeTitle": "The principles behind every decision",
+    "values": {
+      "dignity": {
+        "title": "Dignity first",
+        "body": "The informal economy dey power Nigeria. We dey build for im people as customers, no be afterthought."
+      },
+      "trust": {
+        "title": "Trust by design",
+        "body": "Escrow, verified identities, and honest records mean both sides of job fit rely on us — and each other."
+      },
+      "access": {
+        "title": "Access over gatekeeping",
+        "body": "USSD, WhatsApp, and low-data flows so smartphone no be the price of admission to earning."
+      },
+      "own": {
+        "title": "Earn it, own it",
+        "body": "Your record na your own. E dey follow you across jobs, sales, and lenders — a real, portable identity."
+      }
+    },
+    "ctaTitle": "Help us make work count",
+    "ctaBody": "Whether you dey here to earn, to hire, or to build with us — space dey for you for Tally.",
+    "ctaSecondary": "See open roles"
+  },
+  "Faq": {
+    "heroEyebrow": "Frequently asked questions",
+    "heroTitle": "Everything wey you need to know",
+    "heroLede": "You still dey curious after you don read? The Help Center dey go deeper, or you fit reach person any time.",
+    "cantFind": "You no fit find your answer? <help>Browse the Help Center</help> or <contact>contact us</contact>.",
+    "items": {
+      "speed": {
+        "q": "How fast workers dey actually collect pay?",
+        "a": "Same day. The moment dem confirm attendance with employer 4-digit code, dem go release the escrow pay to worker Tally wallet and e fit withdraw am go im bank — no waiting days for invoice."
+      },
+      "smartphone": {
+        "q": "I need smartphone to use Tally?",
+        "a": "No. Tally na phone-first: you fit sign up, confirm shifts, and check your balance for USSD (*347*82#) or WhatsApp. Smartphone dey unlock the full app, but e no dey compulsory."
+      },
+      "score": {
+        "q": "How the Tally Score dey work?",
+        "a": "Every completed job, on-time arrival, logged sale, and repaid loan dey add to your score. No-shows and disputes dey subtract. Na honest, verifiable record wey banks and lenders fit check — na im dey turn your work into real credit."
+      },
+      "protection": {
+        "q": "How dem dey protect my money?",
+        "a": "Dem dey hold employer funds for escrow with CBN-licensed partner bank and dem go only release am on confirmed attendance. Payouts dey run through licensed payment provider, and sensitive identifiers like your NIN dey store encrypt, never plain."
+      },
+      "cost": {
+        "q": "Wetin e dey cost?",
+        "a": "Sign up, collect pay, and build your score na free for workers and traders. Employers dey pay small, transparent fee per completed hire — with no monthly minimums."
+      },
+      "availability": {
+        "q": "Tally dey available across Nigeria?",
+        "a": "We dey roll out state by state, starting for Lagos. Workers and employers anywhere for Nigeria fit sign up now and set dem location down to the ward, so we go match you the moment jobs go live near you."
+      },
+      "languages": {
+        "q": "I fit use Tally for Yoruba, Hausa, Igbo or Pidgin?",
+        "a": "Yes. Tally interface, buttons, emails and notifications dey built to work for English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — we dey save am and e dey follow you across devices."
+      },
+      "changeLang": {
+        "q": "I fit change my language any time?",
+        "a": "Any time — from the language menu for the navigation or from your settings. We dey remember your choice and use am automatically next time you visit or sign in."
+      },
+      "notifications": {
+        "q": "Dem go translate emails and notifications too?",
+        "a": "Yes. System messages — one-time codes, job offers, attendance prompts and payout alerts — dey localized to your chosen language across the app, SMS, USSD and WhatsApp."
+      },
+      "ugc": {
+        "q": "Employers fit post jobs and traders fit sell for local languages?",
+        "a": "You fit write posts and listings for your own language today. One-tap translation of user-generated content — job posts, product descriptions, receipts and chats — dey our roadmap, so worker wey prefer Hausa fit read post wey dem write for English, and vice versa."
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Eyebrow, GridPattern, Glow } from "./ui";
 import { Reveal } from "./motion";
@@ -86,34 +87,40 @@ export function LegalPage({
 
 /** A simple, reusable "ready to start" band for content pages. */
 export function CtaBand({
-  title = "Ready to count your work?",
-  body = "Join the workers, employers, and traders building a verifiable economic identity.",
-  primary = { label: "Get started free", href: "/signup" },
-  secondary = { label: "Talk to us", href: "/contact" },
+  title,
+  body,
+  primary,
+  secondary,
 }: {
   title?: string;
   body?: string;
   primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
 }) {
+  const t = useTranslations("Marketing");
+  const tc = useTranslations("Common");
+  const _title = title ?? t("ctaTitle");
+  const _body = body ?? t("ctaBody");
+  const _primary = primary ?? { label: tc("getStartedFree"), href: "/signup" };
+  const _secondary = secondary ?? { label: tc("talkToUs"), href: "/contact" };
   return (
     <section className="border-t border-line bg-canvas/50">
       <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
         <Reveal>
-          <h2 className="text-balance text-2xl font-bold tracking-tight text-ink sm:text-3xl">{title}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-ink-soft">{body}</p>
+          <h2 className="text-balance text-2xl font-bold tracking-tight text-ink sm:text-3xl">{_title}</h2>
+          <p className="mx-auto mt-3 max-w-xl text-ink-soft">{_body}</p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href={primary.href}
+              href={_primary.href}
               className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:bg-brand-700"
             >
-              {primary.label} <ArrowRight className="h-4 w-4" />
+              {_primary.label} <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href={secondary.href}
+              href={_secondary.href}
               className="inline-flex items-center gap-2 rounded-xl border border-line bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300"
             >
-              {secondary.label}
+              {_secondary.label}
             </Link>
           </div>
         </Reveal>

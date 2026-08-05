@@ -1240,5 +1240,110 @@
       "terms": "Àwọn òfin iṣẹ́",
       "cookies": "Ìlànà kúkì"
     }
+  },
+  "Marketing": {
+    "ctaTitle": "Ṣé o ti ṣetán láti ka iṣẹ́ rẹ?",
+    "ctaBody": "Darapọ̀ mọ́ àwọn òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò tí wọ́n ń kọ́ ìdánimọ̀ ọrọ̀-ajé tí a lè jẹ́rìí."
+  },
+  "About": {
+    "heroEyebrow": "Ìdè wa",
+    "heroTitle": "Sísọ iṣẹ́ ojoojúmọ́ di ìdánimọ̀ ọrọ̀-ajé",
+    "heroLede": "Àìlóye àwọn ọmọ Nàìjíríà ni wọ́n ń ṣiṣẹ́ kára lójoojúmọ́, síbẹ̀ ìsapá ìgbésí ayé kì í fi àkọsílẹ̀ kankan sílẹ̀ tí báǹkì lè gbẹ́kẹ̀lé. Tally ń yí ìyẹn padà — iṣẹ́ kan, sale kan, shift tí a jẹ́rìí kan lẹ́ẹ̀kọ̀ọ̀kan.",
+    "whyEyebrow": "Ìdí tí a fi wà",
+    "whyTitle": "Ọrọ̀-ajé ń sáré lórí iṣẹ́ tí ó dúró ní àìríran",
+    "storyP1": "Oníṣòwò ọjà tí ó ń tún ọjà kún ní àárọ̀ kùtù, àwọn òṣìṣẹ́ tí wọ́n ń kó ẹrù sí ilé-ìtọ́jú ní alẹ́, olùmọ́tótó tí kì í pàdánù shift — àwọn ni wọ́n ń jẹ́ kí orílẹ̀-èdè máa lọ. Ṣùgbọ́n nígbà tí wọ́n bá nílò owó, owó iṣẹ́ tó tọ́ ní àkókò, tàbí ẹ̀rí ohun tí wọ́n ti ṣe lásán, ètò náà kò ní ohunkóhun láti fihàn.",
+    "storyP2": "Tally ń fún iṣẹ́ yẹn ní ìrántí. Gbogbo iṣẹ́ tí a parí, sale tí a kọ sílẹ̀, àti ìsanpadà ní àkókò ń di apá kan àkọsílẹ̀ tí a lè jẹ́rìí — <s>Tally Score</s> — tí àwọn agbanisíṣẹ́, báǹkì, àti olùyáwó lè ṣàyẹ̀wò ní tòótọ́. Iṣẹ́ ń di orúkọ rere. Orúkọ rere ń di kírẹdíìtì.",
+    "cards": {
+      "workers": {
+        "k": "Fún àwọn òṣìṣẹ́",
+        "v": "Ìsanwó ọjọ́ kan náà àti àkọsílẹ̀ tí ó ń ṣí kírẹdíìtì gidi."
+      },
+      "employers": {
+        "k": "Fún àwọn agbanisíṣẹ́",
+        "v": "Gba àwọn ènìyàn tí a jẹ́rìí; sanwó nìkan fún iṣẹ́ tí a jẹ́rìí."
+      },
+      "ward": {
+        "k": "Ìwọ̀n agbègbè",
+        "v": "Ìbámu tí ó ń ṣiṣẹ́ dé àdúgbò rẹ."
+      },
+      "traders": {
+        "k": "Fún àwọn oníṣòwò",
+        "v": "Kọ sales sílẹ̀, kọ́ ìtàn, ṣí ìtẹ̀síwájú ọjà."
+      }
+    },
+    "stat1label": "nínú àwọn òṣìṣẹ́ Nàìjíríà jẹ́ àìlédèdè",
+    "stat2label": "LGAs tí a ń kọ́ láti dé",
+    "stat3label": "iṣẹ́ àìríran — títí di ìsinsìnyí",
+    "believeEyebrow": "Ohun tí a gbàgbọ́",
+    "believeTitle": "Àwọn ìlànà tó wà lẹ́yìn ìpinnu kọ̀ọ̀kan",
+    "values": {
+      "dignity": {
+        "title": "Iyì lákọ̀ọ́kọ́",
+        "body": "Ọrọ̀-ajé àìlédèdè ni ó ń fún Nàìjíríà lágbára. A ń kọ́ fún àwọn ènìyàn rẹ̀ gẹ́gẹ́ bí oníbàárà, kì í ṣe àfikún."
+      },
+      "trust": {
+        "title": "Ìgbẹ́kẹ̀lé láti ìpìlẹ̀",
+        "body": "Escrow, ìdánimọ̀ tí a jẹ́rìí, àti àkọsílẹ̀ olóòótọ́ túmọ̀ sí pé ẹ̀gbẹ́ méjèèjì ti iṣẹ́ lè gbẹ́kẹ̀lé wa — àti ara wọn."
+      },
+      "access": {
+        "title": "Ìwọlé ju ìdènà lọ",
+        "body": "USSD, WhatsApp, àti àwọn ọ̀nà dátà kékeré kí smartphone má ṣe jẹ́ owó ìwọlé sí owó rírí."
+      },
+      "own": {
+        "title": "Jèrè é, ni í",
+        "body": "Àkọsílẹ̀ rẹ jẹ́ tìrẹ. Ó ń tẹ̀lé ọ káàkiri iṣẹ́, sales, àti olùyáwó — ìdánimọ̀ gidi, tí a lè gbé kiri."
+      }
+    },
+    "ctaTitle": "Ràn wá lọ́wọ́ láti mú kí iṣẹ́ kà",
+    "ctaBody": "Yálà o wà níbí láti jẹ ẹrè, láti gbanisíṣẹ́, tàbí láti kọ́ pẹ̀lú wa — àyè wà fún ọ ní Tally.",
+    "ctaSecondary": "Wo àwọn ipò tó ṣí"
+  },
+  "Faq": {
+    "heroEyebrow": "Àwọn ìbéèrè tí a sábà ń béèrè",
+    "heroTitle": "Ohun gbogbo tí o nílò láti mọ̀",
+    "heroLede": "Ṣé ìwádìí ṣì wà lẹ́yìn kíkà? Ilé Ìrànlọ́wọ́ ń lọ jinlẹ̀ síi, tàbí o lè dé ọ̀dọ̀ ènìyàn nígbàkúùgbà.",
+    "cantFind": "O ò rí ìdáhùn rẹ? <help>Ṣàwárí Ilé Ìrànlọ́wọ́</help> tàbí <contact>kàn sí wa</contact>.",
+    "items": {
+      "speed": {
+        "q": "Ìgbà wo ni àwọn òṣìṣẹ́ ṣe ń gba owó ní tòótọ́?",
+        "a": "Lọ́jọ́ kan náà. Ní kété tí a bá jẹ́rìí wíwàníbẹ̀ pẹ̀lú kóòdù oní-nọ́mbà mẹ́rin agbanisíṣẹ́, a ó tú owó escrow sílẹ̀ sí àpamọ́wọ́ Tally òṣìṣẹ́ tí ó sì lè yọ ọ́ sí báǹkì rẹ̀ — láìsí dídúró fún ọjọ́ mélòó kan fún ìwé owó."
+      },
+      "smartphone": {
+        "q": "Ṣé mo nílò smartphone láti lo Tally?",
+        "a": "Rárá. A kọ́ Tally ní ọ̀nà-fóònù: o lè forúkọsílẹ̀, jẹ́rìí shift, kí o sì ṣàyẹ̀wò iye owó rẹ lórí USSD (*347*82#) tàbí WhatsApp. Smartphone ń ṣí gbogbo app, ṣùgbọ́n kì í ṣe dandan."
+      },
+      "score": {
+        "q": "Báwo ni Tally Score ṣe ń ṣiṣẹ́?",
+        "a": "Gbogbo iṣẹ́ tí a parí, dídé ní àkókò, sale tí a kọ sílẹ̀, àti awin tí a san padà ń fi kún àmì rẹ. Àìwáṣẹ́ àti àríyànjiyàn ń yọkúrò. Ó jẹ́ àkọsílẹ̀ olóòótọ́ tí a lè jẹ́rìí tí àwọn báǹkì àti olùyáwó lè ṣàyẹ̀wò — èyí ni ó ń sọ iṣẹ́ rẹ di kírẹdíìtì gidi."
+      },
+      "protection": {
+        "q": "Báwo ni a ṣe ń dáàbò bo owó mi?",
+        "a": "A ń dì owó agbanisíṣẹ́ mú nínú escrow pẹ̀lú báǹkì alábàáṣepọ̀ tí CBN fún ní àṣẹ, a sì máa tú u sílẹ̀ nìkan lórí wíwàníbẹ̀ tí a jẹ́rìí. Àwọn ìsanwó ń gba ọ̀dọ̀ olùpèsè ìsanwó tí ó ní àṣẹ, àwọn ìdánimọ̀ pàtàkì bíi NIN rẹ ni a fi pamọ́ ní ìsekóòdù, kì í ṣe ní gbangba."
+      },
+      "cost": {
+        "q": "Kí ni ó ná?",
+        "a": "Forúkọsílẹ̀, gbígba owó, àti kíkọ́ àmì rẹ jẹ́ ọ̀fẹ́ fún àwọn òṣìṣẹ́ àti oníṣòwò. Àwọn agbanisíṣẹ́ ń sanwó owó kékeré, tí ó hàn kedere fún ìgbà kọ̀ọ̀kan tí a gbaniṣẹ́ — láìsí owó oṣù tó kéré jù."
+      },
+      "availability": {
+        "q": "Ṣé Tally wà káàkiri Nàìjíríà?",
+        "a": "A ń tú u jáde ìpínlẹ̀ ní ìpínlẹ̀, bẹ̀rẹ̀ ní Èkó. Àwọn òṣìṣẹ́ àti agbanisíṣẹ́ níbikíbi ní Nàìjíríà lè forúkọsílẹ̀ báyìí kí wọ́n sì ṣètò ipò wọn dé agbègbè, kí a lè bá ọ mu ní kété tí àwọn iṣẹ́ bá jáde nítòsí rẹ."
+      },
+      "languages": {
+        "q": "Ṣé mo lè lo Tally ní Yorùbá, Hausa, Igbo tàbí Pidgin?",
+        "a": "Bẹ́ẹ̀ ni. A kọ́ interface, àwọn bọ́tìnnì, ímeèlì àti ìfitọ́nilétí Tally láti ṣiṣẹ́ ní Gẹ̀ẹ́sì, Pidgin Nàìjíríà, Yorùbá, Hausa àti Igbo. Yan èdè rẹ láti inú àkójọ — a fi pamọ́ ó sì ń tẹ̀lé ọ káàkiri àwọn ẹ̀rọ."
+      },
+      "changeLang": {
+        "q": "Ṣé mo lè yí èdè mi padà nígbàkúùgbà?",
+        "a": "Nígbàkúùgbà — láti inú àkójọ èdè nínú ìtọ́sọ́nà tàbí láti inú ètò rẹ. A rántí àyànfẹ́ rẹ a sì lò ó lọ́nà àdáṣe ní ìgbà tí ó kàn tí o bá bẹ̀ wò tàbí wọlé."
+      },
+      "notifications": {
+        "q": "Ṣé a ó túmọ̀ ímeèlì àti ìfitọ́nilétí pẹ̀lú?",
+        "a": "Bẹ́ẹ̀ ni. Àwọn ìránṣẹ́ ètò — kóòdù ẹ̀ẹ̀kanṣoṣo, ọrẹ iṣẹ́, ìtọ́ni wíwàníbẹ̀ àti ìtanilólobó ìsanwó — ni a ṣe ní èdè tí o yàn káàkiri app, SMS, USSD àti WhatsApp."
+      },
+      "ugc": {
+        "q": "Ṣé àwọn agbanisíṣẹ́ lè fi iṣẹ́ sílẹ̀ àti àwọn oníṣòwò lè tà ní àwọn èdè ìbílẹ̀?",
+        "a": "O lè kọ àwọn ìfìwéránṣẹ́ àti àtòjọ ní èdè tìrẹ lónìí. Ìtumọ̀ ìfọwọ́kan-kan ti àwọn àkóónú tí olùlò ṣe — àwọn ìfìwéránṣẹ́ iṣẹ́, àpèjúwe ọjà, ìwé owó àti ìjíròrò — wà lórí ètò ọjọ́ iwájú wa, kí òṣìṣẹ́ tí ó fẹ́ Hausa lè ka ìfìwéránṣẹ́ tí a kọ ní Gẹ̀ẹ́sì, àti ìdàkejì."
+      }
+    }
   }
 }

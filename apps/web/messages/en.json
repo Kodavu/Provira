@@ -1240,5 +1240,110 @@
       "terms": "Terms of service",
       "cookies": "Cookie policy"
     }
+  },
+  "Marketing": {
+    "ctaTitle": "Ready to count your work?",
+    "ctaBody": "Join the workers, employers, and traders building a verifiable economic identity."
+  },
+  "About": {
+    "heroEyebrow": "Our mission",
+    "heroTitle": "Turning everyday work into economic identity",
+    "heroLede": "Millions of Nigerians work hard every single day, yet a lifetime of effort leaves no paper trail a bank can trust. Tally changes that — one job, one sale, one confirmed shift at a time.",
+    "whyEyebrow": "Why we exist",
+    "whyTitle": "The economy runs on work that stays invisible",
+    "storyP1": "The market trader who restocks at dawn, the crew that loads a warehouse overnight, the cleaner who never misses a shift — they keep the country moving. But when they need capital, a fair wage on time, or simply proof of what they've done, the system has nothing to show.",
+    "storyP2": "Tally gives that work a memory. Every completed job, logged sale, and on-time repayment becomes part of a verifiable record — the <s>Tally Score</s> — that employers, banks, and lenders can actually check. Work becomes reputation. Reputation becomes credit.",
+    "cards": {
+      "workers": {
+        "k": "For workers",
+        "v": "Same-day pay and a record that opens real credit."
+      },
+      "employers": {
+        "k": "For employers",
+        "v": "Hire verified people; pay only on confirmed work."
+      },
+      "ward": {
+        "k": "Ward-level reach",
+        "v": "Matching that works down to your neighbourhood."
+      },
+      "traders": {
+        "k": "For traders",
+        "v": "Log sales, build history, unlock stock advances."
+      }
+    },
+    "stat1label": "of Nigeria's workforce is informal",
+    "stat2label": "LGAs we're building to reach",
+    "stat3label": "invisible work — until now",
+    "believeEyebrow": "What we believe",
+    "believeTitle": "The principles behind every decision",
+    "values": {
+      "dignity": {
+        "title": "Dignity first",
+        "body": "The informal economy powers Nigeria. We build for its people as customers, never an afterthought."
+      },
+      "trust": {
+        "title": "Trust by design",
+        "body": "Escrow, verified identities, and honest records mean both sides of a job can rely on us — and each other."
+      },
+      "access": {
+        "title": "Access over gatekeeping",
+        "body": "USSD, WhatsApp, and low-data flows so a smartphone is never the price of admission to earning."
+      },
+      "own": {
+        "title": "Earn it, own it",
+        "body": "Your record belongs to you. It follows you across jobs, sales, and lenders — a real, portable identity."
+      }
+    },
+    "ctaTitle": "Help us make work count",
+    "ctaBody": "Whether you're here to earn, to hire, or to build with us — there's a place for you at Tally.",
+    "ctaSecondary": "See open roles"
+  },
+  "Faq": {
+    "heroEyebrow": "Frequently asked questions",
+    "heroTitle": "Everything you need to know",
+    "heroLede": "Still curious after reading? The Help Center goes deeper, or you can reach a human any time.",
+    "cantFind": "Can't find your answer? <help>Browse the Help Center</help> or <contact>contact us</contact>.",
+    "items": {
+      "speed": {
+        "q": "How fast do workers actually get paid?",
+        "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, the escrowed pay is released to the worker's Tally wallet and can be withdrawn to their bank — no waiting days for an invoice."
+      },
+      "smartphone": {
+        "q": "Do I need a smartphone to use Tally?",
+        "a": "No. Tally is built phone-first: you can sign up, confirm shifts, and check your balance over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required."
+      },
+      "score": {
+        "q": "How does the Tally Score work?",
+        "a": "Every completed job, on-time arrival, logged sale, and repaid loan adds to your score. No-shows and disputes subtract. It's an honest, verifiable record that banks and lenders can check — which is what turns your work into real credit."
+      },
+      "protection": {
+        "q": "How is my money protected?",
+        "a": "Employer funds are held in escrow with a CBN-licensed partner bank and only released on confirmed attendance. Payouts run through a licensed payment provider, and sensitive identifiers like your NIN are stored encrypted, never in the clear."
+      },
+      "cost": {
+        "q": "What does it cost?",
+        "a": "Signing up, getting paid, and building your score are free for workers and traders. Employers pay a small, transparent fee per completed hire — with no monthly minimums."
+      },
+      "availability": {
+        "q": "Is Tally available across Nigeria?",
+        "a": "We're rolling out state by state, starting in Lagos. Workers and employers anywhere in Nigeria can sign up now and set their location down to the ward, so we match you the moment jobs go live near you."
+      },
+      "languages": {
+        "q": "Can I use Tally in Yoruba, Hausa, Igbo or Pidgin?",
+        "a": "Yes. Tally's interface, buttons, emails and notifications are built to work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — it's saved and follows you across devices."
+      },
+      "changeLang": {
+        "q": "Can I change my language at any time?",
+        "a": "Any time — from the language menu in the navigation or from your settings. Your choice is remembered and used automatically the next time you visit or sign in."
+      },
+      "notifications": {
+        "q": "Will emails and notifications be translated too?",
+        "a": "Yes. System messages — one-time codes, job offers, attendance prompts and payout alerts — are localized to your chosen language across the app, SMS, USSD and WhatsApp."
+      },
+      "ugc": {
+        "q": "Can employers post jobs and traders sell in local languages?",
+        "a": "You can write posts and listings in your own language today. One-tap translation of user-generated content — job posts, product descriptions, receipts and chats — is on our roadmap, so a worker who prefers Hausa can read a post written in English, and vice versa."
+      }
+    }
   }
 }
