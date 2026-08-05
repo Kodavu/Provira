@@ -24,12 +24,14 @@ export function DisputeActions({
   assignedAdminId,
   perms,
   staff,
+  jobDispute = false,
 }: {
   id: string;
   status: string;
   assignedAdminId: string | null;
   perms: DisputePerms;
   staff: Staff[];
+  jobDispute?: boolean;
 }) {
   const router = useRouter();
   const [assignee, setAssignee] = useState(assignedAdminId ?? "");
@@ -37,6 +39,10 @@ export function DisputeActions({
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Escrow outcome for job disputes.
+  const [splitOpen, setSplitOpen] = useState(false);
+  const [releaseNaira, setReleaseNaira] = useState("");
+  const [refundNaira, setRefundNaira] = useState("");
 
   const terminal = status === "CLOSED";
   const nothing = !perms.assign && !perms.escalate && !perms.resolve && !perms.close && !perms.note;
@@ -106,9 +112,57 @@ export function DisputeActions({
               </>
             )}
             {perms.escalate && <Button size="sm" variant="outline" disabled={busy !== null} onClick={() => run("escalate", { note: reason })}>Escalate</Button>}
-            {perms.resolve && <Button size="sm" disabled={busy !== null} onClick={() => run("resolve", { note: reason })}>Resolve</Button>}
+            {perms.resolve && !jobDispute && <Button size="sm" disabled={busy !== null} onClick={() => run("resolve", { note: reason })}>Resolve</Button>}
             {perms.close && <Button size="sm" variant="danger" disabled={busy !== null} onClick={() => run("close", { note: reason })}>Close</Button>}
           </div>
+
+          {/* Escrow settlement — only for job disputes with held funds. */}
+          {perms.resolve && jobDispute && !terminal && (
+            <div className="mt-3 rounded-lg border border-app p-3">
+              <p className="eyebrow">Resolve & settle escrow</p>
+              <p className="mt-1 text-xs text-muted">Choose how the money held for this job is released.</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <Button size="sm" disabled={busy !== null} onClick={() => run("resolve", { note: reason, resolution: { outcome: "REFUND_EMPLOYER" } })}>
+                  {busy === "resolve" ? "…" : "Refund employer"}
+                </Button>
+                <Button size="sm" disabled={busy !== null} onClick={() => run("resolve", { note: reason, resolution: { outcome: "RELEASE_WORKER" } })}>
+                  Release to worker
+                </Button>
+                <Button size="sm" variant="outline" disabled={busy !== null} onClick={() => setSplitOpen((v) => !v)}>
+                  Split…
+                </Button>
+              </div>
+              {splitOpen && (
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-28 text-xs text-muted">To worker (₦)</span>
+                    <input value={releaseNaira} onChange={(e) => setReleaseNaira(e.target.value.replace(/[^\d.]/g, ""))} inputMode="decimal" className={input} placeholder="0" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-28 text-xs text-muted">To employer (₦)</span>
+                    <input value={refundNaira} onChange={(e) => setRefundNaira(e.target.value.replace(/[^\d.]/g, ""))} inputMode="decimal" className={input} placeholder="0" />
+                  </div>
+                  <p className="text-xs text-muted">Amounts must add up to the escrow still held for this job.</p>
+                  <Button
+                    size="sm"
+                    disabled={busy !== null || (!releaseNaira && !refundNaira)}
+                    onClick={() =>
+                      run("resolve", {
+                        note: reason,
+                        resolution: {
+                          outcome: "SPLIT",
+                          releaseAmount: String(Math.round(Number(releaseNaira || 0) * 100)),
+                          refundAmount: String(Math.round(Number(refundNaira || 0) * 100)),
+                        },
+                      })
+                    }
+                  >
+                    {busy === "resolve" ? "…" : "Resolve with split"}
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 

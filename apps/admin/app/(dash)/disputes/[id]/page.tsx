@@ -162,6 +162,7 @@ export default async function DisputeDetailPage({ params }: { params: { id: stri
             id={d.id}
             status={d.status}
             assignedAdminId={d.assignedAdminId}
+            jobDispute={d.subjectType === "job" && !!d.subjectId}
             staff={staff ?? []}
             perms={{
               assign: p.has("disputes:assign"),

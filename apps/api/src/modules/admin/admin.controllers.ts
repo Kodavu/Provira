@@ -299,11 +299,19 @@ export class AdminDisputesController {
   @RequirePermissions("disputes:resolve")
   resolve(
     @Param("id") id: string,
-    @Body() body: { note?: string },
+    @Body()
+    body: {
+      note?: string;
+      resolution?: {
+        outcome: "REFUND_EMPLOYER" | "RELEASE_WORKER" | "SPLIT";
+        releaseAmount?: string;
+        refundAmount?: string;
+      };
+    },
     @CurrentAdmin() admin: AdminContext,
     @Req() req: any,
   ) {
-    return this.disputes.resolve(id, admin, reqMeta(req), body?.note);
+    return this.disputes.resolve(id, admin, reqMeta(req), body?.note, body?.resolution);
   }
 
   @Post(":id/close")

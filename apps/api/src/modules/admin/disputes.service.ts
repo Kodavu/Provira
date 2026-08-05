@@ -2,12 +2,25 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { AuditService } from "./audit.service.js";
 import { NotificationService } from "../notifications/notification.service.js";
+import { EscrowService } from "../escrow/escrow.service.js";
 import type { AdminContext } from "./rbac.js";
 import type { DisputeStatus } from "@tally/db";
 
 interface Meta {
   ip?: string;
   device?: string;
+}
+
+// How a job dispute settles the held escrow.
+export type DisputeOutcome = "REFUND_EMPLOYER" | "RELEASE_WORKER" | "SPLIT";
+export interface DisputeResolution {
+  outcome: DisputeOutcome;
+  releaseAmount?: string; // kobo, required for SPLIT
+  refundAmount?: string; // kobo, required for SPLIT
+}
+
+function naira(kobo: bigint): string {
+  return `₦${(Number(kobo) / 100).toLocaleString("en-NG")}`;
 }
 
 /**
@@ -21,6 +34,7 @@ export class DisputesService {
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
     private readonly notifications: NotificationService,
+    private readonly escrow: EscrowService,
   ) {}
 
   detail(id: string): Promise<unknown> {
@@ -93,8 +107,92 @@ export class DisputesService {
     return this.transition(id, "ESCALATED", "escalated", "dispute.escalate", actor, meta, note);
   }
 
-  resolve(id: string, actor: AdminContext, meta: Meta, note?: string) {
+  async resolve(id: string, actor: AdminContext, meta: Meta, note?: string, resolution?: DisputeResolution) {
+    // A resolution with a money outcome settles the job's held escrow first, so
+    // a RESOLVED dispute always reflects the actual fund movement.
+    if (resolution) await this.settleEscrow(id, resolution, actor, meta);
     return this.transition(id, "RESOLVED", "resolved", "dispute.resolve", actor, meta, note, true);
+  }
+
+  /**
+   * Move the held escrow according to the admin's decision: refund the employer,
+   * release to the worker, or split. Records the money movement on the case
+   * timeline + audit trail, and notifies both parties.
+   */
+  private async settleEscrow(disputeId: string, resolution: DisputeResolution, actor: AdminContext, meta: Meta) {
+    const dispute = await this.prisma.dispute.findUnique({
+      where: { id: disputeId },
+      select: { id: true, code: true, subjectType: true, subjectId: true, reporterId: true, defendantId: true },
+    });
+    if (!dispute) throw new NotFoundException("Dispute not found");
+    if (dispute.subjectType !== "job" || !dispute.subjectId) {
+      throw new BadRequestException("This dispute isn't attached to a job, so there's no escrow to settle");
+    }
+    const jobId = dispute.subjectId;
+
+    const job = await this.prisma.job.findUnique({
+      where: { id: jobId },
+      include: { employer: true, escrow: true },
+    });
+    if (!job?.escrow) throw new BadRequestException("This job has no escrow");
+
+    const employerUserId = job.employer.userId;
+    // The worker party to the dispute is whichever side isn't the employer.
+    const workerUserId = dispute.reporterId === employerUserId ? dispute.defendantId : dispute.reporterId;
+
+    const held = (await this.prisma.account.findUnique({ where: { id: job.escrow.accountId } }))?.balance ?? 0n;
+    if (held <= 0n) throw new BadRequestException("No escrow is still held for this job");
+
+    let release = 0n;
+    let refund = 0n;
+    if (resolution.outcome === "REFUND_EMPLOYER") {
+      refund = held;
+    } else if (resolution.outcome === "RELEASE_WORKER") {
+      if (!workerUserId) throw new BadRequestException("No worker party on this dispute");
+      release = held;
+    } else {
+      // SPLIT — explicit amounts, must sum to the held balance.
+      release = BigInt(resolution.releaseAmount ?? "0");
+      refund = BigInt(resolution.refundAmount ?? "0");
+      if (release < 0n || refund < 0n) throw new BadRequestException("Amounts can't be negative");
+      if (release + refund !== held) throw new BadRequestException("Split must add up to the escrow still held");
+      if (release > 0n && !workerUserId) throw new BadRequestException("No worker party to release to");
+    }
+
+    await this.escrow.resolveDispute(jobId, {
+      workerUserId: workerUserId ?? undefined,
+      releaseAmount: release,
+      refundAmount: refund,
+      idempotencyKey: `dispute:${disputeId}`,
+    });
+
+    await this.prisma.disputeEvent.create({
+      data: {
+        disputeId,
+        adminUserId: actor.id,
+        type: "escrow_resolved",
+        note: `Escrow settled — ${release > 0n ? `${naira(release)} to worker` : ""}${release > 0n && refund > 0n ? ", " : ""}${refund > 0n ? `${naira(refund)} to employer` : ""}`,
+      },
+    });
+    await this.audit.record({
+      adminUserId: actor.id,
+      action: "dispute.escrow_resolve",
+      resource: "Dispute",
+      resourceId: disputeId,
+      ip: meta.ip,
+      device: meta.device,
+      newValue: { jobId, outcome: resolution.outcome, release: release.toString(), refund: refund.toString() },
+    });
+
+    // Tell both parties how the money settled.
+    if (release > 0n && workerUserId) {
+      await this.notifications.notify(workerUserId, "dispute.resolved", { code: dispute.code });
+      await this.notifications.notify(workerUserId, "earnings.credited", { amount: naira(release), title: job.title });
+    }
+    if (refund > 0n) {
+      await this.notifications.notify(employerUserId, "dispute.resolved", { code: dispute.code });
+      await this.notifications.notify(employerUserId, "escrow.refunded", { amount: naira(refund), title: job.title });
+    }
   }
 
   close(id: string, actor: AdminContext, meta: Meta, note?: string) {

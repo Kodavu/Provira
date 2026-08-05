@@ -190,4 +190,61 @@ export class EscrowService {
       data: { refundedAt: new Date() },
     });
   }
+
+  /**
+   * Resolve a dispute against the held escrow: split the remaining balance
+   * between the worker (releaseAmount) and the employer (refundAmount) in one
+   * balanced posting. Platform fee is waived on dispute resolutions. The two
+   * amounts must not exceed the balance still held. Idempotent per dispute via
+   * the caller-supplied key. Marks the escrow released and/or refunded, and
+   * fully drained escrow flips both timestamps.
+   */
+  async resolveDispute(
+    jobId: string,
+    params: { workerUserId?: string; releaseAmount?: bigint; refundAmount?: bigint; idempotencyKey: string },
+  ) {
+    const escrow = await this.prisma.escrowAccount.findUnique({
+      where: { jobId },
+      include: { job: { include: { employer: true } } },
+    });
+    if (!escrow) throw new BadRequestException("No escrow for job");
+
+    const release = params.releaseAmount ?? 0n;
+    const refund = params.refundAmount ?? 0n;
+    if (release <= 0n && refund <= 0n) throw new BadRequestException("Nothing to release or refund");
+    if (release > 0n && !params.workerUserId) throw new BadRequestException("A worker is required to release funds");
+
+    const account = await this.prisma.account.findUnique({ where: { id: escrow.accountId } });
+    const held = account?.balance ?? 0n;
+    if (release + refund > held) throw new BadRequestException("Resolution exceeds the escrow still held");
+
+    const legs: { accountId: string; direction: "DEBIT" | "CREDIT"; amount: bigint }[] = [
+      { accountId: escrow.accountId, direction: "DEBIT", amount: release + refund },
+    ];
+    if (release > 0n) {
+      const workerAccount = await this.ledger.ensureUserAccount(params.workerUserId!, "WORKER_PAYOUT");
+      legs.push({ accountId: workerAccount, direction: "CREDIT", amount: release });
+    }
+    if (refund > 0n) {
+      const employerAccount = await this.ledger.ensureUserAccount(escrow.job.employer.userId, "EMPLOYER_FUNDING");
+      legs.push({ accountId: employerAccount, direction: "CREDIT", amount: refund });
+    }
+
+    await this.ledger.post({
+      type: "ESCROW_REFUND",
+      reference: `dispute-resolve:${jobId}`,
+      idempotencyKey: params.idempotencyKey,
+      legs,
+      metadata: { kind: "dispute_resolution", release: release.toString(), refund: refund.toString() },
+    });
+
+    const drained = (await this.prisma.account.findUnique({ where: { id: escrow.accountId } }))?.balance ?? 0n;
+    return this.prisma.escrowAccount.update({
+      where: { jobId },
+      data: {
+        releasedAt: release > 0n || drained <= 0n ? escrow.releasedAt ?? new Date() : escrow.releasedAt,
+        refundedAt: refund > 0n || drained <= 0n ? escrow.refundedAt ?? new Date() : escrow.refundedAt,
+      },
+    });
+  }
 }

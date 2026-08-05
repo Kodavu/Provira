@@ -8,7 +8,7 @@ const MAP: Record<string, { path: (id: string) => string; body?: (b: any) => unk
   assign: { path: (id) => `/admin/disputes/${id}/assign`, body: (b) => ({ adminUserId: b.adminUserId }) },
   status: { path: (id) => `/admin/disputes/${id}/status`, body: (b) => ({ status: b.status }) },
   escalate: { path: (id) => `/admin/disputes/${id}/escalate`, body: (b) => ({ note: b.note }) },
-  resolve: { path: (id) => `/admin/disputes/${id}/resolve`, body: (b) => ({ note: b.note }) },
+  resolve: { path: (id) => `/admin/disputes/${id}/resolve`, body: (b) => ({ note: b.note, resolution: b.resolution }) },
   close: { path: (id) => `/admin/disputes/${id}/close`, body: (b) => ({ note: b.note }) },
   note: { path: (id) => `/admin/disputes/${id}/notes`, body: (b) => ({ body: b.note }) },
   reply: { path: (id) => `/admin/disputes/${id}/reply`, body: (b) => ({ body: b.body }) },
