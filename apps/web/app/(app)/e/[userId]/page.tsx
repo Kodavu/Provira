@@ -55,7 +55,7 @@ function StatTile({ icon: Icon, label, value, sub }: { icon: typeof Gauge; label
         <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-600">
           <Icon className="h-4 w-4" strokeWidth={1.9} />
         </span>
-        <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink">{value}</p>
+        <p className="mt-3 truncate font-display text-2xl font-bold tracking-tight text-ink">{value}</p>
         <p className="text-xs font-medium text-ink-soft">{label}</p>
         {sub && <p className="mt-0.5 text-[11px] text-ink-muted">{sub}</p>}
       </Card>
@@ -101,7 +101,7 @@ export default function EmployerProfilePage() {
           <div className="h-24 bg-gradient-to-r from-ink to-brand-800 sm:h-28" />
           <div className="px-5 pb-5 sm:px-7">
             <div className="-mt-10 flex flex-col gap-4 sm:-mt-12 sm:flex-row sm:items-end sm:justify-between">
-              <div className="flex items-end gap-4">
+              <div className="flex min-w-0 items-end gap-4">
                 <span className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-2xl bg-white text-2xl font-bold text-ink ring-4 ring-surface sm:h-24 sm:w-24">
                   {data.logoUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -110,7 +110,7 @@ export default function EmployerProfilePage() {
                     initials(data.companyName)
                   )}
                 </span>
-                <div className="pb-1">
+                <div className="min-w-0 pb-1">
                   <h1 className="flex items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-ink">
                     {data.companyName}
                     {data.verified && <BadgeCheck className="h-5 w-5 text-brand-600" />}
