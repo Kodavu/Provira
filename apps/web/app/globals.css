@@ -30,3 +30,10 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
 }
+
+/* Success-check draw-on used by the Button success state. */
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

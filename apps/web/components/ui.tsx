@@ -53,11 +53,29 @@ export function Card({
   );
 }
 
+/** A small inline spinner sized to the current font. */
+export function Spinner({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={`h-[1.1em] w-[1.1em] animate-spin ${className}`} fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" className="opacity-25" />
+      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/**
+ * Button with built-in loading/success micro-states. When `loading`, the label
+ * stays laid out (width preserved — no shift) but goes invisible behind a
+ * centered spinner, and the button is disabled. When `success`, a check
+ * briefly overlays. Purely additive: existing callers are unaffected.
+ */
 export function Button({
   children,
   onClick,
   type = "button",
   disabled,
+  loading = false,
+  success = false,
   variant = "primary",
   size = "md",
   className = "",
@@ -66,6 +84,8 @@ export function Button({
   onClick?: () => void;
   type?: "button" | "submit";
   disabled?: boolean;
+  loading?: boolean;
+  success?: boolean;
   variant?: "primary" | "ghost" | "outline";
   size?: "sm" | "md";
   className?: string;
@@ -77,14 +97,30 @@ export function Button({
     ghost: "text-brand-700 hover:bg-brand-50 disabled:opacity-40",
   }[variant];
   const pad = size === "sm" ? "px-3 py-1.5 text-xs" : "px-4 py-2.5 text-sm";
+  const overlay = loading || success;
   return (
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
-      className={`inline-flex items-center justify-center gap-1.5 rounded-xl font-semibold transition ${pad} ${styles} ${className}`}
+      disabled={disabled || loading}
+      aria-busy={loading || undefined}
+      className={`relative inline-flex items-center justify-center gap-1.5 rounded-xl font-semibold transition active:scale-[0.98] disabled:active:scale-100 ${pad} ${styles} ${className}`}
     >
-      {children}
+      <span className={`inline-flex items-center gap-1.5 transition-opacity ${overlay ? "opacity-0" : "opacity-100"}`}>
+        {children}
+      </span>
+      {loading && (
+        <span className="absolute inset-0 grid place-items-center">
+          <Spinner />
+        </span>
+      )}
+      {success && !loading && (
+        <span className="absolute inset-0 grid place-items-center">
+          <svg viewBox="0 0 24 24" className="h-[1.2em] w-[1.2em]" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M20 6 9 17l-5-5" className="[stroke-dasharray:24] [stroke-dashoffset:24] motion-safe:animate-[dash_0.4s_ease-out_forwards]" />
+          </svg>
+        </span>
+      )}
     </button>
   );
 }
@@ -298,6 +334,38 @@ export function EmptyState({ children }: { children: ReactNode }) {
   return (
     <Card className="p-6">
       <p className="text-sm text-ink-muted">{children}</p>
+    </Card>
+  );
+}
+
+/**
+ * Shimmer placeholder block. Compose these to build skeletons that match a
+ * component's real layout (preferred over a generic spinner for pages/lists).
+ */
+export function Skeleton({ className = "" }: { className?: string }) {
+  return <span className={`block animate-pulse rounded-md bg-line/70 ${className}`} />;
+}
+
+/** A skeleton that mimics a Card row (avatar + two text lines). */
+export function SkeletonRow() {
+  return (
+    <div className="flex items-center gap-3 p-4">
+      <Skeleton className="h-10 w-10 shrink-0 rounded-full" />
+      <div className="flex-1 space-y-2">
+        <Skeleton className="h-3.5 w-1/3" />
+        <Skeleton className="h-3 w-1/2" />
+      </div>
+    </div>
+  );
+}
+
+/** A vertical stack of skeleton cards for list/grid loading. */
+export function SkeletonList({ rows = 3 }: { rows?: number }) {
+  return (
+    <Card className="divide-y divide-line p-0">
+      {Array.from({ length: rows }).map((_, i) => (
+        <SkeletonRow key={i} />
+      ))}
     </Card>
   );
 }
