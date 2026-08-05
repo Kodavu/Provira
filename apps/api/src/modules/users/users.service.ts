@@ -370,6 +370,55 @@ export class UsersService {
     return this.workerProfile(userId);
   }
 
+  /** Resolve the worker's profile id, creating the profile if needed. */
+  private async workerProfileId(userId: string): Promise<string> {
+    const wp =
+      (await this.prisma.workerProfile.findUnique({ where: { userId } })) ??
+      (await this.prisma.workerProfile.create({ data: { userId } }));
+    return wp.id;
+  }
+
+  /** List a worker's portfolio items (own management view). */
+  async listPortfolio(userId: string): Promise<unknown> {
+    const wpId = await this.workerProfileId(userId);
+    const items = await this.prisma.portfolioItem.findMany({
+      where: { workerProfileId: wpId },
+      orderBy: { createdAt: "desc" },
+    });
+    return items.map((p) => ({
+      id: p.id, kind: p.kind, title: p.title, description: p.description, url: p.url, thumbnailUrl: p.thumbnailUrl,
+    }));
+  }
+
+  /** Add a portfolio item for the worker. */
+  async addPortfolio(
+    userId: string,
+    input: { kind: string; title: string; description?: string; url: string; thumbnailUrl?: string },
+  ): Promise<unknown> {
+    if (!input.url?.trim()) throw new BadRequestException("A URL or file is required");
+    if (!input.title?.trim()) throw new BadRequestException("A title is required");
+    const wpId = await this.workerProfileId(userId);
+    const kind = ["IMAGE", "PDF", "VIDEO", "LINK"].includes(input.kind) ? input.kind : "LINK";
+    await this.prisma.portfolioItem.create({
+      data: {
+        workerProfileId: wpId,
+        kind: kind as "IMAGE" | "PDF" | "VIDEO" | "LINK",
+        title: input.title.trim(),
+        description: input.description?.trim() || null,
+        url: input.url.trim(),
+        thumbnailUrl: input.thumbnailUrl?.trim() || null,
+      },
+    });
+    return this.listPortfolio(userId);
+  }
+
+  /** Delete one of the worker's own portfolio items. */
+  async deletePortfolio(userId: string, itemId: string): Promise<unknown> {
+    const wpId = await this.workerProfileId(userId);
+    await this.prisma.portfolioItem.deleteMany({ where: { id: itemId, workerProfileId: wpId } });
+    return this.listPortfolio(userId);
+  }
+
   /** The user's current KYC level plus their latest verification request (if any). */
   async verificationStatus(userId: string): Promise<unknown> {
     const user = await this.prisma.user.findUnique({

@@ -355,6 +355,16 @@ export const zEmployerProfileEdit = z.object({
 });
 export type EmployerProfileEdit = z.infer<typeof zEmployerProfileEdit>;
 
+export const zPortfolioItem = z.object({
+  id: z.string(),
+  kind: z.enum(["IMAGE", "PDF", "VIDEO", "LINK"]),
+  title: z.string(),
+  description: z.string().nullable(),
+  url: z.string(),
+  thumbnailUrl: z.string().nullable(),
+});
+export type PortfolioItem = z.infer<typeof zPortfolioItem>;
+
 // A worker-safe view of a job (no applicant PII / attendance codes).
 export const zPublicJobDetail = z.object({
   id: z.string(),
@@ -376,7 +386,19 @@ export const zPublicJobDetail = z.object({
   employerName: z.string().nullable(),
   employerUserId: z.string().nullable(),
   myStatus: z.string().nullable(), // the viewing worker's assignment status, if any
+  myAssignmentId: z.string().nullable(), // the viewer's assignment id, if any
   postedAt: zDate.nullable(),
+  // The review the employer left the viewing worker for this job, if completed.
+  employerReview: z
+    .object({
+      rating: z.number(),
+      comment: z.string().nullable(),
+      communication: z.number().nullable(),
+      professionalism: z.number().nullable(),
+      quality: z.number().nullable(),
+      createdAt: zDate,
+    })
+    .nullable(),
 });
 export type PublicJobDetail = z.infer<typeof zPublicJobDetail>;
 

@@ -16,6 +16,7 @@ export type {
   WorkerProfileEdit,
   EmployerProfileEdit,
   PublicJobDetail,
+  PortfolioItem,
   Skill,
   WalletData,
   ScoreFactor,

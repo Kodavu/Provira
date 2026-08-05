@@ -7,6 +7,7 @@ import type {
   WorkerProfileEdit,
   EmployerProfileEdit,
   PublicJobDetail,
+  PortfolioItem,
   NotificationFeed,
   NotificationPreferences,
   OtpRequestResponse,
@@ -146,6 +147,15 @@ export function createTallyClient(config: TallyClientConfig) {
     // Worker-safe job detail
     publicJobDetail: (jobId: string, userId?: string) =>
       request<PublicJobDetail>(`/jobs/${jobId}/public${userId ? `?userId=${encodeURIComponent(userId)}` : ""}`),
+
+    // Worker portfolio management
+    portfolio: (userId: string) => request<PortfolioItem[]>(`/users/${userId}/portfolio`),
+    addPortfolio: (
+      userId: string,
+      item: { kind: "IMAGE" | "PDF" | "VIDEO" | "LINK"; title: string; description?: string; url: string; thumbnailUrl?: string },
+    ) => post(`/users/${userId}/portfolio`, item) as Promise<PortfolioItem[]>,
+    deletePortfolio: (userId: string, itemId: string) =>
+      request<PortfolioItem[]>(`/users/${userId}/portfolio/${itemId}`, { method: "DELETE" }),
 
     // Worker
     workerDashboard: (userId: string) =>

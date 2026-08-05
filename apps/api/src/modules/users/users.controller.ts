@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
 import { UsersService } from "./users.service.js";
 import type { KycLevel, Language, RoleType, VerificationDocType } from "@tally/db";
 
@@ -57,6 +57,24 @@ export class UsersController {
     },
   ) {
     return this.users.updateWorkerProfile(id, body);
+  }
+
+  @Get(":id/portfolio")
+  portfolio(@Param("id") id: string) {
+    return this.users.listPortfolio(id);
+  }
+
+  @Post(":id/portfolio")
+  addPortfolio(
+    @Param("id") id: string,
+    @Body() body: { kind: string; title: string; description?: string; url: string; thumbnailUrl?: string },
+  ) {
+    return this.users.addPortfolio(id, body);
+  }
+
+  @Delete(":id/portfolio/:itemId")
+  deletePortfolio(@Param("id") id: string, @Param("itemId") itemId: string) {
+    return this.users.deletePortfolio(id, itemId);
   }
 
   @Post(":id/roles")

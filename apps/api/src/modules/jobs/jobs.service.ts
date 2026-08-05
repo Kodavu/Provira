@@ -459,6 +459,11 @@ export class JobsService {
     const accepted = job.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
 
     let myStatus: string | null = null;
+    let myAssignmentId: string | null = null;
+    let employerReview: {
+      rating: number; comment: string | null; communication: number | null;
+      professionalism: number | null; quality: number | null; createdAt: Date;
+    } | null = null;
     if (userId) {
       const me = await this.prisma.user.findUnique({
         where: { id: userId },
@@ -467,6 +472,23 @@ export class JobsService {
       if (me?.workerProfile) {
         const mine = job.assignments.find((a) => a.workerId === me.workerProfile!.id);
         myStatus = mine?.status ?? null;
+        myAssignmentId = mine?.id ?? null;
+        // Surface the employer's review of this worker once the shift is done.
+        if (mine) {
+          const rev = await this.prisma.review.findUnique({
+            where: { assignmentId_direction: { assignmentId: mine.id, direction: "EMPLOYER_ON_WORKER" } },
+          });
+          if (rev && !rev.hiddenAt) {
+            employerReview = {
+              rating: rev.rating,
+              comment: rev.comment,
+              communication: rev.communication,
+              professionalism: rev.professionalism,
+              quality: rev.quality,
+              createdAt: rev.createdAt,
+            };
+          }
+        }
       }
     }
 
@@ -490,7 +512,9 @@ export class JobsService {
       employerName: job.employer.businessName ?? null,
       employerUserId: job.employer.userId,
       myStatus,
+      myAssignmentId,
       postedAt: job.createdAt,
+      employerReview,
     };
   }
 
