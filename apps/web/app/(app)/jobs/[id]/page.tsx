@@ -239,7 +239,7 @@ export default function JobDetailPage() {
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
             {suggestions.map((s) => (
-              <Card key={s.workerId} className="flex items-center justify-between gap-3 p-4">
+              <Card key={s.workerId} interactive className="flex items-center justify-between gap-3 p-4">
                 <div className="flex min-w-0 items-center gap-3">
                   <Avatar name={s.workerName} />
                   <div className="min-w-0">
@@ -321,7 +321,7 @@ function ApplicantCard({
   const p = row.profile;
   const active = lastActiveLabel(p?.lastActive ?? null);
   return (
-    <Card className="flex h-full flex-col p-4">
+    <Card interactive className="flex h-full flex-col p-4">
       <div className="flex items-start gap-3">
         <Avatar name={row.workerName} />
         <div className="min-w-0 flex-1">

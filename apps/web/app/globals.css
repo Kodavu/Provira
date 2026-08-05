@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: theme("colors.canvas");
   color: theme("colors.ink.DEFAULT");
@@ -9,6 +20,33 @@ body {
   text-rendering: optimizeLegibility;
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+  /* Kill the grey flash on tap and any accidental horizontal scroll on mobile. */
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: clip;
+}
+
+/* Media never overflows its container. */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Branded text selection. */
+::selection {
+  background: theme("colors.brand.200");
+  color: theme("colors.brand.900");
+}
+
+/* Consistent, visible keyboard focus for interactive elements that don't set
+   their own ring (mouse clicks stay ring-free via :focus-visible). */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+summary:focus-visible {
+  outline: 2px solid theme("colors.brand.500");
+  outline-offset: 2px;
+  border-radius: 0.5rem;
 }
 
 /* Micro-label: uppercase, tracked, muted — used above stats and sections. */

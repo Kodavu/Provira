@@ -40,13 +40,17 @@ export function Wordmark({ className = "" }: { className?: string }) {
 export function Card({
   children,
   className = "",
+  interactive = false,
 }: {
   children: ReactNode;
   className?: string;
+  interactive?: boolean;
 }) {
   return (
     <div
-      className={`rounded-2xl border border-line bg-surface shadow-card ${className}`}
+      className={`rounded-2xl border border-line bg-surface shadow-card ${
+        interactive ? "transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md" : ""
+      } ${className}`}
     >
       {children}
     </div>

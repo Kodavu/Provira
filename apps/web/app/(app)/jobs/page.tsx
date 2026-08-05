@@ -351,7 +351,7 @@ function JobSearch({
       ) : (
         <div className="grid gap-3 sm:grid-cols-2">
           {items.map((j) => (
-            <Card key={j.id} className="flex flex-col p-4">
+            <Card key={j.id} interactive className="flex flex-col p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <Link href={`/j/${j.id}`} className="font-semibold text-ink hover:text-brand-700 hover:underline">{j.title}</Link>
