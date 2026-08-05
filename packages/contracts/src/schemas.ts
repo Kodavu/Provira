@@ -223,6 +223,8 @@ export type EmployerDashboard = z.infer<typeof zEmployerDashboard>;
 
 // A worker's public-facing profile, shown to employers reviewing applicants.
 export const zWorkerProfile = z.object({
+  userId: z.string().nullable(),
+  avatarUrl: z.string().nullable(),
   bio: z.string().nullable(),
   location: z.string().nullable(),
   phone: z.string().nullable(),
@@ -233,7 +235,10 @@ export const zWorkerProfile = z.object({
   jobsCompleted: z.number(),
   onTimeRate: z.number(),
   kycVerified: z.boolean(),
+  ratingAvg: z.number(),
+  ratingCount: z.number(),
   memberSince: zDate.nullable(),
+  lastActive: zDate.nullable(),
 });
 export type WorkerProfile = z.infer<typeof zWorkerProfile>;
 

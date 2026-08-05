@@ -199,23 +199,18 @@ export default function JobDetailPage() {
         {job.applications.length === 0 ? (
           <EmptyPanel icon={UserPlus} title={t("applicationsEmptyTitle")} />
         ) : (
-          <Card className="divide-y divide-line p-0">
+          <div className="grid gap-3 sm:grid-cols-2">
             {job.applications.map((a) => (
-              <div key={a.assignmentId} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
-                <WorkerButton row={a} onView={() => setProfileFor(a)} />
-                <div className="flex items-center gap-2">
-                  <Button size="sm" variant="outline" onClick={() => setProfileFor(a)}>{t("viewProfile")}</Button>
-                  <Button
-                    size="sm"
-                    onClick={() => accept(a.assignmentId, a.workerName)}
-                    disabled={full || busy === `accept:${a.assignmentId}`}
-                  >
-                    {busy === `accept:${a.assignmentId}` ? t("accepting") : full ? t("jobFull") : t("accept")}
-                  </Button>
-                </div>
-              </div>
+              <ApplicantCard
+                key={a.assignmentId}
+                row={a}
+                onView={() => setProfileFor(a)}
+                onAccept={() => accept(a.assignmentId, a.workerName)}
+                accepting={busy === `accept:${a.assignmentId}`}
+                full={full}
+              />
             ))}
-          </Card>
+          </div>
         )}
       </Section>
 
@@ -293,6 +288,102 @@ function WorkerButton({
   );
 }
 
+function lastActiveLabel(iso: string | null): string | null {
+  if (!iso) return null;
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (days <= 0) return "Active today";
+  if (days === 1) return "Active yesterday";
+  if (days < 7) return `Active ${days}d ago`;
+  if (days < 30) return `Active ${Math.floor(days / 7)}w ago`;
+  return `Active ${Math.floor(days / 30)}mo ago`;
+}
+
+// Rich applicant card: identity + trust signals at a glance, click-through to
+// the full profile, quick-look modal, and the accept action.
+function ApplicantCard({
+  row,
+  onView,
+  onAccept,
+  accepting,
+  full,
+}: {
+  row: JobAssignmentRow;
+  onView: () => void;
+  onAccept: () => void;
+  accepting: boolean;
+  full: boolean;
+}) {
+  const t = useTranslations("JobDetail");
+  const p = row.profile;
+  const active = lastActiveLabel(p?.lastActive ?? null);
+  return (
+    <Card className="flex h-full flex-col p-4">
+      <div className="flex items-start gap-3">
+        <Avatar name={row.workerName} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5">
+            {p?.userId ? (
+              <Link href={`/w/${p.userId}`} className="truncate font-semibold text-ink hover:text-brand-700">
+                {row.workerName ?? t("worker")}
+              </Link>
+            ) : (
+              <span className="truncate font-semibold text-ink">{row.workerName ?? t("worker")}</span>
+            )}
+            {p?.kycVerified && <BadgeCheck className="h-4 w-4 shrink-0 text-brand-600" />}
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+            {p && <TierBadge tier={p.tier} />}
+            {p && p.ratingCount > 0 && (
+              <span className="inline-flex items-center gap-0.5 text-xs font-medium text-ink">
+                <Star className="h-3.5 w-3.5 fill-gold-400 text-gold-400" /> {p.ratingAvg.toFixed(1)}
+                <span className="text-ink-muted">({p.ratingCount})</span>
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {p && (
+        <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+          <div className="rounded-lg bg-canvas py-1.5">
+            <p className="font-display text-sm font-bold text-ink">{p.jobsCompleted}</p>
+            <p className="text-[10px] text-ink-muted">Jobs</p>
+          </div>
+          <div className="rounded-lg bg-canvas py-1.5">
+            <p className="font-display text-sm font-bold text-ink">{Math.round(p.onTimeRate * 100)}%</p>
+            <p className="text-[10px] text-ink-muted">On-time</p>
+          </div>
+          <div className="rounded-lg bg-canvas py-1.5">
+            <p className="font-display text-sm font-bold text-ink">{p.score}</p>
+            <p className="text-[10px] text-ink-muted">Score</p>
+          </div>
+        </div>
+      )}
+
+      {p?.bio && <p className="mt-3 line-clamp-2 text-xs text-ink-soft">{p.bio}</p>}
+
+      {p && p.skills.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-1">
+          {p.skills.slice(0, 4).map((sk) => <Pill key={sk}>{sk}</Pill>)}
+          {p.skills.length > 4 && <span className="text-xs text-ink-muted">+{p.skills.length - 4}</span>}
+        </div>
+      )}
+
+      <div className="mt-3 flex items-center gap-x-3 text-[11px] text-ink-muted">
+        {p?.location && <span className="inline-flex items-center gap-1"><MapPin className="h-3 w-3" /> {p.location}</span>}
+        {active && <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" /> {active}</span>}
+      </div>
+
+      <div className="mt-auto flex items-center gap-2 pt-4">
+        <Button size="sm" variant="outline" onClick={onView} className="flex-1">{t("viewProfile")}</Button>
+        <Button size="sm" onClick={onAccept} disabled={full || accepting} className="flex-1">
+          {accepting ? t("accepting") : full ? t("jobFull") : t("accept")}
+        </Button>
+      </div>
+    </Card>
+  );
+}
+
 function ProfileModal({ row, onClose }: { row: JobAssignmentRow | null; onClose: () => void }) {
   const t = useTranslations("JobDetail");
   const p = row?.profile;
@@ -360,6 +451,17 @@ function ProfileModal({ row, onClose }: { row: JobAssignmentRow | null; onClose:
                 </Detail>
               )}
             </div>
+
+            {p.userId && (
+              <div className="border-t border-line px-6 py-4">
+                <Link
+                  href={`/w/${p.userId}`}
+                  className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
+                >
+                  View full profile
+                </Link>
+              </div>
+            )}
           </motion.div>
         </div>
       )}

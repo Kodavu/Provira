@@ -364,9 +364,24 @@ export class JobsService {
     const perPerson = job.payAmount / BigInt(Math.max(1, job.headcount));
     const accepted = job.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
 
+    // Batch the applicants' review ratings so each card can show a star average.
+    const workerUserIds = job.assignments.map((a) => a.worker.user.id);
+    const ratingRows = workerUserIds.length
+      ? await this.prisma.review.groupBy({
+          by: ["subjectId"],
+          where: { subjectId: { in: workerUserIds }, direction: "EMPLOYER_ON_WORKER", hiddenAt: null },
+          _avg: { rating: true },
+          _count: { rating: true },
+        })
+      : [];
+    const ratingByUser = new Map(
+      ratingRows.map((r) => [r.subjectId, { avg: Math.round((r._avg.rating ?? 0) * 10) / 10, count: r._count.rating }]),
+    );
+
     const row = (a: (typeof job.assignments)[number]) => {
       const w = a.worker;
       const sp = w.user.scoreProfile;
+      const rating = ratingByUser.get(w.user.id) ?? { avg: 0, count: 0 };
       return {
         assignmentId: a.id,
         workerId: a.workerId,
@@ -374,6 +389,8 @@ export class JobsService {
         status: a.status,
         matchScore: a.matchScore,
         profile: {
+          userId: w.user.id,
+          avatarUrl: w.user.avatarUrl,
           bio: w.bio,
           location: w.location?.label ?? null,
           phone: w.user.phone,
@@ -384,7 +401,10 @@ export class JobsService {
           jobsCompleted: sp?.jobsCompleted ?? 0,
           onTimeRate: sp?.onTimeRate ?? 0,
           kycVerified: w.user.kycLevel !== "NONE",
+          ratingAvg: rating.avg,
+          ratingCount: rating.count,
           memberSince: w.user.createdAt,
+          lastActive: w.user.lastActiveAt,
         },
         attendance: a.attendance
           ? { status: a.attendance.status, code: a.attendance.code, confirmedAt: a.attendance.confirmedAt }
