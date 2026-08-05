@@ -516,6 +516,7 @@ export class JobsService {
           endAt: j.endAt,
           skills: j.skills.map((s) => s.skill.name),
           employerName: j.employer.businessName ?? null,
+          employerUserId: j.employer.userId,
           myStatus: mine?.status ?? null,
         };
       });

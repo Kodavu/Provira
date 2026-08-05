@@ -310,6 +310,7 @@ export const zJobSearchItem = z.object({
   endAt: zDate.nullable(),
   skills: z.array(z.string()),
   employerName: z.string().nullable(),
+  employerUserId: z.string().nullable(),
   myStatus: z.string().nullable(), // this worker's assignment status, if any
 });
 export type JobSearchItem = z.infer<typeof zJobSearchItem>;

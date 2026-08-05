@@ -333,10 +333,21 @@ function JobSearch({
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-semibold text-ink">{j.title}</p>
-                  <p className="mt-0.5 flex items-center gap-1 text-sm text-ink-muted">
+                  <p className="mt-0.5 flex flex-wrap items-center gap-1 text-sm text-ink-muted">
                     <MapPin className="h-3.5 w-3.5" />
                     {[j.area, j.state].filter(Boolean).join(", ") || j.location || t("locationTbc")}
-                    {j.employerName ? ` · ${j.employerName}` : ""}
+                    {j.employerName && (
+                      <>
+                        {" · "}
+                        {j.employerUserId ? (
+                          <Link href={`/e/${j.employerUserId}`} className="font-medium text-ink-soft hover:text-brand-700 hover:underline" onClick={(e) => e.stopPropagation()}>
+                            {j.employerName}
+                          </Link>
+                        ) : (
+                          j.employerName
+                        )}
+                      </>
+                    )}
                   </p>
                 </div>
                 <span className="whitespace-nowrap font-display text-lg font-semibold text-ink">{formatNaira(j.perPerson)}</span>
