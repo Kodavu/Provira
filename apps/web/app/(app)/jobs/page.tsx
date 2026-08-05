@@ -17,7 +17,7 @@ import {
 import { api, type EmployerDashboard, type JobSearchItem, type WorkerDashboard } from "@/lib/api";
 import { useSession } from "@/lib/session-context";
 import { usePageData } from "@/lib/use-page-data";
-import { Button, Card, Input, Pill, SectionHeader, formatNaira } from "@/components/ui";
+import { Button, Card, Input, Pill, SectionHeader, Skeleton, formatNaira } from "@/components/ui";
 import { PageHeader, PageError, PageSkeleton, EmptyPanel } from "@/components/page";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion";
 import { ReviewButton } from "@/components/review-dialog";
@@ -329,7 +329,18 @@ function JobSearch({
       </FadeIn>
 
       {items === null ? (
-        <div className="h-24 animate-pulse rounded-2xl bg-line/40" />
+        <div className="grid gap-3 sm:grid-cols-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Card key={i} className="space-y-3 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-5 w-16" />
+              </div>
+              <Skeleton className="h-3 w-1/2" />
+              <Skeleton className="h-8 w-24 rounded-xl" />
+            </Card>
+          ))}
+        </div>
       ) : items.length === 0 ? (
         <EmptyPanel icon={Search} title={t("noJobsFound")} body={t("noJobsBody")} />
       ) : (

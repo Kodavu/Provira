@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
+import { PageTransition } from "@/components/page-transition";
 import {
   BadgeCheck,
   Banknote,
@@ -393,7 +394,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
 
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
       </div>
 

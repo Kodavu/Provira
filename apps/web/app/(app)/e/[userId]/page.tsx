@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { api, formatNaira, type EmployerPublicProfile } from "@/lib/api";
 import { Card, Pill } from "@/components/ui";
-import { PageError, PageSkeleton, EmptyPanel } from "@/components/page";
+import { PageError, EmptyPanel } from "@/components/page";
+import { ProfileSkeleton } from "@/components/skeletons";
 import { CountUp, FadeIn, Stagger, StaggerItem } from "@/components/motion";
 import { TrustBadges } from "@/components/trust-badge";
 import { RatingBreakdown, ReviewList } from "@/components/reviews";
@@ -80,7 +81,7 @@ export default function EmployerProfilePage() {
   useEffect(() => { load(); }, [load]);
 
   if (error) return <PageError message={error} onRetry={load} />;
-  if (!data) return <PageSkeleton />;
+  if (!data) return <ProfileSkeleton />;
 
   const s = data.stats;
   const totalPaid = s.totalPaid && BigInt(s.totalPaid) > 0n ? s.totalPaid : null;

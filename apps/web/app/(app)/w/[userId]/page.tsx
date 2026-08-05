@@ -23,7 +23,8 @@ import {
 } from "lucide-react";
 import { api, formatNaira, type WorkerPublicProfile } from "@/lib/api";
 import { Card, Pill, TierBadge } from "@/components/ui";
-import { PageError, PageSkeleton, EmptyPanel } from "@/components/page";
+import { PageError, EmptyPanel } from "@/components/page";
+import { ProfileSkeleton } from "@/components/skeletons";
 import { CountUp, FadeIn, Stagger, StaggerItem } from "@/components/motion";
 import { TrustBadges } from "@/components/trust-badge";
 import { RatingBreakdown, ReviewList, Stars } from "@/components/reviews";
@@ -88,7 +89,7 @@ export default function WorkerProfilePage() {
   useEffect(() => { load(); }, [load]);
 
   if (error) return <PageError message={error} onRetry={load} />;
-  if (!data) return <PageSkeleton />;
+  if (!data) return <ProfileSkeleton />;
 
   const s = data.stats;
   const earnings = data.stats.totalEarnings && BigInt(data.stats.totalEarnings) > 0n ? data.stats.totalEarnings : null;
