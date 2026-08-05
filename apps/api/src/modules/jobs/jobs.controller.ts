@@ -86,6 +86,12 @@ export class JobsController {
     return this.jobs.declineInvite(assignmentId, body.userId);
   }
 
+  // Worker-safe job detail (no applicant PII). `userId` resolves my status.
+  @Get(":id/public")
+  publicDetail(@Param("id") id: string, @Query("userId") userId?: string) {
+    return this.jobs.publicDetail(id, userId);
+  }
+
   // Full employer detail: grouped assignments + attendance codes.
   @Get(":id")
   detail(@Param("id") id: string) {

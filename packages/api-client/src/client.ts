@@ -5,6 +5,8 @@ import type {
   JobSuggestion,
   Skill,
   WorkerProfileEdit,
+  EmployerProfileEdit,
+  PublicJobDetail,
   NotificationFeed,
   NotificationPreferences,
   OtpRequestResponse,
@@ -102,6 +104,8 @@ export function createTallyClient(config: TallyClientConfig) {
       userId: string,
       patch: {
         fullName?: string;
+        headline?: string;
+        avatarUrl?: string;
         bio?: string;
         languages?: string[];
         skillSlugs?: string[];
@@ -115,6 +119,33 @@ export function createTallyClient(config: TallyClientConfig) {
         method: "PUT",
         body: JSON.stringify(patch),
       }),
+
+    // Employer company profile (edit)
+    employerProfile: (userId: string) =>
+      request<EmployerProfileEdit>(`/employers/${userId}/profile`),
+    updateEmployerProfile: (
+      userId: string,
+      patch: {
+        businessName?: string;
+        logoUrl?: string;
+        industry?: string;
+        companySize?: string;
+        websiteUrl?: string;
+        about?: string;
+        state?: string;
+        area?: string;
+        ward?: string;
+        label?: string;
+      },
+    ) =>
+      request<EmployerProfileEdit>(`/employers/${userId}/profile`, {
+        method: "PUT",
+        body: JSON.stringify(patch),
+      }),
+
+    // Worker-safe job detail
+    publicJobDetail: (jobId: string, userId?: string) =>
+      request<PublicJobDetail>(`/jobs/${jobId}/public${userId ? `?userId=${encodeURIComponent(userId)}` : ""}`),
 
     // Worker
     workerDashboard: (userId: string) =>

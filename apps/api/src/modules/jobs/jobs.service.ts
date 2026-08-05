@@ -438,6 +438,62 @@ export class JobsService {
     };
   }
 
+  /**
+   * Worker-safe job detail: everything a worker needs to decide to apply, with
+   * NO applicant PII or attendance codes. `userId` (optional) resolves the
+   * viewing worker's own assignment status on this job.
+   */
+  async publicDetail(jobId: string, userId?: string) {
+    const job = await this.prisma.job.findUnique({
+      where: { id: jobId },
+      include: {
+        location: true,
+        employer: true,
+        skills: { include: { skill: true } },
+        assignments: true,
+      },
+    });
+    if (!job) throw new NotFoundException("Job not found");
+
+    const perPerson = job.payAmount / BigInt(Math.max(1, job.headcount));
+    const accepted = job.assignments.filter((a) => IN_JOB.includes(a.status as (typeof IN_JOB)[number])).length;
+
+    let myStatus: string | null = null;
+    if (userId) {
+      const me = await this.prisma.user.findUnique({
+        where: { id: userId },
+        include: { workerProfile: true },
+      });
+      if (me?.workerProfile) {
+        const mine = job.assignments.find((a) => a.workerId === me.workerProfile!.id);
+        myStatus = mine?.status ?? null;
+      }
+    }
+
+    return {
+      id: job.id,
+      title: job.title,
+      description: job.description,
+      status: job.status,
+      perPerson: perPerson.toString(),
+      headcount: job.headcount,
+      accepted,
+      filled: accepted >= job.headcount,
+      location: job.location?.label ?? null,
+      state: job.location?.state ?? null,
+      area: job.location?.lga ?? null,
+      ward: job.location?.ward ?? null,
+      startAt: job.startAt,
+      endAt: job.endAt,
+      skills: job.skills.map((s) => s.skill.name),
+      languages: job.languages,
+      employerName: job.employer.businessName ?? null,
+      employerUserId: job.employer.userId,
+      myStatus,
+      postedAt: job.createdAt,
+    };
+  }
+
   /** Worker-facing job search across open jobs. */
   async search(userId?: string, query?: string, skill?: string, feed?: string) {
     const jobs = await this.prisma.job.findMany({

@@ -323,6 +323,8 @@ export type JobSearchResults = z.infer<typeof zJobSearchResults>;
 // The worker's editable profile (skills, languages, home location, feed pref).
 export const zWorkerProfileEdit = z.object({
   fullName: z.string().nullable(),
+  headline: z.string().nullable(),
+  avatarUrl: z.string().nullable(),
   jobFeed: z.string(),
   bio: z.string().nullable(),
   languages: z.array(z.string()),
@@ -335,6 +337,48 @@ export const zWorkerProfileEdit = z.object({
   }),
 });
 export type WorkerProfileEdit = z.infer<typeof zWorkerProfileEdit>;
+
+// The employer's editable company profile.
+export const zEmployerProfileEdit = z.object({
+  businessName: z.string().nullable(),
+  logoUrl: z.string().nullable(),
+  industry: z.string().nullable(),
+  companySize: z.string().nullable(),
+  websiteUrl: z.string().nullable(),
+  about: z.string().nullable(),
+  location: z.object({
+    state: z.string().nullable(),
+    area: z.string().nullable(),
+    ward: z.string().nullable(),
+    label: z.string().nullable(),
+  }),
+});
+export type EmployerProfileEdit = z.infer<typeof zEmployerProfileEdit>;
+
+// A worker-safe view of a job (no applicant PII / attendance codes).
+export const zPublicJobDetail = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string().nullable(),
+  status: z.string(),
+  perPerson: zMoney,
+  headcount: z.number(),
+  accepted: z.number(),
+  filled: z.boolean(),
+  location: z.string().nullable(),
+  state: z.string().nullable(),
+  area: z.string().nullable(),
+  ward: z.string().nullable(),
+  startAt: zDate.nullable(),
+  endAt: zDate.nullable(),
+  skills: z.array(z.string()),
+  languages: z.array(z.string()),
+  employerName: z.string().nullable(),
+  employerUserId: z.string().nullable(),
+  myStatus: z.string().nullable(), // the viewing worker's assignment status, if any
+  postedAt: zDate.nullable(),
+});
+export type PublicJobDetail = z.infer<typeof zPublicJobDetail>;
 
 export const zSkill = z.object({ slug: z.string(), name: z.string() });
 export type Skill = z.infer<typeof zSkill>;

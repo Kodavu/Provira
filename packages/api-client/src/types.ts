@@ -14,6 +14,8 @@ export type {
   JobSearchResults,
   WorkerProfile,
   WorkerProfileEdit,
+  EmployerProfileEdit,
+  PublicJobDetail,
   Skill,
   WalletData,
   ScoreFactor,

@@ -45,6 +45,8 @@ export class UsersController {
     @Body()
     body: {
       fullName?: string;
+      headline?: string;
+      avatarUrl?: string;
       bio?: string;
       languages?: Language[];
       skillSlugs?: string[];

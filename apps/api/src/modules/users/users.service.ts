@@ -285,6 +285,8 @@ export class UsersService {
     const wp = user.workerProfile;
     return {
       fullName: user.fullName,
+      headline: wp?.headline ?? null,
+      avatarUrl: user.avatarUrl ?? null,
       jobFeed: (user as { jobFeed?: string }).jobFeed ?? "ALL",
       bio: wp?.bio ?? null,
       languages: wp?.languages ?? ["EN"],
@@ -303,6 +305,8 @@ export class UsersService {
     userId: string,
     input: {
       fullName?: string;
+      headline?: string;
+      avatarUrl?: string;
       bio?: string;
       languages?: Language[];
       skillSlugs?: string[];
@@ -322,8 +326,11 @@ export class UsersService {
       user.workerProfile ??
       (await this.prisma.workerProfile.create({ data: { userId } }));
 
-    if (input.fullName?.trim()) {
-      await this.prisma.user.update({ where: { id: userId }, data: { fullName: input.fullName.trim() } });
+    const userPatch: { fullName?: string; avatarUrl?: string } = {};
+    if (input.fullName?.trim()) userPatch.fullName = input.fullName.trim();
+    if (input.avatarUrl !== undefined) userPatch.avatarUrl = input.avatarUrl || undefined;
+    if (Object.keys(userPatch).length) {
+      await this.prisma.user.update({ where: { id: userId }, data: userPatch });
     }
 
     // Upsert the worker's home location (state + area + optional label).
@@ -354,6 +361,7 @@ export class UsersService {
       where: { id: wp.id },
       data: {
         bio: input.bio?.trim() ?? undefined,
+        headline: input.headline?.trim() ?? undefined,
         languages: input.languages ?? undefined,
         locationId: locationId ?? undefined,
       },

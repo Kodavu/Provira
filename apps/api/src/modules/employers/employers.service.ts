@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import { zEmployerDashboard } from "@tally/contracts";
+import { zEmployerDashboard, zEmployerProfileEdit } from "@tally/contracts";
 
 /**
  * Employer view: the jobs they've posted, each with its escrow funding state,
@@ -10,6 +10,84 @@ import { zEmployerDashboard } from "@tally/contracts";
 @Injectable()
 export class EmployersService {
   constructor(private readonly prisma: PrismaService) {}
+
+  /** The employer's editable company profile. Creates the profile if missing. */
+  async profile(userId: string): Promise<unknown> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { employerProfile: { include: { location: true } } },
+    });
+    if (!user) throw new NotFoundException("User not found");
+    const ep = user.employerProfile;
+    return zEmployerProfileEdit.parse({
+      businessName: ep?.businessName ?? user.fullName ?? null,
+      logoUrl: ep?.logoUrl ?? null,
+      industry: ep?.industry ?? null,
+      companySize: ep?.companySize ?? null,
+      websiteUrl: ep?.websiteUrl ?? null,
+      about: ep?.about ?? null,
+      location: {
+        state: ep?.location?.state ?? null,
+        area: ep?.location?.lga ?? null,
+        ward: ep?.location?.ward ?? null,
+        label: ep?.location?.label ?? null,
+      },
+    });
+  }
+
+  async updateProfile(
+    userId: string,
+    input: {
+      businessName?: string;
+      logoUrl?: string;
+      industry?: string;
+      companySize?: string;
+      websiteUrl?: string;
+      about?: string;
+      state?: string;
+      area?: string;
+      ward?: string;
+      label?: string;
+    },
+  ): Promise<unknown> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { employerProfile: true },
+    });
+    if (!user) throw new NotFoundException("User not found");
+    const ep =
+      user.employerProfile ??
+      (await this.prisma.employerProfile.create({ data: { userId } }));
+
+    // Upsert the company location.
+    let locationId = ep.locationId;
+    const state = input.state?.trim() || null;
+    const area = input.area?.trim() || null;
+    const ward = input.ward?.trim() || null;
+    const label = input.label?.trim() || null;
+    if (state || area || ward || label) {
+      if (locationId) {
+        await this.prisma.location.update({ where: { id: locationId }, data: { state, lga: area, ward, label } });
+      } else {
+        locationId = (await this.prisma.location.create({ data: { state, lga: area, ward, label } })).id;
+      }
+    }
+
+    await this.prisma.employerProfile.update({
+      where: { id: ep.id },
+      data: {
+        businessName: input.businessName?.trim() ?? undefined,
+        logoUrl: input.logoUrl !== undefined ? input.logoUrl || null : undefined,
+        industry: input.industry?.trim() ?? undefined,
+        companySize: input.companySize?.trim() ?? undefined,
+        websiteUrl: input.websiteUrl?.trim() ?? undefined,
+        about: input.about?.trim() ?? undefined,
+        locationId: locationId ?? undefined,
+      },
+    });
+
+    return this.profile(userId);
+  }
 
   async dashboard(userId: string) {
     const user = await this.prisma.user.findUnique({
