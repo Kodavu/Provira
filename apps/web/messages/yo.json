@@ -1128,5 +1128,22 @@
     "ctaTitle": "Ìdáàbòbò ìpele-báǹkì, tí a kọ́ sínú",
     "ctaBody": "Ìsanwó, ìdánimọ̀, àti àkọsílẹ̀ kọ̀ọ̀kan ni a ń mú pẹ̀lú ìtọ́jú tí ó tọ́ sí.",
     "ctaSecondary": "Ka Ìlànà Àṣírí wa"
+  },
+  "Notifications": {
+    "title": "Àwọn ìfitọ́nilétí",
+    "ariaLabel": "Àwọn ìfitọ́nilétí",
+    "markAllRead": "Sàmì sí gbogbo rẹ̀ pé a ti kà",
+    "allCaughtUp": "O ti kà gbogbo rẹ̀ tán."
+  },
+  "LocationPicker": {
+    "state": "Ìpínlẹ̀",
+    "lga": "Ìjọba Ìbílẹ̀",
+    "ward": "Agbègbè",
+    "wardOptional": "Agbègbè (àṣàyàn)",
+    "selectState": "Yan ìpínlẹ̀ rẹ…",
+    "selectLga": "Yan Ìjọba Ìbílẹ̀…",
+    "pickStateFirst": "Yan ìpínlẹ̀ ná kọ́kọ́",
+    "selectWard": "Yan agbègbè…",
+    "pickLgaFirst": "Yan Ìjọba Ìbílẹ̀ kọ́kọ́"
   }
 }

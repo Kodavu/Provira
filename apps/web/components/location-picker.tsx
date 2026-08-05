@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { api } from "@/lib/api";
 
 export interface LocationValue {
@@ -24,6 +25,7 @@ export function LocationPicker({
   onChange: (v: LocationValue) => void;
   wardOptional?: boolean;
 }) {
+  const t = useTranslations("LocationPicker");
   const [states, setStates] = useState<string[]>([]);
   const [lgas, setLgas] = useState<string[]>([]);
   const [wards, setWards] = useState<string[]>([]);
@@ -45,33 +47,33 @@ export function LocationPicker({
   return (
     <div className="grid gap-3 sm:grid-cols-3">
       <label className="block">
-        <span className="mb-1.5 block text-xs font-medium text-ink-soft">State</span>
+        <span className="mb-1.5 block text-xs font-medium text-ink-soft">{t("state")}</span>
         <select
           className={sel}
           value={value.state}
           onChange={(e) => onChange({ state: e.target.value, area: "", ward: "" })}
         >
-          <option value="">Select state…</option>
+          <option value="">{t("selectState")}</option>
           {states.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
       </label>
 
       <label className="block">
-        <span className="mb-1.5 block text-xs font-medium text-ink-soft">LGA</span>
+        <span className="mb-1.5 block text-xs font-medium text-ink-soft">{t("lga")}</span>
         <select
           className={sel}
           value={value.area}
           disabled={!value.state}
           onChange={(e) => onChange({ ...value, area: e.target.value, ward: "" })}
         >
-          <option value="">{value.state ? "Select LGA…" : "Pick a state first"}</option>
+          <option value="">{value.state ? t("selectLga") : t("pickStateFirst")}</option>
           {lgas.map((l) => <option key={l} value={l}>{l}</option>)}
         </select>
       </label>
 
       <label className="block">
         <span className="mb-1.5 block text-xs font-medium text-ink-soft">
-          Ward{wardOptional ? " (optional)" : ""}
+          {wardOptional ? t("wardOptional") : t("ward")}
         </span>
         <select
           className={sel}
@@ -79,7 +81,7 @@ export function LocationPicker({
           disabled={!value.area}
           onChange={(e) => onChange({ ...value, ward: e.target.value })}
         >
-          <option value="">{value.area ? "Select ward…" : "Pick an LGA first"}</option>
+          <option value="">{value.area ? t("selectWard") : t("pickLgaFirst")}</option>
           {wards.map((w) => <option key={w} value={w}>{w}</option>)}
         </select>
       </label>

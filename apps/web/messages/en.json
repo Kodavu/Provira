@@ -1128,5 +1128,22 @@
     "ctaTitle": "Bank-grade protection, built in",
     "ctaBody": "Every payout, identity, and record is handled with the care it deserves.",
     "ctaSecondary": "Read our Privacy Policy"
+  },
+  "Notifications": {
+    "title": "Notifications",
+    "ariaLabel": "Notifications",
+    "markAllRead": "Mark all read",
+    "allCaughtUp": "You're all caught up."
+  },
+  "LocationPicker": {
+    "state": "State",
+    "lga": "LGA",
+    "ward": "Ward",
+    "wardOptional": "Ward (optional)",
+    "selectState": "Select state…",
+    "selectLga": "Select LGA…",
+    "pickStateFirst": "Pick a state first",
+    "selectWard": "Select ward…",
+    "pickLgaFirst": "Pick an LGA first"
   }
 }

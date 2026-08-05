@@ -1128,5 +1128,22 @@
     "ctaTitle": "Nchebe ọkwa ụlọ akụ, e wuru n'ime",
     "ctaBody": "A na-eji nlekọta kwesịrị ekwesị na-elekọta ịkwụ ụgwọ, njirimara, na ndekọ ọ bụla.",
     "ctaSecondary": "Gụọ Iwu Nzuzo anyị"
+  },
+  "Notifications": {
+    "title": "Mkpọsa",
+    "ariaLabel": "Mkpọsa",
+    "markAllRead": "Kaa ha niile dị ka a gụrụ",
+    "allCaughtUp": "Ị gụchaala ihe niile."
+  },
+  "LocationPicker": {
+    "state": "Steeti",
+    "lga": "Ọchịchị ime obodo",
+    "ward": "Ebe obibi",
+    "wardOptional": "Ebe obibi (nhọrọ)",
+    "selectState": "Họrọ steeti gị…",
+    "selectLga": "Họrọ Ọchịchị ime obodo…",
+    "pickStateFirst": "Buru ụzọ họrọ steeti",
+    "selectWard": "Họrọ ebe obibi…",
+    "pickLgaFirst": "Buru ụzọ họrọ Ọchịchị ime obodo"
   }
 }

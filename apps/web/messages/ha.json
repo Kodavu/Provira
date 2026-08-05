@@ -1128,5 +1128,22 @@
     "ctaTitle": "Kariyar matakin banki, an gina ta ciki",
     "ctaBody": "Ana kula da kowane biya, shaida, da rikodi da kulawar da ya cancanta.",
     "ctaSecondary": "Karanta Manufar Sirrinmu"
+  },
+  "Notifications": {
+    "title": "Sanarwa",
+    "ariaLabel": "Sanarwa",
+    "markAllRead": "Yiwa duka alama an karanta",
+    "allCaughtUp": "Ka ci gaba da komai."
+  },
+  "LocationPicker": {
+    "state": "Jiha",
+    "lga": "Ƙaramar Hukuma",
+    "ward": "Unguwa",
+    "wardOptional": "Unguwa (na zaɓi)",
+    "selectState": "Zaɓi jiharka…",
+    "selectLga": "Zaɓi Ƙaramar Hukuma…",
+    "pickStateFirst": "Zaɓi jiha da farko",
+    "selectWard": "Zaɓi unguwa…",
+    "pickLgaFirst": "Zaɓi Ƙaramar Hukuma da farko"
   }
 }

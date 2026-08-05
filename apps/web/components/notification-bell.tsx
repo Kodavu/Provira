@@ -1,22 +1,27 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { api, type Notification } from "@/lib/api";
 import { getUserId } from "@/lib/session";
 
 const POLL_MS = 30_000;
 
-function timeAgo(iso: string): string {
+type TimeT = ReturnType<typeof useTranslations<"Time">>;
+
+function timeAgo(iso: string, tt: TimeT): string {
   const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
-  if (s < 60) return "just now";
+  if (s < 60) return tt("justNow");
   const m = Math.floor(s / 60);
-  if (m < 60) return `${m}m ago`;
+  if (m < 60) return tt("minutes", { n: m });
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  return `${Math.floor(h / 24)}d ago`;
+  if (h < 24) return tt("hours", { n: h });
+  return tt("days", { n: Math.floor(h / 24) });
 }
 
 export function NotificationBell() {
+  const t = useTranslations("Notifications");
+  const tt = useTranslations("Time");
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Notification[]>([]);
   const [unread, setUnread] = useState(0);
@@ -71,7 +76,7 @@ export function NotificationBell() {
     <div ref={ref} className="relative shrink-0">
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Notifications"
+        aria-label={t("ariaLabel")}
         className="relative grid h-9 w-9 place-items-center rounded-xl border border-line bg-surface text-ink-soft hover:text-ink"
       >
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7}>
@@ -88,16 +93,16 @@ export function NotificationBell() {
       {open && (
         <div className="absolute right-0 top-11 z-50 w-80 overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl">
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
-            <p className="text-sm font-semibold text-ink">Notifications</p>
+            <p className="text-sm font-semibold text-ink">{t("title")}</p>
             {unread > 0 && (
               <button onClick={markAll} className="text-xs font-medium text-brand-600 hover:text-brand-700">
-                Mark all read
+                {t("markAllRead")}
               </button>
             )}
           </div>
           <div className="max-h-96 overflow-y-auto">
             {items.length === 0 ? (
-              <p className="px-4 py-8 text-center text-sm text-ink-muted">You&apos;re all caught up.</p>
+              <p className="px-4 py-8 text-center text-sm text-ink-muted">{t("allCaughtUp")}</p>
             ) : (
               items.map((n) => (
                 <button
@@ -111,7 +116,7 @@ export function NotificationBell() {
                   <span className="min-w-0">
                     {n.title && <span className="block text-sm font-medium text-ink">{n.title}</span>}
                     <span className="block text-sm text-ink-soft">{n.body}</span>
-                    <span className="mt-0.5 block text-[11px] text-ink-muted">{timeAgo(n.createdAt)}</span>
+                    <span className="mt-0.5 block text-[11px] text-ink-muted">{timeAgo(n.createdAt, tt)}</span>
                   </span>
                 </button>
               ))
