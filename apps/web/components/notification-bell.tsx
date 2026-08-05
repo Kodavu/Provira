@@ -25,6 +25,7 @@ export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Notification[]>([]);
   const [unread, setUnread] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async () => {
@@ -36,6 +37,8 @@ export function NotificationBell() {
       setUnread(feed.unread);
     } catch {
       /* offline / not logged in — leave the bell quiet */
+    } finally {
+      setLoaded(true);
     }
   }, []);
 
@@ -101,7 +104,19 @@ export function NotificationBell() {
             )}
           </div>
           <div className="max-h-96 overflow-y-auto">
-            {items.length === 0 ? (
+            {!loaded && items.length === 0 ? (
+              <div className="divide-y divide-line">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="flex gap-3 px-4 py-3">
+                    <span className="mt-1.5 h-2 w-2 shrink-0 animate-pulse rounded-full bg-line" />
+                    <div className="flex-1 space-y-2">
+                      <span className="block h-3.5 w-2/3 animate-pulse rounded bg-line/70" />
+                      <span className="block h-3 w-1/2 animate-pulse rounded bg-line/50" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : items.length === 0 ? (
               <p className="px-4 py-8 text-center text-sm text-ink-muted">{t("allCaughtUp")}</p>
             ) : (
               items.map((n) => (
