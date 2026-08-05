@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { toast } from "sonner";
 import { PageTransition } from "@/components/page-transition";
 import {
@@ -328,6 +328,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     );
   }
   return (
+    <MotionConfig reducedMotion="user">
     <div className="flex min-h-screen bg-canvas">
       {/* Desktop sidebar */}
       <aside
@@ -405,6 +406,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         onSignOut={signOut}
       />
     </div>
+    </MotionConfig>
   );
 }
 
