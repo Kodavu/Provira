@@ -1042,5 +1042,91 @@
     "fund": "Fund · {amount}",
     "fundedHeldPill": "Funded · held",
     "defaultLocation": "Lagos"
+  },
+  "Support": {
+    "title": "Help center",
+    "subtitle": "Answers to common questions — and how to reach a human if you need one.",
+    "searchPlaceholder": "Search help…",
+    "noResults": "No results. Try different words, or contact us below.",
+    "stillNeedHelp": "Still need help?",
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Chat with support",
+    "emailUs": "Email us",
+    "emailHint": "support@tally.ng",
+    "verifyIdentity": "Verify identity",
+    "verifyHint": "Unlock higher limits",
+    "alertsNote": "Security and payment alerts are always delivered. Manage every other notification in <link>Settings</link>.",
+    "faqs": {
+      "getPaid": {
+        "q": "How do I get paid for a shift?",
+        "a": "After you're matched to a job, apply to get a 4-digit confirmation code. On site, the employer confirms your attendance — that releases the escrowed pay straight into your Tally wallet, which you can withdraw to your bank."
+      },
+      "tallyScore": {
+        "q": "What is my Tally Score?",
+        "a": "It's a reliability score built from your real activity — shifts completed, on-time rate, sales logged, and loans repaid. A higher score unlocks better jobs and larger loans. Every point is explained on the My standing page."
+      },
+      "logSale": {
+        "q": "Why should I log every sale?",
+        "a": "Each logged sale becomes part of a verifiable track record. That record is what qualifies you for stock loans — the more consistent your sales, the larger the working capital you can access."
+      },
+      "escrowProtect": {
+        "q": "How does escrow protect my money?",
+        "a": "When you fund a job, the pay is held in a dedicated escrow account — not sent to the worker yet. It's only released when the worker confirms attendance with their code, so you never pay for a no-show."
+      },
+      "hireWorkers": {
+        "q": "How do I hire reliable workers?",
+        "a": "Post a job, fund its escrow, then tap Find workers. We match workers by skill and reliability score, so you see people with a proven track record first."
+      },
+      "loans": {
+        "q": "How do loans work?",
+        "a": "Loan eligibility is based on your Tally Score. Approved loans disburse to your payout account, and repaying on time raises your score — unlocking larger limits next time."
+      },
+      "verify": {
+        "q": "How do I verify my identity?",
+        "a": "Go to Verify identity, enter your 11-digit NIN, and add a payout bank account. We confirm the account name before saving and store sensitive numbers encrypted — we never keep the raw values."
+      },
+      "dataSafe": {
+        "q": "Is my data safe?",
+        "a": "Yes. Sensitive identifiers like your NIN are hashed, payout details are confirmed before use, and security and payment alerts are always delivered so you're never in the dark about your money."
+      }
+    }
+  },
+  "Security": {
+    "eyebrow": "Trust & security",
+    "title": "Your money and your data, protected",
+    "lede": "Trust is the product. Here's exactly how we keep funds safe, identities private, and both sides of every job accountable.",
+    "pillars": {
+      "escrow": {
+        "title": "Escrow-protected funds",
+        "body": "Employer funds are held with a CBN-licensed partner bank and released only when attendance is confirmed. No confirmation, no release."
+      },
+      "encryption": {
+        "title": "Encryption everywhere",
+        "body": "Traffic is protected with TLS in transit, and sensitive identifiers like your NIN are encrypted at rest — never stored in the clear."
+      },
+      "access": {
+        "title": "Least-privilege access",
+        "body": "Access to production data is role-based, logged, and limited to what each task strictly requires. No standing access to your records."
+      },
+      "rails": {
+        "title": "Licensed payment rails",
+        "body": "Payouts run through licensed payment providers over regulated infrastructure — the same rails trusted by Nigerian banks."
+      },
+      "fraud": {
+        "title": "Fraud & anomaly checks",
+        "body": "Attendance codes, verified identities, and behavioural checks reduce no-shows, impersonation, and payout abuse on both sides."
+      },
+      "ndpr": {
+        "title": "NDPR-aligned by design",
+        "body": "We collect the minimum we need, tell you why, and honour your data rights under Nigeria's Data Protection Regulation."
+      }
+    },
+    "disclosureEyebrow": "Responsible disclosure",
+    "disclosureTitle": "Found a vulnerability?",
+    "disclosureSubtitle": "We welcome reports from security researchers and treat them with priority.",
+    "disclosureBody": "Please email <email>security@tally.ng</email> with details and steps to reproduce. Give us a reasonable window to fix the issue before public disclosure — and please don't access or modify data that isn't yours.",
+    "ctaTitle": "Bank-grade protection, built in",
+    "ctaBody": "Every payout, identity, and record is handled with the care it deserves.",
+    "ctaSecondary": "Read our Privacy Policy"
   }
 }

@@ -1042,5 +1042,91 @@
     "fund": "Fund · {amount}",
     "fundedHeldPill": "Don fund · hold",
     "defaultLocation": "Lagos"
+  },
+  "Support": {
+    "title": "Help center",
+    "subtitle": "Answer to common questions — and how you go take reach person if you need am.",
+    "searchPlaceholder": "Search help…",
+    "noResults": "No result. Try different words, or contact us for down.",
+    "stillNeedHelp": "You still need help?",
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Chat with support",
+    "emailUs": "Email us",
+    "emailHint": "support@tally.ng",
+    "verifyIdentity": "Verify identity",
+    "verifyHint": "Unlock higher limit",
+    "alertsNote": "We dey always deliver security and payment alert. Manage every other notification for <link>Settings</link>.",
+    "faqs": {
+      "getPaid": {
+        "q": "How I go take collect pay for shift?",
+        "a": "After we match you to job, apply make you get 4-digit confirmation code. For site, the employer go confirm your attendance — that one go release the escrow pay straight into your Tally wallet, wey you fit withdraw go your bank."
+      },
+      "tallyScore": {
+        "q": "Wetin be my Tally Score?",
+        "a": "Na reliability score wey we build from your real activity — shifts wey you complete, on-time rate, sales wey you log, and loans wey you pay back. Higher score go unlock better jobs and bigger loans. We explain every point for the My standing page."
+      },
+      "logSale": {
+        "q": "Why I suppose log every sale?",
+        "a": "Every sale wey you log go become part of track record wey person fit verify. Na that record dey qualify you for stock loan — the more consistent your sales, the bigger the working capital wey you fit access."
+      },
+      "escrowProtect": {
+        "q": "How escrow dey protect my money?",
+        "a": "When you fund job, we go hold the pay for dedicated escrow account — we never send am give worker yet. Na only when worker confirm attendance with dem code we go release am, so you no dey pay for no-show."
+      },
+      "hireWorkers": {
+        "q": "How I go take hire reliable workers?",
+        "a": "Post job, fund im escrow, then tap Find workers. We dey match workers by skill and reliability score, so you go first see people wey get proven track record."
+      },
+      "loans": {
+        "q": "How loans dey work?",
+        "a": "Loan eligibility base on your Tally Score. Approved loans go disburse go your payout account, and if you pay back on time e go raise your score — and unlock bigger limit next time."
+      },
+      "verify": {
+        "q": "How I go take verify my identity?",
+        "a": "Go Verify identity, enter your 11-digit NIN, and add payout bank account. We go confirm the account name before we save am, and we dey store sensitive numbers encrypt — we no dey keep the raw values."
+      },
+      "dataSafe": {
+        "q": "My data safe?",
+        "a": "Yes. Sensitive identifiers like your NIN, we dey hash am, we dey confirm payout details before we use am, and we dey always deliver security and payment alert so you no dey blind about your money."
+      }
+    }
+  },
+  "Security": {
+    "eyebrow": "Trust & security",
+    "title": "Your money and your data, we don protect am",
+    "lede": "Trust na the product. Here na exactly how we dey keep funds safe, identities private, and both sides of every job accountable.",
+    "pillars": {
+      "escrow": {
+        "title": "Escrow-protected funds",
+        "body": "We dey hold employer funds with CBN-licensed partner bank and release am only when dem confirm attendance. No confirmation, no release."
+      },
+      "encryption": {
+        "title": "Encryption everywhere",
+        "body": "We dey protect traffic with TLS for transit, and sensitive identifiers like your NIN, we dey encrypt am at rest — we no dey store am plain."
+      },
+      "access": {
+        "title": "Least-privilege access",
+        "body": "Access to production data na role-based, we dey log am, and e dey limited to wetin each task strictly need. No standing access to your records."
+      },
+      "rails": {
+        "title": "Licensed payment rails",
+        "body": "Payouts dey run through licensed payment providers over regulated infrastructure — the same rails wey Nigerian banks dey trust."
+      },
+      "fraud": {
+        "title": "Fraud & anomaly checks",
+        "body": "Attendance codes, verified identities, and behavioural checks dey reduce no-shows, impersonation, and payout abuse for both sides."
+      },
+      "ndpr": {
+        "title": "NDPR-aligned by design",
+        "body": "We dey collect the minimum wey we need, tell you why, and honour your data rights under Nigeria Data Protection Regulation."
+      }
+    },
+    "disclosureEyebrow": "Responsible disclosure",
+    "disclosureTitle": "You find vulnerability?",
+    "disclosureSubtitle": "We welcome report from security researchers and we dey treat dem with priority.",
+    "disclosureBody": "Abeg email <email>security@tally.ng</email> with details and steps to reproduce. Give us reasonable window make we fix the issue before public disclosure — and abeg no access or modify data wey no be your own.",
+    "ctaTitle": "Bank-grade protection, built in",
+    "ctaBody": "Every payout, identity, and record, we dey handle am with the care wey e deserve.",
+    "ctaSecondary": "Read our Privacy Policy"
   }
 }

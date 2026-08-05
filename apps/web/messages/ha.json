@@ -1042,5 +1042,91 @@
     "fund": "Ba da kuɗi · {amount}",
     "fundedHeldPill": "An ba da kuɗi · a riƙe",
     "defaultLocation": "Legas"
+  },
+  "Support": {
+    "title": "Cibiyar taimako",
+    "subtitle": "Amsoshin tambayoyin da aka saba yi — da yadda za ka kai ga mutum idan kana buƙata.",
+    "searchPlaceholder": "Nemi taimako…",
+    "noResults": "Babu sakamako. Gwada wasu kalmomi, ko tuntuɓe mu a ƙasa.",
+    "stillNeedHelp": "Har yanzu kana buƙatar taimako?",
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Yi hira da tallafi",
+    "emailUs": "Aiko mana imel",
+    "emailHint": "support@tally.ng",
+    "verifyIdentity": "Tabbatar da shaida",
+    "verifyHint": "Buɗe iyaka mafi girma",
+    "alertsNote": "Ana aika sanarwar tsaro da biya kullum. Sarrafa kowace sanarwa ta daban a cikin <link>Saituna</link>.",
+    "faqs": {
+      "getPaid": {
+        "q": "Yaya nake samun biya don shift?",
+        "a": "Bayan an daidaita ka da aiki, ka nemi lambar tabbatarwa mai lamba huɗu. A wurin aiki, ma'aikaci zai tabbatar da halartarka — hakan yana sakin kuɗin escrow kai tsaye zuwa walat ɗin Tally naka, wanda za ka iya cirewa zuwa bankinka."
+      },
+      "tallyScore": {
+        "q": "Menene Tally Score na?",
+        "a": "Maki ne na aminci da aka gina daga ainihin ayyukanka — shifts da aka gama, adadin kan lokaci, tallace-tallacen da aka rubuta, da lamunin da aka biya. Maki mafi girma yana buɗe ayyuka mafi kyau da manyan lamuni. An bayyana kowane maki a shafin Matsayina."
+      },
+      "logSale": {
+        "q": "Me ya sa zan rubuta kowace saya?",
+        "a": "Kowace sayar da aka rubuta tana zama wani ɓangare na tarihin da za a iya tabbatarwa. Wannan tarihin ne ke cancantar ka don lamunin kaya — yadda tallace-tallacenka suka fi daidaituwa, haka babban jarin da za ka iya samu."
+      },
+      "escrowProtect": {
+        "q": "Yaya escrow ke kare kuɗina?",
+        "a": "Sa'ad da ka ba da kuɗin aiki, ana riƙe biyan a cikin asusun escrow na musamman — ba a aika wa ma'aikaci ba tukuna. Ana sakin sa kawai sa'ad da ma'aikaci ya tabbatar da halarta da lambarsa, don haka ba za ka taɓa biya don wanda bai zo ba."
+      },
+      "hireWorkers": {
+        "q": "Yaya zan ɗauki ma'aikata masu aminci?",
+        "a": "Sanya aiki, ka ba da kuɗin escrow ɗinsa, sa'an nan ka danna Nemo ma'aikata. Muna daidaita ma'aikata bisa ƙwarewa da makin aminci, don haka ka fara ganin mutane masu tabbataccen tarihi."
+      },
+      "loans": {
+        "q": "Yaya lamuni ke aiki?",
+        "a": "Cancantar lamuni ta dogara ne akan Tally Score naka. Lamunin da aka amince da su suna zuwa asusun biyanka, biya kan lokaci yana ɗaga makinka — yana buɗe manyan iyaka a lokaci na gaba."
+      },
+      "verify": {
+        "q": "Yaya nake tabbatar da shaidata?",
+        "a": "Je zuwa Tabbatar da shaida, shigar da NIN ɗinka mai lamba goma sha ɗaya, ka ƙara asusun banki na biya. Muna tabbatar da sunan asusu kafin adanawa, muna adana lambobi masu mahimmanci a ɓoye — ba ma taɓa riƙe ainihin ƙimomi."
+      },
+      "dataSafe": {
+        "q": "Bayanaina suna da aminci?",
+        "a": "I. Ana hash da masu shaida masu mahimmanci kamar NIN ɗinka, ana tabbatar da bayanan biya kafin amfani, kuma ana aika sanarwar tsaro da biya kullum don kada ka kasance cikin duhu game da kuɗinka."
+      }
+    }
+  },
+  "Security": {
+    "eyebrow": "Amana & tsaro",
+    "title": "Kuɗinka da bayananka, an kare su",
+    "lede": "Amana ita ce samfurin. Ga ainihin yadda muke kiyaye kuɗi lafiya, shaida a asirce, da bangarorin biyu na kowane aiki masu alhaki.",
+    "pillars": {
+      "escrow": {
+        "title": "Kuɗin da escrow ke karewa",
+        "body": "Ana riƙe kuɗin ma'aikaci da banki abokin tarayya mai lasisin CBN kuma ana sakin su kawai sa'ad da aka tabbatar da halarta. Babu tabbatarwa, babu sakewa."
+      },
+      "encryption": {
+        "title": "Ɓoyewa a ko'ina",
+        "body": "Ana kare zirga-zirga da TLS yayin tafiya, masu shaida masu mahimmanci kamar NIN ɗinka ana ɓoye su yayin ajiye — ba a taɓa adana su a fili ba."
+      },
+      "access": {
+        "title": "Damar mafi ƙarancin gata",
+        "body": "Damar shiga bayanan samarwa ta dogara ne akan aiki, ana yin rikodinsa, kuma an iyakance shi ga abin da kowane aiki ke buƙata sosai. Babu daidaitaccen damar shiga bayananka."
+      },
+      "rails": {
+        "title": "Hanyoyin biya masu lasisi",
+        "body": "Biyan kuɗi yana gudana ta hanyar masu ba da biya masu lasisi kan kayan aiki da aka tsara — hanyoyin da bankunan Najeriya suka amince da su."
+      },
+      "fraud": {
+        "title": "Binciken zamba & rashin daidaituwa",
+        "body": "Lambobin halarta, shaidun da aka tabbatar, da binciken ɗabi'a suna rage rashin zuwa, kwaikwayo, da cin zarafin biya a bangarorin biyu."
+      },
+      "ndpr": {
+        "title": "Ya dace da NDPR ta zane",
+        "body": "Muna tattara mafi ƙarancin abin da muke buƙata, mu gaya maka dalili, mu girmama haƙƙin bayananka a ƙarƙashin Dokar Kare Bayanai ta Najeriya."
+      }
+    },
+    "disclosureEyebrow": "Bayyanawa mai alhaki",
+    "disclosureTitle": "Ka sami rauni?",
+    "disclosureSubtitle": "Muna maraba da rahotanni daga masu binciken tsaro kuma muna ɗaukar su da fifiko.",
+    "disclosureBody": "Da fatan za a aika imel zuwa <email>security@tally.ng</email> tare da bayanai da matakan sake fitarwa. Ka ba mu isasshen lokaci don gyara matsalar kafin bayyanawa a bainar jama'a — kuma da fatan kada ka shiga ko canza bayanan da ba naka ba.",
+    "ctaTitle": "Kariyar matakin banki, an gina ta ciki",
+    "ctaBody": "Ana kula da kowane biya, shaida, da rikodi da kulawar da ya cancanta.",
+    "ctaSecondary": "Karanta Manufar Sirrinmu"
   }
 }

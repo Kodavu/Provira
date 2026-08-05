@@ -1042,5 +1042,91 @@
     "fund": "Kwado · {amount}",
     "fundedHeldPill": "Akwadoro ego · ejidere",
     "defaultLocation": "Legos"
+  },
+  "Support": {
+    "title": "Ụlọ ọrụ enyemaka",
+    "subtitle": "Azịza nye ajụjụ ndị a na-ajụkarị — na otu i ga-esi rutere mmadụ ma ọ bụrụ na ị chọrọ.",
+    "searchPlaceholder": "Chọọ enyemaka…",
+    "noResults": "Enweghị nsonaazụ. Gbalịa okwu ndị ọzọ, ma ọ bụ kpọtụrụ anyị n'okpuru.",
+    "stillNeedHelp": "Ị ka chọrọ enyemaka?",
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Soro nkwado kparịta ụka",
+    "emailUs": "Zitere anyị ozi-e",
+    "emailHint": "support@tally.ng",
+    "verifyIdentity": "Kwado njirimara",
+    "verifyHint": "Mepee oke dị elu",
+    "alertsNote": "A na-eziga mkpọsa nchekwa na ịkwụ ụgwọ mgbe niile. Jikwaa mkpọsa ndị ọzọ niile na <link>Ntọala</link>.",
+    "faqs": {
+      "getPaid": {
+        "q": "Kedu ka m ga-esi nweta ụgwọ maka shift?",
+        "a": "Mgbe e mekọrọ gị na ọrụ, tinye arịrịọ iji nweta koodu nkwado nwere ọnụọgụ anọ. N'ebe ọrụ, onye were gị ọrụ ga-akwado ọbịbịa gị — nke ahụ na-ahapụ ụgwọ escrow ozugbo n'ime obere akpa ego Tally gị, nke ị nwere ike ịwepụ na ụlọ akụ gị."
+      },
+      "tallyScore": {
+        "q": "Gịnị bụ Tally Score m?",
+        "a": "Ọ bụ akara ntụkwasị obi e wuru site na ọrụ gị n'ezie — shifts emechara, ọnụọgụ n'oge, ahịa e depụtara, na mbinye ego akwụghachiri. Akara dị elu na-emepe ọrụ ka mma na mbinye ego buru ibu. A na-akọwa akara ọ bụla na ibe Ọnọdụ m."
+      },
+      "logSale": {
+        "q": "Gịnị mere m ga-eji depụta ahịa ọ bụla?",
+        "a": "Ahịa ọ bụla e depụtara na-aghọ akụkụ nke akụkọ ndekọ enwere ike ịkwado. Ndekọ ahụ bụ ihe na-eme ka i ruo eru maka mbinye ego ngwongwo — ka ahịa gị na-agagide, otú ahụ ka isi obi ọrụ ị nwere ike inweta."
+      },
+      "escrowProtect": {
+        "q": "Kedu ka escrow si echebe ego m?",
+        "a": "Mgbe ị kwadoro ọrụ, a na-ejide ụgwọ ahụ n'akaụntụ escrow raara onwe ya nye — a zigabeghị ya nye onye ọrụ. A na-ahapụ ya naanị mgbe onye ọrụ kwadoro ọbịbịa site na koodu ha, ya mere ị naghị akwụ ụgwọ maka onye na-abịaghị."
+      },
+      "hireWorkers": {
+        "q": "Kedu ka m ga-esi were ndị ọrụ a pụrụ ịtụkwasị obi?",
+        "a": "Tinye ọrụ, kwado escrow ya, wee pịa Chọta ndị ọrụ. Anyị na-emekọrịta ndị ọrụ site na nkà na akara ntụkwasị obi, ya mere ị na-ebu ụzọ hụ ndị nwere akụkọ ndekọ e gosipụtara."
+      },
+      "loans": {
+        "q": "Kedu ka mbinye ego si arụ ọrụ?",
+        "a": "Ntozu mbinye ego dabere na Tally Score gị. Mbinye ego akwadoro na-abanye n'akaụntụ ịkwụ ụgwọ gị, ịkwụghachi n'oge na-ebuli akara gị — na-emepe oke buru ibu oge ọzọ."
+      },
+      "verify": {
+        "q": "Kedu ka m ga-esi kwado njirimara m?",
+        "a": "Gaa na Kwado njirimara, tinye NIN gị nwere ọnụọgụ iri na otu, ma tinye akaụntụ ụlọ akụ ịkwụ ụgwọ. Anyị na-akwado aha akaụntụ tupu anyị echekwaa, anyị na-echekwa nọmba ndị dị mkpa na nzuzo — anyị anaghị edebe uru ndị mbụ."
+      },
+      "dataSafe": {
+        "q": "Data m ọ dị nchebe?",
+        "a": "Ee. Njirimara ndị dị mkpa dị ka NIN gị ka anyị na-emechi, a na-akwado nkọwa ịkwụ ụgwọ tupu iji ya, a na-ezigakwa mkpọsa nchekwa na ịkwụ ụgwọ mgbe niile ka ị ghara ịnọ n'ọchịchịrị banyere ego gị."
+      }
+    }
+  },
+  "Security": {
+    "eyebrow": "Ntụkwasị obi & nchekwa",
+    "title": "Ego gị na data gị, echebere ha",
+    "lede": "Ntụkwasị obi bụ ngwaahịa ahụ. Nke a bụ kpọmkwem otu anyị si echekwa ego, njirimara na nzuzo, na akụkụ abụọ nke ọrụ ọ bụla na-aza ajụjụ.",
+    "pillars": {
+      "escrow": {
+        "title": "Ego escrow na-echebe",
+        "body": "A na-ejide ego onye were ọrụ na ụlọ akụ mmekọ nwere ikike CBN ma na-ahapụ ya naanị mgbe akwadoro ọbịbịa. Enweghị nkwado, enweghị mwepụ."
+      },
+      "encryption": {
+        "title": "Izo ihe n'ebe niile",
+        "body": "A na-echebe okporo ụzọ site na TLS n'oge njem, njirimara ndị dị mkpa dị ka NIN gị ka a na-ezo n'oge izuike — anaghị echekwa ya n'ihe doro anya."
+      },
+      "access": {
+        "title": "Ohere ikike kacha nta",
+        "body": "Ohere ịnweta data mmepụta dabere na ọrụ, e dekọrọ ya, ma jedebe ya na ihe ọrụ ọ bụla chọrọ kpọmkwem. Enweghị ohere na-eguzo iji nweta ndekọ gị."
+      },
+      "rails": {
+        "title": "Ụzọ ịkwụ ụgwọ nwere ikike",
+        "body": "Ịkwụ ụgwọ na-agafe site na ndị na-enye ụgwọ nwere ikike n'elu akụrụngwa a chịkwara — otu ụzọ ahụ ụlọ akụ Naịjirịa tụkwasịrị obi."
+      },
+      "fraud": {
+        "title": "Nlele aghụghọ & adịghị mma",
+        "body": "Koodu ọbịbịa, njirimara akwadoro, na nlele omume na-ebelata enweghị ọbịbịa, mgbagha, na mmebi ịkwụ ụgwọ n'akụkụ abụọ."
+      },
+      "ndpr": {
+        "title": "Kwekọ na NDPR site na nhazi",
+        "body": "Anyị na-anakọta ihe kacha nta anyị chọrọ, gwa gị ihe kpatara ya, ma na-asọpụrụ ikike data gị n'okpuru Iwu Nchekwa Data Naịjirịa."
+      }
+    },
+    "disclosureEyebrow": "Nkwupụta ọrụ",
+    "disclosureTitle": "Ị chọtara adịghị ike?",
+    "disclosureSubtitle": "Anyị na-anabata akụkọ sitere n'aka ndị nyocha nchekwa ma na-eji ha kpọrọ ihe.",
+    "disclosureBody": "Biko zitere ozi-e na <email>security@tally.ng</email> ya na nkọwa na usoro iji mepụtaghachi ya. Nye anyị oge dabara adaba iji dozie nsogbu ahụ tupu nkwupụta ọha — biko agbakwụnyela ma ọ bụ gbanwee data na-abụghị nke gị.",
+    "ctaTitle": "Nchebe ọkwa ụlọ akụ, e wuru n'ime",
+    "ctaBody": "A na-eji nlekọta kwesịrị ekwesị na-elekọta ịkwụ ụgwọ, njirimara, na ndekọ ọ bụla.",
+    "ctaSecondary": "Gụọ Iwu Nzuzo anyị"
   }
 }

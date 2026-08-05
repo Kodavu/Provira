@@ -1042,5 +1042,91 @@
     "fund": "Nawó · {amount}",
     "fundedHeldPill": "Ti nawó · dì mú",
     "defaultLocation": "Èkó"
+  },
+  "Support": {
+    "title": "Ilé ìrànlọ́wọ́",
+    "subtitle": "Àwọn ìdáhùn sí àwọn ìbéèrè tí ó wọ́pọ̀ — àti bí o ṣe lè dé ọ̀dọ̀ ènìyàn bí o bá nílò.",
+    "searchPlaceholder": "Wá ìrànlọ́wọ́…",
+    "noResults": "Kò sí àbájáde. Gbìyànjú àwọn ọ̀rọ̀ mìíràn, tàbí kàn sí wa nísàlẹ̀.",
+    "stillNeedHelp": "Ṣé o ṣì nílò ìrànlọ́wọ́?",
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Bá àtìlẹ́yìn sọ̀rọ̀",
+    "emailUs": "Fi ímeèlì ránṣẹ́ sí wa",
+    "emailHint": "support@tally.ng",
+    "verifyIdentity": "Jẹ́rìí ìdánimọ̀",
+    "verifyHint": "Ṣí àwọn ààlà tó ga sílẹ̀",
+    "alertsNote": "A máa ń fi ìtanilólobó ààbò àti ìsanwó ránṣẹ́ nígbà gbogbo. Ṣàkóso gbogbo ìfitọ́nilétí mìíràn nínú <link>Ètò</link>.",
+    "faqs": {
+      "getPaid": {
+        "q": "Báwo ni mo ṣe ń gba owó fún shift?",
+        "a": "Lẹ́yìn tí a bá bá ọ mu sí iṣẹ́, béèrè láti gba kóòdù ìjẹ́rìísí oní-nọ́mbà mẹ́rin. Ní ibi iṣẹ́, agbanisíṣẹ́ yóò jẹ́rìí wíwàníbẹ̀ rẹ — èyí yóò tú owó escrow sílẹ̀ tààrà sí àpamọ́wọ́ Tally rẹ, tí o lè yọ sí báǹkì rẹ."
+      },
+      "tallyScore": {
+        "q": "Kí ni Tally Score mi?",
+        "a": "Ó jẹ́ àmì ìgbẹ́kẹ̀lé tí a kọ́ láti inú iṣẹ́ gidi rẹ — shifts tí o parí, ìwọ̀n àkókò, sales tí o kọ sílẹ̀, àti awin tí o san padà. Àmì tó ga máa ń ṣí àwọn iṣẹ́ tó dára àti awin tó tóbi. A ṣàlàyé àmì kọ̀ọ̀kan ní ojú-ewé Ipò mi."
+      },
+      "logSale": {
+        "q": "Kí ló dé tí mo fi gbọ́dọ̀ kọ gbogbo sale sílẹ̀?",
+        "a": "Sale kọ̀ọ̀kan tí o kọ sílẹ̀ máa ń di apá kan àkọsílẹ̀ tí a lè jẹ́rìí. Àkọsílẹ̀ yẹn ni ó ń jẹ́ kí o tóótun fún awin ọjà — bí sales rẹ ṣe ń bá a lọ déédéé, bẹ́ẹ̀ ni owó ìbẹ̀rẹ̀ tó tóbi tí o lè rí."
+      },
+      "escrowProtect": {
+        "q": "Báwo ni escrow ṣe ń dáàbò bo owó mi?",
+        "a": "Nígbà tí o bá nawó sí iṣẹ́, a máa dì owó náà mú nínú àkàǹtì escrow tó yà sọ́tọ̀ — a kì í tíì fi ránṣẹ́ sí òṣìṣẹ́. A máa tú u sílẹ̀ nìkan nígbà tí òṣìṣẹ́ bá jẹ́rìí wíwàníbẹ̀ pẹ̀lú kóòdù wọn, nítorí náà o kì í sanwó fún ẹni tí kò wá."
+      },
+      "hireWorkers": {
+        "q": "Báwo ni mo ṣe lè gba àwọn òṣìṣẹ́ tó ṣeé gbẹ́kẹ̀lé?",
+        "a": "Fi iṣẹ́ sílẹ̀, nawó sí escrow rẹ̀, lẹ́yìn náà tẹ Wá àwọn òṣìṣẹ́. A máa bá àwọn òṣìṣẹ́ mu nípa ọgbọ́n àti àmì ìgbẹ́kẹ̀lé, nítorí náà o máa kọ́kọ́ rí àwọn ènìyàn tí wọ́n ní àkọsílẹ̀ tó dájú."
+      },
+      "loans": {
+        "q": "Báwo ni awin ṣe ń ṣiṣẹ́?",
+        "a": "Ẹ̀tọ́ awin dá lórí Tally Score rẹ. Àwọn awin tí a fọwọ́sí máa ń wọ àkàǹtì ìsanwó rẹ, sísan padà ní àkókò máa ń gbé àmì rẹ ga — tí ó ń ṣí ààlà tó tóbi ní ìgbà tí ó kàn."
+      },
+      "verify": {
+        "q": "Báwo ni mo ṣe ń jẹ́rìí ìdánimọ̀ mi?",
+        "a": "Lọ sí Jẹ́rìí ìdánimọ̀, tẹ NIN rẹ oní-nọ́mbà mọ́kànlá, kí o sì fi àkàǹtì báǹkì ìsanwó kún. A máa jẹ́rìí orúkọ àkàǹtì kí a tó fi pamọ́, a sì máa fi àwọn nọ́mbà pàtàkì pamọ́ ní ìpamọ́ — a kì í tọ́jú àwọn iye àìdálọ́wọ́kọ́."
+      },
+      "dataSafe": {
+        "q": "Ṣé dátà mi wà láìléwu?",
+        "a": "Bẹ́ẹ̀ ni. Àwọn ìdánimọ̀ pàtàkì bíi NIN rẹ ni a máa ń hash, a máa jẹ́rìí àwọn ẹ̀kúnrẹ́rẹ́ ìsanwó kí a tó lò wọ́n, a sì máa fi ìtanilólobó ààbò àti ìsanwó ránṣẹ́ nígbà gbogbo kí o má bàa fọ́jú nípa owó rẹ."
+      }
+    }
+  },
+  "Security": {
+    "eyebrow": "Ìgbẹ́kẹ̀lé & ààbò",
+    "title": "Owó rẹ àti dátà rẹ, a ti dáàbò bò wọ́n",
+    "lede": "Ìgbẹ́kẹ̀lé ni ọjà náà. Èyí ni bí a ṣe ń pa owó mọ́ láìléwu, ìdánimọ̀ ní ìkọ̀kọ̀, àti bí ẹ̀gbẹ́ méjèèjì ti iṣẹ́ kọ̀ọ̀kan ṣe jẹ́ ojúṣe.",
+    "pillars": {
+      "escrow": {
+        "title": "Owó tí escrow dáàbò bò",
+        "body": "A máa dì owó agbanisíṣẹ́ mú pẹ̀lú báǹkì alábàáṣepọ̀ tí CBN fún ní àṣẹ, a sì máa tú u sílẹ̀ nìkan nígbà tí a bá jẹ́rìí wíwàníbẹ̀. Láìsí ìjẹ́rìísí, kò sí ìtúsílẹ̀."
+      },
+      "encryption": {
+        "title": "Ìsekóòdù níbi gbogbo",
+        "body": "A máa dáàbò bo ìjìnnà pẹ̀lú TLS nígbà gbígbé, àwọn ìdánimọ̀ pàtàkì bíi NIN rẹ ni a máa fi sínú ìsekóòdù nígbà ìsinmi — a kì í fi pamọ́ ní gbangba."
+      },
+      "access": {
+        "title": "Ìwọlé alágbára-kékeré",
+        "body": "Ìwọlé sí dátà iṣẹ́ dá lórí ipa, a máa ń kọ ọ́ sílẹ̀, ó sì lópin sí ohun tí iṣẹ́ kọ̀ọ̀kan nílò gan-an. Kò sí ìwọlé tó dúró pẹ́ sí àkọsílẹ̀ rẹ."
+      },
+      "rails": {
+        "title": "Ọ̀nà ìsanwó tó ní àṣẹ",
+        "body": "Àwọn ìsanwó máa ń gba ọ̀dọ̀ àwọn olùpèsè ìsanwó tó ní àṣẹ lórí àwọn amáyẹ̀dẹrùn tí a ń ṣàkóso — àwọn ọ̀nà kan náà tí àwọn báǹkì Nàìjíríà gbẹ́kẹ̀lé."
+      },
+      "fraud": {
+        "title": "Àyẹ̀wò jìbìtì & àìṣedéédéé",
+        "body": "Àwọn kóòdù wíwàníbẹ̀, ìdánimọ̀ tí a jẹ́rìí, àti àwọn àyẹ̀wò ìwà máa ń dín àìwáṣẹ́, àfarajọ, àti ìlòkulò ìsanwó kù ní ẹ̀gbẹ́ méjèèjì."
+      },
+      "ndpr": {
+        "title": "Ó bá NDPR mu láti ìpìlẹ̀",
+        "body": "A máa ń gba ohun tó kéré jù tí a nílò, sọ ìdí fún ọ, a sì máa bọ̀wọ̀ fún ẹ̀tọ́ dátà rẹ lábẹ́ Òfin Ìdáàbòbò Dátà ti Nàìjíríà."
+      }
+    },
+    "disclosureEyebrow": "Ìfihàn ojúṣe",
+    "disclosureTitle": "Ṣé o rí àìlera kan?",
+    "disclosureSubtitle": "A tẹ́wọ́gba àwọn ìròyìn láti ọ̀dọ̀ àwọn olùwádìí ààbò, a sì ń fi ọ̀wọ̀ pàtàkì mú wọn.",
+    "disclosureBody": "Jọ̀wọ́ fi ímeèlì ránṣẹ́ sí <email>security@tally.ng</email> pẹ̀lú àwọn ẹ̀kúnrẹ́rẹ́ àti àwọn ìgbésẹ̀ láti tún un ṣe. Fún wa ní àkókò tó bọ́gbọ́n mu láti tún ìṣòro náà ṣe kí ó tó di ìfihàn àwùjọ — jọ̀wọ́ má sì ṣe wọ inú tàbí yí dátà tí kì í ṣe tìrẹ padà.",
+    "ctaTitle": "Ìdáàbòbò ìpele-báǹkì, tí a kọ́ sínú",
+    "ctaBody": "Ìsanwó, ìdánimọ̀, àti àkọsílẹ̀ kọ̀ọ̀kan ni a ń mú pẹ̀lú ìtọ́jú tí ó tọ́ sí.",
+    "ctaSecondary": "Ka Ìlànà Àṣírí wa"
   }
 }
