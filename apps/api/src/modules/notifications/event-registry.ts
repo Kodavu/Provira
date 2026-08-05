@@ -49,6 +49,11 @@ export const EVENTS: Record<string, NotificationEvent> = {
     channels: ["INAPP", "PUSH"],
     defaults: { title: "Withdrawal processing", body: "Your withdrawal of {amount} is being processed to your bank." },
   },
+  "review.received": {
+    category: "ACTIVITY",
+    channels: ["INAPP", "PUSH"],
+    defaults: { title: "You got a new review", body: "{stars} for {job}. See what they said on your profile." },
+  },
   "job.offer": {
     category: "ACTIVITY",
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],

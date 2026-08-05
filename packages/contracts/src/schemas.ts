@@ -402,3 +402,153 @@ export const zVerificationStatus = z.object({
   bankAccount: zBankAccount.nullable(),
 });
 export type VerificationStatus = z.infer<typeof zVerificationStatus>;
+
+// ---------------------------------------------------------------------------
+// Reputation & public profiles (Part 2 — trust layer)
+// ---------------------------------------------------------------------------
+
+export const zReviewDirection = z.enum(["EMPLOYER_ON_WORKER", "WORKER_ON_EMPLOYER"]);
+export type ReviewDirection = z.infer<typeof zReviewDirection>;
+
+// A single published review, as shown on a public profile.
+export const zReview = z.object({
+  id: z.string(),
+  direction: zReviewDirection,
+  rating: z.number(), // 1..5 overall
+  dimensions: z.object({
+    communication: z.number().nullable(),
+    professionalism: z.number().nullable(),
+    paymentSpeed: z.number().nullable(), // worker -> employer
+    quality: z.number().nullable(), // employer -> worker
+  }),
+  comment: z.string().nullable(),
+  authorName: z.string(),
+  authorAvatarUrl: z.string().nullable(),
+  jobTitle: z.string().nullable(),
+  helpfulCount: z.number(),
+  createdAt: zDate,
+});
+export type Review = z.infer<typeof zReview>;
+
+// Derived trust badges (keys only; the frontend maps to label + tooltip). See
+// the profile service for how each is earned.
+export const zTrustBadge = z.enum([
+  "IDENTITY_VERIFIED",
+  "EMAIL_VERIFIED",
+  "PHONE_VERIFIED",
+  "PAYMENT_VERIFIED",
+  "GOV_ID_VERIFIED",
+  "COMPANY_VERIFIED",
+  "TOP_RATED",
+  "RISING_TALENT",
+  "FAST_RESPONDER",
+  "TRUSTED_EMPLOYER",
+  "TRUSTED_TRADER",
+  "LONG_TERM_CLIENT",
+]);
+export type TrustBadge = z.infer<typeof zTrustBadge>;
+
+const zRatingSummary = z.object({
+  average: z.number(), // 0..5
+  count: z.number(),
+  breakdown: z.object({ // count of reviews at each star, 5..1
+    5: z.number(), 4: z.number(), 3: z.number(), 2: z.number(), 1: z.number(),
+  }),
+});
+
+// --- Worker public profile ---
+export const zWorkerPublicProfile = z.object({
+  userId: z.string(),
+  fullName: z.string(),
+  avatarUrl: z.string().nullable(),
+  headline: z.string().nullable(),
+  bio: z.string().nullable(),
+  location: z.string().nullable(),
+  languages: z.array(z.string()),
+  skills: z.array(z.string()),
+  memberSince: zDate.nullable(),
+  lastActive: zDate.nullable(),
+  kycVerified: z.boolean(),
+  badges: z.array(zTrustBadge),
+  stats: z.object({
+    jobsCompleted: z.number(),
+    completionRate: z.number(), // 0..1 (accepted -> confirmed)
+    successScore: z.number(), // 0..1000 Tally Score
+    tier: zTier,
+    onTimeRate: z.number(), // 0..1
+    responseMinutes: z.number().nullable(), // median invite -> accept
+    repeatHireRate: z.number(), // 0..1 share of employers who hired again
+    totalEarnings: zMoney.nullable(), // optional, kobo
+  }),
+  rating: zRatingSummary,
+  workHistory: z.array(z.object({
+    jobTitle: z.string(),
+    employerName: z.string().nullable(),
+    category: z.string().nullable(),
+    completedAt: zDate.nullable(),
+    rating: z.number().nullable(),
+    feedback: z.string().nullable(),
+  })),
+  reviews: z.array(zReview),
+  portfolio: z.array(z.object({
+    id: z.string(),
+    kind: z.enum(["IMAGE", "PDF", "VIDEO", "LINK"]),
+    title: z.string(),
+    description: z.string().nullable(),
+    url: z.string(),
+    thumbnailUrl: z.string().nullable(),
+  })),
+  certifications: z.array(z.object({
+    id: z.string(),
+    source: z.enum(["UPLOADED", "PLATFORM_BADGE", "ASSESSMENT"]),
+    title: z.string(),
+    issuer: z.string().nullable(),
+    url: z.string().nullable(),
+    verified: z.boolean(),
+  })),
+});
+export type WorkerPublicProfile = z.infer<typeof zWorkerPublicProfile>;
+
+// --- Employer public profile ---
+export const zEmployerPublicProfile = z.object({
+  userId: z.string(),
+  companyName: z.string(),
+  logoUrl: z.string().nullable(),
+  industry: z.string().nullable(),
+  companySize: z.string().nullable(),
+  websiteUrl: z.string().nullable(),
+  about: z.string().nullable(),
+  location: z.string().nullable(),
+  memberSince: zDate.nullable(),
+  verified: z.boolean(),
+  badges: z.array(zTrustBadge),
+  stats: z.object({
+    jobsPosted: z.number(),
+    jobsCompleted: z.number(),
+    hireRate: z.number(), // 0..1 applicants accepted
+    avgResponseMinutes: z.number().nullable(),
+    totalPaid: zMoney.nullable(), // kobo, released to workers
+    repeatWorkers: z.number(), // workers hired more than once
+  }),
+  rating: zRatingSummary,
+  jobHistory: z.array(z.object({
+    title: z.string(),
+    status: z.string(),
+    filled: z.number(),
+    headcount: z.number(),
+    postedAt: zDate.nullable(),
+    category: z.string().nullable(),
+  })),
+  reviews: z.array(zReview),
+});
+export type EmployerPublicProfile = z.infer<typeof zEmployerPublicProfile>;
+
+// Whether the current user may review a given subject on a given job, and the
+// existing review if already submitted (drives the review CTA + form).
+export const zReviewEligibility = z.object({
+  canReview: z.boolean(),
+  direction: zReviewDirection.nullable(),
+  reason: z.string().nullable(),
+  existing: zReview.nullable(),
+});
+export type ReviewEligibility = z.infer<typeof zReviewEligibility>;

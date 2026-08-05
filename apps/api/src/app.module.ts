@@ -18,6 +18,8 @@ import { NotificationsModule } from "./modules/notifications/notifications.modul
 import { UploadsModule } from "./modules/uploads/uploads.module.js";
 import { GeoModule } from "./modules/geo/geo.module.js";
 import { BanksModule } from "./modules/banks/banks.module.js";
+import { ReviewsModule } from "./modules/reviews/reviews.module.js";
+import { ProfilesModule } from "./modules/profiles/profiles.module.js";
 import { HealthController } from "./health.controller.js";
 
 @Module({
@@ -41,6 +43,8 @@ import { HealthController } from "./health.controller.js";
     AdminModule,
     GeoModule,
     BanksModule,
+    ReviewsModule,
+    ProfilesModule,
   ],
   controllers: [HealthController],
 })
