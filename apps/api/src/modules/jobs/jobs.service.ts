@@ -84,6 +84,64 @@ export class JobsService {
     return this.prisma.job.update({ where: { id: jobId }, data: { status: "OPEN" } });
   }
 
+  /**
+   * Fund a job's escrow (employer pays worker pay + platform fee in). Marks the
+   * escrow funded and notifies the employer. Funding is what makes a job safe to
+   * confirm and pay — escrow.release refuses to pay out an unfunded job.
+   */
+  async fundEscrow(jobId: string) {
+    const result = await this.escrow.fundFromExternal(jobId);
+    const job = await this.prisma.job.findUnique({
+      where: { id: jobId },
+      include: { employer: true, escrow: true },
+    });
+    if (job?.escrow?.fundedAt) {
+      await this.notifications.notify(job.employer.userId, "escrow.funded", {
+        amount: naira(job.escrow.amount),
+        title: job.title,
+      });
+    }
+    return result;
+  }
+
+  /**
+   * Cancel a job and refund the UNRELEASED escrow remainder to the employer.
+   * Money already released to confirmed workers is never clawed back — only the
+   * balance still held in escrow is returned. A fully completed job cannot be
+   * cancelled. Safe at every stage: before hiring (full refund), after hiring
+   * but before any confirmation (full refund), or partway through (refund of the
+   * shares not yet confirmed).
+   */
+  async cancel(jobId: string) {
+    const job = await this.prisma.job.findUnique({
+      where: { id: jobId },
+      include: { employer: true, escrow: true },
+    });
+    if (!job) throw new NotFoundException("Job not found");
+    if (job.status === "COMPLETED") throw new BadRequestException("A completed job can't be cancelled");
+    if (job.status === "CANCELLED") return job; // idempotent
+
+    let refunded = 0n;
+    if (job.escrow?.fundedAt && !job.escrow.releasedAt) {
+      const account = await this.prisma.account.findUnique({ where: { id: job.escrow.accountId } });
+      refunded = account?.balance ?? 0n;
+      await this.escrow.refund(jobId);
+    }
+
+    const updated = await this.prisma.job.update({
+      where: { id: jobId },
+      data: { status: "CANCELLED" },
+    });
+
+    if (refunded > 0n) {
+      await this.notifications.notify(job.employer.userId, "escrow.refunded", {
+        amount: naira(refunded),
+        title: job.title,
+      });
+    }
+    return updated;
+  }
+
   private async acceptedCount(jobId: string): Promise<number> {
     return this.prisma.jobAssignment.count({
       where: { jobId, status: { in: [...IN_JOB] } },

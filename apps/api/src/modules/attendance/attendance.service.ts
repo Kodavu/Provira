@@ -1,13 +1,17 @@
 import { createHash, randomInt } from "node:crypto";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import { EscrowService } from "../escrow/escrow.service.js";
+import { EscrowService, platformFee } from "../escrow/escrow.service.js";
 import { ScoringService } from "../scoring/scoring.service.js";
-import { PaymentsService } from "../payments/payments.service.js";
+import { NotificationService } from "../notifications/notification.service.js";
 import type { Channel } from "@tally/db";
 
 function hash(code: string): string {
   return createHash("sha256").update(code).digest("hex");
+}
+
+function naira(kobo: bigint): string {
+  return `₦${(Number(kobo) / 100).toLocaleString("en-NG")}`;
 }
 
 @Injectable()
@@ -16,7 +20,7 @@ export class AttendanceService {
     private readonly prisma: PrismaService,
     private readonly escrow: EscrowService,
     private readonly scoring: ScoringService,
-    private readonly payments: PaymentsService,
+    private readonly notifications: NotificationService,
   ) {}
 
   /**
@@ -69,8 +73,11 @@ export class AttendanceService {
     const workerUserId = attendance.assignment.worker.userId;
     const jobId = attendance.jobId;
     const job = attendance.assignment.job;
-    // Each confirmed worker draws their per-person share of the funded escrow.
-    const perPerson = job.payAmount / BigInt(Math.max(1, job.headcount));
+    const headcount = BigInt(Math.max(1, job.headcount));
+    // Each confirmed worker draws their per-person share of the funded escrow;
+    // the employer-borne platform fee for that share settles to PLATFORM_FEE.
+    const perPerson = job.payAmount / headcount;
+    const feePerPerson = platformFee(job.payAmount) / headcount;
 
     const updated = await this.prisma.attendance.update({
       where: { assignmentId },
@@ -81,8 +88,12 @@ export class AttendanceService {
       data: { status: "CONFIRMED" },
     });
 
-    // Release this worker's share of escrow -> their payout wallet.
-    await this.escrow.release(jobId, workerUserId, perPerson);
+    // Release this worker's share of escrow -> their withdrawable payout balance
+    // (worker pay) and the platform fee -> PLATFORM_FEE, in one balanced posting.
+    // The worker withdraws this balance on demand via the finance-approved
+    // withdrawal flow — we intentionally do NOT auto-dispatch an external
+    // transfer here (that path double-paid and bypassed the ledger).
+    await this.escrow.release(jobId, workerUserId, perPerson, feePerPerson);
 
     // Record score signals (completed + on-time).
     await this.scoring.recordEvent({
@@ -98,12 +109,10 @@ export class AttendanceService {
       refId: jobId,
     });
 
-    // Fire same-day payout for this worker's share.
-    await this.payments.payoutWorker({
-      userId: workerUserId,
-      amount: perPerson,
-      destination: { walletId: workerUserId },
-      reference: `payout:${jobId}:${workerUserId}`,
+    // Tell the worker their pay is now in their balance and ready to withdraw.
+    await this.notifications.notify(workerUserId, "earnings.credited", {
+      amount: naira(perPerson),
+      title: job.title,
     });
 
     // The job is complete only once every worker in it has confirmed.

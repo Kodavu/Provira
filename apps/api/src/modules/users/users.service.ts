@@ -7,6 +7,7 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
+import { NotificationService } from "../notifications/notification.service.js";
 import { PAYMENT_PROVIDER } from "../../integrations/integrations.module.js";
 import { meetsThreshold } from "@tally/core";
 import { zVerificationStatus, zWalletData, zWorkerDashboard } from "@tally/contracts";
@@ -28,6 +29,7 @@ export class UsersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly ledger: LedgerService,
+    private readonly notifications: NotificationService,
     @Inject(PAYMENT_PROVIDER) private readonly payments: PaymentProvider,
   ) {}
 
@@ -142,6 +144,9 @@ export class UsersService {
         transactionId: hold.id,
         metadata: { kind: "withdrawal", userId },
       },
+    });
+    await this.notifications.notify(userId, "withdrawal.requested", {
+      amount: `₦${(Number(amount) / 100).toLocaleString("en-NG")}`,
     });
     return this.wallet(userId);
   }

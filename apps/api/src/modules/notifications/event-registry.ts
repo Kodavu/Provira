@@ -29,6 +29,26 @@ export const EVENTS: Record<string, NotificationEvent> = {
     channels: ["INAPP", "SMS", "PUSH"],
     defaults: { title: "Payment sent", body: "{amount} has been sent to your account." },
   },
+  "escrow.funded": {
+    category: "TRANSACTIONAL",
+    channels: ["INAPP", "PUSH"],
+    defaults: { title: "Escrow funded", body: "You funded {amount} for {title}. Workers can now be confirmed and paid." },
+  },
+  "earnings.credited": {
+    category: "TRANSACTIONAL",
+    channels: ["INAPP", "SMS", "PUSH"],
+    defaults: { title: "Payment released", body: "{amount} for {title} is now in your Tally balance — withdraw anytime." },
+  },
+  "escrow.refunded": {
+    category: "TRANSACTIONAL",
+    channels: ["INAPP", "PUSH"],
+    defaults: { title: "Escrow refunded", body: "{amount} from {title} was returned to your Tally balance." },
+  },
+  "withdrawal.requested": {
+    category: "TRANSACTIONAL",
+    channels: ["INAPP", "PUSH"],
+    defaults: { title: "Withdrawal processing", body: "Your withdrawal of {amount} is being processed to your bank." },
+  },
   "job.offer": {
     category: "ACTIVITY",
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],

@@ -2,10 +2,11 @@ import { Module } from "@nestjs/common";
 import { AttendanceController } from "./attendance.controller.js";
 import { AttendanceService } from "./attendance.service.js";
 import { ScoringModule } from "../scoring/scoring.module.js";
+import { NotificationsModule } from "../notifications/notifications.module.js";
 
-// EscrowModule and PaymentsModule are @Global, so they're available here.
+// EscrowModule is @Global, so it's available here without importing.
 @Module({
-  imports: [ScoringModule],
+  imports: [ScoringModule, NotificationsModule],
   controllers: [AttendanceController],
   providers: [AttendanceService],
   exports: [AttendanceService],

@@ -1,14 +1,10 @@
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { JobsService } from "./jobs.service.js";
-import { EscrowService } from "../escrow/escrow.service.js";
 import type { Language } from "@tally/db";
 
 @Controller("jobs")
 export class JobsController {
-  constructor(
-    private readonly jobs: JobsService,
-    private readonly escrow: EscrowService,
-  ) {}
+  constructor(private readonly jobs: JobsService) {}
 
   @Post()
   create(
@@ -46,7 +42,13 @@ export class JobsController {
   // Employer funds the job's escrow holding account before work starts.
   @Post(":id/fund")
   fund(@Param("id") id: string) {
-    return this.escrow.fundFromExternal(id);
+    return this.jobs.fundEscrow(id);
+  }
+
+  // Employer cancels a job; the unreleased escrow remainder is refunded to them.
+  @Post(":id/cancel")
+  cancel(@Param("id") id: string) {
+    return this.jobs.cancel(id);
   }
 
   // Ranked, qualified workers to invite (not added to the job).

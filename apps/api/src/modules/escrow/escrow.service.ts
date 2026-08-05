@@ -3,6 +3,19 @@ import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "./ledger.service.js";
 
 /**
+ * Platform fee, in basis points of worker pay, borne by the employer (workers
+ * are never charged — see the pricing FAQ). Configurable via env; defaults to
+ * 10%. Escrow is funded for workerPay + fee so the worker always receives their
+ * full posted rate and the fee is drawn from the same holding account.
+ */
+export const PLATFORM_FEE_BPS = Number(process.env.PLATFORM_FEE_BPS ?? 1000);
+
+/** Employer-borne platform fee for a given worker-pay amount (kobo). */
+export function platformFee(workerPay: bigint): bigint {
+  return (workerPay * BigInt(PLATFORM_FEE_BPS)) / 10000n;
+}
+
+/**
  * Escrow lifecycle: an employer funds a per-job holding account BEFORE the job
  * runs; pay releases to the worker only on confirmed attendance. Money flow is
  * expressed as balanced ledger postings.
@@ -44,13 +57,18 @@ export class EscrowService {
     });
   }
 
-  /** Create a holding account for a job (called when a job is published). */
-  async createForJob(jobId: string, amount: bigint) {
+  /**
+   * Create a holding account for a job (called when a job is published). The
+   * required funding is the total worker pay PLUS the employer-borne platform
+   * fee, so a completed job can pay every worker in full and still settle the
+   * fee from the same escrow — no separate charge to reconcile.
+   */
+  async createForJob(jobId: string, workerPay: bigint) {
     const account = await this.prisma.account.create({
       data: { type: "JOB_ESCROW" },
     });
     return this.prisma.escrowAccount.create({
-      data: { jobId, accountId: account.id, amount },
+      data: { jobId, accountId: account.id, amount: workerPay + platformFee(workerPay) },
     });
   }
 
@@ -92,7 +110,7 @@ export class EscrowService {
    * confirmed worker draws their per-person amount. Idempotent per (job, worker);
    * escrow is marked fully released once its holding account is drained.
    */
-  async release(jobId: string, workerUserId: string, amount: bigint) {
+  async release(jobId: string, workerUserId: string, workerAmount: bigint, feeAmount: bigint = 0n) {
     const escrow = await this.prisma.escrowAccount.findUnique({
       where: { jobId },
     });
@@ -103,15 +121,21 @@ export class EscrowService {
       workerUserId,
       "WORKER_PAYOUT",
     );
+    const feeAccount = await this.ledger.getOrCreatePlatformAccount("PLATFORM_FEE");
+
+    // One balanced transaction: escrow -> worker payout + platform fee. When the
+    // fee is zero the fee leg drops out and this is a plain 2-leg release.
+    const legs = [
+      { accountId: escrow.accountId, direction: "DEBIT" as const, amount: workerAmount + feeAmount },
+      { accountId: workerAccount, direction: "CREDIT" as const, amount: workerAmount },
+    ];
+    if (feeAmount > 0n) legs.push({ accountId: feeAccount, direction: "CREDIT" as const, amount: feeAmount });
 
     await this.ledger.post({
       type: "ESCROW_RELEASE",
       reference: `escrow-release:${jobId}:${workerUserId}`,
       idempotencyKey: `escrow-release:${jobId}:${workerUserId}`,
-      legs: [
-        { accountId: escrow.accountId, direction: "DEBIT", amount },
-        { accountId: workerAccount, direction: "CREDIT", amount },
-      ],
+      legs,
     });
 
     // Mark the escrow released once its holding account is drained to zero.
@@ -125,5 +149,45 @@ export class EscrowService {
       });
     }
     return escrow;
+  }
+
+  /**
+   * Refund the UNRELEASED remainder of a job's escrow back to the employer's
+   * in-platform funding wallet (from where they can reuse or withdraw it). Only
+   * the balance still sitting in the holding account is returned, so money
+   * already released to confirmed workers is never clawed back. Idempotent:
+   * a fully-drained or already-refunded escrow is a no-op.
+   */
+  async refund(jobId: string) {
+    const escrow = await this.prisma.escrowAccount.findUnique({
+      where: { jobId, },
+      include: { job: { include: { employer: true } } },
+    });
+    if (!escrow) throw new BadRequestException("No escrow for job");
+    if (escrow.refundedAt) return escrow; // idempotent
+
+    const account = await this.prisma.account.findUnique({ where: { id: escrow.accountId } });
+    const remaining = account?.balance ?? 0n;
+
+    if (remaining > 0n) {
+      const employerAccount = await this.ledger.ensureUserAccount(
+        escrow.job.employer.userId,
+        "EMPLOYER_FUNDING",
+      );
+      await this.ledger.post({
+        type: "ESCROW_REFUND",
+        reference: `escrow-refund:${jobId}`,
+        idempotencyKey: `escrow-refund:${jobId}`,
+        legs: [
+          { accountId: escrow.accountId, direction: "DEBIT", amount: remaining },
+          { accountId: employerAccount, direction: "CREDIT", amount: remaining },
+        ],
+      });
+    }
+
+    return this.prisma.escrowAccount.update({
+      where: { jobId },
+      data: { refundedAt: new Date() },
+    });
   }
 }
