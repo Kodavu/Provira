@@ -297,8 +297,8 @@ function ConfirmForm({
             maxLength={4}
           />
         </div>
-        <Button onClick={submit} disabled={loading || code.length !== 4}>
-          {loading ? "…" : t("confirm")}
+        <Button onClick={submit} loading={loading} disabled={code.length !== 4}>
+          {t("confirm")}
         </Button>
       </div>
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
@@ -345,9 +345,9 @@ export function JobsNearby({
               variant="outline"
               size="sm"
               onClick={() => onApply(j.id)}
-              disabled={applyingId === j.id}
+              loading={applyingId === j.id}
             >
-              {applyingId === j.id ? t("applying") : t("apply")}
+              {t("apply")}
             </Button>
           </div>
         </Card>

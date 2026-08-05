@@ -142,8 +142,8 @@ export default function JobDetailPage() {
             </div>
           </div>
           {job.escrow && !job.escrow.funded && (
-            <Button onClick={fund} disabled={busy === "fund"}>
-              <Banknote className="h-4 w-4" /> {busy === "fund" ? t("funding") : t("fundEscrow", { amount: formatNaira(job.payAmount) })}
+            <Button onClick={fund} loading={busy === "fund"}>
+              <Banknote className="h-4 w-4" /> {t("fundEscrow", { amount: formatNaira(job.payAmount) })}
             </Button>
           )}
         </div>
@@ -250,8 +250,8 @@ export default function JobDetailPage() {
                     </div>
                   </div>
                 </div>
-                <Button size="sm" variant="outline" onClick={() => invite(s)} disabled={full || busy === `invite:${s.workerId}`}>
-                  {busy === `invite:${s.workerId}` ? t("inviting") : full ? t("fullShort") : t("invite")}
+                <Button size="sm" variant="outline" onClick={() => invite(s)} loading={busy === `invite:${s.workerId}`} disabled={full}>
+                  {full ? t("fullShort") : t("invite")}
                 </Button>
               </Card>
             ))}
@@ -380,8 +380,8 @@ function ApplicantCard({
 
       <div className="mt-auto flex items-center gap-2 pt-4">
         <Button size="sm" variant="outline" onClick={onView} className="flex-1">{t("viewProfile")}</Button>
-        <Button size="sm" onClick={onAccept} disabled={full || accepting} className="flex-1">
-          {accepting ? t("accepting") : full ? t("jobFull") : t("accept")}
+        <Button size="sm" onClick={onAccept} loading={accepting} disabled={full} className="flex-1">
+          {full ? t("jobFull") : t("accept")}
         </Button>
       </div>
     </Card>

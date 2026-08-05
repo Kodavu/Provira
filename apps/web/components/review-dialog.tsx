@@ -194,8 +194,8 @@ function ReviewDialog({
                   />
                 </label>
 
-                <Button onClick={submit} disabled={busy || rating < 1} className="w-full">
-                  {busy ? "Submitting…" : "Submit review"}
+                <Button onClick={submit} loading={busy} disabled={rating < 1} className="w-full">
+                  Submit review
                 </Button>
               </div>
             )}

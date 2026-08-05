@@ -116,8 +116,8 @@ function EscrowRow({
       {escrow.released ? (
         <Pill tone="green">{t("released")}</Pill>
       ) : fundable ? (
-        <Button size="sm" onClick={fund} disabled={busy}>
-          {busy ? t("funding") : t("fund", { amount: formatNaira(escrow.amount) })}
+        <Button size="sm" onClick={fund} loading={busy}>
+          {t("fund", { amount: formatNaira(escrow.amount) })}
         </Button>
       ) : (
         <Pill tone="green">{t("fundedHeldPill")}</Pill>

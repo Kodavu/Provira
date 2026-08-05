@@ -106,7 +106,7 @@ function IdentityCard({ data, onDone }: { data: VerificationStatus; onDone: () =
             <span className="mt-1 block text-xs text-ink-muted">{t("ninEncrypted")}</span>
           </label>
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <Button onClick={submit} disabled={busy}>{busy ? t("submitting") : t("submitForVerification")}</Button>
+          <Button onClick={submit} loading={busy}>{t("submitForVerification")}</Button>
         </div>
       )}
     </Card>
@@ -217,12 +217,12 @@ function PayoutAccountCard({ data, onSaved }: { data: VerificationStatus; onSave
 
           <div className="flex gap-2">
             {!resolvedName ? (
-              <Button onClick={lookup} disabled={!canLookup || busy === "lookup"}>
-                {busy === "lookup" ? t("checking") : t("verifyAccount")}
+              <Button onClick={lookup} loading={busy === "lookup"} disabled={!canLookup}>
+                {t("verifyAccount")}
               </Button>
             ) : (
               <>
-                <Button onClick={save} disabled={busy === "save"}>{busy === "save" ? t("saving") : t("saveAccount")}</Button>
+                <Button onClick={save} loading={busy === "save"}>{t("saveAccount")}</Button>
                 <Button variant="outline" onClick={() => setResolvedName(null)}>{t("edit")}</Button>
               </>
             )}

@@ -174,8 +174,8 @@ export function PostJobCard({
         {error && <p className="text-sm text-red-600">{error}</p>}
 
         <div className="flex justify-end">
-          <Button onClick={submit} disabled={loading}>
-            {loading ? t("posting") : t("post")}
+          <Button onClick={submit} loading={loading}>
+            {t("post")}
           </Button>
         </div>
       </div>
