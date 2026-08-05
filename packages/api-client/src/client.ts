@@ -15,6 +15,10 @@ import type {
   VerificationStatus,
   WalletData,
   WorkerDashboard,
+  WorkerPublicProfile,
+  EmployerPublicProfile,
+  Review,
+  ReviewEligibility,
 } from "./types";
 
 export interface VerificationSubmission {
@@ -248,6 +252,31 @@ export function createTallyClient(config: TallyClientConfig) {
         method: "PUT",
         body: JSON.stringify(account),
       }),
+
+    // Public profiles (trust layer)
+    workerPublicProfile: (userId: string) =>
+      request<WorkerPublicProfile>(`/profiles/worker/${userId}`),
+    employerPublicProfile: (userId: string) =>
+      request<EmployerPublicProfile>(`/profiles/employer/${userId}`),
+
+    // Reviews
+    reviewEligibility: (assignmentId: string, userId: string) =>
+      request<ReviewEligibility>(`/reviews/eligibility/${assignmentId}?userId=${encodeURIComponent(userId)}`),
+    reviewsForUser: (userId: string) => request<Review[]>(`/reviews/user/${userId}`),
+    createReview: (input: {
+      assignmentId: string;
+      authorUserId: string;
+      rating: number;
+      communication?: number | null;
+      professionalism?: number | null;
+      paymentSpeed?: number | null;
+      quality?: number | null;
+      comment?: string | null;
+    }) => post("/reviews", input) as Promise<Review>,
+    markReviewHelpful: (reviewId: string, userId: string) =>
+      post(`/reviews/${reviewId}/helpful`, { userId }) as Promise<{ helpfulCount: number }>,
+    reportReview: (reviewId: string, userId: string, reason?: string) =>
+      post(`/reviews/${reviewId}/report`, { userId, reason }) as Promise<{ reported: boolean }>,
   };
 }
 

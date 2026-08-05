@@ -26,4 +26,10 @@ export type {
   NotificationFeed,
   NotificationPreferences,
   VerificationStatus,
+  Review,
+  ReviewDirection,
+  ReviewEligibility,
+  TrustBadge,
+  WorkerPublicProfile,
+  EmployerPublicProfile,
 } from "@tally/contracts";
