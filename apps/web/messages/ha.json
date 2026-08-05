@@ -6,7 +6,60 @@
     "howItWorks": "Yadda yake aiki",
     "signIn": "Shiga",
     "getStarted": "Fara",
-    "language": "Harshe"
+    "language": "Harshe",
+    "ariaHome": "Gidan Tally",
+    "openMenu": "Buɗe menu",
+    "closeMenu": "Rufe menu",
+    "items": {
+      "workers": {
+        "label": "Ga ma'aikata",
+        "desc": "Nemo aiki, sami biya rana ɗaya"
+      },
+      "employers": {
+        "label": "Ga masu ɗaukar aiki",
+        "desc": "Ɗauki ma'aikata da aka tabbatar, biya lokacin tabbatarwa"
+      },
+      "traders": {
+        "label": "Ga 'yan kasuwa",
+        "desc": "Rubuta tallace-tallace, haɓaka kasuwancinka"
+      },
+      "roadmap": {
+        "label": "Tsarin gaba",
+        "desc": "POS, biya & abin da ke tafe"
+      },
+      "about": {
+        "label": "Game da mu",
+        "desc": "Manufarmu da tarihinmu"
+      },
+      "careers": {
+        "label": "Ayyuka",
+        "desc": "Gina makomar aiki"
+      },
+      "press": {
+        "label": "'Yan jarida",
+        "desc": "Labarai da kayan aikin watsa labarai"
+      },
+      "security": {
+        "label": "Tsaro",
+        "desc": "Yadda muke kare kuɗinka"
+      },
+      "help": {
+        "label": "Cibiyar taimako",
+        "desc": "Jagorori da amsoshi"
+      },
+      "faq": {
+        "label": "FAQ",
+        "desc": "Tambayoyin da aka saba"
+      },
+      "blog": {
+        "label": "Blog",
+        "desc": "Sabuntawar samfur da kamfani"
+      },
+      "contact": {
+        "label": "Tuntuɓe mu",
+        "desc": "Yi magana da tawagarmu"
+      }
+    }
   },
   "Common": {
     "getStartedFree": "Fara kyauta",
@@ -1145,5 +1198,47 @@
     "pickStateFirst": "Zaɓi jiha da farko",
     "selectWard": "Zaɓi unguwa…",
     "pickLgaFirst": "Zaɓi Ƙaramar Hukuma da farko"
+  },
+  "Footer": {
+    "tagline": "Tally yana mai da aikin da ba na yau da kullun ba, tallace-tallace, da biyan kuɗi zuwa shaidar tattalin arziki da za a iya tabbatarwa — yana buɗe biya rana ɗaya, ayyuka mafi kyau, da ainihin bashi ga ma'aikatan Najeriya masu ƙwazo.",
+    "launchUpdates": "Sami sabuntawar ƙaddamarwa",
+    "noSpam": "Babu spam. Cire biyan kuɗi kowane lokaci.",
+    "newsletterPlaceholder": "you@email.com",
+    "newsletterEmailLabel": "Adireshin imel",
+    "newsletterSubmit": "Sanar da ni",
+    "newsletterInvalid": "Shigar da imel mai inganci",
+    "newsletterDone": "Kana cikin jerin.",
+    "socialX": "Tally a X",
+    "socialLinkedIn": "Tally a LinkedIn",
+    "socialInstagram": "Tally a Instagram",
+    "socialWhatsApp": "Tally a WhatsApp",
+    "location": "Legas, Najeriya",
+    "copyright": "© {year} Tally Technologies. An kiyaye dukkan haƙƙoƙi.",
+    "systemsOperational": "Duk tsarin suna aiki",
+    "headings": {
+      "product": "Samfur",
+      "company": "Kamfani",
+      "resources": "Kayan aiki",
+      "legal": "Shari'a"
+    },
+    "links": {
+      "howItWorks": "Yadda yake aiki",
+      "workers": "Ga ma'aikata",
+      "employers": "Ga masu ɗaukar aiki",
+      "traders": "Ga 'yan kasuwa",
+      "roadmap": "Tsarin gaba",
+      "about": "Game da mu",
+      "careers": "Ayyuka",
+      "press": "'Yan jarida",
+      "blog": "Blog",
+      "contact": "Tuntuɓe mu",
+      "help": "Cibiyar taimako",
+      "faq": "FAQ",
+      "security": "Tsaro",
+      "accessibility": "Sauƙin shiga",
+      "privacy": "Sirri (NDPR)",
+      "terms": "Sharuɗɗan sabis",
+      "cookies": "Manufar kuki"
+    }
   }
 }

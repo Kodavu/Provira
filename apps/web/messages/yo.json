@@ -6,7 +6,60 @@
     "howItWorks": "Bí ó ṣe ń ṣiṣẹ́",
     "signIn": "Wọlé",
     "getStarted": "Bẹ̀rẹ̀",
-    "language": "Èdè"
+    "language": "Èdè",
+    "ariaHome": "Ilé Tally",
+    "openMenu": "Ṣí àtòjọ",
+    "closeMenu": "Ti àtòjọ pa",
+    "items": {
+      "workers": {
+        "label": "Fún àwọn òṣìṣẹ́",
+        "desc": "Wá iṣẹ́, gba owó lọ́jọ́ kan náà"
+      },
+      "employers": {
+        "label": "Fún àwọn agbanisíṣẹ́",
+        "desc": "Gba àwọn òṣìṣẹ́ tí a jẹ́rìí, sanwó nígbà ìjẹ́rìísí"
+      },
+      "traders": {
+        "label": "Fún àwọn oníṣòwò",
+        "desc": "Kọ sales sílẹ̀, mú òwò rẹ dàgbà"
+      },
+      "roadmap": {
+        "label": "Ètò ọjọ́ iwájú",
+        "desc": "POS, ìsanwó & ohun tó ń bọ̀"
+      },
+      "about": {
+        "label": "Nípa wa",
+        "desc": "Ìdè àti ìtàn wa"
+      },
+      "careers": {
+        "label": "Iṣẹ́",
+        "desc": "Kọ́ ọjọ́ iwájú iṣẹ́"
+      },
+      "press": {
+        "label": "Ìròyìn",
+        "desc": "Ìròyìn àti ohun èlò mídíà"
+      },
+      "security": {
+        "label": "Ààbò",
+        "desc": "Bí a ṣe ń dáàbò bo owó rẹ"
+      },
+      "help": {
+        "label": "Ilé ìrànlọ́wọ́",
+        "desc": "Ìtọ́ni àti ìdáhùn"
+      },
+      "faq": {
+        "label": "FAQ",
+        "desc": "Àwọn ìbéèrè tó wọ́pọ̀"
+      },
+      "blog": {
+        "label": "Blọ́ọ̀gù",
+        "desc": "Ìròyìn ọjà àti ilé-iṣẹ́"
+      },
+      "contact": {
+        "label": "Kàn sí wa",
+        "desc": "Bá ẹgbẹ́ wa sọ̀rọ̀"
+      }
+    }
   },
   "Common": {
     "getStartedFree": "Bẹ̀rẹ̀ ọ̀fẹ́",
@@ -1145,5 +1198,47 @@
     "pickStateFirst": "Yan ìpínlẹ̀ ná kọ́kọ́",
     "selectWard": "Yan agbègbè…",
     "pickLgaFirst": "Yan Ìjọba Ìbílẹ̀ kọ́kọ́"
+  },
+  "Footer": {
+    "tagline": "Tally ń sọ iṣẹ́ àìlédèdè, sales, àti ìsanwó di ìdánimọ̀ ọrọ̀-ajé tí a lè jẹ́rìí — ó ń ṣí ìsanwó ọjọ́ kan náà, iṣẹ́ tó dára, àti kírẹdíìtì gidi fún àwọn òṣìṣẹ́ tó ń ṣiṣẹ́ jù ní Nàìjíríà.",
+    "launchUpdates": "Gba ìròyìn ìfilọ́lẹ̀",
+    "noSpam": "Kò sí spam. Yọ̀ǹdà nígbàkúùgbà.",
+    "newsletterPlaceholder": "you@email.com",
+    "newsletterEmailLabel": "Àdírẹ́sì ímeèlì",
+    "newsletterSubmit": "Sọ fún mi",
+    "newsletterInvalid": "Tẹ ímeèlì tó tọ́",
+    "newsletterDone": "O ti wà lórí àtòjọ.",
+    "socialX": "Tally lórí X",
+    "socialLinkedIn": "Tally lórí LinkedIn",
+    "socialInstagram": "Tally lórí Instagram",
+    "socialWhatsApp": "Tally lórí WhatsApp",
+    "location": "Èkó, Nàìjíríà",
+    "copyright": "© {year} Tally Technologies. Gbogbo ẹ̀tọ́ ni a fi pamọ́.",
+    "systemsOperational": "Gbogbo ẹ̀rọ ń ṣiṣẹ́",
+    "headings": {
+      "product": "Ọjà",
+      "company": "Ilé-iṣẹ́",
+      "resources": "Àwọn ohun èlò",
+      "legal": "Òfin"
+    },
+    "links": {
+      "howItWorks": "Bí ó ṣe ń ṣiṣẹ́",
+      "workers": "Fún àwọn òṣìṣẹ́",
+      "employers": "Fún àwọn agbanisíṣẹ́",
+      "traders": "Fún àwọn oníṣòwò",
+      "roadmap": "Ètò ọjọ́ iwájú",
+      "about": "Nípa wa",
+      "careers": "Iṣẹ́",
+      "press": "Ìròyìn",
+      "blog": "Blọ́ọ̀gù",
+      "contact": "Kàn sí wa",
+      "help": "Ilé ìrànlọ́wọ́",
+      "faq": "FAQ",
+      "security": "Ààbò",
+      "accessibility": "Ìwọlé rírọrùn",
+      "privacy": "Àṣírí (NDPR)",
+      "terms": "Àwọn òfin iṣẹ́",
+      "cookies": "Ìlànà kúkì"
+    }
   }
 }

@@ -29,28 +29,32 @@ interface MenuItem {
   icon: typeof Users;
 }
 
-const PRODUCT: MenuItem[] = [
-  { label: "For workers", href: "/#workers", desc: "Find jobs, get paid same-day", icon: Users },
-  { label: "For employers", href: "/#employers", desc: "Hire verified workers, pay on confirmation", icon: Briefcase },
-  { label: "For traders", href: "/#traders", desc: "Log sales, grow your business", icon: Store },
-  { label: "Roadmap", href: "/#roadmap", desc: "POS, payments & what's next", icon: TrendingUp },
+interface MenuMeta {
+  id: string;
+  href: string;
+  icon: typeof Users;
+}
+
+const PRODUCT_META: MenuMeta[] = [
+  { id: "workers", href: "/#workers", icon: Users },
+  { id: "employers", href: "/#employers", icon: Briefcase },
+  { id: "traders", href: "/#traders", icon: Store },
+  { id: "roadmap", href: "/#roadmap", icon: TrendingUp },
 ];
 
-const COMPANY: MenuItem[] = [
-  { label: "About", href: "/about", desc: "Our mission and story", icon: Sparkles },
-  { label: "Careers", href: "/careers", desc: "Build the future of work", icon: Briefcase },
-  { label: "Press", href: "/press", desc: "News and media kit", icon: Newspaper },
-  { label: "Security", href: "/security", desc: "How we protect your money", icon: ShieldCheck },
+const COMPANY_META: MenuMeta[] = [
+  { id: "about", href: "/about", icon: Sparkles },
+  { id: "careers", href: "/careers", icon: Briefcase },
+  { id: "press", href: "/press", icon: Newspaper },
+  { id: "security", href: "/security", icon: ShieldCheck },
 ];
 
-const RESOURCES: MenuItem[] = [
-  { label: "Help center", href: "/help", desc: "Guides and answers", icon: HelpCircle },
-  { label: "FAQ", href: "/faq", desc: "Common questions", icon: HelpCircle },
-  { label: "Blog", href: "/blog", desc: "Product and company updates", icon: Newspaper },
-  { label: "Contact", href: "/contact", desc: "Talk to our team", icon: Banknote },
+const RESOURCES_META: MenuMeta[] = [
+  { id: "help", href: "/help", icon: HelpCircle },
+  { id: "faq", href: "/faq", icon: HelpCircle },
+  { id: "blog", href: "/blog", icon: Newspaper },
+  { id: "contact", href: "/contact", icon: Banknote },
 ];
-
-const SIMPLE = [{ label: "How it works", href: "/#how" }];
 
 export function MarketingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -58,6 +62,12 @@ export function MarketingNav() {
   const [menu, setMenu] = useState<string | null>(null); // desktop dropdown
   const pathname = usePathname();
   const t = useTranslations("Nav");
+
+  const resolve = (meta: MenuMeta[]): MenuItem[] =>
+    meta.map((m) => ({ href: m.href, icon: m.icon, label: t(`items.${m.id}.label`), desc: t(`items.${m.id}.desc`) }));
+  const PRODUCT = resolve(PRODUCT_META);
+  const COMPANY = resolve(COMPANY_META);
+  const RESOURCES = resolve(RESOURCES_META);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -75,18 +85,16 @@ export function MarketingNav() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" aria-label="Tally home" className="shrink-0">
+        <Link href="/" aria-label={t("ariaHome")} className="shrink-0">
           <Wordmark />
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex" onMouseLeave={() => setMenu(null)}>
           <Dropdown label={t("product")} items={PRODUCT} open={menu === "product"} onOpen={() => setMenu("product")} />
-          {SIMPLE.map((l) => (
-            <Link key={l.href} href={l.href} className="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink">
-              {t("howItWorks")}
-            </Link>
-          ))}
+          <Link href="/#how" className="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft transition hover:bg-canvas hover:text-ink">
+            {t("howItWorks")}
+          </Link>
           <Dropdown label={t("company")} items={COMPANY} open={menu === "company"} onOpen={() => setMenu("company")} />
           <Dropdown label={t("resources")} items={RESOURCES} open={menu === "resources"} onOpen={() => setMenu("resources")} />
         </nav>
@@ -106,7 +114,7 @@ export function MarketingNav() {
 
         <button
           onClick={() => setOpen(true)}
-          aria-label="Open menu"
+          aria-label={t("openMenu")}
           className="grid h-10 w-10 place-items-center rounded-xl border border-line text-ink-soft md:hidden"
         >
           <Menu className="h-5 w-5" />
@@ -125,7 +133,7 @@ export function MarketingNav() {
           >
             <div className="flex h-16 items-center justify-between border-b border-line px-4">
               <Wordmark />
-              <button onClick={() => setOpen(false)} aria-label="Close menu" className="grid h-10 w-10 place-items-center rounded-xl border border-line text-ink-soft">
+              <button onClick={() => setOpen(false)} aria-label={t("closeMenu")} className="grid h-10 w-10 place-items-center rounded-xl border border-line text-ink-soft">
                 <X className="h-5 w-5" />
               </button>
             </div>

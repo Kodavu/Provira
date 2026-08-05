@@ -6,7 +6,60 @@
     "howItWorks": "How it works",
     "signIn": "Sign in",
     "getStarted": "Get started",
-    "language": "Language"
+    "language": "Language",
+    "ariaHome": "Tally home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "items": {
+      "workers": {
+        "label": "For workers",
+        "desc": "Find jobs, get paid same-day"
+      },
+      "employers": {
+        "label": "For employers",
+        "desc": "Hire verified workers, pay on confirmation"
+      },
+      "traders": {
+        "label": "For traders",
+        "desc": "Log sales, grow your business"
+      },
+      "roadmap": {
+        "label": "Roadmap",
+        "desc": "POS, payments & what's next"
+      },
+      "about": {
+        "label": "About",
+        "desc": "Our mission and story"
+      },
+      "careers": {
+        "label": "Careers",
+        "desc": "Build the future of work"
+      },
+      "press": {
+        "label": "Press",
+        "desc": "News and media kit"
+      },
+      "security": {
+        "label": "Security",
+        "desc": "How we protect your money"
+      },
+      "help": {
+        "label": "Help center",
+        "desc": "Guides and answers"
+      },
+      "faq": {
+        "label": "FAQ",
+        "desc": "Common questions"
+      },
+      "blog": {
+        "label": "Blog",
+        "desc": "Product and company updates"
+      },
+      "contact": {
+        "label": "Contact",
+        "desc": "Talk to our team"
+      }
+    }
   },
   "Common": {
     "getStartedFree": "Get started free",
@@ -1145,5 +1198,47 @@
     "pickStateFirst": "Pick a state first",
     "selectWard": "Select ward…",
     "pickLgaFirst": "Pick an LGA first"
+  },
+  "Footer": {
+    "tagline": "Tally turns informal work, sales, and payments into a verifiable economic identity — unlocking same-day pay, better jobs, and real credit for Nigeria's hardest workers.",
+    "launchUpdates": "Get launch updates",
+    "noSpam": "No spam. Unsubscribe anytime.",
+    "newsletterPlaceholder": "you@email.com",
+    "newsletterEmailLabel": "Email address",
+    "newsletterSubmit": "Notify me",
+    "newsletterInvalid": "Enter a valid email",
+    "newsletterDone": "You're on the list.",
+    "socialX": "Tally on X",
+    "socialLinkedIn": "Tally on LinkedIn",
+    "socialInstagram": "Tally on Instagram",
+    "socialWhatsApp": "Tally on WhatsApp",
+    "location": "Lagos, Nigeria",
+    "copyright": "© {year} Tally Technologies. All rights reserved.",
+    "systemsOperational": "All systems operational",
+    "headings": {
+      "product": "Product",
+      "company": "Company",
+      "resources": "Resources",
+      "legal": "Legal"
+    },
+    "links": {
+      "howItWorks": "How it works",
+      "workers": "For workers",
+      "employers": "For employers",
+      "traders": "For traders",
+      "roadmap": "Roadmap",
+      "about": "About",
+      "careers": "Careers",
+      "press": "Press",
+      "blog": "Blog",
+      "contact": "Contact",
+      "help": "Help center",
+      "faq": "FAQ",
+      "security": "Security",
+      "accessibility": "Accessibility",
+      "privacy": "Privacy (NDPR)",
+      "terms": "Terms of service",
+      "cookies": "Cookie policy"
+    }
   }
 }

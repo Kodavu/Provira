@@ -6,7 +6,60 @@
     "howItWorks": "Otú ọ si arụ ọrụ",
     "signIn": "Banye",
     "getStarted": "Malite",
-    "language": "Asụsụ"
+    "language": "Asụsụ",
+    "ariaHome": "Ụlọ Tally",
+    "openMenu": "Mepee menu",
+    "closeMenu": "Mechie menu",
+    "items": {
+      "workers": {
+        "label": "Maka ndị ọrụ",
+        "desc": "Chọta ọrụ, nweta ụgwọ n'otu ụbọchị"
+      },
+      "employers": {
+        "label": "Maka ndị were ọrụ",
+        "desc": "Were ndị ọrụ akwadoro, kwụọ ụgwọ mgbe akwadoro"
+      },
+      "traders": {
+        "label": "Maka ndị ahịa",
+        "desc": "Depụta ahịa, mee ka azụmahịa gị too"
+      },
+      "roadmap": {
+        "label": "Atụmatụ ihu ọzọ",
+        "desc": "POS, ịkwụ ụgwọ & ihe na-abịa"
+      },
+      "about": {
+        "label": "Banyere anyị",
+        "desc": "Ebumnuche na akụkọ anyị"
+      },
+      "careers": {
+        "label": "Ọrụ",
+        "desc": "Wuo ọdịnihu nke ọrụ"
+      },
+      "press": {
+        "label": "Ndị nta akụkọ",
+        "desc": "Akụkọ na ngwa mgbasa ozi"
+      },
+      "security": {
+        "label": "Nchekwa",
+        "desc": "Otu anyị si echebe ego gị"
+      },
+      "help": {
+        "label": "Ụlọ ọrụ enyemaka",
+        "desc": "Ntụziaka na azịza"
+      },
+      "faq": {
+        "label": "FAQ",
+        "desc": "Ajụjụ ndị a na-ajụkarị"
+      },
+      "blog": {
+        "label": "Blog",
+        "desc": "Mmelite ngwaahịa na ụlọ ọrụ"
+      },
+      "contact": {
+        "label": "Kpọtụrụ anyị",
+        "desc": "Gwa ndị otu anyị okwu"
+      }
+    }
   },
   "Common": {
     "getStartedFree": "Malite n'efu",
@@ -1145,5 +1198,47 @@
     "pickStateFirst": "Buru ụzọ họrọ steeti",
     "selectWard": "Họrọ ebe obibi…",
     "pickLgaFirst": "Buru ụzọ họrọ Ọchịchị ime obodo"
+  },
+  "Footer": {
+    "tagline": "Tally na-eme ka ọrụ na-akwadoghị, ahịa, na ịkwụ ụgwọ ghọọ njirimara akụ na ụba enwere ike ịkwado — na-emeghe ịkwụ ụgwọ n'otu ụbọchị, ọrụ ka mma, na kredit n'ezie maka ndị ọrụ Naịjirịa na-arụsi ọrụ ike.",
+    "launchUpdates": "Nweta mmelite mmalite",
+    "noSpam": "Enweghị spam. Wepụ aha gị mgbe ọ bụla.",
+    "newsletterPlaceholder": "you@email.com",
+    "newsletterEmailLabel": "Adreesị ozi-e",
+    "newsletterSubmit": "Gwa m",
+    "newsletterInvalid": "Tinye ozi-e ziri ezi",
+    "newsletterDone": "Ị nọ na ndepụta ahụ.",
+    "socialX": "Tally na X",
+    "socialLinkedIn": "Tally na LinkedIn",
+    "socialInstagram": "Tally na Instagram",
+    "socialWhatsApp": "Tally na WhatsApp",
+    "location": "Legos, Naịjirịa",
+    "copyright": "© {year} Tally Technologies. Echekwara ikike niile.",
+    "systemsOperational": "Sistemụ niile na-arụ ọrụ",
+    "headings": {
+      "product": "Ngwaahịa",
+      "company": "Ụlọ ọrụ",
+      "resources": "Ihe enyemaka",
+      "legal": "Iwu"
+    },
+    "links": {
+      "howItWorks": "Otu ọ si arụ ọrụ",
+      "workers": "Maka ndị ọrụ",
+      "employers": "Maka ndị were ọrụ",
+      "traders": "Maka ndị ahịa",
+      "roadmap": "Atụmatụ ihu ọzọ",
+      "about": "Banyere anyị",
+      "careers": "Ọrụ",
+      "press": "Ndị nta akụkọ",
+      "blog": "Blog",
+      "contact": "Kpọtụrụ anyị",
+      "help": "Ụlọ ọrụ enyemaka",
+      "faq": "FAQ",
+      "security": "Nchekwa",
+      "accessibility": "Nnweta mfe",
+      "privacy": "Nzuzo (NDPR)",
+      "terms": "Usoro ọrụ",
+      "cookies": "Iwu kuki"
+    }
   }
 }
