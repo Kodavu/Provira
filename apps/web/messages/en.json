@@ -1186,6 +1186,8 @@
     "title": "Notifications",
     "ariaLabel": "Notifications",
     "markAllRead": "Mark all read",
+    "clearAll": "Clear all",
+    "delete": "Delete",
     "allCaughtUp": "You're all caught up."
   },
   "LocationPicker": {

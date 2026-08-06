@@ -244,6 +244,13 @@ export function createTallyClient(config: TallyClientConfig) {
       post(`/users/${userId}/notifications/${id}/read`) as Promise<NotificationFeed>,
     markAllNotificationsRead: (userId: string) =>
       post(`/users/${userId}/notifications/read-all`) as Promise<NotificationFeed>,
+    deleteNotification: (userId: string, id: string) =>
+      request<NotificationFeed>(`/users/${userId}/notifications/${id}`, { method: "DELETE" }),
+    clearNotifications: (userId: string, onlyRead?: boolean) =>
+      request<NotificationFeed>(
+        `/users/${userId}/notifications/clear${onlyRead ? "?onlyRead=true" : ""}`,
+        { method: "DELETE" },
+      ),
     notificationPreferences: (userId: string) =>
       request<NotificationPreferences>(`/users/${userId}/notifications/preferences`),
     setNotificationPreference: (

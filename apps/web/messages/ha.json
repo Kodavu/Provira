@@ -1186,6 +1186,8 @@
     "title": "Sanarwa",
     "ariaLabel": "Sanarwa",
     "markAllRead": "Yiwa duka alama an karanta",
+    "clearAll": "Share duka",
+    "delete": "Share",
     "allCaughtUp": "Ka ci gaba da komai."
   },
   "LocationPicker": {

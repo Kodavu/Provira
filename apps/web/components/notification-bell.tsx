@@ -75,6 +75,34 @@ export function NotificationBell() {
     setUnread(feed.unread);
   }
 
+  async function removeItem(e: React.MouseEvent, id: string) {
+    e.stopPropagation();
+    const userId = getUserId();
+    if (!userId) return;
+    // Optimistic removal so the row disappears instantly.
+    setItems((prev) => prev.filter((n) => n.id !== id));
+    try {
+      const feed = await api.deleteNotification(userId, id);
+      setItems(feed.items);
+      setUnread(feed.unread);
+    } catch {
+      load();
+    }
+  }
+
+  async function clearAll() {
+    const userId = getUserId();
+    if (!userId) return;
+    setItems([]);
+    try {
+      const feed = await api.clearNotifications(userId);
+      setItems(feed.items);
+      setUnread(feed.unread);
+    } catch {
+      load();
+    }
+  }
+
   return (
     <div ref={ref} className="relative shrink-0">
       <button
@@ -97,11 +125,18 @@ export function NotificationBell() {
         <div className="absolute right-0 top-11 z-50 w-80 overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl">
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
             <p className="text-sm font-semibold text-ink">{t("title")}</p>
-            {unread > 0 && (
-              <button onClick={markAll} className="text-xs font-medium text-brand-600 hover:text-brand-700">
-                {t("markAllRead")}
-              </button>
-            )}
+            <div className="flex items-center gap-3">
+              {unread > 0 && (
+                <button onClick={markAll} className="text-xs font-medium text-brand-600 hover:text-brand-700">
+                  {t("markAllRead")}
+                </button>
+              )}
+              {items.length > 0 && (
+                <button onClick={clearAll} className="text-xs font-medium text-ink-muted hover:text-error">
+                  {t("clearAll")}
+                </button>
+              )}
+            </div>
           </div>
           <div className="max-h-96 overflow-y-auto">
             {!loaded && items.length === 0 ? (
@@ -120,20 +155,33 @@ export function NotificationBell() {
               <p className="px-4 py-8 text-center text-sm text-ink-muted">{t("allCaughtUp")}</p>
             ) : (
               items.map((n) => (
-                <button
+                <div
                   key={n.id}
-                  onClick={() => openItem(n)}
-                  className={`flex w-full gap-3 border-b border-line px-4 py-3 text-left last:border-0 hover:bg-canvas ${
+                  className={`group relative flex gap-3 border-b border-line last:border-0 hover:bg-canvas ${
                     n.readAt ? "" : "bg-brand-50/40"
                   }`}
                 >
-                  <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${n.readAt ? "bg-transparent" : "bg-brand-600"}`} />
-                  <span className="min-w-0">
-                    {n.title && <span className="block text-sm font-medium text-ink">{n.title}</span>}
-                    <span className="block text-sm text-ink-soft">{n.body}</span>
-                    <span className="mt-0.5 block text-[11px] text-ink-muted">{timeAgo(n.createdAt, tt)}</span>
-                  </span>
-                </button>
+                  <button
+                    onClick={() => openItem(n)}
+                    className="flex min-w-0 flex-1 gap-3 px-4 py-3 text-left"
+                  >
+                    <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${n.readAt ? "bg-transparent" : "bg-brand-600"}`} />
+                    <span className="min-w-0">
+                      {n.title && <span className="block text-sm font-medium text-ink">{n.title}</span>}
+                      <span className="block text-sm text-ink-soft">{n.body}</span>
+                      <span className="mt-0.5 block text-[11px] text-ink-muted">{timeAgo(n.createdAt, tt)}</span>
+                    </span>
+                  </button>
+                  <button
+                    onClick={(e) => removeItem(e, n.id)}
+                    aria-label={t("delete")}
+                    className="absolute right-1.5 top-1.5 grid h-6 w-6 place-items-center rounded-lg text-ink-muted opacity-0 transition hover:bg-line/60 hover:text-error focus:opacity-100 group-hover:opacity-100"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                </div>
               ))
             )}
           </div>
