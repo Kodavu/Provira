@@ -1,6 +1,7 @@
 import { adminFetch, Me } from "@/lib/admin-api";
 import { PageHeader, EmptyState } from "@/components/ui";
 import { TemplateManager } from "@/components/template-manager";
+import { BroadcastComposer } from "@/components/broadcast-composer";
 
 type Channel = "INAPP" | "EMAIL" | "SMS" | "WHATSAPP" | "IVR" | "PUSH";
 type Language = "EN" | "PCM" | "YO" | "HA" | "IG";
@@ -34,9 +35,13 @@ export default async function NotificationsPage() {
   return (
     <>
       <PageHeader
-        title="Notification templates"
-        subtitle="Edit the content users receive per event, channel, and language. Empty slots fall back to English, then the built-in default. Every change is audited."
+        title="Notifications"
+        subtitle="Send one-off broadcasts and edit the templates users receive per event, channel, and language. Empty slots fall back to English, then the built-in default. Every change is audited."
       />
+      <div className="mb-8">
+        <BroadcastComposer />
+      </div>
+      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">Templates</h2>
       <TemplateManager events={data.events} languages={data.languages} templates={data.templates} />
     </>
   );
