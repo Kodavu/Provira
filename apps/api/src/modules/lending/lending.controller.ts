@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { LendingService } from "./lending.service.js";
+import { OwnerFrom, UserAuthGuard } from "../auth/user-auth.guard.js";
 
 @Controller("lending")
+@UseGuards(UserAuthGuard)
 export class LendingController {
   constructor(private readonly lending: LendingService) {}
 
@@ -11,6 +13,7 @@ export class LendingController {
   }
 
   @Post("apply")
+  @OwnerFrom({ body: "userId" })
   apply(@Body() body: { userId: string; productId: string; amount: string }) {
     return this.lending.apply(body.userId, body.productId, BigInt(body.amount));
   }

@@ -1,8 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from "@nestjs/common";
 import { UsersService } from "./users.service.js";
 import type { KycLevel, Language, RoleType, VerificationDocType } from "@tally/db";
+import { OwnerFrom, UserAuthGuard } from "../auth/user-auth.guard.js";
 
+// Every route is scoped to the user in the `:id` path segment; the guard binds
+// it to the caller's own session so users can only touch their own account.
 @Controller("users")
+@UseGuards(UserAuthGuard)
+@OwnerFrom({ param: "id" })
 export class UsersController {
   constructor(private readonly users: UsersService) {}
 

@@ -1,7 +1,10 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { TradersService } from "./traders.service.js";
+import { UserAuthGuard } from "../auth/user-auth.guard.js";
 
+// Trader's own dashboard + sales log, bound to the caller via `:userId`.
 @Controller("traders")
+@UseGuards(UserAuthGuard)
 export class TradersController {
   constructor(private readonly traders: TradersService) {}
 

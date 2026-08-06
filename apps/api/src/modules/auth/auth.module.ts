@@ -1,9 +1,12 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { AuthController } from "./auth.controller.js";
 import { AuthService } from "./auth.service.js";
 import { UserAuthGuard } from "./user-auth.guard.js";
 
+// Global so any module can bind user-owned routes with UserAuthGuard without
+// re-importing AuthModule or re-registering the JWT config.
+@Global()
 @Module({
   imports: [
     JwtModule.register({
