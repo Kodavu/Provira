@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, useState } from "react";
+import { type CSSProperties, ReactNode, Suspense, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -51,6 +51,7 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const sidebarWidth = collapsed ? "72px" : "272px";
   const [dark, setDark] = useState(
     typeof document !== "undefined" &&
       document.documentElement.classList.contains("dark"),
@@ -78,7 +79,10 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
   }
 
   return (
-    <div className="relative flex min-h-screen overflow-hidden bg-app">
+    <div
+      className="relative min-h-screen overflow-x-hidden bg-app"
+      style={{ "--admin-sidebar-width": sidebarWidth } as CSSProperties}
+    >
       <div className="admin-ambient pointer-events-none fixed inset-0 -z-10" />
       <Suspense fallback={null}>
         <NavProgress />
@@ -88,7 +92,7 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
       <motion.aside
         animate={{ width: collapsed ? 72 : 272 }}
         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        className="sticky top-0 hidden h-screen shrink-0 flex-col border-r border-app bg-white/75 shadow-2xl shadow-slate-200/50 backdrop-blur-xl dark:bg-slate-950/60 dark:shadow-black/20 md:flex"
+        className="fixed inset-y-0 left-0 z-40 hidden shrink-0 flex-col border-r border-app bg-white/75 shadow-2xl shadow-slate-200/50 backdrop-blur-xl dark:bg-slate-950/60 dark:shadow-black/20 md:flex"
       >
         <div
           className={`flex h-20 items-center gap-3 border-b border-app px-4 ${collapsed ? "justify-center" : ""}`}
@@ -159,7 +163,7 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
         </button>
       </motion.aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col md:pl-[var(--admin-sidebar-width)] md:transition-[padding-left] md:duration-300 md:ease-[cubic-bezier(0.22,1,0.36,1)]">
         <header className="sticky top-0 z-30 flex h-20 items-center gap-3 border-b border-white/30 bg-white/70 px-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/60 sm:px-6">
           <button
             onClick={() => (window as any).__openPalette?.()}

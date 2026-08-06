@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { adminFetch, Me } from "@/lib/admin-api";
-import { Badge, PageHeader, Table, EmptyState } from "@/components/ui";
+import { Badge, PageHeader, StatCard, Table, EmptyState } from "@/components/ui";
 import { InviteStaff } from "@/components/staff-invite";
 
 interface Staff {
@@ -23,6 +23,9 @@ export default async function StaffPage() {
   ]);
   if (!staff || !me) return <EmptyState>You don&apos;t have access to staff management.</EmptyState>;
   const canInvite = me.permissions.includes("admin_users:create");
+  const activeCount = staff.filter((member) => member.status === "ACTIVE").length;
+  const invitedCount = staff.filter((member) => member.status === "INVITED").length;
+  const disabledCount = staff.filter((member) => member.status === "DISABLED").length;
 
   return (
     <>
@@ -31,6 +34,12 @@ export default async function StaffPage() {
         subtitle={`${staff.length} internal ${staff.length === 1 ? "member" : "members"}. Every change is audited.`}
         action={canInvite && roles ? <InviteStaff roles={roles} /> : undefined}
       />
+      <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard label="Total staff" value={staff.length} hint="Visible in this workspace" accent />
+        <StatCard label="Active" value={activeCount} hint="Currently enabled accounts" />
+        <StatCard label="Invited" value={invitedCount} hint="Waiting for first login" />
+        <StatCard label="Disabled" value={disabledCount} hint="Temporarily suspended users" />
+      </div>
       <Table head={["Name", "Department", "Roles", "Status", "Last login"]}>
         {staff.map((s) => (
           <tr key={s.id} className="hover:bg-app">

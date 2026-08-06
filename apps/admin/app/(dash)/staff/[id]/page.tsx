@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { adminFetch, Me } from "@/lib/admin-api";
-import { Badge, Card, Table, EmptyState } from "@/components/ui";
+import { Badge, Card, EmptyState, StatCard, Table } from "@/components/ui";
 import { StaffActions } from "@/components/staff-actions";
 import { humanizeAction, titleize } from "@/lib/labels";
 
@@ -44,6 +44,13 @@ export default async function StaffDetailPage({ params }: { params: { id: string
           </div>
           <p className="text-sm text-soft">{d.email}{d.department ? ` · ${d.department}` : ""}</p>
         </div>
+      </div>
+
+      <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard label="Roles" value={d.roles.length} hint="Granted access groups" accent />
+        <StatCard label="Login attempts" value={d.loginHistory.length} hint="Successful and failed logins" />
+        <StatCard label="Audit events" value={d.activity.length} hint="Tracked admin actions" />
+        <StatCard label="Account age" value={new Date(d.createdAt).toLocaleDateString("en-NG", { month: "short", day: "numeric" })} hint="Date added to staff" />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
