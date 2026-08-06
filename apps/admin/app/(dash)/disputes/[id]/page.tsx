@@ -3,6 +3,7 @@ import { adminFetch, Me } from "@/lib/admin-api";
 import { Badge, Card, EmptyState } from "@/components/ui";
 import { DisputeActions } from "@/components/dispute-actions";
 import { ReplyForm, EvidenceForm } from "@/components/dispute-comms";
+import { humanizeDisputeEvent } from "@/lib/labels";
 
 interface Detail {
   id: string;
@@ -76,7 +77,7 @@ export default async function DisputeDetailPage({ params }: { params: { id: stri
                     <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-brand-500" />
                     <div className="min-w-0">
                       <p className="text-sm">
-                        <span className="font-medium capitalize">{e.type.replace(/_/g, " ")}</span>
+                        <span className="font-medium">{humanizeDisputeEvent(e.type)}</span>
                         {e.fromStatus && e.toStatus && (
                           <span className="text-soft"> · {pretty(e.fromStatus)} → {pretty(e.toStatus)}</span>
                         )}

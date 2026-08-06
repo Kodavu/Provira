@@ -1,9 +1,10 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, Suspense, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { NavProgress } from "./nav-progress";
 import {
   Bell,
   ChevronLeft,
@@ -79,6 +80,9 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
   return (
     <div className="relative flex min-h-screen overflow-hidden bg-app">
       <div className="admin-ambient pointer-events-none fixed inset-0 -z-10" />
+      <Suspense fallback={null}>
+        <NavProgress />
+      </Suspense>
       <CommandPalette items={nav} />
 
       <motion.aside

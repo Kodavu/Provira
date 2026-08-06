@@ -2,6 +2,7 @@ import Link from "next/link";
 import { adminFetch, Me } from "@/lib/admin-api";
 import { Badge, Card, Table, EmptyState } from "@/components/ui";
 import { StaffActions } from "@/components/staff-actions";
+import { humanizeAction, titleize } from "@/lib/labels";
 
 interface Detail {
   id: string;
@@ -80,8 +81,8 @@ export default async function StaffDetailPage({ params }: { params: { id: string
               <Card className="divide-y divide-[color:var(--border)]">
                 {d.activity.map((a) => (
                   <div key={a.id} className="flex items-center justify-between px-4 py-2.5 text-sm">
-                    <span className="font-mono text-xs">{a.action}</span>
-                    <span className="text-xs text-muted">{a.resource} · {when(a.createdAt)}</span>
+                    <span className="font-medium">{humanizeAction(a.action)}</span>
+                    <span className="text-xs text-muted">{titleize(a.resource)} · {when(a.createdAt)}</span>
                   </div>
                 ))}
               </Card>

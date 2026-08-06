@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Badge, Button, Card } from "./ui";
+import { humanizeEvent } from "@/lib/labels";
 
 type Channel = "INAPP" | "EMAIL" | "SMS" | "WHATSAPP" | "IVR" | "PUSH";
 type Language = "EN" | "PCM" | "YO" | "HA" | "IG";
@@ -165,7 +166,10 @@ export function TemplateManager({
                 active ? "bg-brand-50 text-brand-700 dark:bg-brand-500/10" : "text-soft hover:bg-app"
               }`}
             >
-              <span className="font-mono text-xs">{e.eventKey}</span>
+              <span className="min-w-0">
+                <span className="block truncate font-medium">{humanizeEvent(e.eventKey)}</span>
+                <span className="block truncate font-mono text-[10px] text-muted">{e.eventKey}</span>
+              </span>
               {count > 0 && <Badge tone="indigo">{count}</Badge>}
             </button>
           );
@@ -178,8 +182,9 @@ export function TemplateManager({
           <p className="text-sm text-muted">No events.</p>
         ) : (
           <>
-            <div className="flex items-center gap-2">
-              <h2 className="font-mono text-sm font-semibold">{event.eventKey}</h2>
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-base font-semibold">{humanizeEvent(event.eventKey)}</h2>
+              <code className="rounded bg-app px-1.5 py-0.5 font-mono text-[10px] text-muted">{event.eventKey}</code>
               <Badge tone={CATEGORY_TONE[event.category]}>{event.category.toLowerCase()}</Badge>
               {(event.category === "SECURITY" || event.category === "TRANSACTIONAL") && (
                 <span className="text-xs text-muted">always delivered</span>

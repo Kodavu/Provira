@@ -1,6 +1,7 @@
 import { adminFetch, Me } from "@/lib/admin-api";
 import { PageHeader, StatCard, Table, Badge, EmptyState, Card } from "@/components/ui";
 import { WithdrawalActions } from "@/components/withdrawal-actions";
+import { humanizeLedgerType } from "@/lib/labels";
 
 interface Summary {
   pendingCount: number;
@@ -89,7 +90,7 @@ export default async function FinancePage() {
               <div key={t.id} className="flex items-center justify-between px-4 py-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">{t.type.replace(/_/g, " ").toLowerCase()}</span>
+                    <span className="text-sm font-medium">{humanizeLedgerType(t.type)}</span>
                     <Badge tone={STATUS_TONE[t.status] ?? "neutral"}>{t.status.toLowerCase()}</Badge>
                   </div>
                   <p className="mt-0.5 text-xs text-muted">

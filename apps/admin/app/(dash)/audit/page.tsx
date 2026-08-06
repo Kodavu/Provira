@@ -1,5 +1,6 @@
 import { adminFetch } from "@/lib/admin-api";
 import { Badge, PageHeader, Table, EmptyState } from "@/components/ui";
+import { humanizeAction, titleize } from "@/lib/labels";
 
 interface Log {
   id: string;
@@ -33,8 +34,8 @@ export default async function AuditPage() {
           {logs.map((l) => (
             <tr key={l.id}>
               <td className="px-4 py-3 font-medium">{l.adminUser?.fullName ?? "System"}</td>
-              <td className="px-4 py-3"><Badge tone="indigo">{l.action}</Badge></td>
-              <td className="px-4 py-3 text-soft">{l.resource}{l.resourceId ? ` · ${l.resourceId.slice(0, 6)}` : ""}</td>
+              <td className="px-4 py-3"><Badge tone="indigo">{humanizeAction(l.action)}</Badge></td>
+              <td className="px-4 py-3 text-soft">{titleize(l.resource)}{l.resourceId ? ` · ${l.resourceId.slice(0, 6)}` : ""}</td>
               <td className="px-4 py-3 font-mono text-xs text-soft">{short(l.previousValue)} → {short(l.newValue)}</td>
               <td className="px-4 py-3 text-xs text-muted">{l.ip ?? "—"}</td>
               <td className="px-4 py-3 whitespace-nowrap text-xs text-muted">{new Date(l.createdAt).toLocaleString("en-NG", { dateStyle: "medium", timeStyle: "short" })}</td>

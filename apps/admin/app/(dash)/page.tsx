@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { adminFetch } from "@/lib/admin-api";
 import { Card, PageHeader, StatCard, EmptyState, Badge } from "@/components/ui";
+import { humanizeAction, titleize } from "@/lib/labels";
 
 interface Dashboard {
   stats: {
@@ -84,9 +85,9 @@ export default async function DashboardPage() {
               <div key={a.id} className="flex items-center justify-between px-4 py-3 text-sm">
                 <div>
                   <span className="font-medium">{a.admin}</span>{" "}
-                  <span className="text-soft">performed</span>{" "}
-                  <span className="font-mono text-xs">{a.action}</span>{" "}
-                  <span className="text-soft">on {a.resource}</span>
+                  <span className="text-soft">{humanizeAction(a.action).toLowerCase()}</span>{" "}
+                  <span className="text-soft">·</span>{" "}
+                  <span className="text-soft">{titleize(a.resource)}</span>
                 </div>
                 <span className="text-xs text-muted">{ago(a.at)}</span>
               </div>
