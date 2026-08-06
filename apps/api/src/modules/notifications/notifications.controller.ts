@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { zNotificationFeed, zNotificationPreferences } from "@tally/contracts";
 import type { NotificationCategory, NotificationChannel } from "@tally/db";
 import { NotificationService } from "./notification.service.js";
@@ -26,6 +26,16 @@ export class NotificationsController {
   @Post(":id/read")
   async read(@Param("userId") userId: string, @Param("id") id: string) {
     return zNotificationFeed.parse(await this.notifications.markRead(userId, id));
+  }
+
+  @Delete("clear")
+  async clear(@Param("userId") userId: string, @Query("onlyRead") onlyRead?: string) {
+    return zNotificationFeed.parse(await this.notifications.clear(userId, onlyRead === "true"));
+  }
+
+  @Delete(":id")
+  async remove(@Param("userId") userId: string, @Param("id") id: string) {
+    return zNotificationFeed.parse(await this.notifications.deleteOne(userId, id));
   }
 
   @Get("preferences")

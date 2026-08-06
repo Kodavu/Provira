@@ -167,6 +167,107 @@ export class NotificationService {
     return this.feed(userId);
   }
 
+  /** Delete one of the user's own in-app notifications. */
+  async deleteOne(userId: string, id: string): Promise<FeedResult> {
+    await this.prisma.notification.deleteMany({ where: { id, userId, channel: "INAPP" } });
+    return this.feed(userId);
+  }
+
+  /** Clear the user's in-app feed. `onlyRead` keeps unread items. */
+  async clear(userId: string, onlyRead = false): Promise<FeedResult> {
+    await this.prisma.notification.deleteMany({
+      where: { userId, channel: "INAPP", ...(onlyRead ? { readAt: { not: null } } : {}) },
+    });
+    return this.feed(userId);
+  }
+
+  /**
+   * Send a custom (non-templated) message to one user over the chosen channels.
+   * Used by the admin broadcast tool. Respects channel deliverability (can't
+   * email without an address, push without a device, etc.) but bypasses the
+   * per-event template — the title/body are supplied directly.
+   */
+  async sendCustom(
+    userId: string,
+    params: { channels: NotificationChannel[]; title: string; body: string; category?: NotificationCategory },
+  ): Promise<number> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true, email: true,
+        channelIdentities: { select: { channel: true } },
+        pushDevices: { select: { id: true }, take: 1 },
+      },
+    });
+    if (!user) return 0;
+    const identities = new Set(user.channelIdentities.map((c) => c.channel));
+    const hasDevice = user.pushDevices.length > 0;
+    const category = params.category ?? "ACTIVITY";
+
+    let sent = 0;
+    for (const channel of params.channels) {
+      if (!this.deliverable(channel, user.email, identities, hasDevice)) continue;
+      const inApp = channel === "INAPP";
+      const n = await this.prisma.notification.create({
+        data: {
+          userId,
+          category,
+          eventKey: "admin.broadcast",
+          channel,
+          language: "EN",
+          title: params.title || null,
+          body: params.body,
+          status: inApp ? "SENT" : "PENDING",
+          sentAt: inApp ? new Date() : null,
+        },
+        include: { user: { select: { phone: true, email: true } } },
+      });
+      if (!inApp) await this.dispatcher.dispatch(n);
+      sent += 1;
+    }
+    return sent;
+  }
+
+  /**
+   * Broadcast a custom message to an audience: ALL users, a single ROLE, or one
+   * USER. Returns how many users and channel-sends were dispatched.
+   */
+  async broadcast(params: {
+    audience: "ALL" | "ROLE" | "USER";
+    role?: string;
+    userId?: string;
+    channels: NotificationChannel[];
+    title: string;
+    body: string;
+  }): Promise<{ recipients: number; sends: number }> {
+    if (!params.body?.trim()) throw new Error("A message body is required");
+    if (!params.channels?.length) throw new Error("Pick at least one channel");
+
+    let userIds: string[];
+    if (params.audience === "USER") {
+      userIds = params.userId ? [params.userId] : [];
+    } else if (params.audience === "ROLE" && params.role) {
+      const rows = await this.prisma.userRole.findMany({
+        where: { role: params.role as never },
+        select: { userId: true },
+      });
+      userIds = [...new Set(rows.map((r) => r.userId))];
+    } else {
+      const rows = await this.prisma.user.findMany({ select: { id: true } });
+      userIds = rows.map((r) => r.id);
+    }
+
+    let sends = 0;
+    for (const uid of userIds) {
+      sends += await this.sendCustom(uid, {
+        channels: params.channels,
+        title: params.title,
+        body: params.body,
+      });
+    }
+    return { recipients: userIds.length, sends };
+  }
+
   // --- Preferences ---
 
   async getPreferences(userId: string): Promise<PreferencesResult> {

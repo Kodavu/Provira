@@ -8,6 +8,7 @@ import { HrService } from "./hr.service.js";
 import { HrController } from "./hr.controller.js";
 import { ImpersonationController } from "./impersonation.controller.js";
 import { NotificationTemplatesController } from "./notification-templates.controller.js";
+import { AdminNotificationsController } from "./admin-notifications.controller.js";
 import { FinanceController } from "./finance.controller.js";
 import { FinanceService } from "./finance.service.js";
 import { VerificationController } from "./verification.controller.js";
@@ -38,6 +39,7 @@ import {
     HrController,
     ImpersonationController,
     NotificationTemplatesController,
+    AdminNotificationsController,
     FinanceController,
     VerificationController,
   ],
