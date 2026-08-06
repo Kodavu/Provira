@@ -40,11 +40,11 @@ export default async function StaffPage() {
         <StatCard label="Invited" value={invitedCount} hint="Waiting for first login" />
         <StatCard label="Disabled" value={disabledCount} hint="Temporarily suspended users" />
       </div>
-      <Table head={["Name", "Department", "Roles", "Status", "Last login"]}>
+      <Table head={["Name", "Department", "Roles", "Status", "Last login", "Action"]}>
         {staff.map((s) => (
           <tr key={s.id} className="hover:bg-app">
             <td className="px-4 py-3">
-              <Link href={`/staff/${s.id}`} className="font-medium hover:underline">{s.fullName}</Link>
+              <span className="font-medium hover:underline">{s.fullName}</span>
               <div className="text-xs text-muted">{s.email}</div>
             </td>
             <td className="px-4 py-3 text-soft">{s.department ?? "—"}</td>
@@ -56,6 +56,14 @@ export default async function StaffPage() {
             <td className="px-4 py-3"><Badge tone={STATUS_TONE[s.status]}>{s.status.toLowerCase()}</Badge></td>
             <td className="px-4 py-3 whitespace-nowrap text-xs text-muted">
               {s.lastLoginAt ? new Date(s.lastLoginAt).toLocaleString("en-NG", { dateStyle: "medium", timeStyle: "short" }) : "Never"}
+            </td>
+            <td className="px-4 py-3">
+              <Link
+                href={`/staff/${s.id}`}
+                className="inline-flex items-center justify-center rounded-xl border border-app bg-white/70 px-3 py-2 text-xs font-semibold text-soft transition hover:border-brand-500/40 hover:text-[color:var(--text)] hover:shadow-sm dark:bg-white/[0.03]"
+              >
+                View
+              </Link>
             </td>
           </tr>
         ))}

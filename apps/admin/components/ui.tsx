@@ -165,20 +165,20 @@ export function Table({
   return (
     <Card className="overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-slate-50/80 dark:bg-white/[0.03]">
+        <table className="min-w-full border-separate border-spacing-0 text-sm">
+          <thead className="sticky top-0 z-10 bg-[color:var(--bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[color:var(--bg)]/80">
             <tr className="border-b border-app text-left">
               {head.map((h) => (
                 <th
                   key={h}
-                  className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wide text-muted"
+                  className="whitespace-nowrap border-b border-app px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted first:pl-5 last:pr-5"
                 >
                   {h}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-[color:var(--border)] [&_tr]:transition [&_tr:hover]:bg-slate-50/70 dark:[&_tr:hover]:bg-white/[0.03]">
+          <tbody className="[&_tr]:transition [&_tr:hover]:bg-slate-50/80 dark:[&_tr:hover]:bg-white/[0.04] [&_td]:border-b [&_td]:border-[color:var(--border)] [&_td]:py-3.5 [&_td]:align-middle [&_td]:first:pl-5 [&_td]:last:pr-5">
             {children}
           </tbody>
         </table>
