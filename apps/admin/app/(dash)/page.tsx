@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { adminFetch } from "@/lib/admin-api";
-import { Card, PageHeader, StatCard, EmptyState } from "@/components/ui";
+import { Card, PageHeader, StatCard, EmptyState, Badge } from "@/components/ui";
 
 interface Dashboard {
   stats: {
@@ -31,9 +32,36 @@ export default async function DashboardPage() {
   if (!data) return <EmptyState>Couldn&apos;t load the dashboard.</EmptyState>;
   const s = data.stats;
 
+  const queues = [
+    { label: "Review disputes", href: "/disputes", count: s.pendingDisputes, tone: "red" as const },
+    { label: "Verify KYC", href: "/verification", count: s.pendingKyc, tone: "amber" as const },
+    { label: "Approve withdrawals", href: "/finance", count: s.pendingWithdrawals, tone: "indigo" as const },
+    { label: "Send a broadcast", href: "/notifications", count: null, tone: "green" as const },
+  ];
+
   return (
     <>
       <PageHeader title="Overview" subtitle="Everything that needs attention across the platform." />
+
+      <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {queues.map((q) => (
+          <Link key={q.href} href={q.href} className="group">
+            <Card className="flex items-center justify-between p-4 transition group-hover:-translate-y-0.5 group-hover:shadow-md">
+              <div>
+                <p className="text-sm font-semibold">{q.label}</p>
+                <p className="mt-0.5 text-xs text-muted">
+                  {q.count === null ? "Message users" : q.count > 0 ? `${q.count} waiting` : "All clear"}
+                </p>
+              </div>
+              {q.count !== null && q.count > 0 ? (
+                <Badge tone={q.tone}>{q.count}</Badge>
+              ) : (
+                <span className="text-muted transition group-hover:translate-x-0.5">→</span>
+              )}
+            </Card>
+          </Link>
+        ))}
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Total users" value={s.totalUsers} hint={`${s.activeUsers} active`} />
