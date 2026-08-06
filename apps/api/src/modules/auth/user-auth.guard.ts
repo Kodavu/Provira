@@ -22,6 +22,32 @@ export const CurrentUser = createParamDecorator(
 );
 
 /**
+ * Verify the bearer session token on `req`, reject admin-kind tokens, attach
+ * `req.user`, and return the context. Shared by UserAuthGuard and the
+ * resource-ownership guard so token handling stays in one place.
+ */
+export async function authenticateUser(
+  req: { headers: Record<string, unknown>; user?: UserContext },
+  jwt: JwtService,
+): Promise<UserContext> {
+  const header = req.headers.authorization as string | undefined;
+  const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
+  if (!token) throw new UnauthorizedException("Missing session token");
+
+  let payload: { sub: string; phone?: string; kind?: string };
+  try {
+    payload = await jwt.verifyAsync(token);
+  } catch {
+    throw new UnauthorizedException("Invalid session token");
+  }
+  if (payload.kind === "admin") throw new UnauthorizedException("Not a user token");
+
+  const ctx: UserContext = { id: payload.sub, phone: payload.phone };
+  req.user = ctx;
+  return ctx;
+}
+
+/**
  * Where a route carries the "owner" user id. The guard binds that id to the
  * authenticated subject, so a caller can only act on their own resources.
  * Defaults to the `userId` route param when unset.
@@ -57,20 +83,7 @@ export class UserAuthGuard implements CanActivate {
 
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const req = ctx.switchToHttp().getRequest();
-
-    const header: string | undefined = req.headers.authorization;
-    const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
-    if (!token) throw new UnauthorizedException("Missing session token");
-
-    let payload: { sub: string; phone?: string; kind?: string };
-    try {
-      payload = await this.jwt.verifyAsync(token);
-    } catch {
-      throw new UnauthorizedException("Invalid session token");
-    }
-    if (payload.kind === "admin") throw new UnauthorizedException("Not a user token");
-
-    req.user = { id: payload.sub, phone: payload.phone } satisfies UserContext;
+    const user = await authenticateUser(req, this.jwt);
 
     // Resolve the owner id from the configured source (handler overrides class),
     // defaulting to the conventional `userId` route param.
@@ -85,7 +98,7 @@ export class UserAuthGuard implements CanActivate {
       (binding.body && req.body?.[binding.body]) ??
       (!binding.param && !binding.query && !binding.body ? req.params?.userId : undefined);
 
-    if (ownerId && ownerId !== payload.sub) {
+    if (ownerId && ownerId !== user.id) {
       throw new ForbiddenException("You can only access your own resources");
     }
     return true;
