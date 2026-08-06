@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { AuthController } from "./auth.controller.js";
 import { AuthService } from "./auth.service.js";
+import { UserAuthGuard } from "./user-auth.guard.js";
 
 @Module({
   imports: [
@@ -11,7 +12,9 @@ import { AuthService } from "./auth.service.js";
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [AuthService, UserAuthGuard],
+  // Export the guard + JwtModule so other modules (e.g. notifications) can bind
+  // user-owned routes without re-registering the JWT config.
+  exports: [AuthService, UserAuthGuard, JwtModule],
 })
 export class AuthModule {}

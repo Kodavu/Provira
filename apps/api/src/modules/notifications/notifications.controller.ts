@@ -1,15 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { zNotificationFeed, zNotificationPreferences } from "@tally/contracts";
 import type { NotificationCategory, NotificationChannel } from "@tally/db";
 import { NotificationService } from "./notification.service.js";
+import { UserAuthGuard } from "../auth/user-auth.guard.js";
 
 /**
  * User-facing notification endpoints. Nested under /users/:userId to match the
- * rest of the user API's convention. (The user API is currently unauthenticated
- * app-wide — a session guard binding token.sub to :userId is tracked as separate
- * platform hardening, not introduced here in isolation.)
+ * rest of the user API's convention. UserAuthGuard authenticates the session
+ * token and binds :userId to the caller's own subject, so a user can only read,
+ * mutate, or delete their own notifications.
  */
 @Controller("users/:userId/notifications")
+@UseGuards(UserAuthGuard)
 export class NotificationsController {
   constructor(private readonly notifications: NotificationService) {}
 
