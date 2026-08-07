@@ -7,7 +7,7 @@
     "signIn": "Shiga",
     "getStarted": "Fara",
     "language": "Harshe",
-    "ariaHome": "Gidan Tally",
+    "ariaHome": "Gidan Truvo",
     "openMenu": "Buɗe menu",
     "closeMenu": "Rufe menu",
     "items": {
@@ -72,7 +72,7 @@
       "hero": {
         "lead": "Nemo aiki na gaskiya.",
         "emphasis": "Karɓi kuɗinka a rana ɗaya.",
-        "sub": "Gano ingantattun ayyuka kusa da kai, tabbatar da aikinka da lamba, kuma karɓi kuɗinka kai tsaye zuwa bankinka — yayin da kowane aiki ke gina Tally Score ɗinka wanda zai buɗe bashi.",
+        "sub": "Gano ingantattun ayyuka kusa da kai, tabbatar da aikinka da lamba, kuma karɓi kuɗinka kai tsaye zuwa bankinka — yayin da kowane aiki ke gina Truvo Score ɗinka wanda zai buɗe bashi.",
         "primaryCta": "Nemo aiki",
         "secondaryCta": "Yadda yake aiki",
         "chips": [
@@ -85,7 +85,7 @@
         "Ingantattun masu ɗaukar aiki, waɗanda escrow ke tallafawa",
         "Bayanan sana'a tare da kimantawa da sharhi",
         "Ayyuka masu sassauci da suka dace da yankinka",
-        "Tally Score da ke buɗe bashi na gaskiya"
+        "Truvo Score da ke buɗe bashi na gaskiya"
       ],
       "steps": [
         {
@@ -104,18 +104,18 @@
       "faqs": [
         {
           "q": "Da wuri nawa zan karɓi kuɗi?",
-          "a": "A rana ɗaya. Da zarar an tabbatar da halarta da lambar mai lamba huɗu ta mai aiki, kuɗin escrow ɗinka zai shiga walat ɗin Tally, kuma za ka iya cire shi zuwa bankinka."
+          "a": "A rana ɗaya. Da zarar an tabbatar da halarta da lambar mai lamba huɗu ta mai aiki, kuɗin escrow ɗinka zai shiga walat ɗin Truvo, kuma za ka iya cire shi zuwa bankinka."
         },
         {
           "q": "Ina buƙatar wayar hannu?",
           "a": "A'a. Za ka iya yin rajista, nema, da tabbatar da aiki ta USSD (*347*82#) ko WhatsApp. Wayar hannu na buɗe cikakkiyar app, amma ba dole ba ne."
         },
         {
-          "q": "Menene Tally Score na?",
+          "q": "Menene Truvo Score na?",
           "a": "Tarihi da za a iya tabbatarwa daga ayyukan da ka gama, zuwa kan lokaci, da lamunin da ka biya. Babban maki na buɗe ayyuka mafi kyau da bashi na gaskiya wanda ba shi da tsada sosai."
         },
         {
-          "q": "Zan iya amfani da Tally a harshena?",
+          "q": "Zan iya amfani da Truvo a harshena?",
           "a": "Eh — app, USSD da WhatsApp suna aiki a Turanci, Pidgin, Yoruba, Hausa da Igbo. Zaɓi harshenka sau ɗaya, zai adana shi don gaba, a duk na'urorinka."
         }
       ]
@@ -162,7 +162,7 @@
         },
         {
           "q": "Ta yaya zan sami kyawawan ma'aikata?",
-          "a": "Tally na ba da shawarar ma'aikatan da NIN ta tabbatar masu tarihi na gaskiya da kimantawa, waɗanda suka dace da aikinka da wurinka. Kai kake gayyatar waɗanda kake so; su tabbatar."
+          "a": "Truvo na ba da shawarar ma'aikatan da NIN ta tabbatar masu tarihi na gaskiya da kimantawa, waɗanda suka dace da aikinka da wurinka. Kai kake gayyatar waɗanda kake so; su tabbatar."
         },
         {
           "q": "Nawa ne kuɗin ɗaukar aiki?",
@@ -202,7 +202,7 @@
         },
         {
           "title": "Gina tarihinka",
-          "body": "Sayarwa mai dorewa na haɓaka Tally Score ɗinka, kuma na tabbatar da kasuwancinka ga bankuna da masu ba da lamuni."
+          "body": "Sayarwa mai dorewa na haɓaka Truvo Score ɗinka, kuma na tabbatar da kasuwancinka ga bankuna da masu ba da lamuni."
         },
         {
           "title": "Buɗe jari",
@@ -240,10 +240,10 @@
     "ecosystem": {
       "eyebrow": "Tsari guda ɗaya haɗe",
       "title": "Nau'i uku na mutane. Shaidar tattalin arziki guda ɗaya da aka raba.",
-      "subtitle": "Ma'aikata, masu ɗaukar aiki, da 'yan kasuwa — kowanne yana da samfurin da aka gina masa, waɗanda shaida guda, escrow, da Tally Score ke haɗawa."
+      "subtitle": "Ma'aikata, masu ɗaukar aiki, da 'yan kasuwa — kowanne yana da samfurin da aka gina masa, waɗanda shaida guda, escrow, da Truvo Score ke haɗawa."
     },
     "features": {
-      "eyebrow": "Me ya sa Tally",
+      "eyebrow": "Me ya sa Truvo",
       "title": "Hanyoyin da ke sa komai aiki",
       "subtitle": "Biyan kuɗi, suna, daidaitawa, da samun dama — kayan aikin da aka raba da ke bauta wa kowane ɓangare na dandamalin.",
       "escrowTitle": "Kuɗin da escrow ke tallafawa, na fita lokacin tabbaci",
@@ -253,7 +253,7 @@
         "Na fita nan take",
         "Biyan banki"
       ],
-      "scoreTitle": "Tally Score",
+      "scoreTitle": "Truvo Score",
       "scoreBody": "Suna da za a iya tabbatarwa daga aiki da sayarwa na gaskiya — mabuɗin da ke buɗe bashi.",
       "locationTitle": "Daidaitawa ta wuri",
       "locationBody": "Har zuwa yankinka. Ayyuka, ma'aikata, da abokan ciniki daidai, kusa da gida.",
@@ -266,7 +266,7 @@
       "eyebrow": "An gina shi don Najeriya",
       "title1": "Fasaha da ke",
       "title2": "magana da harshenka",
-      "sub": "Yi aiki, ɗauki ma'aikata, kuma yi kasuwanci a harshen da ya fi maka sauƙi. An tsara Tally bisa yadda 'yan Najeriya ke magana da gaske — a app, a USSD, da WhatsApp.",
+      "sub": "Yi aiki, ɗauki ma'aikata, kuma yi kasuwanci a harshen da ya fi maka sauƙi. An tsara Truvo bisa yadda 'yan Najeriya ke magana da gaske — a app, a USSD, da WhatsApp.",
       "bullets": [
         "Interface, maɓalli, imel da sanarwa — a harshenka.",
         "An adana harshenka, yana bin ka a duk na'urorinka.",
@@ -283,8 +283,8 @@
       "badge": "Ga 'yan kasuwa · Yana zuwa",
       "title1": "Cikakken tsarin",
       "title2": "gudanar da kasuwanci",
-      "body": "Fara gina tarihin sayarwarka yau. Ba da daɗewa ba, Tally zai zama kanti, ɗakin ajiya, da akanta — cikakken POS da kayan aikin kasuwanci da aka gina wa 'yan kasuwan Najeriya, kan layi da wajen layi.",
-      "primaryCta": "Fara sayarwa a Tally",
+      "body": "Fara gina tarihin sayarwarka yau. Ba da daɗewa ba, Truvo zai zama kanti, ɗakin ajiya, da akanta — cikakken POS da kayan aikin kasuwanci da aka gina wa 'yan kasuwan Najeriya, kan layi da wajen layi.",
+      "primaryCta": "Fara sayarwa a Truvo",
       "secondaryCta": "Duba shirin gaba",
       "features": [
         "Sayarwa & rasit",
@@ -301,7 +301,7 @@
     },
     "roadmap": {
       "eyebrow": "Hangen samfur",
-      "title": "Inda Tally ke nufi na gaba",
+      "title": "Inda Truvo ke nufi na gaba",
       "subtitle": "Muna ginawa zuwa dandamali ɗaya da zai gudanar da aiki da kasuwanci daga farko zuwa ƙarshe. Ga abin da ke zuwa — mun yi masa alama da gaskiya don ka san abin da ke aiki yau kullum.",
       "status": {
         "inDev": "Muna gininsa",
@@ -323,7 +323,7 @@
         },
         {
           "title": "Digital Wallet",
-          "body": "Riƙe, aika, da karɓar biyan kuɗin kasuwanci cikin Tally."
+          "body": "Riƙe, aika, da karɓar biyan kuɗin kasuwanci cikin Truvo."
         },
         {
           "title": "Inventory Intelligence",
@@ -331,7 +331,7 @@
         },
         {
           "title": "Business Loans",
-          "body": "Jarin aiki da ya dace da tarihin Tally ɗinka da za a iya tabbatarwa."
+          "body": "Jarin aiki da ya dace da tarihin Truvo ɗinka da za a iya tabbatarwa."
         },
         {
           "title": "QR Payments",
@@ -370,7 +370,7 @@
     "integrations": {
       "eyebrow": "Haɗin kai",
       "title": "Yana aiki da kayan aikin da kuke amfani da su",
-      "subtitle": "Tally na haɗawa da hanyoyin biyan kuɗi, saƙo, da kasuwanci da ke sa Najeriya tafiya — tare da ƙari mai zuwa.",
+      "subtitle": "Truvo na haɗawa da hanyoyin biyan kuɗi, saƙo, da kasuwanci da ke sa Najeriya tafiya — tare da ƙari mai zuwa.",
       "items": [
         {
           "label": "Masu bayar da biyan kuɗi",
@@ -409,7 +409,7 @@
       "lovedBy": "Ma'aikata, masu ɗaukar aiki da 'yan kasuwa suna son sa",
       "items": [
         {
-          "quote": "A dā, ina jira kwanaki kafin in karɓi kuɗi bayan aiki. Da Tally kuɗin na shiga asusuna a wannan maraice — kuma makina ya samo min rancen kaya na farko.",
+          "quote": "A dā, ina jira kwanaki kafin in karɓi kuɗi bayan aiki. Da Truvo kuɗin na shiga asusuna a wannan maraice — kuma makina ya samo min rancen kaya na farko.",
           "name": "Amaka O.",
           "role": "Ma'aikaciyar ɗakin ajiya · Legas"
         },
@@ -424,7 +424,7 @@
           "role": "Ɗan kasuwa na kasuwa · Kano"
         },
         {
-          "quote": "Babu wayar hannu, babu matsala — ina tabbatar da aiki ta USSD. Tally na ɗaukar mutane kamar ni a matsayin abokan ciniki, ba abin da aka manta ba.",
+          "quote": "Babu wayar hannu, babu matsala — ina tabbatar da aiki ta USSD. Truvo na ɗaukar mutane kamar ni a matsayin abokan ciniki, ba abin da aka manta ba.",
           "name": "Grace E.",
           "role": "Mai tsabtacewa · Abuja"
         }
@@ -479,7 +479,7 @@
     "nameLabel": "Cikakken suna",
     "namePlaceholder": "misali Amaka Okafor",
     "continue": "Ci gaba",
-    "useTitle": "Yaya za ka yi amfani da Tally?",
+    "useTitle": "Yaya za ka yi amfani da Truvo?",
     "useSubtitle": "Za ka iya ƙara wani matsayi daga baya daga dashboard ɗinka.",
     "createAccountBtn": "Ƙirƙiri asusu",
     "back": "Baya",
@@ -488,7 +488,7 @@
     "redirecting": "Muna kai ka zuwa dashboard ɗinka…",
     "alreadyHave": "Kana da asusu?",
     "signIn": "Shiga",
-    "newToTally": "Sabo ne ga Tally?",
+    "newToTally": "Sabo ne ga Truvo?",
     "createAccountLink": "Ƙirƙiri asusu",
     "types": {
       "worker": {
@@ -760,7 +760,7 @@
     "title": "Kuɗin shiga",
     "subtitle": "Abin da ya shiga walat ɗinka, da inda yake zuwa lokacin da ka cire.",
     "availableNow": "Akwai yanzu",
-    "inWallet": "a cikin walat ɗin Tally",
+    "inWallet": "a cikin walat ɗin Truvo",
     "withdraw": "Cire kuɗi",
     "addPayoutInline": "Ƙara asusun biya don karɓar cirewa.",
     "addAccount": "Ƙara asusu",
@@ -791,10 +791,10 @@
     "traderTitle": "Rancen kaya",
     "traderSubtitle": "Ka cancanci samun jarin aiki da zarar ka gina tarihin sayarwar da aka rubuta.",
     "howTitle": "Yadda cancanta ke aiki:",
-    "howBody": "makin Tally ɗinka yana yanke shawarar samfuran da ka cancanta. Lamunin da aka amince na shiga asusun biyanka kai tsaye, kuma biya kan lokaci na ɗaga makinka — yana buɗe iyaka mafi girma na gaba."
+    "howBody": "makin Truvo ɗinka yana yanke shawarar samfuran da ka cancanta. Lamunin da aka amince na shiga asusun biyanka kai tsaye, kuma biya kan lokaci na ɗaga makinka — yana buɗe iyaka mafi girma na gaba."
   },
   "Standing": {
-    "title": "Makin Tally Ɗinka",
+    "title": "Makin Truvo Ɗinka",
     "subtitle": "Ainihin abin da ya motsa makinka — littafin da ke bayan lambar.",
     "ptsToNext": "{points} pts zuwa {tier}",
     "shiftsDone": "Ayyukan da aka gama",
@@ -907,11 +907,11 @@
   },
   "Settings": {
     "title": "SaitSaitunan Gabaɗayaunan",
-    "subtitle": "Zaɓi yadda Tally zai isa gare ku da kuma harshen da kuka fi so.",
+    "subtitle": "Zaɓi yadda Truvo zai isa gare ku da kuma harshen da kuka fi so.",
     "language": "Harshe",
-    "languageSub": "Harshen da Tally ke amfani da shi a cikin manhaja, imel da sanarwa. An adana shi a wannan na'urar.",
+    "languageSub": "Harshen da Truvo ke amfani da shi a cikin manhaja, imel da sanarwa. An adana shi a wannan na'urar.",
     "notifications": "Saitunan sanarwa",
-    "notificationsSub": "Zaɓi yadda Tally zai sanar da kai game da ayyuka, kuɗin shiga, lamuni, da sauran abubuwa.",
+    "notificationsSub": "Zaɓi yadda Truvo zai sanar da kai game da ayyuka, kuɗin shiga, lamuni, da sauran abubuwa.",
     "jobFeed": "Jerin ayyuka",
     "jobFeedSub": "Zaɓi waɗanne ayyuka za su fara bayyana sa'ad da kake neman aiki.",
     "feedUpdated": "An sabunta jerin ayyuka",
@@ -919,7 +919,7 @@
     "feeds": {
       "ALL": {
         "label": "Dukan ayyuka",
-        "hint": "Kowane buɗaɗɗen aiki a Tally."
+        "hint": "Kowane buɗaɗɗen aiki a Truvo."
       },
       "SKILLS": {
         "label": "Ya dace da ƙwarewata",
@@ -1105,17 +1105,17 @@
     "whatsapp": "WhatsApp",
     "whatsappHint": "Yi hira da tallafi",
     "emailUs": "Aiko mana imel",
-    "emailHint": "support@tally.ng",
+    "emailHint": "support@truvo.com.ng",
     "verifyIdentity": "Tabbatar da shaida",
     "verifyHint": "Buɗe iyaka mafi girma",
     "alertsNote": "Ana aika sanarwar tsaro da biya kullum. Sarrafa kowace sanarwa ta daban a cikin <link>Saituna</link>.",
     "faqs": {
       "getPaid": {
         "q": "Yaya nake samun biya don shift?",
-        "a": "Bayan an daidaita ka da aiki, ka nemi lambar tabbatarwa mai lamba huɗu. A wurin aiki, ma'aikaci zai tabbatar da halartarka — hakan yana sakin kuɗin escrow kai tsaye zuwa walat ɗin Tally naka, wanda za ka iya cirewa zuwa bankinka."
+        "a": "Bayan an daidaita ka da aiki, ka nemi lambar tabbatarwa mai lamba huɗu. A wurin aiki, ma'aikaci zai tabbatar da halartarka — hakan yana sakin kuɗin escrow kai tsaye zuwa walat ɗin Truvo naka, wanda za ka iya cirewa zuwa bankinka."
       },
-      "tallyScore": {
-        "q": "Menene Tally Score na?",
+      "truvoScore": {
+        "q": "Menene Truvo Score na?",
         "a": "Maki ne na aminci da aka gina daga ainihin ayyukanka — shifts da aka gama, adadin kan lokaci, tallace-tallacen da aka rubuta, da lamunin da aka biya. Maki mafi girma yana buɗe ayyuka mafi kyau da manyan lamuni. An bayyana kowane maki a shafin Matsayina."
       },
       "logSale": {
@@ -1132,7 +1132,7 @@
       },
       "loans": {
         "q": "Yaya lamuni ke aiki?",
-        "a": "Cancantar lamuni ta dogara ne akan Tally Score naka. Lamunin da aka amince da su suna zuwa asusun biyanka, biya kan lokaci yana ɗaga makinka — yana buɗe manyan iyaka a lokaci na gaba."
+        "a": "Cancantar lamuni ta dogara ne akan Truvo Score naka. Lamunin da aka amince da su suna zuwa asusun biyanka, biya kan lokaci yana ɗaga makinka — yana buɗe manyan iyaka a lokaci na gaba."
       },
       "verify": {
         "q": "Yaya nake tabbatar da shaidata?",
@@ -1177,7 +1177,7 @@
     "disclosureEyebrow": "Bayyanawa mai alhaki",
     "disclosureTitle": "Ka sami rauni?",
     "disclosureSubtitle": "Muna maraba da rahotanni daga masu binciken tsaro kuma muna ɗaukar su da fifiko.",
-    "disclosureBody": "Da fatan za a aika imel zuwa <email>security@tally.ng</email> tare da bayanai da matakan sake fitarwa. Ka ba mu isasshen lokaci don gyara matsalar kafin bayyanawa a bainar jama'a — kuma da fatan kada ka shiga ko canza bayanan da ba naka ba.",
+    "disclosureBody": "Da fatan za a aika imel zuwa <email>security@truvo.com.ng</email> tare da bayanai da matakan sake fitarwa. Ka ba mu isasshen lokaci don gyara matsalar kafin bayyanawa a bainar jama'a — kuma da fatan kada ka shiga ko canza bayanan da ba naka ba.",
     "ctaTitle": "Kariyar matakin banki, an gina ta ciki",
     "ctaBody": "Ana kula da kowane biya, shaida, da rikodi da kulawar da ya cancanta.",
     "ctaSecondary": "Karanta Manufar Sirrinmu"
@@ -1202,7 +1202,7 @@
     "pickLgaFirst": "Zaɓi Ƙaramar Hukuma da farko"
   },
   "Footer": {
-    "tagline": "Tally yana mai da aikin da ba na yau da kullun ba, tallace-tallace, da biyan kuɗi zuwa shaidar tattalin arziki da za a iya tabbatarwa — yana buɗe biya rana ɗaya, ayyuka mafi kyau, da ainihin bashi ga ma'aikatan Najeriya masu ƙwazo.",
+    "tagline": "Truvo yana mai da aikin da ba na yau da kullun ba, tallace-tallace, da biyan kuɗi zuwa shaidar tattalin arziki da za a iya tabbatarwa — yana buɗe biya rana ɗaya, ayyuka mafi kyau, da ainihin bashi ga ma'aikatan Najeriya masu ƙwazo.",
     "launchUpdates": "Sami sabuntawar ƙaddamarwa",
     "noSpam": "Babu spam. Cire biyan kuɗi kowane lokaci.",
     "newsletterPlaceholder": "you@email.com",
@@ -1210,12 +1210,12 @@
     "newsletterSubmit": "Sanar da ni",
     "newsletterInvalid": "Shigar da imel mai inganci",
     "newsletterDone": "Kana cikin jerin.",
-    "socialX": "Tally a X",
-    "socialLinkedIn": "Tally a LinkedIn",
-    "socialInstagram": "Tally a Instagram",
-    "socialWhatsApp": "Tally a WhatsApp",
+    "socialX": "Truvo a X",
+    "socialLinkedIn": "Truvo a LinkedIn",
+    "socialInstagram": "Truvo a Instagram",
+    "socialWhatsApp": "Truvo a WhatsApp",
     "location": "Legas, Najeriya",
-    "copyright": "© {year} Tally Technologies. An kiyaye dukkan haƙƙoƙi.",
+    "copyright": "© {year} Truvo Technologies. An kiyaye dukkan haƙƙoƙi.",
     "systemsOperational": "Duk tsarin suna aiki",
     "headings": {
       "product": "Samfur",
@@ -1250,11 +1250,11 @@
   "About": {
     "heroEyebrow": "Manufarmu",
     "heroTitle": "Mai da aiki na yau da kullun zuwa shaidar tattalin arziki",
-    "heroLede": "Miliyoyin 'yan Najeriya suna aiki tuƙuru kowace rana, duk da haka ƙoƙarin rayuwa gaba ɗaya baya barin wata alama da banki zai iya amincewa. Tally yana canza wannan — aiki ɗaya, saya ɗaya, shift ɗaya da aka tabbatar a lokaci guda.",
+    "heroLede": "Miliyoyin 'yan Najeriya suna aiki tuƙuru kowace rana, duk da haka ƙoƙarin rayuwa gaba ɗaya baya barin wata alama da banki zai iya amincewa. Truvo yana canza wannan — aiki ɗaya, saya ɗaya, shift ɗaya da aka tabbatar a lokaci guda.",
     "whyEyebrow": "Dalilin wanzuwarmu",
     "whyTitle": "Tattalin arziki yana gudana akan aikin da ke ci gaba da kasancewa a ɓoye",
     "storyP1": "Ɗan kasuwar da ke sake cika kaya da sassafe, ma'aikatan da ke ɗora kaya a ma'ajiya da dare, mai tsaftar da ba ya rasa shift — su ne ke sa ƙasa ta ci gaba da tafiya. Amma sa'ad da suke buƙatar jari, albashi mai adalci a kan lokaci, ko kuma kawai tabbacin abin da suka yi, tsarin ba shi da kome da zai nuna.",
-    "storyP2": "Tally yana ba wannan aikin ƙwaƙwalwa. Kowane aikin da aka gama, sayar da aka rubuta, da biyan bashi a kan lokaci yana zama wani ɓangare na tarihin da za a iya tabbatarwa — <s>Tally Score</s> — wanda masu ɗaukar aiki, bankuna, da masu ba da bashi za su iya duba a zahiri. Aiki yana zama suna. Suna yana zama bashi.",
+    "storyP2": "Truvo yana ba wannan aikin ƙwaƙwalwa. Kowane aikin da aka gama, sayar da aka rubuta, da biyan bashi a kan lokaci yana zama wani ɓangare na tarihin da za a iya tabbatarwa — <s>Truvo Score</s> — wanda masu ɗaukar aiki, bankuna, da masu ba da bashi za su iya duba a zahiri. Aiki yana zama suna. Suna yana zama bashi.",
     "cards": {
       "workers": {
         "k": "Ga ma'aikata",
@@ -1297,7 +1297,7 @@
       }
     },
     "ctaTitle": "Taimaka mana mu sa aiki ya ƙidaya",
-    "ctaBody": "Ko kana nan don samun kuɗi, don ɗaukar aiki, ko don ginawa da mu — akwai wuri gare ka a Tally.",
+    "ctaBody": "Ko kana nan don samun kuɗi, don ɗaukar aiki, ko don ginawa da mu — akwai wuri gare ka a Truvo.",
     "ctaSecondary": "Duba buɗaɗɗun mukamai"
   },
   "Faq": {
@@ -1308,14 +1308,14 @@
     "items": {
       "speed": {
         "q": "Yaya sauri ma'aikata ke samun biya a zahiri?",
-        "a": "Rana ɗaya. Da zarar an tabbatar da halarta da lambar ma'aikaci mai lamba huɗu, ana sakin kuɗin escrow zuwa walat ɗin Tally na ma'aikaci kuma za a iya cirewa zuwa bankinsa — babu jiran kwanaki don takardar biya."
+        "a": "Rana ɗaya. Da zarar an tabbatar da halarta da lambar ma'aikaci mai lamba huɗu, ana sakin kuɗin escrow zuwa walat ɗin Truvo na ma'aikaci kuma za a iya cirewa zuwa bankinsa — babu jiran kwanaki don takardar biya."
       },
       "smartphone": {
-        "q": "Ina buƙatar wayar hannu don amfani da Tally?",
-        "a": "A'a. An gina Tally da waya-farko: za ka iya yin rajista, tabbatar da shifts, da duba ma'aunin ka ta USSD (*347*82#) ko WhatsApp. Wayar hannu tana buɗe cikakkiyar manhaja, amma ba lallai ba ne."
+        "q": "Ina buƙatar wayar hannu don amfani da Truvo?",
+        "a": "A'a. An gina Truvo da waya-farko: za ka iya yin rajista, tabbatar da shifts, da duba ma'aunin ka ta USSD (*347*82#) ko WhatsApp. Wayar hannu tana buɗe cikakkiyar manhaja, amma ba lallai ba ne."
       },
       "score": {
-        "q": "Yaya Tally Score ke aiki?",
+        "q": "Yaya Truvo Score ke aiki?",
         "a": "Kowane aikin da aka gama, isowa kan lokaci, sayar da aka rubuta, da bashin da aka biya yana ƙara wa makinka. Rashin zuwa da rigingimu suna ragewa. Tarihi ne na gaskiya da za a iya tabbatarwa da bankuna da masu ba da bashi za su iya duba — wanda shi ne ke mai da aikinka zuwa ainihin bashi."
       },
       "protection": {
@@ -1327,12 +1327,12 @@
         "a": "Yin rajista, samun biya, da gina makinka kyauta ne ga ma'aikata da 'yan kasuwa. Masu ɗaukar aiki suna biyan ƙaramin kuɗi mai gaskiya ga kowane ɗaukar aikin da aka gama — ba tare da mafi ƙarancin wata-wata ba."
       },
       "availability": {
-        "q": "Tally yana samuwa a duk faɗin Najeriya?",
+        "q": "Truvo yana samuwa a duk faɗin Najeriya?",
         "a": "Muna fitarwa jiha-jiha, farawa a Legas. Ma'aikata da masu ɗaukar aiki a ko'ina a Najeriya za su iya yin rajista yanzu su saita wurinsu har zuwa unguwa, don mu daidaita ka daidai lokacin da ayyuka suka fara kusa da kai."
       },
       "languages": {
-        "q": "Zan iya amfani da Tally a Yoruba, Hausa, Igbo ko Pidgin?",
-        "a": "I. An gina fuskar Tally, maɓalli, imel da sanarwa don yin aiki a Turanci, Pidgin na Najeriya, Yoruba, Hausa da Igbo. Zaɓi harshenka daga menu — an adana shi kuma yana bin ka a na'urori daban-daban."
+        "q": "Zan iya amfani da Truvo a Yoruba, Hausa, Igbo ko Pidgin?",
+        "a": "I. An gina fuskar Truvo, maɓalli, imel da sanarwa don yin aiki a Turanci, Pidgin na Najeriya, Yoruba, Hausa da Igbo. Zaɓi harshenka daga menu — an adana shi kuma yana bin ka a na'urori daban-daban."
       },
       "changeLang": {
         "q": "Zan iya canza harshena a kowane lokaci?",

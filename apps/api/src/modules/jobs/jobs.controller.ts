@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { JobsService } from "./jobs.service.js";
-import type { Language } from "@tally/db";
+import type { Language } from "@truvo/db";
 import { OwnerFrom, UserAuthGuard } from "../auth/user-auth.guard.js";
 import { ResourceOwner, ResourceOwnerGuard } from "../auth/resource-owner.guard.js";
 

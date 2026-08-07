@@ -1,5 +1,5 @@
 {
-  "name": "@tally/i18n",
+  "name": "@truvo/i18n",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/index.js",

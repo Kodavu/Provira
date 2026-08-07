@@ -105,7 +105,7 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
           </motion.span>
           {!collapsed && (
             <div>
-              <span className="font-bold tracking-tight">Tally Admin</span>
+              <span className="font-bold tracking-tight">Truvo Admin</span>
               <p className="text-[11px] font-medium text-muted">
                 Premium operations suite
               </p>

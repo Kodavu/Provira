@@ -13,8 +13,8 @@ import type {
   SmsProvider,
   VoiceProvider,
   WhatsAppProvider,
-} from "@tally/integrations";
-import type { Language, NotificationChannel } from "@tally/db";
+} from "@truvo/integrations";
+import type { Language, NotificationChannel } from "@truvo/db";
 
 // The subset of a Notification (plus its recipient contact fields) the
 // dispatcher needs to deliver on an external channel.
@@ -79,7 +79,7 @@ export class NotificationDispatcher {
       case "EMAIL": {
         if (!n.user.email) throw new Error("no email on file");
         return (
-          await this.email.sendEmail({ to: n.user.email, subject: n.title ?? "Tally", body: n.body, language })
+          await this.email.sendEmail({ to: n.user.email, subject: n.title ?? "Truvo", body: n.body, language })
         ).providerRef;
       }
       case "PUSH": {
@@ -91,7 +91,7 @@ export class NotificationDispatcher {
         return (
           await this.push.sendPush({
             token: device.token,
-            title: n.title ?? "Tally",
+            title: n.title ?? "Truvo",
             body: n.body,
             data: (n.data as Record<string, unknown>) ?? undefined,
             language,

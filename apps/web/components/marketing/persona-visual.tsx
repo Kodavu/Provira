@@ -71,7 +71,7 @@ function WorkerVisual() {
               </div>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted">Tally Score</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted">Truvo Score</p>
               <p className="mt-1 text-sm leading-snug text-ink-soft">Next tier in <span className="font-semibold text-ink">60 pts</span></p>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
                 <motion.div className="h-full rounded-full bg-brand-500" initial={{ width: reduce ? "62%" : 0 }} animate={{ width: "62%" }} transition={{ delay: 0.6, duration: 0.9 }} />

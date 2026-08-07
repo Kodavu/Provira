@@ -1,5 +1,5 @@
 // The client's DTO types are inferred from the single source of truth in
-// @tally/contracts (zod schemas the API validates against). Type-only re-export
+// @truvo/contracts (zod schemas the API validates against). Type-only re-export
 // means no zod is pulled into web/mobile bundles.
 export type {
   Tier,
@@ -35,4 +35,4 @@ export type {
   TrustBadge,
   WorkerPublicProfile,
   EmployerPublicProfile,
-} from "@tally/contracts";
+} from "@truvo/contracts";

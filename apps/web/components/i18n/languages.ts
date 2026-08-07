@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-// Single source of truth for the languages Tally speaks at launch. The seed
-// UI translations live in @tally/i18n; here we keep the presentation metadata
+// Single source of truth for the languages Truvo speaks at launch. The seed
+// UI translations live in @truvo/i18n; here we keep the presentation metadata
 // plus a small preference hook that persists the visitor's choice.
 export interface LanguageOption {
   code: "EN" | "PCM" | "YO" | "HA" | "IG";
@@ -21,8 +21,8 @@ export const LANGUAGES: LanguageOption[] = [
   { code: "IG", label: "Igbo", native: "Igbo", flag: "🇳🇬" },
 ];
 
-export const STORAGE_KEY = "tally-lang";
-export const ONBOARDED_KEY = "tally-lang-chosen";
+export const STORAGE_KEY = "truvo-lang";
+export const ONBOARDED_KEY = "truvo-lang-chosen";
 
 export type LangCode = LanguageOption["code"];
 

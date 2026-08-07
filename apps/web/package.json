@@ -1,5 +1,5 @@
 {
-  "name": "@tally/web",
+  "name": "@truvo/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tally/api-client": "workspace:*",
+    "@truvo/api-client": "workspace:*",
     "framer-motion": "^11.11.1",
     "lucide-react": "^0.460.0",
     "next": "^14.2.13",

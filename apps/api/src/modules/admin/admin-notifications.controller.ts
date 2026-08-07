@@ -8,7 +8,7 @@ import {
   PermissionsGuard,
   RequirePermissions,
 } from "./rbac.js";
-import type { NotificationChannel } from "@tally/db";
+import type { NotificationChannel } from "@truvo/db";
 
 function reqMeta(req: any) {
   return {

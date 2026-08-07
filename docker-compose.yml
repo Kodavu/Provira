@@ -1,4 +1,4 @@
-# Local dev stack: Postgres + Redis + the Tally API. Everything runs with the
+# Local dev stack: Postgres + Redis + the Truvo API. Everything runs with the
 # mock integration adapters, so NO real API keys are needed.
 #
 #   docker compose up
@@ -10,15 +10,15 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: tally
-      POSTGRES_PASSWORD: tally
-      POSTGRES_DB: tally
+      POSTGRES_USER: truvo
+      POSTGRES_PASSWORD: truvo
+      POSTGRES_DB: truvo
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tally"]
+      test: ["CMD-SHELL", "pg_isready -U truvo"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -44,7 +44,7 @@ services:
         condition: service_healthy
     environment:
       NODE_ENV: development
-      DATABASE_URL: postgresql://tally:tally@postgres:5432/tally?schema=public
+      DATABASE_URL: postgresql://truvo:truvo@postgres:5432/truvo?schema=public
       REDIS_URL: redis://redis:6379
       API_PORT: 4000
       JWT_SECRET: dev-only-change-me
@@ -56,10 +56,10 @@ services:
       - "4000:4000"
     command: >
       sh -c "pnpm --filter './packages/*' build &&
-             pnpm --filter @tally/db push &&
-             pnpm --filter @tally/db harden &&
-             pnpm --filter @tally/db seed &&
-             pnpm --filter @tally/api dev"
+             pnpm --filter @truvo/db push &&
+             pnpm --filter @truvo/db harden &&
+             pnpm --filter @truvo/db seed &&
+             pnpm --filter @truvo/api dev"
 
 volumes:
   pgdata:

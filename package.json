@@ -1,8 +1,8 @@
 {
-  "name": "tally",
+  "name": "truvo",
   "private": true,
   "version": "0.1.0",
-  "description": "Tally — economic identity infrastructure for Nigeria's informal economy",
+  "description": "Truvo — economic identity infrastructure for Nigeria's informal economy",
   "packageManager": "pnpm@9.12.0",
   "engines": {
     "node": ">=20"
@@ -13,10 +13,10 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "db:generate": "pnpm --filter @tally/db generate",
-    "db:migrate": "pnpm --filter @tally/db migrate",
-    "db:seed": "pnpm --filter @tally/db seed",
-    "db:studio": "pnpm --filter @tally/db studio"
+    "db:generate": "pnpm --filter @truvo/db generate",
+    "db:migrate": "pnpm --filter @truvo/db migrate",
+    "db:seed": "pnpm --filter @truvo/db seed",
+    "db:studio": "pnpm --filter @truvo/db studio"
   },
   "devDependencies": {
     "turbo": "^2.1.3",

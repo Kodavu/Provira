@@ -9,7 +9,7 @@ import type {
   SmsProvider,
   WhatsAppProvider,
   VoiceProvider,
-} from "@tally/integrations";
+} from "@truvo/integrations";
 
 /**
  * Inbound webhooks from each channel gateway. Each provider adapter parses its

@@ -1,6 +1,6 @@
 # Translation catalogs (next-intl)
 
-These files hold the **UI copy** for Tally's web app, one per launch language:
+These files hold the **UI copy** for Truvo's web app, one per launch language:
 
 | File       | Language          |
 | ---------- | ----------------- |
@@ -20,7 +20,7 @@ particular are intentionally conservative here.
 
 ## How it works
 
-- The active language is resolved **from the `tally-lang` cookie** (values
+- The active language is resolved **from the `truvo-lang` cookie** (values
   `EN`/`PCM`/`YO`/`HA`/`IG`) in `apps/web/i18n/request.ts` — no URL locale prefix,
   so all existing routes are preserved.
 - Components read copy with `useTranslations("Namespace")` (client) or

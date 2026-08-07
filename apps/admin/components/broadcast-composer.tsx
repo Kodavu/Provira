@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Badge, Button, Card } from "./ui";
 
 // Swap this for your brand token / config if you centralise it elsewhere.
-const APP_NAME = "Tally";
+const APP_NAME = "Truvo";
 
 type Channel = "INAPP" | "PUSH" | "SMS" | "EMAIL" | "WHATSAPP";
 type Audience = "ALL" | "ROLE" | "USER";

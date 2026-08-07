@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { api, TraderDashboard } from "@/lib/api";
 import { session } from "@/lib/session";
-import { Button, Card, Eyebrow, Pill, ScreenHeader, Segmented, StatTile, TallyMark, TierBadge } from "@/components/ui";
+import { Button, Card, Eyebrow, Pill, ScreenHeader, Segmented, StatTile, TruvoMark, TierBadge } from "@/components/ui";
 import { colors, formatNaira, radius } from "@/lib/theme";
 
 export default function Trader() {
@@ -51,7 +51,7 @@ export default function Trader() {
   if (!data)
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.canvas }}>
-        <TallyMark size={40} />
+        <TruvoMark size={40} />
         <Text style={{ color: error ? colors.error : colors.inkMuted, marginTop: 12 }}>
           {error ?? "Loading…"}
         </Text>

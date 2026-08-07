@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import enMessages from "../messages/en.json";
 
 // next-intl WITHOUT locale routing: the active language is read from the
-// `tally-lang` cookie the language selector already sets, so every existing
+// `truvo-lang` cookie the language selector already sets, so every existing
 // route is preserved (no `/en`, `/yo` URL prefixes). Reading the cookie makes
 // pages render per-request; that's the expected trade-off for cookie-based i18n.
 
@@ -44,7 +44,7 @@ function mergeFallback(base: Record<string, unknown>, override: Record<string, u
 }
 
 export default getRequestConfig(async () => {
-  const cookieValue = cookies().get("tally-lang")?.value ?? "EN";
+  const cookieValue = cookies().get("truvo-lang")?.value ?? "EN";
   const locale = COOKIE_TO_LOCALE[cookieValue] ?? DEFAULT_LOCALE;
 
   const localeMessages =

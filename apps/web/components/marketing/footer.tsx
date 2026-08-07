@@ -114,7 +114,7 @@ export async function MarketingFooter() {
 
         {/* Contact row */}
         <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-8 text-sm text-ink-soft">
-          <span className="inline-flex items-center gap-2"><Mail className="h-4 w-4 text-ink-muted" /> hello@tally.ng</span>
+          <span className="inline-flex items-center gap-2"><Mail className="h-4 w-4 text-ink-muted" /> hello@truvo.com.ng</span>
           <span className="inline-flex items-center gap-2"><Phone className="h-4 w-4 text-ink-muted" /> *347*82#</span>
           <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-ink-muted" /> {t("location")}</span>
         </div>

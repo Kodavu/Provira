@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { api, ScoreBreakdown } from "@/lib/api";
 import { session } from "@/lib/session";
-import { BackHeader, Card, Ring, TallyMark, TierBadge } from "@/components/ui";
+import { BackHeader, Card, Ring, TruvoMark, TierBadge } from "@/components/ui";
 import { colors, radius } from "@/lib/theme";
 
 const cap = (s: string) => s[0] + s.slice(1).toLowerCase();
@@ -59,7 +59,7 @@ export default function Score() {
   if (!data)
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.canvas }}>
-        <TallyMark size={40} />
+        <TruvoMark size={40} />
         <Text style={{ color: error ? colors.error : colors.inkMuted, marginTop: 12 }}>
           {error ?? "Loading…"}
         </Text>
@@ -74,7 +74,7 @@ export default function Score() {
       contentContainerStyle={{ padding: 16, paddingTop: insets.top + 12, paddingBottom: insets.bottom + 32, gap: 16 }}
       refreshControl={<RefreshControl refreshing={false} onRefresh={load} tintColor={colors.brand} />}
     >
-      <BackHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/worker"))} title="Your Tally Score" />
+      <BackHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/worker"))} title="Your Truvo Score" />
       <Text style={{ color: colors.inkSoft, marginTop: -4 }}>
         Exactly what moved your score — the ledger behind the number.
       </Text>

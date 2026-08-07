@@ -40,7 +40,7 @@ export class ApiError extends Error {
   }
 }
 
-export interface TallyClientConfig {
+export interface TruvoClientConfig {
   /** Base URL of the API, e.g. http://localhost:4000/api */
   baseUrl: string;
   /**
@@ -54,10 +54,10 @@ export interface TallyClientConfig {
 }
 
 /**
- * Construct a typed Tally API client. The same package powers web, mobile, and
+ * Construct a typed Truvo API client. The same package powers web, mobile, and
  * (future) admin — they differ only in the config passed here.
  */
-export function createTallyClient(config: TallyClientConfig) {
+export function createTruvoClient(config: TruvoClientConfig) {
   const doFetch = config.fetch ?? fetch;
 
   async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
@@ -328,4 +328,4 @@ export function createTallyClient(config: TallyClientConfig) {
   };
 }
 
-export type TallyClient = ReturnType<typeof createTallyClient>;
+export type TruvoClient = ReturnType<typeof createTruvoClient>;

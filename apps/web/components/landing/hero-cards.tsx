@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 // The right-column card stack — real UI as hero art. Three promises Guild makes
 // in paragraphs, made here in DOM: an escrow-secured job, a same-day payment,
-// and the Tally Score. Staggers in once; the escrow badge pulses once.
+// and the Truvo Score. Staggers in once; the escrow badge pulses once.
 export function HeroCardStack() {
   const reduce = useReducedMotion();
 
@@ -66,10 +66,10 @@ export function HeroCardStack() {
         <p className="mt-1 text-sm text-ink-muted">Paid 4 hrs after confirmation</p>
       </motion.div>
 
-      {/* Tally Score card — the one place gold appears in the hero */}
+      {/* Truvo Score card — the one place gold appears in the hero */}
       <motion.div variants={item} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-card">
         <div>
-          <span className="text-xs text-ink-muted">Tally Score</span>
+          <span className="text-xs text-ink-muted">Truvo Score</span>
           <p className="mt-0.5 flex items-center gap-2 text-2xl font-bold text-ink">
             540
             <span className="rounded-full bg-gold-50 px-2 py-0.5 text-[11px] font-semibold text-gold-700">

@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { api, WorkerDashboard } from "@/lib/api";
 import { session } from "@/lib/session";
-import { Button, Card, Eyebrow, Pill, TallyMark, TierBadge } from "@/components/ui";
+import { Button, Card, Eyebrow, Pill, TruvoMark, TierBadge } from "@/components/ui";
 import { colors, formatNaira, radius } from "@/lib/theme";
 
 const TIER_MIN: Record<string, number> = { BUILDING: 0, EMERGING: 250, TRUSTED: 500, ESTABLISHED: 750 };
@@ -61,7 +61,7 @@ export default function Worker() {
   if (!data)
     return (
       <Centered>
-        <TallyMark size={40} />
+        <TruvoMark size={40} />
         <Text style={{ color: colors.inkMuted, marginTop: 12 }}>Loading…</Text>
       </Centered>
     );
@@ -79,8 +79,8 @@ export default function Worker() {
       {/* Header */}
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-          <TallyMark size={28} />
-          <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>tally</Text>
+          <TruvoMark size={28} />
+          <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>truvo</Text>
         </View>
         <Text
           onPress={async () => {

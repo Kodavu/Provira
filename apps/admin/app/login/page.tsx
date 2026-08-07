@@ -18,7 +18,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const { register, handleSubmit, formState } = useForm<Form>({
     resolver: zodResolver(schema),
-    defaultValues: { email: "superadmin@tally.ng", password: "admin1234" },
+    defaultValues: { email: "superadmin@truvo.com.ng", password: "admin1234" },
   });
 
   async function onSubmit(values: Form) {
@@ -44,10 +44,10 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="mb-6 flex items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">T</span>
-          <span className="text-xl font-bold tracking-tight">Tally Admin</span>
+          <span className="text-xl font-bold tracking-tight">Truvo Admin</span>
         </div>
         <h1 className="text-2xl font-bold">Sign in</h1>
-        <p className="mb-6 mt-1 text-sm text-soft">Back-office access for Tally staff.</p>
+        <p className="mb-6 mt-1 text-sm text-soft">Back-office access for Truvo staff.</p>
 
         <Card className="p-5">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -70,8 +70,8 @@ export default function LoginPage() {
 
         <div className="mt-5 rounded-lg border border-app surface p-3 text-xs text-muted">
           <p className="font-medium text-soft">Demo accounts</p>
-          <p className="mt-1">Super Admin — superadmin@tally.ng / admin1234</p>
-          <p>Support — support@tally.ng / support1234</p>
+          <p className="mt-1">Super Admin — superadmin@truvo.com.ng / admin1234</p>
+          <p>Support — support@truvo.com.ng / support1234</p>
         </div>
       </div>
     </main>

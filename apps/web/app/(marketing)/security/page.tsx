@@ -5,8 +5,8 @@ import { RevealGroup, RevealItem } from "@/components/marketing/motion";
 import { PageHero, CtaBand } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "Security at Tally",
-  description: "How Tally protects your money and your data: escrow with licensed partner banks, encrypted identifiers, least-privilege access, and NDPR-aligned practices.",
+  title: "Security at Truvo",
+  description: "How Truvo protects your money and your data: escrow with licensed partner banks, encrypted identifiers, least-privilege access, and NDPR-aligned practices.",
 };
 
 const PILLAR_ICONS = {
@@ -64,7 +64,7 @@ export default async function SecurityPage() {
             <p className="mt-4 text-sm text-ink-soft">
               {t.rich("disclosureBody", {
                 email: (chunks) => (
-                  <a href="mailto:security@tally.ng" className="font-semibold text-brand-700 hover:text-brand-800">{chunks}</a>
+                  <a href="mailto:security@truvo.com.ng" className="font-semibold text-brand-700 hover:text-brand-800">{chunks}</a>
                 ),
               })}
             </p>

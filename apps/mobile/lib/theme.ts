@@ -29,4 +29,4 @@ const TIER_STYLE: Record<string, { bg: string; fg: string }> = {
 export const tierStyle = (t: string) => TIER_STYLE[t] ?? TIER_STYLE.BUILDING;
 
 // Shared with web + admin via the api-client package.
-export { formatNaira } from "@tally/api-client";
+export { formatNaira } from "@truvo/api-client";

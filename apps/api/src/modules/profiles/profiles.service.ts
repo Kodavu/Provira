@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { ReviewsService } from "../reviews/reviews.service.js";
-import { zWorkerPublicProfile, zEmployerPublicProfile, type TrustBadge } from "@tally/contracts";
+import { zWorkerPublicProfile, zEmployerPublicProfile, type TrustBadge } from "@truvo/contracts";
 
 function median(nums: number[]): number | null {
   if (!nums.length) return null;

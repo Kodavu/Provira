@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-// Tally-stroke logomark: four vertical strokes + a diagonal fifth ("counted
+// Truvo-stroke logomark: four vertical strokes + a diagonal fifth ("counted
 // work"). Reads at favicon size and scales cleanly.
-export function TallyMark({
+export function TruvoMark({
   className = "h-7 w-7",
   boxed = true,
 }: {
@@ -27,12 +27,12 @@ export function TallyMark({
   );
 }
 
-// Wordmark: lowercase "tally", indigo, tight.
+// Wordmark: lowercase "truvo", indigo, tight.
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 ${className}`}>
-      <TallyMark />
-      <span className="text-xl font-bold tracking-tight text-ink">Tally</span>
+      <TruvoMark />
+      <span className="text-xl font-bold tracking-tight text-ink">Truvo</span>
     </span>
   );
 }
@@ -375,4 +375,4 @@ export function SkeletonList({ rows = 3 }: { rows?: number }) {
 }
 
 // Single source of money formatting, shared with mobile + admin.
-export { formatNaira } from "@tally/api-client";
+export { formatNaira } from "@truvo/api-client";

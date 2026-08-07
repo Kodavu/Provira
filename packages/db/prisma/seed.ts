@@ -5,7 +5,7 @@
 
 import { createHash, randomBytes, scryptSync } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
-import { computeScore, ScoreEventInput } from "@tally/core";
+import { computeScore, ScoreEventInput } from "@truvo/core";
 
 function hashPassword(password: string): string {
   const salt = randomBytes(16).toString("hex");
@@ -147,7 +147,7 @@ async function main() {
 
   // Platform lender + starter product.
   const lender = await prisma.lender.create({
-    data: { name: "Tally", isPlatform: true },
+    data: { name: "Truvo", isPlatform: true },
   });
   await prisma.loanProduct.create({
     data: {
@@ -341,7 +341,7 @@ async function main() {
   // Admin users — a Super Admin and a Support agent (to show RBAC differences).
   await prisma.adminUser.create({
     data: {
-      email: "superadmin@tally.ng",
+      email: "superadmin@truvo.com.ng",
       fullName: "Ada Okoro",
       passwordHash: hashPassword("admin1234"),
       status: "ACTIVE",
@@ -351,7 +351,7 @@ async function main() {
   });
   await prisma.adminUser.create({
     data: {
-      email: "support@tally.ng",
+      email: "support@truvo.com.ng",
       fullName: "Tunde Bello",
       passwordHash: hashPassword("support1234"),
       status: "ACTIVE",
@@ -361,7 +361,7 @@ async function main() {
   });
   await prisma.adminUser.create({
     data: {
-      email: "hr@tally.ng",
+      email: "hr@truvo.com.ng",
       fullName: "Ngozi Eze",
       passwordHash: hashPassword("hr1234"),
       status: "ACTIVE",
@@ -373,7 +373,7 @@ async function main() {
   // write-impersonation two-person rule is testable with distinct accounts.
   await prisma.adminUser.create({
     data: {
-      email: "ops@tally.ng",
+      email: "ops@truvo.com.ng",
       fullName: "Chidi Nwosu",
       passwordHash: hashPassword("ops1234"),
       status: "ACTIVE",
@@ -383,7 +383,7 @@ async function main() {
   });
   await prisma.adminUser.create({
     data: {
-      email: "compliance@tally.ng",
+      email: "compliance@truvo.com.ng",
       fullName: "Fatima Bello",
       passwordHash: hashPassword("compliance1234"),
       status: "ACTIVE",
@@ -393,7 +393,7 @@ async function main() {
   });
   await prisma.adminUser.create({
     data: {
-      email: "finance@tally.ng",
+      email: "finance@truvo.com.ng",
       fullName: "Ifeoma Okafor",
       passwordHash: hashPassword("finance1234"),
       status: "ACTIVE",
@@ -451,11 +451,11 @@ async function main() {
     body: string;
   }> = [
     { eventKey: "dispute.replied", channel: "INAPP", language: "EN", subject: "New reply on {code}", body: "Support replied on your case {code}: {preview}" },
-    { eventKey: "dispute.replied", channel: "SMS", language: "EN", body: "Tally: support replied on case {code}. Open the app to read and respond." },
+    { eventKey: "dispute.replied", channel: "SMS", language: "EN", body: "Truvo: support replied on case {code}. Open the app to read and respond." },
     { eventKey: "dispute.replied", channel: "INAPP", language: "PCM", subject: "New reply for {code}", body: "Support don reply your case {code}: {preview}" },
-    { eventKey: "dispute.replied", channel: "SMS", language: "PCM", body: "Tally: support don reply your case {code}. Open app make you read am." },
+    { eventKey: "dispute.replied", channel: "SMS", language: "PCM", body: "Truvo: support don reply your case {code}. Open app make you read am." },
     { eventKey: "payout.sent", channel: "INAPP", language: "EN", subject: "Payment sent", body: "{amount} has been sent to your account." },
-    { eventKey: "payout.sent", channel: "SMS", language: "EN", body: "Tally: {amount} has been sent to your account." },
+    { eventKey: "payout.sent", channel: "SMS", language: "EN", body: "Truvo: {amount} has been sent to your account." },
   ];
   await Promise.all(
     templates.map((t) =>
@@ -529,8 +529,8 @@ async function main() {
   console.log("Seed complete:", {
     worker: worker.phone,
     employer: employer.phone,
-    admin: "superadmin@tally.ng / admin1234",
-    support: "support@tally.ng / support1234",
+    admin: "superadmin@truvo.com.ng / admin1234",
+    support: "support@truvo.com.ng / support1234",
   });
 }
 

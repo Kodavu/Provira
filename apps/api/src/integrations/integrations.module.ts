@@ -10,7 +10,7 @@ import {
   MockStorageProvider,
   MockOutbox,
   SquadPaymentProvider,
-} from "@tally/integrations";
+} from "@truvo/integrations";
 
 // Injection tokens. Services depend on these, never on a concrete provider.
 export const PAYMENT_PROVIDER = Symbol("PAYMENT_PROVIDER");

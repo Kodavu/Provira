@@ -32,7 +32,7 @@ export function LandingNav() {
       }`}
     >
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" aria-label="Tally home">
+        <Link href="/" aria-label="Truvo home">
           <Wordmark />
         </Link>
 

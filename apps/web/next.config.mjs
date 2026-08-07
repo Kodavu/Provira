@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 const nextConfig = {
   reactStrictMode: true,
   // Workspace packages shipped as TypeScript source are transpiled by Next.
-  transpilePackages: ["@tally/api-client"],
+  transpilePackages: ["@truvo/api-client"],
 };
 
 export default withNextIntl(nextConfig);

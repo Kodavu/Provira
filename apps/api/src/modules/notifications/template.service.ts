@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import type { Language, NotificationChannel } from "@tally/db";
+import type { Language, NotificationChannel } from "@truvo/db";
 import { eventDef } from "./event-registry.js";
 
 /** {placeholder} interpolation. Unknown keys are left as-is so gaps are visible. */

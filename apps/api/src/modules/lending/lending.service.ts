@@ -2,10 +2,10 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
 import { PaymentsService } from "../payments/payments.service.js";
-import { meetsThreshold } from "@tally/core";
+import { meetsThreshold } from "@truvo/core";
 
 /**
- * Micro-lending. Tally is the lender of record (Lender.isPlatform = true) but
+ * Micro-lending. Truvo is the lender of record (Lender.isPlatform = true) but
  * every loan references a Lender, so a partner lender can be introduced without
  * schema change. Eligibility is gated by the reliability score/tier.
  */

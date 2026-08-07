@@ -5,9 +5,9 @@ import {
   explainScore,
   DEFAULT_SCORE_CONFIG,
   ScoreEventInput,
-} from "@tally/core";
-import { zScoreBreakdown } from "@tally/contracts";
-import type { ScoreEventType } from "@tally/db";
+} from "@truvo/core";
+import { zScoreBreakdown } from "@truvo/contracts";
+import type { ScoreEventType } from "@truvo/db";
 
 // Human labels for the score ledger.
 const SCORE_LABELS: Record<string, string> = {
@@ -93,7 +93,7 @@ export class ScoringService {
   /**
    * The ledger behind the number: current score/tier, progress to the next
    * tier, aggregated factors (what moved the score), and the recent event feed
-   * with the exact points each contributed. This is Tally's transparency edge —
+   * with the exact points each contributed. This is Truvo's transparency edge —
    * we show the ledger, not just a number.
    */
   async breakdown(userId: string) {

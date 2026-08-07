@@ -3,8 +3,8 @@
 // Minimal client-side session. Phone-first users authenticate via OTP; we keep
 // the token + userId in localStorage for this scaffold. (A production build would
 // use httpOnly cookies + a refresh flow.)
-const TOKEN_KEY = "tally.token";
-const USER_KEY = "tally.userId";
+const TOKEN_KEY = "truvo.token";
+const USER_KEY = "truvo.userId";
 
 export function saveSession(token: string, userId: string) {
   localStorage.setItem(TOKEN_KEY, token);

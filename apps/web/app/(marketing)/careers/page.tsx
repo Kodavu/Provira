@@ -4,8 +4,8 @@ import { RevealGroup, RevealItem } from "@/components/marketing/motion";
 import { PageHero } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "Careers — Tally",
-  description: "Join Tally and help build economic identity for Nigeria's informal economy. See open roles and how we work.",
+  title: "Careers — Truvo",
+  description: "Join Truvo and help build economic identity for Nigeria's informal economy. See open roles and how we work.",
 };
 
 const PERKS = [
@@ -40,7 +40,7 @@ export default function CareersPage() {
 
       {/* Perks */}
       <Section className="py-16 md:py-24">
-        <SectionHeading eyebrow="Why Tally" title="What it's like to work here" />
+        <SectionHeading eyebrow="Why Truvo" title="What it's like to work here" />
         <RevealGroup className="mt-12 grid gap-4 md:grid-cols-3">
           {PERKS.map((p) => (
             <RevealItem key={p.title}>
@@ -64,7 +64,7 @@ export default function CareersPage() {
             {ROLES.map((r) => (
               <a
                 key={r.title}
-                href={`mailto:careers@tally.ng?subject=Application: ${encodeURIComponent(r.title)}`}
+                href={`mailto:careers@truvo.com.ng?subject=Application: ${encodeURIComponent(r.title)}`}
                 className="group flex flex-col gap-2 p-5 transition hover:bg-canvas sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
@@ -82,8 +82,8 @@ export default function CareersPage() {
             <p className="text-sm text-ink-soft">
               Don&apos;t see your role? We&apos;re always glad to meet exceptional people.
             </p>
-            <a href="mailto:careers@tally.ng" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800">
-              <Mail className="h-4 w-4" /> careers@tally.ng
+            <a href="mailto:careers@truvo.com.ng" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800">
+              <Mail className="h-4 w-4" /> careers@truvo.com.ng
             </a>
           </div>
         </div>

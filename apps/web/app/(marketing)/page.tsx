@@ -28,9 +28,9 @@ import { LanguageShowcase } from "@/components/marketing/language-showcase";
 import { PERSONAS } from "@/components/marketing/personas";
 
 export const metadata = {
-  title: "Tally — One platform for workers, employers & traders",
+  title: "Truvo — One platform for workers, employers & traders",
   description:
-    "Tally connects Nigeria's informal economy: workers find jobs and get paid same-day, employers hire verified talent and pay on confirmation, and traders build records that unlock credit — with a full business toolkit coming soon.",
+    "Truvo connects Nigeria's informal economy: workers find jobs and get paid same-day, employers hire verified talent and pay on confirmation, and traders build records that unlock credit — with a full business toolkit coming soon.",
 };
 
 // Numeric config for the stats counters; the labels/subs come from the catalog.

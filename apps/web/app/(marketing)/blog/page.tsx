@@ -6,7 +6,7 @@ import { PageHero, CtaBand } from "@/components/marketing/page-shell";
 import { Newsletter } from "@/components/landing/newsletter";
 
 export const metadata = {
-  title: "Blog — Tally",
+  title: "Blog — Truvo",
   description: "Product updates, research, and stories from the frontlines of Nigeria's informal economy.",
 };
 
@@ -19,7 +19,7 @@ const POSTS = [
     tint: "brand",
   },
   {
-    title: "Escrow, explained: how same-day pay actually works on Tally",
+    title: "Escrow, explained: how same-day pay actually works on Truvo",
     excerpt: "A plain-language walk through funding, confirmation, and release — and why it protects both sides.",
     category: "Product",
     date: "Coming soon",

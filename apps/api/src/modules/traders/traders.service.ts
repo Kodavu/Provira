@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { ScoringService } from "../scoring/scoring.service.js";
-import { meetsThreshold } from "@tally/core";
-import { zTraderDashboard } from "@tally/contracts";
+import { meetsThreshold } from "@truvo/core";
+import { zTraderDashboard } from "@truvo/contracts";
 
 /**
  * Traders log card/cash sales at their stall. Each logged sale is a scoring

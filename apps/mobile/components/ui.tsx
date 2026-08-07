@@ -50,8 +50,8 @@ export function BackHeader({ onBack, title }: { onBack: () => void; title: strin
   );
 }
 
-// Tally-stroke logomark: four verticals + a gold diagonal fifth.
-export function TallyMark({ size = 28, boxed = true }: { size?: number; boxed?: boolean }) {
+// Truvo-stroke logomark: four verticals + a gold diagonal fifth.
+export function TruvoMark({ size = 28, boxed = true }: { size?: number; boxed?: boolean }) {
   const s = boxed ? size * 0.62 : size;
   const mark = (
     <Svg width={s} height={s} viewBox="0 0 24 24">
@@ -258,8 +258,8 @@ export function ScreenHeader({ onSignOut }: { onSignOut: () => void }) {
   return (
     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <TallyMark size={28} />
-        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>tally</Text>
+        <TruvoMark size={28} />
+        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>truvo</Text>
       </View>
       <Text onPress={onSignOut} style={{ color: colors.inkSoft, fontSize: 14, fontWeight: "600" }}>
         Sign out

@@ -3,8 +3,8 @@
 import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
-const TOKEN = "tally.token";
-const USER = "tally.userId";
+const TOKEN = "truvo.token";
+const USER = "truvo.userId";
 const mem: Record<string, string | null> = {};
 
 async function set(k: string, v: string) {

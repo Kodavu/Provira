@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 import { describe, expect, it, vi } from "vitest";
-import { SquadPaymentProvider, SquadError } from "@tally/integrations";
+import { SquadPaymentProvider, SquadError } from "@truvo/integrations";
 
 const SECRET = "sandbox_sk_test";
 const MERCHANT = "SBTEST01";

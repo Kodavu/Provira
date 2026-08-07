@@ -28,7 +28,7 @@ export class MockPaymentProvider implements PaymentProvider {
       virtualAccount: {
         bank: "Mock Bank",
         accountNumber: "0000000000",
-        accountName: `TALLY/${params.reference}`,
+        accountName: `TRUVO/${params.reference}`,
       },
     };
   }
@@ -43,7 +43,7 @@ export class MockPaymentProvider implements PaymentProvider {
 
   async accountLookup(_bankCode: string, accountNumber: string): Promise<{ accountName: string }> {
     // Deterministic stand-in name so the flow is testable without a real bank.
-    return { accountName: `TALLY TEST ${accountNumber.slice(-4)}` };
+    return { accountName: `TRUVO TEST ${accountNumber.slice(-4)}` };
   }
 
   parseWebhook(

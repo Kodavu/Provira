@@ -7,7 +7,7 @@
     "signIn": "Banye",
     "getStarted": "Malite",
     "language": "Asụsụ",
-    "ariaHome": "Ụlọ Tally",
+    "ariaHome": "Ụlọ Truvo",
     "openMenu": "Mepee menu",
     "closeMenu": "Mechie menu",
     "items": {
@@ -72,20 +72,20 @@
       "hero": {
         "lead": "Chọta ezigbo ọrụ.",
         "emphasis": "Nweta ego gị n'otu ụbọchị ahụ.",
-        "sub": "Chọta ọrụ ndị enyochara nọ gị nso, jiri koodu kwado ọrụ gị, ma nweta ego gị ozugbo na akaụntụ bankị gị — ka ọrụ ọ bụla na-ewuli Tally Score gị nke ga-emeghe ụzọ maka mbinye ego.",
+        "sub": "Chọta ọrụ ndị enyochara nọ gị nso, jiri koodu kwado ọrụ gị, ma nweta ego gị ozugbo na akaụntụ bankị gị — ka ọrụ ọ bụla na-ewuli Truvo Score gị nke ga-emeghe ụzọ maka mbinye ego.",
         "primaryCta": "Chọọ ọrụ",
         "secondaryCta": "Otú ọ si arụ ọrụ",
         "chips": [
           "Ndị na-ewe ọrụ enyochara",
           "Ego n'otu ụbọchị",
-          "Wuo Tally Score gị"
+          "Wuo Truvo Score gị"
         ]
       },
       "features": [
         "Ndị na-ewe ọrụ enyochara, ndị escrow na-akwado",
         "Profaịlụ ọkachamara nwere ntule na nyocha",
         "Ọrụ ndị dị mfe nke dabara na ógbè gị",
-        "Tally Score nke na-emeghe ezigbo mbinye ego"
+        "Truvo Score nke na-emeghe ezigbo mbinye ego"
       ],
       "steps": [
         {
@@ -104,18 +104,18 @@
       "faqs": [
         {
           "q": "Kedu ọsọ ọsọ m ga-enweta ego?",
-          "a": "N'otu ụbọchị ahụ. Ozugbo akwadoro ọbịbịa jiri koodu ọnụọgụ anọ nke onye na-ewe ọrụ, ego escrow gị ga-abanye na obere akpa Tally gị, ị nwekwara ike iwepụ ya na bankị gị."
+          "a": "N'otu ụbọchị ahụ. Ozugbo akwadoro ọbịbịa jiri koodu ọnụọgụ anọ nke onye na-ewe ọrụ, ego escrow gị ga-abanye na obere akpa Truvo gị, ị nwekwara ike iwepụ ya na bankị gị."
         },
         {
           "q": "M chọrọ ekwentị mkpanaka?",
           "a": "Mba. Ị nwere ike ịdebanye aha, tinye, ma kwado ọrụ na USSD (*347*82#) ma ọ bụ WhatsApp. Ekwentị mkpanaka na-emeghe app zuru oke, mana ọ dịghị mkpa."
         },
         {
-          "q": "Gịnị bụ Tally Score m?",
+          "q": "Gịnị bụ Truvo Score m?",
           "a": "Ndekọ enwere ike ịkwado nke sitere na ọrụ ị rụchara, ịbịa n'oge, na mbinye ego ị kwụghachiri. Akara dị elu na-emeghe ọrụ ka mma na ezigbo mbinye ego na-adịghị ọnụ nke ukwuu."
         },
         {
-          "q": "Enwere m ike iji Tally n'asụsụ m?",
+          "q": "Enwere m ike iji Truvo n'asụsụ m?",
           "a": "Ee — app, USSD na WhatsApp na-arụ ọrụ na Bekee, Pidgin, Yoruba, Hausa na Igbo. Họrọ asụsụ gị otu ugboro, ọ ga-echekwa ya maka oge ọzọ, n'ọtụtụ ngwaọrụ gị."
         }
       ]
@@ -162,7 +162,7 @@
         },
         {
           "q": "Kedu ka m ga-esi chọta ezigbo ndị ọrụ?",
-          "a": "Tally na-atụ aro ndị ọrụ NIN kwadoro nwere ezigbo akụkọ ọrụ na ntule, ndị dabara na ọrụ na ebe gị. Ị na-akpọ ndị ị chọrọ; ha kwado."
+          "a": "Truvo na-atụ aro ndị ọrụ NIN kwadoro nwere ezigbo akụkọ ọrụ na ntule, ndị dabara na ọrụ na ebe gị. Ị na-akpọ ndị ị chọrọ; ha kwado."
         },
         {
           "q": "Ego ole ka inye ọrụ na-efu?",
@@ -202,7 +202,7 @@
         },
         {
           "title": "Wuo akụkọ gị",
-          "body": "Ire ahịa na-adịgide na-eme ka Tally Score gị too, na-akwadokwa azụmahịa gị nye ụlọ akụ na ndị na-ebinye ego."
+          "body": "Ire ahịa na-adịgide na-eme ka Truvo Score gị too, na-akwadokwa azụmahịa gị nye ụlọ akụ na ndị na-ebinye ego."
         },
         {
           "title": "Meghee ego mmalite",
@@ -240,10 +240,10 @@
     "ecosystem": {
       "eyebrow": "Otu usoro jikọrọ ọnụ",
       "title": "Ụdị mmadụ atọ. Otu njirimara akụ na ụba e kekọrịtara.",
-      "subtitle": "Ndị ọrụ, ndị na-ewe ọrụ, na ndị ahịa — onye ọ bụla nwere ngwaahịa e wuuru ya, nke otu njirimara, escrow, na Tally Score na-ejikọ."
+      "subtitle": "Ndị ọrụ, ndị na-ewe ọrụ, na ndị ahịa — onye ọ bụla nwere ngwaahịa e wuuru ya, nke otu njirimara, escrow, na Truvo Score na-ejikọ."
     },
     "features": {
-      "eyebrow": "Gịnị mere Tally",
+      "eyebrow": "Gịnị mere Truvo",
       "title": "Ụzọ ndị na-eme ka ihe niile rụọ ọrụ",
       "subtitle": "Ịkwụ ụgwọ, aha ọma, ndakọrịta, na ohere — akụrụngwa e kekọrịtara nke na-eje ozi maka akụkụ ọ bụla nke ikpo okwu.",
       "escrowTitle": "Ụgwọ nke escrow na-akwado, nke na-apụ mgbe akwadoro",
@@ -253,7 +253,7 @@
         "Ọ na-apụ ozugbo",
         "Ịkwụ ụgwọ bankị"
       ],
-      "scoreTitle": "Tally Score",
+      "scoreTitle": "Truvo Score",
       "scoreBody": "Aha ọma enwere ike ịkwado nke sitere n'ezigbo ọrụ na ahịa — igodo nke na-emeghe mbinye ego.",
       "locationTitle": "Ndakọrịta site n'ebe",
       "locationBody": "Ruo n'ógbè gị. Ọrụ, ndị ọrụ, na ndị ahịa ziri ezi, nso ụlọ.",
@@ -266,7 +266,7 @@
       "eyebrow": "E wuru ya maka Naịjirịa",
       "title1": "Teknụzụ nke na-",
       "title2": "asụ asụsụ gị",
-      "sub": "Rụọ ọrụ, were ndị ọrụ, ma zụọ ahịa n'asụsụ kachasị amasị gị. E mere Tally maka otú ndị Naịjirịa si ekwu okwu n'ezie — na app, na USSD, na WhatsApp.",
+      "sub": "Rụọ ọrụ, were ndị ọrụ, ma zụọ ahịa n'asụsụ kachasị amasị gị. E mere Truvo maka otú ndị Naịjirịa si ekwu okwu n'ezie — na app, na USSD, na WhatsApp.",
       "bullets": [
         "Interface, bọtịnụ, ozi email na ọkwa — n'asụsụ gị.",
         "A na-echekwa asụsụ gị, ọ na-eso gị n'ọtụtụ ngwaọrụ gị.",
@@ -283,8 +283,8 @@
       "badge": "Maka ndị ahịa · Na-abịa",
       "title1": "Usoro azụmahịa",
       "title2": "zuru oke",
-      "body": "Malite iwu ndekọ ahịa gị taa. N'oge na-adịghị anya, Tally ga-aghọ ebe a na-ere ahịa, ụlọ nkwakọba ngwaahịa, na onye na-agụ ego kwa — POS zuru oke na ngwa azụmahịa e wuru maka ndị ahịa Naịjirịa, n'ịntanetị na na-enweghị ịntanetị.",
-      "primaryCta": "Malite ire ahịa na Tally",
+      "body": "Malite iwu ndekọ ahịa gị taa. N'oge na-adịghị anya, Truvo ga-aghọ ebe a na-ere ahịa, ụlọ nkwakọba ngwaahịa, na onye na-agụ ego kwa — POS zuru oke na ngwa azụmahịa e wuru maka ndị ahịa Naịjirịa, n'ịntanetị na na-enweghị ịntanetị.",
+      "primaryCta": "Malite ire ahịa na Truvo",
       "secondaryCta": "Lelee atụmatụ ihu",
       "features": [
         "Ahịa & akwụkwọ nnata",
@@ -301,7 +301,7 @@
     },
     "roadmap": {
       "eyebrow": "Ọhụụ ngwaahịa",
-      "title": "Ebe Tally na-aga ọzọ",
+      "title": "Ebe Truvo na-aga ọzọ",
       "subtitle": "Anyị na-ewu gawa n'otu ikpo okwu nke ga-agba ọrụ na azụmahịa site na mmalite ruo njedebe. Nke a bụ ihe na-abịa — anyị jiri eziokwu kaa ya akara ka ị mara ihe na-arụ ọrụ taa mgbe niile.",
       "status": {
         "inDev": "Anyị na-ewu ya",
@@ -323,7 +323,7 @@
         },
         {
           "title": "Digital Wallet",
-          "body": "Jide, zipu, ma nata ịkwụ ụgwọ azụmahịa n'ime Tally."
+          "body": "Jide, zipu, ma nata ịkwụ ụgwọ azụmahịa n'ime Truvo."
         },
         {
           "title": "Inventory Intelligence",
@@ -331,7 +331,7 @@
         },
         {
           "title": "Business Loans",
-          "body": "Ego ọrụ dabara na ndekọ Tally gị enwere ike ịkwado."
+          "body": "Ego ọrụ dabara na ndekọ Truvo gị enwere ike ịkwado."
         },
         {
           "title": "QR Payments",
@@ -370,7 +370,7 @@
     "integrations": {
       "eyebrow": "Njikọ",
       "title": "Ọ na-arụ ọrụ na ngwaọrụ ị na-ejizi",
-      "subtitle": "Tally na-ejikọ na ụzọ ịkwụ ụgwọ, ozi, na azụmahịa nke na-eme ka Naịjirịa na-aga — na ọtụtụ ọzọ na-abịa.",
+      "subtitle": "Truvo na-ejikọ na ụzọ ịkwụ ụgwọ, ozi, na azụmahịa nke na-eme ka Naịjirịa na-aga — na ọtụtụ ọzọ na-abịa.",
       "items": [
         {
           "label": "Ndị na-enye ịkwụ ụgwọ",
@@ -409,7 +409,7 @@
       "lovedBy": "Ndị ọrụ, ndị na-ewe ọrụ na ndị ahịa hụrụ ya n'anya",
       "items": [
         {
-          "quote": "N'oge gara aga, m na-eche ụbọchị tupu m nweta ego mgbe ọrụ gasịrị. Site na Tally ego na-abanye n'akaụntụ m n'otu mgbede ahụ — akara m wetakwaara m mbinye ngwaahịa mbụ m.",
+          "quote": "N'oge gara aga, m na-eche ụbọchị tupu m nweta ego mgbe ọrụ gasịrị. Site na Truvo ego na-abanye n'akaụntụ m n'otu mgbede ahụ — akara m wetakwaara m mbinye ngwaahịa mbụ m.",
           "name": "Amaka O.",
           "role": "Onye ọrụ ụlọ nkwakọba · Legọs"
         },
@@ -424,7 +424,7 @@
           "role": "Onye ahịa ahịa · Kano"
         },
         {
-          "quote": "Enweghị ekwentị mkpanaka, enweghị nsogbu — m na-akwado ọrụ na USSD. Tally na-emeso ndị dịka m dịka ndị ahịa, ọ bụghị ihe e chefuru echefu.",
+          "quote": "Enweghị ekwentị mkpanaka, enweghị nsogbu — m na-akwado ọrụ na USSD. Truvo na-emeso ndị dịka m dịka ndị ahịa, ọ bụghị ihe e chefuru echefu.",
           "name": "Grace E.",
           "role": "Onye nhicha · Abuja"
         }
@@ -479,7 +479,7 @@
     "nameLabel": "Aha zuru ezu",
     "namePlaceholder": "d.ọ. Amaka Okafor",
     "continue": "Gaa n'ihu",
-    "useTitle": "Kedu ka ị ga-esi jiri Tally?",
+    "useTitle": "Kedu ka ị ga-esi jiri Truvo?",
     "useSubtitle": "Ị nwere ike ịgbakwụnye ọrụ ọzọ ma emesịa site na dashboard gị.",
     "createAccountBtn": "Mepụta akaụntụ",
     "back": "Azụ",
@@ -488,7 +488,7 @@
     "redirecting": "Anyị na-akpọga gị na dashboard gị…",
     "alreadyHave": "Ị nwere akaụntụ?",
     "signIn": "Banye",
-    "newToTally": "Ọhụrụ na Tally?",
+    "newToTally": "Ọhụrụ na Truvo?",
     "createAccountLink": "Mepụta akaụntụ",
     "types": {
       "worker": {
@@ -760,7 +760,7 @@
     "title": "Ego enwetara",
     "subtitle": "Ihe batara na obere akpa gị, na ebe ọ na-aga mgbe ị wepụtara ya.",
     "availableNow": "Dị ugbu a",
-    "inWallet": "n'obere akpa Tally gị",
+    "inWallet": "n'obere akpa Truvo gị",
     "withdraw": "Wepụta ego",
     "addPayoutInline": "Tinye akaụntụ ịkwụ ụgwọ iji nweta mwepụ.",
     "addAccount": "Tinye akaụntụ",
@@ -791,10 +791,10 @@
     "traderTitle": "Mbinye ngwaahịa",
     "traderSubtitle": "Tozuo maka ego ọrụ ozugbo i wuru ndekọ ahịa e depụtara.",
     "howTitle": "Otú ntozu si arụ ọrụ:",
-    "howBody": "akara Tally gị na-ekpebi ngwaahịa ndị i tozuru. Mbinye ego akwadoro na-abanye n'akaụntụ ịkwụ ụgwọ gị ozugbo, ịkwụghachi n'oge na-eweli akara gị — na-emeghe oke ka ukwuu n'oge ọzọ."
+    "howBody": "akara Truvo gị na-ekpebi ngwaahịa ndị i tozuru. Mbinye ego akwadoro na-abanye n'akaụntụ ịkwụ ụgwọ gị ozugbo, ịkwụghachi n'oge na-eweli akara gị — na-emeghe oke ka ukwuu n'oge ọzọ."
   },
   "Standing": {
-    "title": "Akara Tally Gị",
+    "title": "Akara Truvo Gị",
     "subtitle": "Kpọmkwem ihe kpaliri akara gị — akwụkwọ ndekọ nọ n'azụ nọmba ahụ.",
     "ptsToNext": "{points} pts ruo {tier}",
     "shiftsDone": "Ọrụ emechara",
@@ -907,9 +907,9 @@
   },
   "Settings": {
     "title": "Ntọala izugbe",
-    "subtitle": "Họrọ otu Tally si erute gị na asụsụ ị họọrọ.",
+    "subtitle": "Họrọ otu Truvo si erute gị na asụsụ ị họọrọ.",
     "language": "Asụsụ",
-    "languageSub": "Asụsụ Tally na-eji n'ime ngwa, ozi-e na mkpọsa. E chekwara ya na ngwaọrụ a.",
+    "languageSub": "Asụsụ Truvo na-eji n'ime ngwa, ozi-e na mkpọsa. E chekwara ya na ngwaọrụ a.",
     "notifications": "Ntọala mkpọsa",
     "notificationsSub": "Họrọ ọrụ ndị ga-ebu ụzọ pụta mgbe ị na-achọ ọrụ.",
     "jobFeed": "Ndepụta ọrụ",
@@ -919,7 +919,7 @@
     "feeds": {
       "ALL": {
         "label": "Ọrụ niile",
-        "hint": "Ọrụ ọ bụla mepere emepe na Tally."
+        "hint": "Ọrụ ọ bụla mepere emepe na Truvo."
       },
       "SKILLS": {
         "label": "Dabara na nkà m",
@@ -1105,17 +1105,17 @@
     "whatsapp": "WhatsApp",
     "whatsappHint": "Soro nkwado kparịta ụka",
     "emailUs": "Zitere anyị ozi-e",
-    "emailHint": "support@tally.ng",
+    "emailHint": "support@truvo.com.ng",
     "verifyIdentity": "Kwado njirimara",
     "verifyHint": "Mepee oke dị elu",
     "alertsNote": "A na-eziga mkpọsa nchekwa na ịkwụ ụgwọ mgbe niile. Jikwaa mkpọsa ndị ọzọ niile na <link>Ntọala</link>.",
     "faqs": {
       "getPaid": {
         "q": "Kedu ka m ga-esi nweta ụgwọ maka shift?",
-        "a": "Mgbe e mekọrọ gị na ọrụ, tinye arịrịọ iji nweta koodu nkwado nwere ọnụọgụ anọ. N'ebe ọrụ, onye were gị ọrụ ga-akwado ọbịbịa gị — nke ahụ na-ahapụ ụgwọ escrow ozugbo n'ime obere akpa ego Tally gị, nke ị nwere ike ịwepụ na ụlọ akụ gị."
+        "a": "Mgbe e mekọrọ gị na ọrụ, tinye arịrịọ iji nweta koodu nkwado nwere ọnụọgụ anọ. N'ebe ọrụ, onye were gị ọrụ ga-akwado ọbịbịa gị — nke ahụ na-ahapụ ụgwọ escrow ozugbo n'ime obere akpa ego Truvo gị, nke ị nwere ike ịwepụ na ụlọ akụ gị."
       },
-      "tallyScore": {
-        "q": "Gịnị bụ Tally Score m?",
+      "truvoScore": {
+        "q": "Gịnị bụ Truvo Score m?",
         "a": "Ọ bụ akara ntụkwasị obi e wuru site na ọrụ gị n'ezie — shifts emechara, ọnụọgụ n'oge, ahịa e depụtara, na mbinye ego akwụghachiri. Akara dị elu na-emepe ọrụ ka mma na mbinye ego buru ibu. A na-akọwa akara ọ bụla na ibe Ọnọdụ m."
       },
       "logSale": {
@@ -1132,7 +1132,7 @@
       },
       "loans": {
         "q": "Kedu ka mbinye ego si arụ ọrụ?",
-        "a": "Ntozu mbinye ego dabere na Tally Score gị. Mbinye ego akwadoro na-abanye n'akaụntụ ịkwụ ụgwọ gị, ịkwụghachi n'oge na-ebuli akara gị — na-emepe oke buru ibu oge ọzọ."
+        "a": "Ntozu mbinye ego dabere na Truvo Score gị. Mbinye ego akwadoro na-abanye n'akaụntụ ịkwụ ụgwọ gị, ịkwụghachi n'oge na-ebuli akara gị — na-emepe oke buru ibu oge ọzọ."
       },
       "verify": {
         "q": "Kedu ka m ga-esi kwado njirimara m?",
@@ -1177,7 +1177,7 @@
     "disclosureEyebrow": "Nkwupụta ọrụ",
     "disclosureTitle": "Ị chọtara adịghị ike?",
     "disclosureSubtitle": "Anyị na-anabata akụkọ sitere n'aka ndị nyocha nchekwa ma na-eji ha kpọrọ ihe.",
-    "disclosureBody": "Biko zitere ozi-e na <email>security@tally.ng</email> ya na nkọwa na usoro iji mepụtaghachi ya. Nye anyị oge dabara adaba iji dozie nsogbu ahụ tupu nkwupụta ọha — biko agbakwụnyela ma ọ bụ gbanwee data na-abụghị nke gị.",
+    "disclosureBody": "Biko zitere ozi-e na <email>security@truvo.com.ng</email> ya na nkọwa na usoro iji mepụtaghachi ya. Nye anyị oge dabara adaba iji dozie nsogbu ahụ tupu nkwupụta ọha — biko agbakwụnyela ma ọ bụ gbanwee data na-abụghị nke gị.",
     "ctaTitle": "Nchebe ọkwa ụlọ akụ, e wuru n'ime",
     "ctaBody": "A na-eji nlekọta kwesịrị ekwesị na-elekọta ịkwụ ụgwọ, njirimara, na ndekọ ọ bụla.",
     "ctaSecondary": "Gụọ Iwu Nzuzo anyị"
@@ -1202,7 +1202,7 @@
     "pickLgaFirst": "Buru ụzọ họrọ Ọchịchị ime obodo"
   },
   "Footer": {
-    "tagline": "Tally na-eme ka ọrụ na-akwadoghị, ahịa, na ịkwụ ụgwọ ghọọ njirimara akụ na ụba enwere ike ịkwado — na-emeghe ịkwụ ụgwọ n'otu ụbọchị, ọrụ ka mma, na kredit n'ezie maka ndị ọrụ Naịjirịa na-arụsi ọrụ ike.",
+    "tagline": "Truvo na-eme ka ọrụ na-akwadoghị, ahịa, na ịkwụ ụgwọ ghọọ njirimara akụ na ụba enwere ike ịkwado — na-emeghe ịkwụ ụgwọ n'otu ụbọchị, ọrụ ka mma, na kredit n'ezie maka ndị ọrụ Naịjirịa na-arụsi ọrụ ike.",
     "launchUpdates": "Nweta mmelite mmalite",
     "noSpam": "Enweghị spam. Wepụ aha gị mgbe ọ bụla.",
     "newsletterPlaceholder": "you@email.com",
@@ -1210,12 +1210,12 @@
     "newsletterSubmit": "Gwa m",
     "newsletterInvalid": "Tinye ozi-e ziri ezi",
     "newsletterDone": "Ị nọ na ndepụta ahụ.",
-    "socialX": "Tally na X",
-    "socialLinkedIn": "Tally na LinkedIn",
-    "socialInstagram": "Tally na Instagram",
-    "socialWhatsApp": "Tally na WhatsApp",
+    "socialX": "Truvo na X",
+    "socialLinkedIn": "Truvo na LinkedIn",
+    "socialInstagram": "Truvo na Instagram",
+    "socialWhatsApp": "Truvo na WhatsApp",
     "location": "Legos, Naịjirịa",
-    "copyright": "© {year} Tally Technologies. Echekwara ikike niile.",
+    "copyright": "© {year} Truvo Technologies. Echekwara ikike niile.",
     "systemsOperational": "Sistemụ niile na-arụ ọrụ",
     "headings": {
       "product": "Ngwaahịa",
@@ -1250,11 +1250,11 @@
   "About": {
     "heroEyebrow": "Ebumnuche anyị",
     "heroTitle": "Ịtụgharị ọrụ kwa ụbọchị ka ọ bụrụ njirimara akụ na ụba",
-    "heroLede": "Ọtụtụ nde ndị Naịjirịa na-arụsi ọrụ ike kwa ụbọchị, ma mgbalị nke ndụ dum anaghị ahapụ akwụkwọ ọ bụla ụlọ akụ nwere ike ịtụkwasị obi. Tally na-agbanwe nke ahụ — otu ọrụ, otu ahịa, otu shift akwadoro n'otu oge.",
+    "heroLede": "Ọtụtụ nde ndị Naịjirịa na-arụsi ọrụ ike kwa ụbọchị, ma mgbalị nke ndụ dum anaghị ahapụ akwụkwọ ọ bụla ụlọ akụ nwere ike ịtụkwasị obi. Truvo na-agbanwe nke ahụ — otu ọrụ, otu ahịa, otu shift akwadoro n'otu oge.",
     "whyEyebrow": "Ihe mere anyị ji dị",
     "whyTitle": "Akụ na ụba na-agba ọsọ n'ọrụ na-anọgide na-anaghị ahụ anya",
     "storyP1": "Onye ahịa ahịa na-emeju ngwongwo n'isi ụtụtụ, ndị ọrụ na-ebu ibu n'ụlọ nkwakọba ihe n'abalị, onye na-ehicha ihe na-adịghị atụfu shift — ha na-eme ka obodo na-aga n'ihu. Mana mgbe ha chọrọ isi obi, ụgwọ ọrụ ziri ezi n'oge, ma ọ bụ naanị ihe àmà nke ihe ha mere, usoro ahụ enweghị ihe ọ ga-egosi.",
-    "storyP2": "Tally na-enye ọrụ ahụ ncheta. Ọrụ ọ bụla emechara, ahịa e depụtara, na ịkwụghachi n'oge na-aghọ akụkụ nke ndekọ enwere ike ịkwado — <s>Tally Score</s> — nke ndị were ọrụ, ụlọ akụ, na ndị na-agbazinye ego nwere ike ịlele n'ezie. Ọrụ na-aghọ aha ọma. Aha ọma na-aghọ kredit.",
+    "storyP2": "Truvo na-enye ọrụ ahụ ncheta. Ọrụ ọ bụla emechara, ahịa e depụtara, na ịkwụghachi n'oge na-aghọ akụkụ nke ndekọ enwere ike ịkwado — <s>Truvo Score</s> — nke ndị were ọrụ, ụlọ akụ, na ndị na-agbazinye ego nwere ike ịlele n'ezie. Ọrụ na-aghọ aha ọma. Aha ọma na-aghọ kredit.",
     "cards": {
       "workers": {
         "k": "Maka ndị ọrụ",
@@ -1297,7 +1297,7 @@
       }
     },
     "ctaTitle": "Nyere anyị aka ime ka ọrụ gụọ",
-    "ctaBody": "Ma ị nọ ebe a iji nweta ego, iji were ọrụ, ma ọ bụ iji wuo anyị — enwere ọnọdụ maka gị na Tally.",
+    "ctaBody": "Ma ị nọ ebe a iji nweta ego, iji were ọrụ, ma ọ bụ iji wuo anyị — enwere ọnọdụ maka gị na Truvo.",
     "ctaSecondary": "Lee ọkwá ndị mepere emepe"
   },
   "Faq": {
@@ -1308,14 +1308,14 @@
     "items": {
       "speed": {
         "q": "Kedu ka ndị ọrụ si enweta ụgwọ ngwa ngwa n'ezie?",
-        "a": "Otu ụbọchị. Ozugbo akwadoro ọbịbịa site na koodu onye were ọrụ nwere ọnụọgụ anọ, a na-ahapụ ụgwọ escrow n'obere akpa ego Tally nke onye ọrụ ma nwee ike ịwepụ ya na ụlọ akụ ya — enweghị ichere ụbọchị maka akwụkwọ ọnụ ahịa."
+        "a": "Otu ụbọchị. Ozugbo akwadoro ọbịbịa site na koodu onye were ọrụ nwere ọnụọgụ anọ, a na-ahapụ ụgwọ escrow n'obere akpa ego Truvo nke onye ọrụ ma nwee ike ịwepụ ya na ụlọ akụ ya — enweghị ichere ụbọchị maka akwụkwọ ọnụ ahịa."
       },
       "smartphone": {
-        "q": "Achọrọ m ekwentị mkpanaka iji jiri Tally?",
-        "a": "Mba. E wuru Tally na ekwentị-mbụ: ị nwere ike ịdebanye aha, kwado shifts, ma lelee nguzo gị site na USSD (*347*82#) ma ọ bụ WhatsApp. Ekwentị mkpanaka na-emeghe ngwa zuru ezu, mana ọ bụghị mkpa mgbe niile."
+        "q": "Achọrọ m ekwentị mkpanaka iji jiri Truvo?",
+        "a": "Mba. E wuru Truvo na ekwentị-mbụ: ị nwere ike ịdebanye aha, kwado shifts, ma lelee nguzo gị site na USSD (*347*82#) ma ọ bụ WhatsApp. Ekwentị mkpanaka na-emeghe ngwa zuru ezu, mana ọ bụghị mkpa mgbe niile."
       },
       "score": {
-        "q": "Kedu ka Tally Score si arụ ọrụ?",
+        "q": "Kedu ka Truvo Score si arụ ọrụ?",
         "a": "Ọrụ ọ bụla emechara, ịbịa n'oge, ahịa e depụtara, na mbinye ego akwụghachiri na-agbakwụnye n'akara gị. Enweghị ọbịbịa na esemokwu na-ewepụ. Ọ bụ ndekọ eziokwu enwere ike ịkwado nke ụlọ akụ na ndị na-agbazinye ego nwere ike ịlele — nke bụ ihe na-atụgharị ọrụ gị ka ọ bụrụ kredit n'ezie."
       },
       "protection": {
@@ -1327,12 +1327,12 @@
         "a": "Ịdebanye aha, inweta ụgwọ, na iwu akara gị bụ n'efu maka ndị ọrụ na ndị ahịa. Ndị were ọrụ na-akwụ obere ụgwọ doro anya kwa mmezu ọ bụla e goro — na-enweghị obere ọnwa ọ bụla."
       },
       "availability": {
-        "q": "Tally ọ dị na Naịjirịa dum?",
+        "q": "Truvo ọ dị na Naịjirịa dum?",
         "a": "Anyị na-ewepụta steeti na steeti, na-amalite na Legos. Ndị ọrụ na ndị were ọrụ ebe ọ bụla na Naịjirịa nwere ike ịdebanye aha ugbu a ma tọọ ọnọdụ ha ruo n'ebe obibi, ka anyị kwekọọ gị ozugbo ọrụ malitere dị nso gị."
       },
       "languages": {
-        "q": "Enwere m ike iji Tally na Yoruba, Hausa, Igbo ma ọ bụ Pidgin?",
-        "a": "Ee. E wuru ihu Tally, bọtịnụ, ozi-e na mkpọsa ka ha rụọ ọrụ na Bekee, Pidgin Naịjirịa, Yoruba, Hausa na Igbo. Họrọ asụsụ gị site na menu — echekwara ya ma na-eso gị n'ọtụtụ ngwaọrụ."
+        "q": "Enwere m ike iji Truvo na Yoruba, Hausa, Igbo ma ọ bụ Pidgin?",
+        "a": "Ee. E wuru ihu Truvo, bọtịnụ, ozi-e na mkpọsa ka ha rụọ ọrụ na Bekee, Pidgin Naịjirịa, Yoruba, Hausa na Igbo. Họrọ asụsụ gị site na menu — echekwara ya ma na-eso gị n'ọtụtụ ngwaọrụ."
       },
       "changeLang": {
         "q": "Enwere m ike ịgbanwe asụsụ m oge ọ bụla?",

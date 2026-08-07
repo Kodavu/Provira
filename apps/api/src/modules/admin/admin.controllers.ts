@@ -18,7 +18,7 @@ import {
   PermissionsGuard,
   RequirePermissions,
 } from "./rbac.js";
-import type { DisputeStatus } from "@tally/db";
+import type { DisputeStatus } from "@truvo/db";
 
 function reqMeta(req: any) {
   return {

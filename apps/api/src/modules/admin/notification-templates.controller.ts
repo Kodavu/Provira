@@ -20,7 +20,7 @@ import {
   PermissionsGuard,
   RequirePermissions,
 } from "./rbac.js";
-import type { Language, NotificationChannel } from "@tally/db";
+import type { Language, NotificationChannel } from "@truvo/db";
 
 const LANGUAGES: Language[] = ["EN", "PCM", "YO", "HA", "IG"];
 

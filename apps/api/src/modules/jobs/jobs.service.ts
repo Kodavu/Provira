@@ -7,8 +7,8 @@ import {
   rankWorkers,
   DEFAULT_SCORE_CONFIG,
   WorkerCandidate,
-} from "@tally/core";
-import type { Language } from "@tally/db";
+} from "@truvo/core";
+import type { Language } from "@truvo/db";
 
 interface CreateJobInput {
   employerId: string;

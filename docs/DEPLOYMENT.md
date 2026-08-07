@@ -1,4 +1,4 @@
-# Deploying Tally (Vercel + Render + Supabase)
+# Deploying Truvo (Vercel + Render + Supabase)
 
 ## Architecture reality first
 
@@ -70,8 +70,8 @@ Key distinction:
    URL exported:
    ```bash
    export DATABASE_URL="…the URL above…"
-   pnpm --filter @tally/db exec prisma db push
-   pnpm --filter @tally/db harden
+   pnpm --filter @truvo/db exec prisma db push
+   pnpm --filter @truvo/db harden
    ```
    > `db push` is fine to start. For change history later, switch to
    > `prisma migrate dev --name init` (commit it) + `prisma migrate deploy`.
@@ -88,7 +88,7 @@ Key distinction:
 5. **Seeding — do NOT seed demo data in production.** The seed creates demo
    users with *known passwords*. For a real environment, either skip it or seed
    only a single super-admin with a strong password. To try it end-to-end first,
-   you can run `pnpm --filter @tally/db seed` once and delete the demo accounts
+   you can run `pnpm --filter @truvo/db seed` once and delete the demo accounts
    afterward.
 
 ---
@@ -104,7 +104,7 @@ set `REDIS_URL` on the API.
 ## 3. Render (the API)
 
 Create a **Web Service** from the repo (branch
-`claude/tally-fintech-architecture-2pveuo`).
+`claude/truvo-fintech-architecture-2pveuo`).
 
 - **Runtime:** Node
 - **Root Directory:** *(leave blank — repo root; it's a monorepo)*
@@ -112,18 +112,18 @@ Create a **Web Service** from the repo (branch
   it Render grabs the newest Node, which can break the build.)
 - **Build Command:**
   ```bash
-  npx --yes pnpm@9.12.0 install --frozen-lockfile && npx --yes pnpm@9.12.0 --filter "@tally/api..." build
+  npx --yes pnpm@9.12.0 install --frozen-lockfile && npx --yes pnpm@9.12.0 --filter "@truvo/api..." build
   ```
-  The `@tally/api...` filter (note the trailing `...`) builds `@tally/api` **and
+  The `@truvo/api...` filter (note the trailing `...`) builds `@truvo/api` **and
   every workspace package it depends on** — contracts, db (incl. `prisma
   generate`), core, integrations, i18n — in dependency order.
 - **Start Command:**
   ```bash
-  npx --yes pnpm@9.12.0 --filter @tally/api start
+  npx --yes pnpm@9.12.0 --filter @truvo/api start
   ```
 - **Pre-Deploy Command** (paid tier only — runs migrations/hardening on each deploy):
   ```bash
-  npx --yes pnpm@9.12.0 --filter @tally/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @tally/db harden
+  npx --yes pnpm@9.12.0 --filter @truvo/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @truvo/db harden
   ```
 
 > **On Render's free tier there is no Pre-Deploy Command.** You don't need it:
@@ -132,7 +132,7 @@ Create a **Web Service** from the repo (branch
 > re-run those two commands locally, or append them to the **Build Command**
 > (the build has your `DATABASE_URL`, and both are idempotent):
 > ```bash
-> … && npx --yes pnpm@9.12.0 --filter @tally/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @tally/db harden
+> … && npx --yes pnpm@9.12.0 --filter @truvo/db exec prisma db push && npx --yes pnpm@9.12.0 --filter @truvo/db harden
 > ```
 > Also note free services **spin down when idle** (~50s cold start) and have
 > **no persistent disk** (uploads need the S3 adapter, not the mock).
@@ -157,8 +157,8 @@ Create a **Web Service** from the repo (branch
   ```
   (Don't set `API_PORT` — Render injects `PORT`, which the API now reads.)
 
-Deploy, then note the URL, e.g. `https://tally-api.onrender.com`. Health-check
-it: `curl https://tally-api.onrender.com/api/health` (or the root, which 404s
+Deploy, then note the URL, e.g. `https://truvo-api.onrender.com`. Health-check
+it: `curl https://truvo-api.onrender.com/api/health` (or the root, which 404s
 but proves it's up).
 
 > ⚠️ **Render disk is ephemeral.** The `mock` storage adapter writes uploaded
@@ -174,13 +174,13 @@ New Project → import the repo.
 
 - **Framework Preset:** Next.js
 - **Root Directory:** `apps/web` ← **the setting that matters most** (see below)
-- **Build Command (override):** `pnpm --filter "@tally/web..." build`
+- **Build Command (override):** `pnpm --filter "@truvo/web..." build`
 - **Output Directory:** **leave BLANK** (override OFF). Next.js manages its own
   output — do **not** set this to `/` or `public`, or every route 404s.
 - **Install Command:** `pnpm install --frozen-lockfile`
 - **Environment variable:**
   ```
-  NEXT_PUBLIC_API_URL=https://tally-api.onrender.com/api
+  NEXT_PUBLIC_API_URL=https://truvo-api.onrender.com/api
   ```
 
 The three settings that trip up a Next.js monorepo on Vercel:
@@ -201,12 +201,12 @@ set it for Next.js) · **Framework Preset** = Next.js.
 > deployment, or set **Settings → Git → Production Branch** to your branch.
 
 (Vercel has native pnpm support and no read-only-FS issue, so plain `pnpm`
-works here — no `npx` needed. The `"@tally/web..."` filter builds the app's
+works here — no `npx` needed. The `"@truvo/web..."` filter builds the app's
 workspace deps first, then `next build`.)
 
 Because Vercel detects the pnpm workspace, `install` runs at the repo root and
-links `@tally/*` packages; the Turbo build compiles those packages before
-`next build`. Deploy → e.g. `https://tally.vercel.app`.
+links `@truvo/*` packages; the Turbo build compiles those packages before
+`next build`. Deploy → e.g. `https://truvo.vercel.app`.
 
 ---
 
@@ -216,11 +216,11 @@ New Project → same repo, **second project**.
 
 - **Framework Preset:** Next.js
 - **Root Directory:** `apps/admin`
-- **Build Command (override):** `pnpm --filter "@tally/admin..." build`
+- **Build Command (override):** `pnpm --filter "@truvo/admin..." build`
 - **Install Command:** `pnpm install --frozen-lockfile`
 - **Environment variables:**
   ```
-  ADMIN_API_URL=https://tally-api.onrender.com/api
+  ADMIN_API_URL=https://truvo-api.onrender.com/api
   ADMIN_IP_ALLOWLIST=<your office/VPN CIDRs>     # optional but recommended
   ```
 

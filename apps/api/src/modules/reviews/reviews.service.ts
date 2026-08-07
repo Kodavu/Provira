@@ -1,7 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { NotificationService } from "../notifications/notification.service.js";
-import type { ReviewDirection } from "@tally/db";
+import type { ReviewDirection } from "@truvo/db";
 
 // Reports needed before a review is auto-hidden pending moderation.
 const REPORT_HIDE_THRESHOLD = 3;

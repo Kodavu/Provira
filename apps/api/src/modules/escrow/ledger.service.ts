@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import type { AccountType, LedgerTxnType, Prisma } from "@tally/db";
+import type { AccountType, LedgerTxnType, Prisma } from "@truvo/db";
 
 interface PostingLeg {
   accountId: string;

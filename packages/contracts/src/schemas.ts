@@ -545,7 +545,7 @@ export const zWorkerPublicProfile = z.object({
   stats: z.object({
     jobsCompleted: z.number(),
     completionRate: z.number(), // 0..1 (accepted -> confirmed)
-    successScore: z.number(), // 0..1000 Tally Score
+    successScore: z.number(), // 0..1000 Truvo Score
     tier: zTier,
     onTimeRate: z.number(), // 0..1
     responseMinutes: z.number().nullable(), // median invite -> accept

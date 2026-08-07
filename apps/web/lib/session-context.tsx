@@ -19,7 +19,7 @@ import { api } from "@/lib/api";
 import { getUserId } from "@/lib/session";
 import { primaryRole, type Role } from "@/lib/auth";
 
-const ACTIVE_ROLE_KEY = "tally.role";
+const ACTIVE_ROLE_KEY = "truvo.role";
 
 export interface Session {
   userId: string;

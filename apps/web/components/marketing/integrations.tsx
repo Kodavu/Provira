@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { SectionHeading } from "./ui";
 import { RevealGroup, RevealItem } from "./motion";
 
-// Compact teaser of the rails Tally plugs into — supported today and planned.
+// Compact teaser of the rails Truvo plugs into — supported today and planned.
 // Icons stay here; labels/notes come from the catalog.
 const ICONS = [Banknote, Landmark, MessageSquare, Mail, Calculator, MapPin, CalendarClock];
 

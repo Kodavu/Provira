@@ -8,8 +8,8 @@ import {
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { SMS_PROVIDER } from "../../integrations/integrations.module.js";
-import type { SmsProvider } from "@tally/integrations";
-import { t } from "@tally/i18n";
+import type { SmsProvider } from "@truvo/integrations";
+import { t } from "@truvo/i18n";
 
 function hashCode(code: string): string {
   return createHash("sha256").update(code).digest("hex");

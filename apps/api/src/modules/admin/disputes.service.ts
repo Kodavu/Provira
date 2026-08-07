@@ -4,7 +4,7 @@ import { AuditService } from "./audit.service.js";
 import { NotificationService } from "../notifications/notification.service.js";
 import { EscrowService } from "../escrow/escrow.service.js";
 import type { AdminContext } from "./rbac.js";
-import type { DisputeStatus } from "@tally/db";
+import type { DisputeStatus } from "@truvo/db";
 
 interface Meta {
   ip?: string;
