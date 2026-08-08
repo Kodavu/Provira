@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
-// Truvo-stroke logomark: four vertical strokes + a diagonal fifth ("counted
-// work"). Reads at favicon size and scales cleanly.
+// Truvo logomark: a confident checkmark whose rising arm carries a gold tip —
+// "verified, and rising". White check on the brand badge; two-tone (indigo +
+// gold) when unboxed. Reads at favicon size and scales cleanly.
 export function TruvoMark({
   className = "h-7 w-7",
   boxed = true,
@@ -9,25 +10,35 @@ export function TruvoMark({
   className?: string;
   boxed?: boolean;
 }) {
-  const strokes = (
-    <svg viewBox="0 0 24 24" fill="none" className={boxed ? "h-[62%] w-[62%]" : className}>
-      <g stroke={boxed ? "#ffffff" : "currentColor"} strokeWidth={2.1} strokeLinecap="round">
-        <path d="M5 5v14M9.5 5v14M14 5v14M18.5 5v14" />
-        <path d="M3.5 8 20 16" stroke="#f5b301" />
-      </g>
+  const glyph = (
+    <svg viewBox="0 0 24 24" fill="none" className={boxed ? "h-[58%] w-[58%]" : className}>
+      <path
+        d="M4.5 12.6 L10 17.8 L14.8 11.7"
+        stroke={boxed ? "#ffffff" : "currentColor"}
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.8 11.7 L20 5.4"
+        stroke="#f5b301"
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
-  if (!boxed) return strokes;
+  if (!boxed) return glyph;
   return (
     <span
-      className={`grid shrink-0 place-items-center rounded-lg bg-brand-600 ${className}`}
+      className={`grid shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 ${className}`}
     >
-      {strokes}
+      {glyph}
     </span>
   );
 }
 
-// Wordmark: lowercase "truvo", indigo, tight.
+// Wordmark: mark + "Truvo", indigo, tight.
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 ${className}`}>

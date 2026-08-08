@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { ActivityIndicator, Pressable, Text, View, ViewStyle } from "react-native";
-import Svg, { Circle, G, Line } from "react-native-svg";
+import Svg, { Circle, Path } from "react-native-svg";
 import { colors, radius, tierStyle } from "@/lib/theme";
 
 // Circular progress ring (score dial).
@@ -50,18 +50,28 @@ export function BackHeader({ onBack, title }: { onBack: () => void; title: strin
   );
 }
 
-// Truvo-stroke logomark: four verticals + a gold diagonal fifth.
+// Truvo logomark: a confident checkmark whose rising arm carries a gold tip —
+// "verified, and rising". White on the brand badge; two-tone when unboxed.
 export function TruvoMark({ size = 28, boxed = true }: { size?: number; boxed?: boolean }) {
-  const s = boxed ? size * 0.62 : size;
+  const s = boxed ? size * 0.58 : size;
   const mark = (
     <Svg width={s} height={s} viewBox="0 0 24 24">
-      <G stroke={boxed ? "#ffffff" : colors.brand} strokeWidth={2.1} strokeLinecap="round">
-        <Line x1="5" y1="5" x2="5" y2="19" />
-        <Line x1="9.5" y1="5" x2="9.5" y2="19" />
-        <Line x1="14" y1="5" x2="14" y2="19" />
-        <Line x1="18.5" y1="5" x2="18.5" y2="19" />
-      </G>
-      <Line x1="3.5" y1="8" x2="20" y2="16" stroke={colors.gold} strokeWidth={2.1} strokeLinecap="round" />
+      <Path
+        d="M4.5 12.6 L10 17.8 L14.8 11.7"
+        fill="none"
+        stroke={boxed ? "#ffffff" : colors.brand}
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M14.8 11.7 L20 5.4"
+        fill="none"
+        stroke={colors.gold}
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </Svg>
   );
   if (!boxed) return mark;
