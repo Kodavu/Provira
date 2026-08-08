@@ -1,4 +1,4 @@
-// Branded HTML wrapper for outbound emails. The Truvo mark leads the message so
+// Branded HTML wrapper for outbound emails. The Provira mark leads the message so
 // it's recognisable in the inbox. Email clients are hostile to SVG and external
 // assets, so the logomark is drawn with a table-cell badge + a Unicode check and
 // a gold accent rule — pure inline CSS that renders across Gmail, Outlook, and
@@ -52,7 +52,7 @@ export function renderBrandedEmail(opts: { title?: string | null; body: string }
           <table role="presentation" cellpadding="0" cellspacing="0">
             <tr>
               <td style="width:36px;height:36px;background:${BRAND};background:linear-gradient(135deg,${BRAND},${BRAND_DARK});border-radius:9px;text-align:center;vertical-align:middle;color:#ffffff;font-size:20px;font-weight:700;font-family:Arial,Helvetica,sans-serif;line-height:36px;">&#10003;</td>
-              <td style="padding-left:10px;font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.3px;color:${INK};">Truvo</td>
+              <td style="padding-left:10px;font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.3px;color:${INK};">Provira</td>
             </tr>
           </table>
           <div style="height:3px;width:44px;background:${GOLD};border-radius:2px;margin-top:14px;"></div>
@@ -65,8 +65,8 @@ export function renderBrandedEmail(opts: { title?: string | null; body: string }
         <!-- Footer -->
         <tr><td style="padding:8px 28px 26px;font-family:Arial,Helvetica,sans-serif;">
           <div style="border-top:1px solid ${LINE};padding-top:16px;font-size:12px;line-height:1.5;color:#94a3b8;">
-            Truvo — economic identity for the informal economy.<br/>
-            You're receiving this because you have a Truvo account.
+            Provira — economic identity for the informal economy.<br/>
+            You're receiving this because you have a Provira account.
           </div>
         </td></tr>
       </table>

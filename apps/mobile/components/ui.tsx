@@ -50,9 +50,9 @@ export function BackHeader({ onBack, title }: { onBack: () => void; title: strin
   );
 }
 
-// Truvo logomark: a confident checkmark whose rising arm carries a gold tip —
+// Provira logomark: a confident checkmark whose rising arm carries a gold tip —
 // "verified, and rising". White on the brand badge; two-tone when unboxed.
-export function TruvoMark({ size = 28, boxed = true }: { size?: number; boxed?: boolean }) {
+export function ProviraMark({ size = 28, boxed = true }: { size?: number; boxed?: boolean }) {
   const s = boxed ? size * 0.58 : size;
   const mark = (
     <Svg width={s} height={s} viewBox="0 0 24 24">
@@ -268,8 +268,8 @@ export function ScreenHeader({ onSignOut }: { onSignOut: () => void }) {
   return (
     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <TruvoMark size={28} />
-        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>truvo</Text>
+        <ProviraMark size={28} />
+        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.ink }}>provira</Text>
       </View>
       <Text onPress={onSignOut} style={{ color: colors.inkSoft, fontSize: 14, fontWeight: "600" }}>
         Sign out

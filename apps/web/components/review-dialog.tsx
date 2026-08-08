@@ -111,7 +111,7 @@ function ReviewDialog({
         quality: dims.quality ?? null,
         comment: comment.trim() || null,
       });
-      toast.success("Review submitted", { description: "Thanks for helping keep Truvo trustworthy." });
+      toast.success("Review submitted", { description: "Thanks for helping keep Provira trustworthy." });
       onSubmitted?.();
       onClose();
     } catch (e) {

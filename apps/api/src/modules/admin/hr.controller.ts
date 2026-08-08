@@ -7,7 +7,7 @@ import {
   PermissionsGuard,
   RequirePermissions,
 } from "./rbac.js";
-import type { AdminStatus } from "@truvo/db";
+import type { AdminStatus } from "@provira/db";
 
 function reqMeta(req: any) {
   return {

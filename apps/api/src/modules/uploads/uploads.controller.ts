@@ -13,7 +13,7 @@ import {
 import { FileInterceptor } from "@nestjs/platform-express";
 import type { Response } from "express";
 import { STORAGE_PROVIDER } from "../../integrations/integrations.module.js";
-import type { StorageProvider } from "@truvo/integrations";
+import type { StorageProvider } from "@provira/integrations";
 
 // What a multipart file looks like (avoids depending on @types/multer).
 interface UploadedFileLike {

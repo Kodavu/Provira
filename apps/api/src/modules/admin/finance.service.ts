@@ -4,7 +4,7 @@ import { LedgerService } from "../escrow/ledger.service.js";
 import { AuditService } from "./audit.service.js";
 import { NotificationService } from "../notifications/notification.service.js";
 import { PAYMENT_PROVIDER } from "../../integrations/integrations.module.js";
-import type { PaymentProvider } from "@truvo/integrations";
+import type { PaymentProvider } from "@provira/integrations";
 import type { AdminContext } from "./rbac.js";
 
 interface Meta {
@@ -104,7 +104,7 @@ export class FinanceService {
         accountNumber: payout?.payoutAccountNumber ?? undefined,
         accountName: payout?.payoutAccountName ?? undefined,
       },
-      narration: "Truvo withdrawal",
+      narration: "Provira withdrawal",
     });
     const updated = await this.prisma.paymentIntent.update({
       where: { id },

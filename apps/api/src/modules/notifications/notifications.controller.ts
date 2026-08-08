@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
-import { zNotificationFeed, zNotificationPreferences } from "@truvo/contracts";
-import type { NotificationCategory, NotificationChannel } from "@truvo/db";
+import { zNotificationFeed, zNotificationPreferences } from "@provira/contracts";
+import type { NotificationCategory, NotificationChannel } from "@provira/db";
 import { NotificationService } from "./notification.service.js";
 import { UserAuthGuard } from "../auth/user-auth.guard.js";
 

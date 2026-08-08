@@ -7,8 +7,8 @@ import {
   rankWorkers,
   DEFAULT_SCORE_CONFIG,
   WorkerCandidate,
-} from "@truvo/core";
-import type { Language } from "@truvo/db";
+} from "@provira/core";
+import type { Language } from "@provira/db";
 
 interface CreateJobInput {
   employerId: string;

@@ -129,7 +129,7 @@ export const PERSONAS: Persona[] = [
     hero: {
       lead: "Find real work.",
       emphasis: "Get paid the same day.",
-      sub: "Discover verified jobs near you, confirm your shift with a code, and get paid straight to your bank — while every job builds a Truvo Score that unlocks credit.",
+      sub: "Discover verified jobs near you, confirm your shift with a code, and get paid straight to your bank — while every job builds a Provira Score that unlocks credit.",
       primary: { label: "Find work", href: "/signup?type=worker" },
       secondary: { label: "How it works", href: "/#how" },
       chips: [
@@ -147,13 +147,13 @@ export const PERSONAS: Persona[] = [
       "Verified, escrow-backed employers",
       "Professional profile with ratings & reviews",
       "Flexible shifts matched to your ward",
-      "A Truvo Score that opens real credit",
+      "A Provira Score that opens real credit",
     ],
     faqs: [
-      { q: "How fast do I get paid?", a: "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Truvo wallet and can be withdrawn to your bank." },
+      { q: "How fast do I get paid?", a: "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Provira wallet and can be withdrawn to your bank." },
       { q: "Do I need a smartphone?", a: "No. You can sign up, apply, and confirm shifts over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required." },
-      { q: "What is my Truvo Score?", a: "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit." },
-      { q: "Can I use Truvo in my language?", a: "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices." },
+      { q: "What is my Provira Score?", a: "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit." },
+      { q: "Can I use Provira in my language?", a: "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices." },
     ],
   },
   {
@@ -188,7 +188,7 @@ export const PERSONAS: Persona[] = [
     ],
     faqs: [
       { q: "How does escrow protect me?", a: "When you fund a job the pay is held in a dedicated escrow account — not sent yet. It's released only when the worker confirms attendance with your code, so you never pay for a no-show." },
-      { q: "How do I find good workers?", a: "Truvo suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm." },
+      { q: "How do I find good workers?", a: "Provira suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm." },
       { q: "What does it cost to hire?", a: "A small, transparent fee per completed hire — shown before you confirm, with no monthly minimums." },
       { q: "Can I post jobs in a local language?", a: "Yes. Post in the language you prefer; the hiring interface works in English, Pidgin, Yoruba, Hausa and Igbo, and one-tap translation of posts for workers is on our roadmap." },
     ],
@@ -214,7 +214,7 @@ export const PERSONAS: Persona[] = [
     },
     steps: [
       { icon: Receipt, title: "Log your sales", body: "Record sales in seconds — each one becomes part of a verifiable business track record." },
-      { icon: LineChart, title: "Build your history", body: "Consistent sales grow your Truvo Score and prove your business to banks and lenders." },
+      { icon: LineChart, title: "Build your history", body: "Consistent sales grow your Provira Score and prove your business to banks and lenders." },
       { icon: Banknote, title: "Unlock capital", body: "Qualify for stock advances and working capital sized to your real, verifiable sales." },
     ],
     features: [

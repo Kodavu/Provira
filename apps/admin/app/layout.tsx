@@ -3,8 +3,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Truvo Admin",
-  description: "Truvo back-office administration",
+  title: "Provira Admin",
+  description: "Provira back-office administration",
 };
 
 // Set the theme class before paint to avoid a flash.

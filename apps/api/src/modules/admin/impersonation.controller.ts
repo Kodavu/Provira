@@ -21,7 +21,7 @@ import {
   RequirePermissions,
   clientIp,
 } from "./rbac.js";
-import type { Language } from "@truvo/db";
+import type { Language } from "@provira/db";
 
 // A consumed session is valid for this long before it must be re-requested.
 const SESSION_TTL_MS = 30 * 60 * 1000;

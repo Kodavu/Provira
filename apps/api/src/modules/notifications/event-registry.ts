@@ -1,4 +1,4 @@
-import type { NotificationCategory, NotificationChannel } from "@truvo/db";
+import type { NotificationCategory, NotificationChannel } from "@provira/db";
 
 /**
  * The catalog of notification event types. Each event declares its category
@@ -37,12 +37,12 @@ export const EVENTS: Record<string, NotificationEvent> = {
   "earnings.credited": {
     category: "TRANSACTIONAL",
     channels: ["INAPP", "SMS", "PUSH"],
-    defaults: { title: "Payment released", body: "{amount} for {title} is now in your Truvo balance — withdraw anytime." },
+    defaults: { title: "Payment released", body: "{amount} for {title} is now in your Provira balance — withdraw anytime." },
   },
   "escrow.refunded": {
     category: "TRANSACTIONAL",
     channels: ["INAPP", "PUSH"],
-    defaults: { title: "Escrow refunded", body: "{amount} from {title} was returned to your Truvo balance." },
+    defaults: { title: "Escrow refunded", body: "{amount} from {title} was returned to your Provira balance." },
   },
   "withdrawal.requested": {
     category: "TRANSACTIONAL",
@@ -57,17 +57,17 @@ export const EVENTS: Record<string, NotificationEvent> = {
   "job.offer": {
     category: "ACTIVITY",
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
-    defaults: { title: "New job near you", body: "{title} pays {pay} at {location}. Open Truvo to accept." },
+    defaults: { title: "New job near you", body: "{title} pays {pay} at {location}. Open Provira to accept." },
   },
   "job.invited": {
     category: "ACTIVITY",
     channels: ["INAPP", "SMS", "WHATSAPP", "PUSH"],
-    defaults: { title: "You've been invited to a job", body: "{employer} invited you to {title} — {pay} per person. Open Truvo to accept or decline." },
+    defaults: { title: "You've been invited to a job", body: "{employer} invited you to {title} — {pay} per person. Open Provira to accept or decline." },
   },
   "job.application": {
     category: "ACTIVITY",
     channels: ["INAPP", "PUSH"],
-    defaults: { title: "New applicant", body: "{worker} applied to {title}. Review and accept them in Truvo." },
+    defaults: { title: "New applicant", body: "{worker} applied to {title}. Review and accept them in Provira." },
   },
   "job.invite.accepted": {
     category: "ACTIVITY",
@@ -92,7 +92,7 @@ export const EVENTS: Record<string, NotificationEvent> = {
   "otp.code": {
     category: "SECURITY",
     channels: ["SMS"],
-    defaults: { body: "Your Truvo code is {code}. It expires in 5 minutes." },
+    defaults: { body: "Your Provira code is {code}. It expires in 5 minutes." },
   },
 };
 

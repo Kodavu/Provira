@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import type { Language, NotificationCategory, NotificationChannel } from "@truvo/db";
+import type { Language, NotificationCategory, NotificationChannel } from "@provira/db";
 import { eventDef } from "./event-registry.js";
 import { TemplateService } from "./template.service.js";
 import { NotificationDispatcher } from "./dispatcher.service.js";

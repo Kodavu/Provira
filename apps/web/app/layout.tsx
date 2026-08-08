@@ -6,7 +6,7 @@ import { inter } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Truvo — Economic identity for the informal economy",
+  title: "Provira — Economic identity for the informal economy",
   description:
     "Turn informal work, sales, and payments into a verifiable record that builds a reliability score — unlocking loans and better jobs.",
 };

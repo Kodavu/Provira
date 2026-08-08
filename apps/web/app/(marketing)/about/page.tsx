@@ -5,9 +5,9 @@ import { Reveal, RevealGroup, RevealItem, CountUp } from "@/components/marketing
 import { PageHero, CtaBand } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "About Truvo — Building economic identity for the informal economy",
+  title: "About Provira — Building economic identity for the informal economy",
   description:
-    "Truvo exists to give Nigeria's informal workers, employers, and traders a verifiable economic identity — turning everyday work into pay, trust, and credit.",
+    "Provira exists to give Nigeria's informal workers, employers, and traders a verifiable economic identity — turning everyday work into pay, trust, and credit.",
 };
 
 const VALUE_META = [

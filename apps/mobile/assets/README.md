@@ -10,7 +10,7 @@ source changes.
 | `adaptive-icon.svg` | `adaptive-icon.png` | 1024×1024 | transparent | Android adaptive foreground (indigo comes from `adaptiveIcon.backgroundColor`) |
 | `splash.svg` | `splash.png` | 1200×1200 | transparent | splash (indigo comes from `splash.backgroundColor`) |
 
-The mark is the Truvo logomark: a white checkmark with a rising gold tip
+The mark is the Provira logomark: a white checkmark with a rising gold tip
 (`#f5b301`) on the indigo brand (`#3d3bf3` → `#2725b0`).
 
 ## Regenerate the PNGs

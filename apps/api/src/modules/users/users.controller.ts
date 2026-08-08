@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from "@nestjs/common";
 import { UsersService } from "./users.service.js";
-import type { KycLevel, Language, RoleType, VerificationDocType } from "@truvo/db";
+import type { KycLevel, Language, RoleType, VerificationDocType } from "@provira/db";
 import { OwnerFrom, UserAuthGuard } from "../auth/user-auth.guard.js";
 
 // Every route is scoped to the user in the `:id` path segment; the guard binds

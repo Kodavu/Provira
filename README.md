@@ -1,8 +1,8 @@
-# Truvo
+# Provira
 
 **Economic identity infrastructure for Nigeria's informal economy.**
 
-Truvo turns informal work, sales, and payments into a verifiable record that
+Provira turns informal work, sales, and payments into a verifiable record that
 builds a **reliability score**, which unlocks loans and better jobs. It serves
 three user types — **workers**, **traders**, and **employers** — across web,
 WhatsApp, SMS, and phone/IVR, so people **without a smartphone** are first-class
@@ -67,10 +67,10 @@ pnpm install
 # start Postgres + Redis however you like, then:
 cp .env.example .env
 pnpm --filter "./packages/*" build   # build workspace packages (core/db/i18n/integrations)
-pnpm --filter @truvo/db push      # push schema to the DB
-pnpm --filter @truvo/db seed      # demo users, job, loan product
-pnpm --filter @truvo/api dev      # start the API in watch mode
-pnpm --filter @truvo/core test    # run the score-engine unit tests
+pnpm --filter @provira/db push      # push schema to the DB
+pnpm --filter @provira/db seed      # demo users, job, loan product
+pnpm --filter @provira/api dev      # start the API in watch mode
+pnpm --filter @provira/core test    # run the score-engine unit tests
 ```
 
 ---
@@ -79,7 +79,7 @@ pnpm --filter @truvo/core test    # run the score-engine unit tests
 
 ```bash
 cp apps/web/.env.example apps/web/.env.local   # points at http://localhost:4000/api
-pnpm --filter @truvo/web dev                    # http://localhost:3000
+pnpm --filter @provira/web dev                    # http://localhost:3000
 ```
 
 Routes:

@@ -1,8 +1,8 @@
 import { LegalPage, CtaBand } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "Terms of Service — Truvo",
-  description: "The terms that govern your use of Truvo — accounts, jobs, escrow, payments, the Truvo Score, and your responsibilities.",
+  title: "Terms of Service — Provira",
+  description: "The terms that govern your use of Provira — accounts, jobs, escrow, payments, the Provira Score, and your responsibilities.",
 };
 
 export default function TermsPage() {
@@ -11,7 +11,7 @@ export default function TermsPage() {
       <LegalPage
         title="Terms of Service"
         updated="3 August 2026"
-        intro="These terms govern your access to and use of Truvo. By creating an account or using the service, you agree to them. Please read them carefully."
+        intro="These terms govern your access to and use of Provira. By creating an account or using the service, you agree to them. Please read them carefully."
       >
         <p>
           This is a plain-language summary provided for transparency. It is not legal advice. Specific agreements you accept
@@ -19,7 +19,7 @@ export default function TermsPage() {
         </p>
 
         <h2>1. Who we are</h2>
-        <p>Truvo is an economic-identity platform operated by Truvo Technologies, based in Lagos, Nigeria. We connect workers, employers, and traders, hold job funds in escrow, facilitate payouts, and maintain the Truvo Score.</p>
+        <p>Provira is an economic-identity platform operated by Provira Technologies, based in Lagos, Nigeria. We connect workers, employers, and traders, hold job funds in escrow, facilitate payouts, and maintain the Provira Score.</p>
 
         <h2>2. Eligibility &amp; accounts</h2>
         <ul>
@@ -32,7 +32,7 @@ export default function TermsPage() {
         <ul>
           <li><strong>Employers</strong> post jobs and fund the agreed amount into escrow up front. Funds are released to workers only when attendance is confirmed with the employer&apos;s code.</li>
           <li><strong>Workers</strong> apply to or accept invitations for jobs and agree to perform them as described.</li>
-          <li>Truvo is a marketplace and is not the employer of workers. The working relationship is between employer and worker.</li>
+          <li>Provira is a marketplace and is not the employer of workers. The working relationship is between employer and worker.</li>
           <li>Once a job is full, further applications and invitations are closed for that job.</li>
         </ul>
 
@@ -43,7 +43,7 @@ export default function TermsPage() {
           <li>You are responsible for any taxes arising from your use of the service.</li>
         </ul>
 
-        <h2>5. The Truvo Score</h2>
+        <h2>5. The Provira Score</h2>
         <p>
           Your score reflects your activity — completed jobs, on-time arrival, logged sales, and repaid loans, less no-shows
           and disputes. We aim for accuracy but do not guarantee that any score will result in credit, which is decided by
@@ -54,7 +54,7 @@ export default function TermsPage() {
         <p>You agree not to:</p>
         <ul>
           <li>Provide false information, impersonate others, or manipulate your score or attendance.</li>
-          <li>Use Truvo for unlawful, fraudulent, or harmful purposes.</li>
+          <li>Use Provira for unlawful, fraudulent, or harmful purposes.</li>
           <li>Interfere with, disrupt, or attempt to gain unauthorised access to the service.</li>
           <li>Harass, discriminate against, or endanger other users.</li>
         </ul>
@@ -66,7 +66,7 @@ export default function TermsPage() {
         <p>We may suspend or close accounts that breach these terms or that we reasonably believe pose a risk to users or the platform. You may close your account at any time, subject to settling any open jobs.</p>
 
         <h2>9. Disclaimers &amp; liability</h2>
-        <p>The service is provided &ldquo;as is&rdquo;. To the fullest extent permitted by law, Truvo is not liable for indirect or consequential losses, and our total liability is limited as set out in the in-app agreements. Nothing limits liability that cannot be limited by law.</p>
+        <p>The service is provided &ldquo;as is&rdquo;. To the fullest extent permitted by law, Provira is not liable for indirect or consequential losses, and our total liability is limited as set out in the in-app agreements. Nothing limits liability that cannot be limited by law.</p>
 
         <h2>10. Governing law</h2>
         <p>These terms are governed by the laws of the Federal Republic of Nigeria.</p>
@@ -75,7 +75,7 @@ export default function TermsPage() {
         <p>We may update these terms; material changes will be notified in the app or by email. Continued use after changes means you accept them.</p>
 
         <h2>12. Contact</h2>
-        <p>Questions about these terms? Email <a href="mailto:legal@truvo.com.ng">legal@truvo.com.ng</a>.</p>
+        <p>Questions about these terms? Email <a href="mailto:legal@provira.com.ng">legal@provira.com.ng</a>.</p>
       </LegalPage>
       <CtaBand />
     </>

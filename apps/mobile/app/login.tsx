@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { api } from "@/lib/api";
 import { session } from "@/lib/session";
 import { routeForRoles } from "@/lib/roles";
-import { Button, Eyebrow, TruvoMark } from "@/components/ui";
+import { Button, Eyebrow, ProviraMark } from "@/components/ui";
 import { colors, radius } from "@/lib/theme";
 
 export default function Login() {
@@ -57,8 +57,8 @@ export default function Login() {
       style={{ backgroundColor: colors.canvas }}
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 24 }}>
-        <TruvoMark size={32} />
-        <Text style={{ fontSize: 24, fontWeight: "800", color: colors.ink }}>truvo</Text>
+        <ProviraMark size={32} />
+        <Text style={{ fontSize: 24, fontWeight: "800", color: colors.ink }}>provira</Text>
       </View>
 
       <Text style={{ fontSize: 30, fontWeight: "800", color: colors.ink }}>Sign in</Text>

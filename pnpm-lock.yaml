@@ -87,19 +87,19 @@ importers:
       '@nestjs/platform-express':
         specifier: ^10.4.4
         version: 10.4.22(@nestjs/common@10.4.22(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.22)
-      '@truvo/contracts':
+      '@provira/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@truvo/core':
+      '@provira/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@truvo/db':
+      '@provira/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@truvo/i18n':
+      '@provira/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
-      '@truvo/integrations':
+      '@provira/integrations':
         specifier: workspace:*
         version: link:../../packages/integrations
       bullmq:
@@ -151,7 +151,7 @@ importers:
       '@expo/metro-runtime':
         specifier: ~3.2.3
         version: 3.2.3(react-native@0.74.5(@babel/core@7.29.7)(@babel/preset-env@7.29.7(@babel/core@7.29.7))(@types/react@18.2.79)(react@18.2.0))
-      '@truvo/api-client':
+      '@provira/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
       expo:
@@ -212,7 +212,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@truvo/api-client':
+      '@provira/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
       framer-motion:
@@ -261,7 +261,7 @@ importers:
 
   packages/api-client:
     dependencies:
-      '@truvo/contracts':
+      '@provira/contracts':
         specifier: workspace:*
         version: link:../contracts
     devDependencies:
@@ -293,7 +293,7 @@ importers:
       '@prisma/client':
         specifier: ^5.20.0
         version: 5.22.0(prisma@5.22.0)
-      '@truvo/core':
+      '@provira/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

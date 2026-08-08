@@ -4,18 +4,18 @@ import { PageHero } from "@/components/marketing/page-shell";
 import { RevealGroup, RevealItem } from "@/components/marketing/motion";
 
 export const metadata = {
-  title: "Contact Truvo",
-  description: "Get in touch with the Truvo team — support, sales, press, or partnerships. We're based in Lagos and reachable by phone, WhatsApp, and USSD.",
+  title: "Contact Provira",
+  description: "Get in touch with the Provira team — support, sales, press, or partnerships. We're based in Lagos and reachable by phone, WhatsApp, and USSD.",
 };
 
 const CHANNELS = [
   { icon: LifeBuoy, title: "Support", body: "Trouble with a job, a payout, or your account?", action: "Visit the Help Center", href: "/help" },
-  { icon: Building2, title: "Sales & partnerships", body: "Hiring at scale or integrating Truvo?", action: "partners@truvo.com.ng", href: "mailto:partners@truvo.com.ng" },
-  { icon: Newspaper, title: "Press", body: "Media enquiries and our press kit.", action: "press@truvo.com.ng", href: "/press" },
+  { icon: Building2, title: "Sales & partnerships", body: "Hiring at scale or integrating Provira?", action: "partners@provira.com.ng", href: "mailto:partners@provira.com.ng" },
+  { icon: Newspaper, title: "Press", body: "Media enquiries and our press kit.", action: "press@provira.com.ng", href: "/press" },
 ];
 
 const DIRECT = [
-  { icon: Mail, label: "Email", value: "hello@truvo.com.ng", href: "mailto:hello@truvo.com.ng" },
+  { icon: Mail, label: "Email", value: "hello@provira.com.ng", href: "mailto:hello@provira.com.ng" },
   { icon: Phone, label: "USSD", value: "*347*82#", href: "tel:*347*82#" },
   { icon: MessageCircle, label: "WhatsApp", value: "+234 800 000 0000", href: "https://wa.me/2348000000000" },
   { icon: MapPin, label: "Office", value: "Lagos, Nigeria", href: undefined },
@@ -54,7 +54,7 @@ export default function ContactPage() {
           <div className="rounded-3xl border border-line bg-white p-6 shadow-card sm:p-8">
             <h2 className="text-xl font-bold text-ink">Send us a message</h2>
             <p className="mt-1.5 text-sm text-ink-soft">We typically reply within one business day.</p>
-            <form className="mt-6 space-y-4" action="mailto:hello@truvo.com.ng" method="post" encType="text/plain">
+            <form className="mt-6 space-y-4" action="mailto:hello@provira.com.ng" method="post" encType="text/plain">
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Full name" name="name" placeholder="Ada Obi" required />
                 <Field label="Email" name="email" type="email" placeholder="you@example.com" required />

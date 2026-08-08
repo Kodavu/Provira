@@ -32,10 +32,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Prisma Client is a build input for @truvo/db and everything downstream.
+      # Prisma Client is a build input for @provira/db and everything downstream.
       # `prisma generate` needs no database, so CI stays DB-free.
       - name: Generate Prisma Client
-        run: pnpm --filter @truvo/db exec prisma generate
+        run: pnpm --filter @provira/db exec prisma generate
 
       # Turborepo orders each task by its dependency graph (^build first) and
       # caches unchanged packages, so these stay fast on incremental pushes.

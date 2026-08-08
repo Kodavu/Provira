@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Globe, X } from "lucide-react";
 import { LANGUAGES, ONBOARDED_KEY, useLanguagePreference, type LangCode } from "./languages";
 
-// A gentle first-visit prompt: pick a language once, and Truvo remembers it.
+// A gentle first-visit prompt: pick a language once, and Provira remembers it.
 // Shows a single time (guarded by localStorage) and is always dismissible.
 export function LanguageOnboarding() {
   const { code, choose } = useLanguagePreference();
@@ -72,7 +72,7 @@ export function LanguageOnboarding() {
               Choose your language
             </h2>
             <p className="mt-1.5 text-sm text-ink-soft">
-              Truvo works in the language you&apos;re most comfortable with. Pick one — you can change it any time.
+              Provira works in the language you&apos;re most comfortable with. Pick one — you can change it any time.
             </p>
 
             <div className="mt-5 grid gap-2">

@@ -24,7 +24,7 @@ async function bootstrap() {
   const port = Number(process.env.PORT ?? process.env.API_PORT ?? 4000);
   await app.listen(port);
   // eslint-disable-next-line no-console
-  console.log(`Truvo API listening on http://localhost:${port}/api`);
+  console.log(`Provira API listening on http://localhost:${port}/api`);
 }
 
 bootstrap();

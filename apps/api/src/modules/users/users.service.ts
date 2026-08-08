@@ -9,10 +9,10 @@ import { PrismaService } from "../../prisma/prisma.service.js";
 import { LedgerService } from "../escrow/ledger.service.js";
 import { NotificationService } from "../notifications/notification.service.js";
 import { PAYMENT_PROVIDER } from "../../integrations/integrations.module.js";
-import { meetsThreshold } from "@truvo/core";
-import { zVerificationStatus, zWalletData, zWorkerDashboard } from "@truvo/contracts";
-import type { PaymentProvider } from "@truvo/integrations";
-import type { KycLevel, Language, LedgerTxnType, RoleType, VerificationDocType } from "@truvo/db";
+import { meetsThreshold } from "@provira/core";
+import { zVerificationStatus, zWalletData, zWorkerDashboard } from "@provira/contracts";
+import type { PaymentProvider } from "@provira/integrations";
+import type { KycLevel, Language, LedgerTxnType, RoleType, VerificationDocType } from "@provira/db";
 
 // Human labels for ledger transaction types shown in the wallet activity feed.
 const TXN_LABELS: Partial<Record<LedgerTxnType, string>> = {

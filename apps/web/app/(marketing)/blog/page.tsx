@@ -6,7 +6,7 @@ import { PageHero, CtaBand } from "@/components/marketing/page-shell";
 import { Newsletter } from "@/components/landing/newsletter";
 
 export const metadata = {
-  title: "Blog — Truvo",
+  title: "Blog — Provira",
   description: "Product updates, research, and stories from the frontlines of Nigeria's informal economy.",
 };
 
@@ -19,7 +19,7 @@ const POSTS = [
     tint: "brand",
   },
   {
-    title: "Escrow, explained: how same-day pay actually works on Truvo",
+    title: "Escrow, explained: how same-day pay actually works on Provira",
     excerpt: "A plain-language walk through funding, confirmation, and release — and why it protects both sides.",
     category: "Product",
     date: "Coming soon",

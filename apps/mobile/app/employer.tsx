@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { api, EmployerDashboard } from "@/lib/api";
 import { session } from "@/lib/session";
-import { Button, Card, Chip, Eyebrow, Pill, ScreenHeader, StatTile, TruvoMark } from "@/components/ui";
+import { Button, Card, Chip, Eyebrow, Pill, ScreenHeader, StatTile, ProviraMark } from "@/components/ui";
 import { colors, formatNaira, radius } from "@/lib/theme";
 
 const CATEGORIES = [
@@ -74,7 +74,7 @@ export default function Employer() {
   if (!data)
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.canvas }}>
-        <TruvoMark size={40} />
+        <ProviraMark size={40} />
         <Text style={{ color: error ? colors.error : colors.inkMuted, marginTop: 12 }}>
           {error ?? "Loading…"}
         </Text>

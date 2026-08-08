@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const ITEMS = [
   {
-    q: "What does Truvo cost?",
+    q: "What does Provira cost?",
     a: "Signing up and finding work is free for workers. Employers pay a small fee per completed job; traders pay nothing to log sales. No monthly charges.",
   },
   {
@@ -16,7 +16,7 @@ const ITEMS = [
     a: "Employers fund an escrow account before work begins. The money is held with a CBN-licensed partner and only released to you once attendance is confirmed with a 4-digit code.",
   },
   {
-    q: "Which languages does Truvo support?",
+    q: "Which languages does Provira support?",
     a: "English, Nigerian Pidgin, Yorùbá, Hausa, and Igbo — across web, WhatsApp, SMS, and voice.",
   },
   {
