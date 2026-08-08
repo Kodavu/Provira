@@ -1,9 +1,14 @@
+import { TruvoMark } from "@/components/ui";
+
 // Shown instantly in the content area while the next page's data loads, so a
 // navigation never looks like nothing happened. Mirrors the page header +
 // content rhythm so the swap feels like the real page settling in.
 export default function DashLoading() {
   return (
     <div className="animate-pulse">
+      <div aria-hidden className="mb-5">
+        <TruvoMark className="h-9 w-9" />
+      </div>
       <div className="mb-7 rounded-3xl border border-app surface p-6">
         <div className="h-5 w-40 rounded-full bg-slate-200/70 dark:bg-white/10" />
         <div className="mt-3 h-9 w-64 rounded-xl bg-slate-200/80 dark:bg-white/10" />

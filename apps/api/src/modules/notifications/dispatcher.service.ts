@@ -1,5 +1,6 @@
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
+import { renderBrandedEmail } from "./email-layout.js";
 import {
   EMAIL_PROVIDER,
   PUSH_PROVIDER,
@@ -79,7 +80,13 @@ export class NotificationDispatcher {
       case "EMAIL": {
         if (!n.user.email) throw new Error("no email on file");
         return (
-          await this.email.sendEmail({ to: n.user.email, subject: n.title ?? "Truvo", body: n.body, language })
+          await this.email.sendEmail({
+            to: n.user.email,
+            subject: n.title ?? "Truvo",
+            body: n.body,
+            html: renderBrandedEmail({ title: n.title, body: n.body }),
+            language,
+          })
         ).providerRef;
       }
       case "PUSH": {

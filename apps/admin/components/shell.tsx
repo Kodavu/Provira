@@ -28,6 +28,7 @@ import {
 import { visibleNav } from "@/lib/nav";
 import type { Me } from "@/lib/admin-api";
 import { CommandPalette } from "./command-palette";
+import { TruvoMark } from "./ui";
 
 const ICONS = {
   home: Home,
@@ -97,11 +98,8 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
         <div
           className={`flex h-20 items-center gap-3 border-b border-app px-4 ${collapsed ? "justify-center" : ""}`}
         >
-          <motion.span
-            whileHover={{ rotate: -8, scale: 1.04 }}
-            className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-indigo-700 text-sm font-black text-white shadow-lg shadow-brand-600/25"
-          >
-            T
+          <motion.span whileHover={{ rotate: -8, scale: 1.04 }}>
+            <TruvoMark className="h-11 w-11" />
           </motion.span>
           {!collapsed && (
             <div>

@@ -9,7 +9,10 @@ import type { SendResult } from "../messaging/types.js";
 export interface EmailMessage {
   to: string;
   subject: string;
+  /** Plain-text body — always set, used as the text/plain fallback. */
   body: string;
+  /** Optional branded HTML body. Providers should prefer this when present. */
+  html?: string;
   language?: Language;
 }
 

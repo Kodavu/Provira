@@ -4,6 +4,35 @@ import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
+// Truvo logomark: a checkmark whose rising arm carries a gold tip —
+// "verified, and rising". White check on the brand badge when boxed.
+export function TruvoMark({
+  className = "h-9 w-9",
+  boxed = true,
+}: {
+  className?: string;
+  boxed?: boolean;
+}) {
+  const glyph = (
+    <svg viewBox="0 0 24 24" fill="none" className={boxed ? "h-[58%] w-[58%]" : className}>
+      <path
+        d="M4.5 12.6 L10 17.8 L14.8 11.7"
+        stroke={boxed ? "#ffffff" : "currentColor"}
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M14.8 11.7 L20 5.4" stroke="#f5b301" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+  if (!boxed) return glyph;
+  return (
+    <span className={`grid shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-600/25 ${className}`}>
+      {glyph}
+    </span>
+  );
+}
+
 export function Card({
   children,
   className = "",

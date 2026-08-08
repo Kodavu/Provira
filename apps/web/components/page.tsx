@@ -3,6 +3,7 @@
 import { type ReactNode } from "react";
 import { AlertCircle, type LucideIcon } from "lucide-react";
 import { FadeIn } from "@/components/motion";
+import { TruvoMark } from "@/components/ui";
 
 // Consistent page header used across the app.
 export function PageHeader({
@@ -27,10 +28,14 @@ export function PageHeader({
   );
 }
 
-// Skeleton shown while a page's data loads.
+// Skeleton shown while a page's data loads. The mark pulses at the top so the
+// wait reads as "Truvo is loading", not a blank frame.
 export function PageSkeleton() {
   return (
     <div>
+      <span aria-hidden className="mb-6 block">
+        <TruvoMark className="h-9 w-9 animate-pulse" />
+      </span>
       <div className="h-9 w-56 animate-pulse rounded-lg bg-line" />
       <div className="mt-3 h-4 w-80 animate-pulse rounded bg-line/60" />
       <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
