@@ -7,6 +7,7 @@ export type {
   WorkerDashboard,
   TraderDashboard,
   EmployerDashboard,
+  EmployerReports,
   JobDetail,
   JobAssignmentRow,
   JobSuggestion,

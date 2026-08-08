@@ -219,6 +219,33 @@ export const zEmployerDashboard = z.object({
 });
 export type EmployerDashboard = z.infer<typeof zEmployerDashboard>;
 
+// --- Employer reports / analytics ---
+export const zEmployerReports = z.object({
+  rangeDays: z.number(),
+  totals: z.object({
+    totalPaid: zMoney, // released to workers within the range
+    jobsPosted: z.number(),
+    jobsCompleted: z.number(),
+    workersHired: z.number(), // distinct confirmed workers
+    fillRate: z.number(), // 0..1 accepted vs. total headcount
+    avgTimeToFillHours: z.number().nullable(),
+  }),
+  payoutSeries: z.array(z.object({ date: z.string(), amount: zMoney })), // per day, oldest→newest
+  jobsByStatus: z.array(z.object({ status: z.string(), count: z.number() })),
+  funnel: z.object({ applied: z.number(), accepted: z.number(), confirmed: z.number() }),
+  topWorkers: z.array(
+    z.object({
+      userId: z.string(),
+      name: z.string(),
+      avatarUrl: z.string().nullable(),
+      jobs: z.number(),
+      paid: zMoney,
+    }),
+  ),
+  categoryBreakdown: z.array(z.object({ category: z.string(), count: z.number() })),
+});
+export type EmployerReports = z.infer<typeof zEmployerReports>;
+
 // --- Job detail (employer view) ---
 
 // A worker's public-facing profile, shown to employers reviewing applicants.

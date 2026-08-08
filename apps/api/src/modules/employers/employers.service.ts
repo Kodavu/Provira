@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import { zEmployerDashboard, zEmployerProfileEdit } from "@provira/contracts";
+import { zEmployerDashboard, zEmployerProfileEdit, zEmployerReports } from "@provira/contracts";
 
 /**
  * Employer view: the jobs they've posted, each with its escrow funding state,
@@ -160,6 +160,123 @@ export class EmployersService {
             : null,
         };
       }),
+    });
+  }
+
+  /**
+   * Aggregated hiring analytics for the employer over the last `days` days:
+   * payout-per-day, jobs by status, the applied→accepted→confirmed funnel, top
+   * workers hired, and spend by skill category. All derived from real records.
+   */
+  async reports(userId: string, days = 30) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { employerProfile: true },
+    });
+    if (!user?.employerProfile)
+      throw new NotFoundException("Employer profile not found");
+    const employerId = user.employerProfile.id;
+    const range = Math.min(365, Math.max(7, days));
+    const since = new Date(Date.now() - range * 86_400_000);
+
+    const jobs = await this.prisma.job.findMany({
+      where: { employerId },
+      include: {
+        skills: { include: { skill: { select: { category: true } } } },
+        assignments: {
+          include: {
+            attendance: { select: { status: true, confirmedAt: true } },
+            worker: {
+              select: { user: { select: { id: true, fullName: true, avatarUrl: true } } },
+            },
+          },
+        },
+      },
+    });
+
+    const dayKey = (d: Date) => d.toISOString().slice(0, 10);
+    const payoutByDay = new Map<string, bigint>();
+    for (let i = range - 1; i >= 0; i--) {
+      payoutByDay.set(dayKey(new Date(Date.now() - i * 86_400_000)), 0n);
+    }
+
+    let applied = 0;
+    let accepted = 0;
+    let confirmed = 0;
+    const statusCount = new Map<string, number>();
+    const categoryCount = new Map<string, number>();
+    const workerAgg = new Map<
+      string,
+      { name: string; avatarUrl: string | null; jobs: number; paid: bigint }
+    >();
+    const timeToFill: number[] = [];
+
+    for (const j of jobs) {
+      statusCount.set(j.status, (statusCount.get(j.status) ?? 0) + 1);
+      const cat = j.skills[0]?.skill.category ?? "Other";
+      categoryCount.set(cat, (categoryCount.get(cat) ?? 0) + 1);
+      const perPerson = j.payAmount / BigInt(Math.max(1, j.headcount));
+      let firstAccepted: Date | null = null;
+
+      for (const a of j.assignments) {
+        if (a.appliedAt) applied += 1;
+        if (a.acceptedAt || a.status === "CONFIRMED") accepted += 1;
+        if (a.acceptedAt && (!firstAccepted || a.acceptedAt < firstAccepted))
+          firstAccepted = a.acceptedAt;
+
+        const isConfirmed =
+          a.status === "CONFIRMED" || a.attendance?.status === "CONFIRMED";
+        if (isConfirmed) {
+          confirmed += 1;
+          const when = a.attendance?.confirmedAt ?? a.updatedAt;
+          if (when && when >= since) {
+            const k = dayKey(when);
+            if (payoutByDay.has(k)) payoutByDay.set(k, (payoutByDay.get(k) ?? 0n) + perPerson);
+          }
+          const u = a.worker.user;
+          const cur =
+            workerAgg.get(u.id) ??
+            { name: u.fullName ?? "Worker", avatarUrl: u.avatarUrl ?? null, jobs: 0, paid: 0n };
+          cur.jobs += 1;
+          cur.paid += perPerson;
+          workerAgg.set(u.id, cur);
+        }
+      }
+      if (firstAccepted)
+        timeToFill.push((firstAccepted.getTime() - j.createdAt.getTime()) / 3_600_000);
+    }
+
+    const payoutSeries = [...payoutByDay.entries()].map(([date, amount]) => ({
+      date,
+      amount: amount.toString(),
+    }));
+    const totalPaid = payoutSeries.reduce((s, p) => s + BigInt(p.amount), 0n);
+    const headcountTotal = jobs.reduce((s, j) => s + j.headcount, 0);
+    const topWorkers = [...workerAgg.entries()]
+      .map(([id, v]) => ({ userId: id, name: v.name, avatarUrl: v.avatarUrl, jobs: v.jobs, paid: v.paid }))
+      .sort((a, b) => b.jobs - a.jobs || (b.paid > a.paid ? 1 : -1))
+      .slice(0, 6)
+      .map((w) => ({ ...w, paid: w.paid.toString() }));
+
+    return zEmployerReports.parse({
+      rangeDays: range,
+      totals: {
+        totalPaid: totalPaid.toString(),
+        jobsPosted: jobs.length,
+        jobsCompleted: jobs.filter((j) => j.status === "COMPLETED").length,
+        workersHired: workerAgg.size,
+        fillRate: headcountTotal ? Math.min(1, accepted / headcountTotal) : 0,
+        avgTimeToFillHours: timeToFill.length
+          ? Math.round((timeToFill.reduce((a, b) => a + b, 0) / timeToFill.length) * 10) / 10
+          : null,
+      },
+      payoutSeries,
+      jobsByStatus: [...statusCount.entries()].map(([status, count]) => ({ status, count })),
+      funnel: { applied, accepted, confirmed },
+      topWorkers,
+      categoryBreakdown: [...categoryCount.entries()]
+        .map(([category, count]) => ({ category, count }))
+        .sort((a, b) => b.count - a.count),
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Put, Query, UseGuards } from "@nestjs/common";
 import { EmployersService } from "./employers.service.js";
 import { UserAuthGuard } from "../auth/user-auth.guard.js";
 
@@ -12,6 +12,11 @@ export class EmployersController {
   @Get(":userId/dashboard")
   dashboard(@Param("userId") userId: string) {
     return this.employers.dashboard(userId);
+  }
+
+  @Get(":userId/reports")
+  reports(@Param("userId") userId: string, @Query("days") days?: string) {
+    return this.employers.reports(userId, days ? Number(days) : undefined);
   }
 
   @Get(":userId/profile")

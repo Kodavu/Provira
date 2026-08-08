@@ -1,14 +1,16 @@
 "use client";
 
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { ReactNode, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { toast } from "sonner";
 import { PageTransition } from "@/components/page-transition";
+import { NavProgress } from "@/components/nav-progress";
 import {
   BadgeCheck,
   Banknote,
+  BarChart3,
   Briefcase,
   ChevronsUpDown,
   HandCoins,
@@ -84,6 +86,7 @@ const NAV_BY_ROLE: Record<Role, NavLink[]> = {
     { key: "overview", href: "/overview", icon: LayoutDashboard },
     { key: "jobs", href: "/jobs", icon: Briefcase },
     { key: "postJob", href: "/jobs/new", icon: PlusCircle },
+    { key: "reports", href: "/reports", icon: BarChart3 },
     { key: "escrow", href: "/escrow", icon: Banknote },
   ],
 };
@@ -329,6 +332,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
   return (
     <MotionConfig reducedMotion="user">
+    <Suspense fallback={null}>
+      <NavProgress />
+    </Suspense>
     <div className="flex min-h-screen bg-canvas">
       {/* Desktop sidebar */}
       <aside
