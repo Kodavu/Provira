@@ -234,6 +234,7 @@ export class ProfilesService {
         postedAt: j.createdAt,
         category: j.skills[0]?.skill.name ?? null,
       })),
+      reviews,
     });
   }
 
