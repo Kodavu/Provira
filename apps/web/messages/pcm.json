@@ -716,6 +716,7 @@
     "shiftStarts": "Shift dey start",
     "shiftEnds": "Shift dey end",
     "category": "Category",
+    "skillNeeded": "Skill wey you need",
     "perPersonSummary": "{count} × {amount} per person",
     "escrowTotal": "Escrow total: {amount}",
     "post": "Post job",

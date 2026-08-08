@@ -716,6 +716,7 @@
     "shiftStarts": "Ọrụ na-amalite",
     "shiftEnds": "Ọrụ na-akwụsị",
     "category": "Ụdị",
+    "skillNeeded": "Nkà achọrọ",
     "perPersonSummary": "{count} × {amount} kwa onye",
     "escrowTotal": "Mkpokọta escrow: {amount}",
     "post": "Tinye ọrụ",
