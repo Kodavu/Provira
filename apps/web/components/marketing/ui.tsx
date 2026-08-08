@@ -10,11 +10,11 @@ export function GridPattern({ className = "" }: { className?: string }) {
     <div aria-hidden className={`pointer-events-none absolute inset-0 ${className}`}>
       <svg className="h-full w-full [mask-image:radial-gradient(70%_60%_at_50%_0%,black,transparent)]" width="100%" height="100%">
         <defs>
-          <pattern id="truvo-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id="provira-grid" width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M40 0H0V40" fill="none" stroke="currentColor" strokeWidth="1" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#truvo-grid)" />
+        <rect width="100%" height="100%" fill="url(#provira-grid)" />
       </svg>
     </div>
   );

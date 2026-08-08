@@ -1,5 +1,5 @@
 {
-  "name": "@truvo/db",
+  "name": "@provira/db",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/index.js",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
-    "@truvo/core": "workspace:*"
+    "@provira/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.16.10",

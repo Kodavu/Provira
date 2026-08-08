@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
-import type { AdminAuditLog, Prisma } from "@truvo/db";
+import type { AdminAuditLog, Prisma } from "@provira/db";
 
 export interface AuditInput {
   adminUserId?: string;

@@ -9,7 +9,7 @@ import type {
   SmsProvider,
   WhatsAppProvider,
   VoiceProvider,
-} from "@truvo/integrations";
+} from "@provira/integrations";
 
 /**
  * Inbound webhooks from each channel gateway. Each provider adapter parses its

@@ -8,15 +8,15 @@ import { Eyebrow, Glow, GridPattern } from "./ui";
 import { Reveal } from "./motion";
 import { LANGUAGES, type LangCode } from "@/components/i18n/languages";
 
-// Localized sample strings mirror the seed catalog in @truvo/i18n (kept in the
+// Localized sample strings mirror the seed catalog in @provira/i18n (kept in the
 // repo's tone-mark-free seed form, pending native-speaker review) so the demo is
 // authentic rather than invented.
 const DEMO: Record<LangCode, { title: string; sub: string; confirmed: string; pay: string; cta: string }> = {
-  EN: { title: "Welcome to Truvo", sub: "Find work near you", confirmed: "Attendance confirmed", pay: "Your payment is on the way", cta: "Find work" },
-  PCM: { title: "Welcome to Truvo", sub: "Find work wey dey near you", confirmed: "We don confirm say you show", pay: "Your money dey come", cta: "Find work" },
-  YO: { title: "Kaabo si Truvo", sub: "Wa ise nitosi re", confirmed: "A ti jerisi wiwa re", pay: "Owo re n bo", cta: "Wa ise" },
-  HA: { title: "Barka da zuwa Truvo", sub: "Nemo aiki kusa da kai", confirmed: "An tabbatar da kasancewarka", pay: "Kudin ka na zuwa", cta: "Nemo aiki" },
-  IG: { title: "Nnoo na Truvo", sub: "Choo oru di gi nso", confirmed: "Emeela ka odida gi", pay: "Ego gi na-abia", cta: "Choo oru" },
+  EN: { title: "Welcome to Provira", sub: "Find work near you", confirmed: "Attendance confirmed", pay: "Your payment is on the way", cta: "Find work" },
+  PCM: { title: "Welcome to Provira", sub: "Find work wey dey near you", confirmed: "We don confirm say you show", pay: "Your money dey come", cta: "Find work" },
+  YO: { title: "Kaabo si Provira", sub: "Wa ise nitosi re", confirmed: "A ti jerisi wiwa re", pay: "Owo re n bo", cta: "Wa ise" },
+  HA: { title: "Barka da zuwa Provira", sub: "Nemo aiki kusa da kai", confirmed: "An tabbatar da kasancewarka", pay: "Kudin ka na zuwa", cta: "Nemo aiki" },
+  IG: { title: "Nnoo na Provira", sub: "Choo oru di gi nso", confirmed: "Emeela ka odida gi", pay: "Ego gi na-abia", cta: "Choo oru" },
 };
 
 const ROTATE_MS = 2600;
@@ -96,7 +96,7 @@ export function LanguageShowcase() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">T</span>
-                  <span className="text-sm font-bold text-ink">truvo</span>
+                  <span className="text-sm font-bold text-ink">provira</span>
                 </div>
                 <AnimatePresence mode="wait">
                   <motion.span

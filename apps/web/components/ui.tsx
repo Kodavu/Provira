@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 
-// Truvo logomark: a confident checkmark whose rising arm carries a gold tip —
+// Provira logomark: a confident checkmark whose rising arm carries a gold tip —
 // "verified, and rising". White check on the brand badge; two-tone (indigo +
 // gold) when unboxed. Reads at favicon size and scales cleanly.
-export function TruvoMark({
+export function ProviraMark({
   className = "h-7 w-7",
   boxed = true,
 }: {
@@ -38,12 +38,12 @@ export function TruvoMark({
   );
 }
 
-// Wordmark: mark + "Truvo", indigo, tight.
+// Wordmark: mark + "Provira", indigo, tight.
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 ${className}`}>
-      <TruvoMark />
-      <span className="text-xl font-bold tracking-tight text-ink">Truvo</span>
+      <ProviraMark />
+      <span className="text-xl font-bold tracking-tight text-ink">Provira</span>
     </span>
   );
 }
@@ -386,4 +386,4 @@ export function SkeletonList({ rows = 3 }: { rows?: number }) {
 }
 
 // Single source of money formatting, shared with mobile + admin.
-export { formatNaira } from "@truvo/api-client";
+export { formatNaira } from "@provira/api-client";

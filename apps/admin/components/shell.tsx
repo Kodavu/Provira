@@ -28,7 +28,7 @@ import {
 import { visibleNav } from "@/lib/nav";
 import type { Me } from "@/lib/admin-api";
 import { CommandPalette } from "./command-palette";
-import { TruvoMark } from "./ui";
+import { ProviraMark } from "./ui";
 
 const ICONS = {
   home: Home,
@@ -99,11 +99,11 @@ export function AdminShell({ me, children }: { me: Me; children: ReactNode }) {
           className={`flex h-20 items-center gap-3 border-b border-app px-4 ${collapsed ? "justify-center" : ""}`}
         >
           <motion.span whileHover={{ rotate: -8, scale: 1.04 }}>
-            <TruvoMark className="h-11 w-11" />
+            <ProviraMark className="h-11 w-11" />
           </motion.span>
           {!collapsed && (
             <div>
-              <span className="font-bold tracking-tight">Truvo Admin</span>
+              <span className="font-bold tracking-tight">Provira Admin</span>
               <p className="text-[11px] font-medium text-muted">
                 Premium operations suite
               </p>

@@ -5,16 +5,16 @@ import { RevealGroup, RevealItem } from "@/components/marketing/motion";
 import { PageHero, CtaBand } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "Help Center — Truvo",
-  description: "Guides and answers for workers, employers, and traders — payments, jobs, the Truvo Score, USSD access, and account security.",
+  title: "Help Center — Provira",
+  description: "Guides and answers for workers, employers, and traders — payments, jobs, the Provira Score, USSD access, and account security.",
 };
 
 const CATEGORIES = [
   { icon: Wallet, title: "Payments & payouts", body: "Escrow, same-day payout, wallets, and withdrawing to your bank.", topics: ["How same-day payout works", "Linking your bank account", "Understanding escrow"] },
   { icon: Briefcase, title: "For employers", body: "Posting jobs, inviting workers, funding escrow, and attendance codes.", topics: ["Post and fund a job", "Invite vs. applicants", "Sharing the attendance code"] },
   { icon: Store, title: "For workers & traders", body: "Finding jobs, applying, logging sales, and getting confirmed.", topics: ["Find jobs near you", "Apply and get accepted", "Log a sale as a trader"] },
-  { icon: TrendingUp, title: "The Truvo Score", body: "What builds your score and how it unlocks credit.", topics: ["What affects my score", "Unlocking a stock advance", "Who can see my score"] },
-  { icon: Smartphone, title: "USSD & WhatsApp", body: "Using Truvo without a smartphone or with low data.", topics: ["Get started on *347*82#", "Confirm a shift over USSD", "Check your balance"] },
+  { icon: TrendingUp, title: "The Provira Score", body: "What builds your score and how it unlocks credit.", topics: ["What affects my score", "Unlocking a stock advance", "Who can see my score"] },
+  { icon: Smartphone, title: "USSD & WhatsApp", body: "Using Provira without a smartphone or with low data.", topics: ["Get started on *347*82#", "Confirm a shift over USSD", "Check your balance"] },
   { icon: ShieldCheck, title: "Account & security", body: "Verification, resetting access, and keeping your account safe.", topics: ["Verify your identity (NIN)", "Reset your PIN", "Report suspicious activity"] },
 ];
 

@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import type { PresignedUpload, PutObjectParams, StorageProvider, StoredObject } from "./types.js";
 
 export interface MockStorageOptions {
-  /** Where objects are written on disk. Defaults to <tmp>/truvo-storage. */
+  /** Where objects are written on disk. Defaults to <tmp>/provira-storage. */
   baseDir?: string;
   /** API base the read/upload URLs point at, e.g. http://localhost:4000/api. */
   publicBaseUrl?: string;
@@ -22,7 +22,7 @@ export class MockStorageProvider implements StorageProvider {
   private readonly publicBaseUrl: string;
 
   constructor(opts: MockStorageOptions = {}) {
-    this.baseDir = opts.baseDir ?? join(tmpdir(), "truvo-storage");
+    this.baseDir = opts.baseDir ?? join(tmpdir(), "provira-storage");
     this.publicBaseUrl = (opts.publicBaseUrl ?? "http://localhost:4000/api").replace(/\/$/, "");
   }
 

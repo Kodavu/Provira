@@ -2,8 +2,8 @@ import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service.js";
 import { EscrowService } from "../escrow/escrow.service.js";
 import { PAYMENT_PROVIDER } from "../../integrations/integrations.module.js";
-import type { NormalizedWebhookEvent, PaymentProvider } from "@truvo/integrations";
-import type { PaymentIntent } from "@truvo/db";
+import type { NormalizedWebhookEvent, PaymentProvider } from "@provira/integrations";
+import type { PaymentIntent } from "@provira/db";
 
 /**
  * Payments orchestrates external money movement through the provider-neutral
@@ -42,7 +42,7 @@ export class PaymentsService {
         type: params.destination.walletId ? "wallet" : "bank_account",
         ...params.destination,
       },
-      narration: "Truvo payout",
+      narration: "Provira payout",
     });
 
     return this.prisma.paymentIntent.update({

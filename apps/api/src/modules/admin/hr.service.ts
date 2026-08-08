@@ -4,7 +4,7 @@ import { PrismaService } from "../../prisma/prisma.service.js";
 import { AuditService } from "./audit.service.js";
 import { hashPassword } from "./password.js";
 import type { AdminContext } from "./rbac.js";
-import type { AdminStatus } from "@truvo/db";
+import type { AdminStatus } from "@provira/db";
 
 interface Meta {
   ip?: string;

@@ -10,7 +10,7 @@ import type {
 } from "./types.js";
 
 // Squad (squadco.com) implementation of the provider-neutral PaymentProvider.
-// Covers the flows Truvo uses — payouts (Transfer API), escrow collection
+// Covers the flows Provira uses — payouts (Transfer API), escrow collection
 // (Virtual Accounts), and webhook verification — plus a few read helpers.
 // Everything else in Squad's catalogue (VAS, POS, mandates, card modal…) is
 // intentionally not implemented.
@@ -87,7 +87,7 @@ export class SquadPaymentProvider implements PaymentProvider {
         account_number: dest.accountNumber,
         account_name: accountName,
         currency_id: params.amount.currency,
-        remark: params.narration ?? "Truvo payout",
+        remark: params.narration ?? "Provira payout",
       });
       return {
         providerRef: pick(res?.data, "transaction_reference") ?? reference,
@@ -115,7 +115,7 @@ export class SquadPaymentProvider implements PaymentProvider {
     const m = (params.metadata ?? {}) as Record<string, string | undefined>;
     const res = await this.call<SquadEnvelope>("POST", "/virtual-account", {
       customer_identifier: params.reference,
-      first_name: m.firstName ?? "Truvo",
+      first_name: m.firstName ?? "Provira",
       last_name: m.lastName ?? "Escrow",
       mobile_num: m.mobileNum,
       dob: m.dob,
@@ -134,7 +134,7 @@ export class SquadPaymentProvider implements PaymentProvider {
             bank: String(d.bank_code ?? d.bank ?? "Squad"),
             accountNumber,
             accountName:
-              `${d.first_name ?? ""} ${d.last_name ?? ""}`.trim() || "Truvo Escrow",
+              `${d.first_name ?? ""} ${d.last_name ?? ""}`.trim() || "Provira Escrow",
           }
         : undefined,
     };

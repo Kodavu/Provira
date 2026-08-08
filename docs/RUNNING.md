@@ -1,4 +1,4 @@
-# Running & testing Truvo
+# Running & testing Provira
 
 This guide gets the whole stack running locally so you can exercise every
 feature built so far, then covers deploying it live.
@@ -23,8 +23,8 @@ storage, LLM) — no real API keys required.
 Clone and install:
 
 ```bash
-git clone <repo-url> truvo && cd truvo
-git checkout claude/truvo-fintech-architecture-2pveuo
+git clone <repo-url> provira && cd provira
+git checkout claude/provira-fintech-architecture-2pveuo
 pnpm install
 ```
 
@@ -43,21 +43,21 @@ applies the audit hardening, seeds demo data, then serves):
 docker compose up
 ```
 
-Wait for `Truvo API listening on http://localhost:4000/api`. Leave it running.
+Wait for `Provira API listening on http://localhost:4000/api`. Leave it running.
 The web and admin apps are **not** in compose — start them in step 3.
 
 ### Option B — Local Postgres/Redis (no Docker)
 
 ```bash
 # 1. Create the database + role (once)
-createuser truvo --pwprompt        # set password: truvo
-createdb truvo -O truvo
-# (or: psql -c "CREATE ROLE truvo LOGIN PASSWORD 'truvo'; CREATE DATABASE truvo OWNER truvo;")
+createuser provira --pwprompt        # set password: provira
+createdb provira -O provira
+# (or: psql -c "CREATE ROLE provira LOGIN PASSWORD 'provira'; CREATE DATABASE provira OWNER provira;")
 
 # 2. Make sure Redis is running (redis-server)
 
 # 3. Point the app at them
-export DATABASE_URL="postgresql://truvo:truvo@localhost:5432/truvo?schema=public"
+export DATABASE_URL="postgresql://provira:provira@localhost:5432/provira?schema=public"
 export REDIS_URL="redis://localhost:6379"
 export JWT_SECRET="dev-only-change-me"
 
@@ -65,12 +65,12 @@ export JWT_SECRET="dev-only-change-me"
 pnpm --filter './packages/*' build
 
 # 5. Create the schema, apply audit hardening, seed demo data
-pnpm --filter @truvo/db push
-pnpm --filter @truvo/db harden
-pnpm --filter @truvo/db seed
+pnpm --filter @provira/db push
+pnpm --filter @provira/db harden
+pnpm --filter @provira/db seed
 
 # 6. Run the API
-pnpm --filter @truvo/api dev        # http://localhost:4000/api
+pnpm --filter @provira/api dev        # http://localhost:4000/api
 ```
 
 > **Tip:** copy `.env.example` to `.env` at the repo root and the app picks up
@@ -83,8 +83,8 @@ pnpm --filter @truvo/api dev        # http://localhost:4000/api
 In separate terminals (with the API already running):
 
 ```bash
-pnpm --filter @truvo/web dev        # http://localhost:3000  (workers/traders/employers)
-pnpm --filter @truvo/admin dev      # http://localhost:3001  (back-office)
+pnpm --filter @provira/web dev        # http://localhost:3000  (workers/traders/employers)
+pnpm --filter @provira/admin dev      # http://localhost:3001  (back-office)
 ```
 
 Each reads its API base from `.env` (`NEXT_PUBLIC_API_URL` / `ADMIN_API_URL`,
@@ -101,12 +101,12 @@ and actions (RBAC), so switch accounts to see the whole surface:
 
 | Email                    | Password         | Role              | Can do |
 |--------------------------|------------------|-------------------|--------|
-| `superadmin@truvo.com.ng`    | `admin1234`      | Super Admin       | Everything |
-| `finance@truvo.com.ng`       | `finance1234`    | Finance Team      | Withdrawal approvals, ledger |
-| `compliance@truvo.com.ng`    | `compliance1234` | Compliance & Risk | KYC review, **approve** impersonation |
-| `ops@truvo.com.ng`           | `ops1234`        | Operations Team   | Dispute assign/reply, **request** impersonation, notification templates |
-| `support@truvo.com.ng`       | `support1234`    | Customer Support  | Dispute view/reply |
-| `hr@truvo.com.ng`            | `hr1234`         | HR / Admin Mgmt   | Staff management |
+| `superadmin@provira.com.ng`    | `admin1234`      | Super Admin       | Everything |
+| `finance@provira.com.ng`       | `finance1234`    | Finance Team      | Withdrawal approvals, ledger |
+| `compliance@provira.com.ng`    | `compliance1234` | Compliance & Risk | KYC review, **approve** impersonation |
+| `ops@provira.com.ng`           | `ops1234`        | Operations Team   | Dispute assign/reply, **request** impersonation, notification templates |
+| `support@provira.com.ng`       | `support1234`    | Customer Support  | Dispute view/reply |
+| `hr@provira.com.ng`            | `hr1234`         | HR / Admin Mgmt   | Staff management |
 
 ### Web (workers / traders / employers) — `http://localhost:3000`
 
@@ -134,41 +134,41 @@ curl -s -X POST http://localhost:4000/api/auth/otp/request \
 ## 5. A feature-by-feature test tour
 
 **Notifications (bell + engine)** — Web, as Amaka (`/worker`). The bell (top
-right) shows seeded notifications. Now open Admin as `ops@truvo.com.ng`, go to a
+right) shows seeded notifications. Now open Admin as `ops@provira.com.ng`, go to a
 dispute (DSP-1001) and post a **reply** — refresh the worker's bell and it
 appears (the reply fans out in-app + mock SMS). `/settings` on web lets the user
 toggle channels / mute / quiet hours.
 
-**Notification templates** — Admin as `ops@truvo.com.ng` → **Notifications**. Edit
+**Notification templates** — Admin as `ops@provira.com.ng` → **Notifications**. Edit
 the copy for an event/channel/language, Save, then trigger that event again and
 the new wording is used. Reset-to-default reverts.
 
-**Disputes** — Admin as `ops@truvo.com.ng` → **Disputes** → open one. Assign,
+**Disputes** — Admin as `ops@provira.com.ng` → **Disputes** → open one. Assign,
 reply to the user (Conversation), add an internal note, attach evidence,
 resolve/close. Everything is on the timeline and the audit log.
 
 **Finance / withdrawals** — Web as Amaka: **Earnings/Wallet** → request a
-withdrawal (funds are held). Admin as `finance@truvo.com.ng` → **Finance**:
+withdrawal (funds are held). Admin as `finance@provira.com.ng` → **Finance**:
 approve (dispatches the mock payout + notifies the user) or reject (funds
 return to the wallet). The ledger feed shows the double-entry legs.
 
 **KYC / verification** — Web as Bola (`+2348010000003`) → **Verify identity**:
 choose a level, enter a BVN, attach a document (real file upload), submit. Admin
-as `compliance@truvo.com.ng` → **Verification** → open the request → the document
+as `compliance@provira.com.ng` → **Verification** → open the request → the document
 **Open** link serves the real uploaded file → Approve (bumps KYC level, notifies)
 or Reject (with a reason).
 
-**Impersonation** — Admin as `ops@truvo.com.ng` → **Users** → "View as" a user
-(read-only session) or "Act as…" (files a request). As `compliance@truvo.com.ng` →
-**Impersonation** → approve the request. Back as `ops@truvo.com.ng` → **Impersonation**
+**Impersonation** — Admin as `ops@provira.com.ng` → **Users** → "View as" a user
+(read-only session) or "Act as…" (files a request). As `compliance@provira.com.ng` →
+**Impersonation** → approve the request. Back as `ops@provira.com.ng` → **Impersonation**
 → Start session → view the user's world; WRITE sessions expose audited "act on
 their behalf" actions. Sessions expire after 30 min.
 
-**Staff / RBAC** — Admin as `hr@truvo.com.ng` → **Staff**: invite an admin, assign
+**Staff / RBAC** — Admin as `hr@provira.com.ng` → **Staff**: invite an admin, assign
 roles. Notice `hr` can't see Finance/Disputes — the nav is filtered by the same
 permissions the API enforces.
 
-**Audit log** — Admin as `superadmin@truvo.com.ng` → **Audit Logs**: every admin
+**Audit log** — Admin as `superadmin@provira.com.ng` → **Audit Logs**: every admin
 action above is recorded and the table is append-only at the database level.
 
 ### Mobile (optional)
@@ -186,10 +186,10 @@ pnpm start                # scan the QR with Expo Go, or press i / a for a simul
 To wipe and repopulate demo data at any time:
 
 ```bash
-export DATABASE_URL="postgresql://truvo:truvo@localhost:5432/truvo?schema=public"
-pnpm --filter @truvo/db exec prisma db push --force-reset --skip-generate
-pnpm --filter @truvo/db harden        # MUST re-run — force-reset drops the trigger
-pnpm --filter @truvo/db seed
+export DATABASE_URL="postgresql://provira:provira@localhost:5432/provira?schema=public"
+pnpm --filter @provira/db exec prisma db push --force-reset --skip-generate
+pnpm --filter @provira/db harden        # MUST re-run — force-reset drops the trigger
+pnpm --filter @provira/db seed
 ```
 
 (Under Docker, `docker compose down -v && docker compose up` does the same on a
@@ -234,11 +234,11 @@ a migration once and deploy it through your pipeline:
 
 ```bash
 # one-time, committed to the repo
-pnpm --filter @truvo/db exec prisma migrate dev --name init
+pnpm --filter @provira/db exec prisma migrate dev --name init
 
 # in CI/CD, against the production database
-pnpm --filter @truvo/db exec prisma migrate deploy
-pnpm --filter @truvo/db harden          # re-apply the audit trigger after deploy
+pnpm --filter @provira/db exec prisma migrate deploy
+pnpm --filter @provira/db harden          # re-apply the audit trigger after deploy
 ```
 
 ### Front-ends

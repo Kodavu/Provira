@@ -5,8 +5,8 @@ import { PageHero, CtaBand } from "@/components/marketing/page-shell";
 import { Faq } from "@/components/marketing/faq";
 
 export const metadata = {
-  title: "FAQ — Truvo",
-  description: "Answers to common questions about pay, the Truvo Score, escrow, USSD access, fees, and availability across Nigeria.",
+  title: "FAQ — Provira",
+  description: "Answers to common questions about pay, the Provira Score, escrow, USSD access, fees, and availability across Nigeria.",
 };
 
 export default async function FaqPage() {

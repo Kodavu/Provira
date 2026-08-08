@@ -1,4 +1,4 @@
-// Truvo — economic identity infrastructure for Nigeria's informal economy
+// Provira — economic identity infrastructure for Nigeria's informal economy
 // Prisma schema (STAGE 1 — for review before backend scaffolding)
 //
 // Conventions:
@@ -100,8 +100,8 @@ enum AccountType {
   WORKER_PAYOUT // worker's balance / payout wallet
   TRADER_SETTLEMENT // trader's settlement wallet
   PLATFORM_FEE
-  PLATFORM_CASH // Truvo's own cash / lending pool
-  LOAN_RECEIVABLE // outstanding loan principal owed to Truvo
+  PLATFORM_CASH // Provira's own cash / lending pool
+  LOAN_RECEIVABLE // outstanding loan principal owed to Provira
   SUSPENSE // external-in/out clearing
 }
 
@@ -131,8 +131,8 @@ enum LedgerTxnStatus {
 }
 
 enum PaymentDirection {
-  INBOUND // money into Truvo (employer funding, card sale)
-  OUTBOUND // money out of Truvo (worker payout, loan disbursement)
+  INBOUND // money into Provira (employer funding, card sale)
+  OUTBOUND // money out of Provira (worker payout, loan disbursement)
 }
 
 enum PaymentStatus {
@@ -630,13 +630,13 @@ model ScoreEvent {
 }
 
 // ---------------------------------------------------------------------------
-// Micro-lending (Truvo as lender of record, behind a Lender abstraction)
+// Micro-lending (Provira as lender of record, behind a Lender abstraction)
 // ---------------------------------------------------------------------------
 
 model Lender {
   id         String   @id @default(cuid())
   name       String
-  isPlatform Boolean  @default(true) // Truvo itself vs a partner lender
+  isPlatform Boolean  @default(true) // Provira itself vs a partner lender
   isActive   Boolean  @default(true)
   createdAt  DateTime @default(now())
 
@@ -1258,7 +1258,7 @@ model PortfolioItem {
 
 enum CertificationSource {
   UPLOADED // worker-uploaded certificate
-  PLATFORM_BADGE // Truvo-issued badge
+  PLATFORM_BADGE // Provira-issued badge
   ASSESSMENT // skill-assessment result
 }
 

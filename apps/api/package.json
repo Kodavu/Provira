@@ -1,5 +1,5 @@
 {
-  "name": "@truvo/api",
+  "name": "@provira/api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,11 +16,11 @@
     "@nestjs/core": "^10.4.4",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.4.4",
-    "@truvo/contracts": "workspace:*",
-    "@truvo/core": "workspace:*",
-    "@truvo/db": "workspace:*",
-    "@truvo/i18n": "workspace:*",
-    "@truvo/integrations": "workspace:*",
+    "@provira/contracts": "workspace:*",
+    "@provira/core": "workspace:*",
+    "@provira/db": "workspace:*",
+    "@provira/i18n": "workspace:*",
+    "@provira/integrations": "workspace:*",
     "bullmq": "^5.15.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",

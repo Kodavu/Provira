@@ -55,7 +55,7 @@ const EVENTS: Record<string, string> = {
   "verification.approved": "Verification approved",
   "verification.rejected": "Verification rejected",
   "withdrawal.requested": "Withdrawal requested",
-  "admin.broadcast": "Broadcast from Truvo",
+  "admin.broadcast": "Broadcast from Provira",
 };
 
 // Dispute timeline event types.

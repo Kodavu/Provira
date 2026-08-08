@@ -4,19 +4,19 @@ import { RevealGroup, RevealItem } from "@/components/marketing/motion";
 import { PageHero } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "Press & Media — Truvo",
-  description: "Truvo's press kit, company facts, and media contact. For the story of economic identity in Nigeria's informal economy.",
+  title: "Press & Media — Provira",
+  description: "Provira's press kit, company facts, and media contact. For the story of economic identity in Nigeria's informal economy.",
 };
 
 const FACTS = [
-  { k: "What Truvo is", v: "An economic-identity platform for Nigeria's informal economy — same-day pay, verified hiring, and a work-based credit score." },
+  { k: "What Provira is", v: "An economic-identity platform for Nigeria's informal economy — same-day pay, verified hiring, and a work-based credit score." },
   { k: "Founded", v: "2025 · Lagos, Nigeria" },
   { k: "Who it serves", v: "Informal workers, employers, and market traders across Nigeria." },
-  { k: "How it works", v: "Escrow-backed pay released on confirmed attendance, building a verifiable Truvo Score that unlocks credit." },
+  { k: "How it works", v: "Escrow-backed pay released on confirmed attendance, building a verifiable Provira Score that unlocks credit." },
 ];
 
 const COVERAGE = [
-  { title: "Truvo launches to bring economic identity to Nigeria's informal workforce", outlet: "Company announcement", date: "2025" },
+  { title: "Provira launches to bring economic identity to Nigeria's informal workforce", outlet: "Company announcement", date: "2025" },
   { title: "How escrow and a work-based score could reshape informal hiring", outlet: "Feature", date: "2025" },
   { title: "Building fintech for the phone-first majority", outlet: "Interview", date: "2025" },
 ];
@@ -27,13 +27,13 @@ export default function PressPage() {
       <PageHero
         eyebrow={<><Newspaper className="h-3.5 w-3.5" /> Press & media</>}
         title="The story of making work count"
-        lede="Everything you need to write about Truvo — company facts, brand assets, and a direct line to our team."
+        lede="Everything you need to write about Provira — company facts, brand assets, and a direct line to our team."
       >
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <a href="mailto:press@truvo.com.ng" className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:bg-brand-700">
-            <Mail className="h-4 w-4" /> press@truvo.com.ng
+          <a href="mailto:press@provira.com.ng" className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:bg-brand-700">
+            <Mail className="h-4 w-4" /> press@provira.com.ng
           </a>
-          <a href="mailto:press@truvo.com.ng?subject=Press%20kit%20request" className="inline-flex items-center gap-2 rounded-xl border border-line bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300">
+          <a href="mailto:press@provira.com.ng?subject=Press%20kit%20request" className="inline-flex items-center gap-2 rounded-xl border border-line bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300">
             <Download className="h-4 w-4" /> Request press kit
           </a>
         </div>
@@ -41,7 +41,7 @@ export default function PressPage() {
 
       {/* Fast facts */}
       <Section className="py-16 md:py-24">
-        <SectionHeading eyebrow="Fast facts" title="Truvo at a glance" />
+        <SectionHeading eyebrow="Fast facts" title="Provira at a glance" />
         <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2">
           {FACTS.map((f) => (
             <RevealItem key={f.k}>
@@ -63,7 +63,7 @@ export default function PressPage() {
               <ImageIcon className="h-6 w-6" strokeWidth={1.7} />
             </span>
             <p className="mt-4 text-sm text-ink-soft">Logo pack, wordmark, and colour values are available on request.</p>
-            <a href="mailto:press@truvo.com.ng?subject=Brand%20assets" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800">
+            <a href="mailto:press@provira.com.ng?subject=Brand%20assets" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800">
               <Download className="h-4 w-4" /> Request brand assets
             </a>
           </div>

@@ -7,7 +7,7 @@
     "signIn": "Sign in",
     "getStarted": "Get started",
     "language": "Language",
-    "ariaHome": "Truvo home",
+    "ariaHome": "Provira home",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "items": {
@@ -72,7 +72,7 @@
       "hero": {
         "lead": "Find real work.",
         "emphasis": "Get paid the same day.",
-        "sub": "Discover verified jobs near you, confirm your shift with a code, and get paid straight to your bank — while every job builds a Truvo Score that unlocks credit.",
+        "sub": "Discover verified jobs near you, confirm your shift with a code, and get paid straight to your bank — while every job builds a Provira Score that unlocks credit.",
         "primaryCta": "Find work",
         "secondaryCta": "How it works",
         "chips": [
@@ -85,7 +85,7 @@
         "Verified, escrow-backed employers",
         "Professional profile with ratings & reviews",
         "Flexible shifts matched to your ward",
-        "A Truvo Score that opens real credit"
+        "A Provira Score that opens real credit"
       ],
       "steps": [
         {
@@ -104,18 +104,18 @@
       "faqs": [
         {
           "q": "How fast do I get paid?",
-          "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Truvo wallet and can be withdrawn to your bank."
+          "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, your escrowed pay lands in your Provira wallet and can be withdrawn to your bank."
         },
         {
           "q": "Do I need a smartphone?",
           "a": "No. You can sign up, apply, and confirm shifts over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required."
         },
         {
-          "q": "What is my Truvo Score?",
+          "q": "What is my Provira Score?",
           "a": "A verifiable record built from completed jobs, on-time arrival, and repaid loans. A higher score unlocks better jobs and real, affordable credit."
         },
         {
-          "q": "Can I use Truvo in my language?",
+          "q": "Can I use Provira in my language?",
           "a": "Yes — the app, USSD and WhatsApp work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Pick your language once and it's saved for next time, across your devices."
         }
       ]
@@ -162,7 +162,7 @@
         },
         {
           "q": "How do I find good workers?",
-          "a": "Truvo suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm."
+          "a": "Provira suggests NIN-verified workers with real track records and ratings, matched to your job and location. You invite the ones you want; they confirm."
         },
         {
           "q": "What does it cost to hire?",
@@ -202,7 +202,7 @@
         },
         {
           "title": "Build your history",
-          "body": "Consistent sales grow your Truvo Score and prove your business to banks and lenders."
+          "body": "Consistent sales grow your Provira Score and prove your business to banks and lenders."
         },
         {
           "title": "Unlock capital",
@@ -240,10 +240,10 @@
     "ecosystem": {
       "eyebrow": "One connected ecosystem",
       "title": "Three audiences. One shared economic identity.",
-      "subtitle": "Workers, employers, and traders each get a product built for them — connected by the same verified identity, escrow, and Truvo Score."
+      "subtitle": "Workers, employers, and traders each get a product built for them — connected by the same verified identity, escrow, and Provira Score."
     },
     "features": {
-      "eyebrow": "Why Truvo",
+      "eyebrow": "Why Provira",
       "title": "The rails that make it all work",
       "subtitle": "Payments, reputation, matching, and access — shared infrastructure that serves every side of the platform.",
       "escrowTitle": "Escrow-backed pay, released on confirmation",
@@ -253,7 +253,7 @@
         "Instant release",
         "Bank payout"
       ],
-      "scoreTitle": "The Truvo Score",
+      "scoreTitle": "The Provira Score",
       "scoreBody": "A verifiable reputation built from real work and sales — the key that unlocks credit.",
       "locationTitle": "Match by location",
       "locationBody": "Down to the ward. The right jobs, workers, and customers, close to home.",
@@ -266,7 +266,7 @@
       "eyebrow": "Built for Nigeria",
       "title1": "Technology that",
       "title2": "speaks your language",
-      "sub": "Work, hire, and trade in the language you're most comfortable with. Truvo is designed for how Nigerians actually speak — on the app, over USSD, and on WhatsApp.",
+      "sub": "Work, hire, and trade in the language you're most comfortable with. Provira is designed for how Nigerians actually speak — on the app, over USSD, and on WhatsApp.",
       "bullets": [
         "Interface, buttons, emails and notifications — localized.",
         "Your language is saved and follows you across devices.",
@@ -283,8 +283,8 @@
       "badge": "For traders · Coming soon",
       "title1": "An all-in-one",
       "title2": "business operating system",
-      "body": "Start building your sales record today. Soon, Truvo becomes the till, the stockroom, and the accountant too — a complete POS and business toolkit built for Nigerian traders, online and offline.",
-      "primaryCta": "Start selling on Truvo",
+      "body": "Start building your sales record today. Soon, Provira becomes the till, the stockroom, and the accountant too — a complete POS and business toolkit built for Nigerian traders, online and offline.",
+      "primaryCta": "Start selling on Provira",
       "secondaryCta": "View the roadmap",
       "features": [
         "Sales & receipts",
@@ -301,7 +301,7 @@
     },
     "roadmap": {
       "eyebrow": "Product vision",
-      "title": "Where Truvo is headed next",
+      "title": "Where Provira is headed next",
       "subtitle": "We're building toward one platform that runs work and business end to end. Here's what's coming — labelled honestly so you always know what's live today.",
       "status": {
         "inDev": "In development",
@@ -323,7 +323,7 @@
         },
         {
           "title": "Digital Wallet",
-          "body": "Hold, send and receive business payments inside Truvo."
+          "body": "Hold, send and receive business payments inside Provira."
         },
         {
           "title": "Inventory Intelligence",
@@ -331,7 +331,7 @@
         },
         {
           "title": "Business Loans",
-          "body": "Working capital sized to your verifiable Truvo record."
+          "body": "Working capital sized to your verifiable Provira record."
         },
         {
           "title": "QR Payments",
@@ -370,7 +370,7 @@
     "integrations": {
       "eyebrow": "Integrations",
       "title": "Works with the tools you already use",
-      "subtitle": "Truvo connects to the payment, messaging, and business rails that keep Nigeria moving — with more on the way.",
+      "subtitle": "Provira connects to the payment, messaging, and business rails that keep Nigeria moving — with more on the way.",
       "items": [
         {
           "label": "Payment providers",
@@ -409,7 +409,7 @@
       "lovedBy": "Loved by workers, employers & traders",
       "items": [
         {
-          "quote": "I used to wait days to get paid after a shift. With Truvo the money hits my account the same evening — and my score got me my first stock loan.",
+          "quote": "I used to wait days to get paid after a shift. With Provira the money hits my account the same evening — and my score got me my first stock loan.",
           "name": "Amaka O.",
           "role": "Warehouse worker · Lagos"
         },
@@ -424,7 +424,7 @@
           "role": "Market trader · Kano"
         },
         {
-          "quote": "No smartphone, no problem — I confirm shifts over USSD. Truvo treats people like me as customers, not an afterthought.",
+          "quote": "No smartphone, no problem — I confirm shifts over USSD. Provira treats people like me as customers, not an afterthought.",
           "name": "Grace E.",
           "role": "Cleaner · Abuja"
         }
@@ -479,7 +479,7 @@
     "nameLabel": "Full name",
     "namePlaceholder": "e.g. Amaka Okafor",
     "continue": "Continue",
-    "useTitle": "How will you use Truvo?",
+    "useTitle": "How will you use Provira?",
     "useSubtitle": "You can add another role later from your dashboard.",
     "createAccountBtn": "Create account",
     "back": "Back",
@@ -488,7 +488,7 @@
     "redirecting": "Taking you to your dashboard…",
     "alreadyHave": "Already have an account?",
     "signIn": "Sign in",
-    "newToTally": "New to Truvo?",
+    "newToTally": "New to Provira?",
     "createAccountLink": "Create an account",
     "types": {
       "worker": {
@@ -760,7 +760,7 @@
     "title": "Earnings",
     "subtitle": "What landed in your wallet, and where it goes when you withdraw.",
     "availableNow": "Available now",
-    "inWallet": "in your Truvo wallet",
+    "inWallet": "in your Provira wallet",
     "withdraw": "Withdraw",
     "addPayoutInline": "Add a payout account to receive withdrawals.",
     "addAccount": "Add account",
@@ -791,10 +791,10 @@
     "traderTitle": "Stock loans",
     "traderSubtitle": "Qualify for working capital once you've built a track record of logged sales.",
     "howTitle": "How eligibility works:",
-    "howBody": "your Truvo score decides which products you qualify for. Approved loans disburse straight to your payout account, and repaying on time raises your score — unlocking larger limits next time."
+    "howBody": "your Provira score decides which products you qualify for. Approved loans disburse straight to your payout account, and repaying on time raises your score — unlocking larger limits next time."
   },
   "Standing": {
-    "title": "Your Truvo Score",
+    "title": "Your Provira Score",
     "subtitle": "Exactly what moved your score — the ledger behind the number.",
     "ptsToNext": "{points} pts to {tier}",
     "shiftsDone": "Shifts done",
@@ -907,9 +907,9 @@
   },
   "Settings": {
     "title": "General settings",
-    "subtitle": "Choose how Truvo reaches you and your preferred language.",
+    "subtitle": "Choose how Provira reaches you and your preferred language.",
     "language": "Language",
-    "languageSub": "The language Truvo uses across the app, emails and notifications. Saved to this device.",
+    "languageSub": "The language Provira uses across the app, emails and notifications. Saved to this device.",
     "notifications": "Notifications",
     "notificationsSub": "Choose how you want to be notified about important updates.",
     "jobFeed": "Job feed",
@@ -919,7 +919,7 @@
     "feeds": {
       "ALL": {
         "label": "All jobs",
-        "hint": "Every open job on Truvo."
+        "hint": "Every open job on Provira."
       },
       "SKILLS": {
         "label": "Matched to my skills",
@@ -1105,17 +1105,17 @@
     "whatsapp": "WhatsApp",
     "whatsappHint": "Chat with support",
     "emailUs": "Email us",
-    "emailHint": "support@truvo.com.ng",
+    "emailHint": "support@provira.com.ng",
     "verifyIdentity": "Verify identity",
     "verifyHint": "Unlock higher limits",
     "alertsNote": "Security and payment alerts are always delivered. Manage every other notification in <link>Settings</link>.",
     "faqs": {
       "getPaid": {
         "q": "How do I get paid for a shift?",
-        "a": "After you're matched to a job, apply to get a 4-digit confirmation code. On site, the employer confirms your attendance — that releases the escrowed pay straight into your Truvo wallet, which you can withdraw to your bank."
+        "a": "After you're matched to a job, apply to get a 4-digit confirmation code. On site, the employer confirms your attendance — that releases the escrowed pay straight into your Provira wallet, which you can withdraw to your bank."
       },
-      "truvoScore": {
-        "q": "What is my Truvo Score?",
+      "proviraScore": {
+        "q": "What is my Provira Score?",
         "a": "It's a reliability score built from your real activity — shifts completed, on-time rate, sales logged, and loans repaid. A higher score unlocks better jobs and larger loans. Every point is explained on the My standing page."
       },
       "logSale": {
@@ -1132,7 +1132,7 @@
       },
       "loans": {
         "q": "How do loans work?",
-        "a": "Loan eligibility is based on your Truvo Score. Approved loans disburse to your payout account, and repaying on time raises your score — unlocking larger limits next time."
+        "a": "Loan eligibility is based on your Provira Score. Approved loans disburse to your payout account, and repaying on time raises your score — unlocking larger limits next time."
       },
       "verify": {
         "q": "How do I verify my identity?",
@@ -1177,7 +1177,7 @@
     "disclosureEyebrow": "Responsible disclosure",
     "disclosureTitle": "Found a vulnerability?",
     "disclosureSubtitle": "We welcome reports from security researchers and treat them with priority.",
-    "disclosureBody": "Please email <email>security@truvo.com.ng</email> with details and steps to reproduce. Give us a reasonable window to fix the issue before public disclosure — and please don't access or modify data that isn't yours.",
+    "disclosureBody": "Please email <email>security@provira.com.ng</email> with details and steps to reproduce. Give us a reasonable window to fix the issue before public disclosure — and please don't access or modify data that isn't yours.",
     "ctaTitle": "Bank-grade protection, built in",
     "ctaBody": "Every payout, identity, and record is handled with the care it deserves.",
     "ctaSecondary": "Read our Privacy Policy"
@@ -1202,7 +1202,7 @@
     "pickLgaFirst": "Pick an LGA first"
   },
   "Footer": {
-    "tagline": "Truvo turns informal work, sales, and payments into a verifiable economic identity — unlocking same-day pay, better jobs, and real credit for Nigeria's hardest workers.",
+    "tagline": "Provira turns informal work, sales, and payments into a verifiable economic identity — unlocking same-day pay, better jobs, and real credit for Nigeria's hardest workers.",
     "launchUpdates": "Get launch updates",
     "noSpam": "No spam. Unsubscribe anytime.",
     "newsletterPlaceholder": "you@email.com",
@@ -1210,12 +1210,12 @@
     "newsletterSubmit": "Notify me",
     "newsletterInvalid": "Enter a valid email",
     "newsletterDone": "You're on the list.",
-    "socialX": "Truvo on X",
-    "socialLinkedIn": "Truvo on LinkedIn",
-    "socialInstagram": "Truvo on Instagram",
-    "socialWhatsApp": "Truvo on WhatsApp",
+    "socialX": "Provira on X",
+    "socialLinkedIn": "Provira on LinkedIn",
+    "socialInstagram": "Provira on Instagram",
+    "socialWhatsApp": "Provira on WhatsApp",
     "location": "Lagos, Nigeria",
-    "copyright": "© {year} Truvo Technologies. All rights reserved.",
+    "copyright": "© {year} Provira Technologies. All rights reserved.",
     "systemsOperational": "All systems operational",
     "headings": {
       "product": "Product",
@@ -1250,11 +1250,11 @@
   "About": {
     "heroEyebrow": "Our mission",
     "heroTitle": "Turning everyday work into economic identity",
-    "heroLede": "Millions of Nigerians work hard every single day, yet a lifetime of effort leaves no paper trail a bank can trust. Truvo changes that — one job, one sale, one confirmed shift at a time.",
+    "heroLede": "Millions of Nigerians work hard every single day, yet a lifetime of effort leaves no paper trail a bank can trust. Provira changes that — one job, one sale, one confirmed shift at a time.",
     "whyEyebrow": "Why we exist",
     "whyTitle": "The economy runs on work that stays invisible",
     "storyP1": "The market trader who restocks at dawn, the crew that loads a warehouse overnight, the cleaner who never misses a shift — they keep the country moving. But when they need capital, a fair wage on time, or simply proof of what they've done, the system has nothing to show.",
-    "storyP2": "Truvo gives that work a memory. Every completed job, logged sale, and on-time repayment becomes part of a verifiable record — the <s>Truvo Score</s> — that employers, banks, and lenders can actually check. Work becomes reputation. Reputation becomes credit.",
+    "storyP2": "Provira gives that work a memory. Every completed job, logged sale, and on-time repayment becomes part of a verifiable record — the <s>Provira Score</s> — that employers, banks, and lenders can actually check. Work becomes reputation. Reputation becomes credit.",
     "cards": {
       "workers": {
         "k": "For workers",
@@ -1297,7 +1297,7 @@
       }
     },
     "ctaTitle": "Help us make work count",
-    "ctaBody": "Whether you're here to earn, to hire, or to build with us — there's a place for you at Truvo.",
+    "ctaBody": "Whether you're here to earn, to hire, or to build with us — there's a place for you at Provira.",
     "ctaSecondary": "See open roles"
   },
   "Faq": {
@@ -1308,14 +1308,14 @@
     "items": {
       "speed": {
         "q": "How fast do workers actually get paid?",
-        "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, the escrowed pay is released to the worker's Truvo wallet and can be withdrawn to their bank — no waiting days for an invoice."
+        "a": "Same day. The moment attendance is confirmed with the employer's 4-digit code, the escrowed pay is released to the worker's Provira wallet and can be withdrawn to their bank — no waiting days for an invoice."
       },
       "smartphone": {
-        "q": "Do I need a smartphone to use Truvo?",
-        "a": "No. Truvo is built phone-first: you can sign up, confirm shifts, and check your balance over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required."
+        "q": "Do I need a smartphone to use Provira?",
+        "a": "No. Provira is built phone-first: you can sign up, confirm shifts, and check your balance over USSD (*347*82#) or WhatsApp. A smartphone unlocks the full app, but it's never required."
       },
       "score": {
-        "q": "How does the Truvo Score work?",
+        "q": "How does the Provira Score work?",
         "a": "Every completed job, on-time arrival, logged sale, and repaid loan adds to your score. No-shows and disputes subtract. It's an honest, verifiable record that banks and lenders can check — which is what turns your work into real credit."
       },
       "protection": {
@@ -1327,12 +1327,12 @@
         "a": "Signing up, getting paid, and building your score are free for workers and traders. Employers pay a small, transparent fee per completed hire — with no monthly minimums."
       },
       "availability": {
-        "q": "Is Truvo available across Nigeria?",
+        "q": "Is Provira available across Nigeria?",
         "a": "We're rolling out state by state, starting in Lagos. Workers and employers anywhere in Nigeria can sign up now and set their location down to the ward, so we match you the moment jobs go live near you."
       },
       "languages": {
-        "q": "Can I use Truvo in Yoruba, Hausa, Igbo or Pidgin?",
-        "a": "Yes. Truvo's interface, buttons, emails and notifications are built to work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — it's saved and follows you across devices."
+        "q": "Can I use Provira in Yoruba, Hausa, Igbo or Pidgin?",
+        "a": "Yes. Provira's interface, buttons, emails and notifications are built to work in English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — it's saved and follows you across devices."
       },
       "changeLang": {
         "q": "Can I change my language at any time?",

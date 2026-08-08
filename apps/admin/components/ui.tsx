@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
-// Truvo logomark: a checkmark whose rising arm carries a gold tip —
+// Provira logomark: a checkmark whose rising arm carries a gold tip —
 // "verified, and rising". White check on the brand badge when boxed.
-export function TruvoMark({
+export function ProviraMark({
   className = "h-9 w-9",
   boxed = true,
 }: {

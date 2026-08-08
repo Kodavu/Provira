@@ -4,9 +4,9 @@ import { AuthService } from "../auth/auth.service.js";
 import { JobsService } from "../jobs/jobs.service.js";
 import { AttendanceService } from "../attendance/attendance.service.js";
 import { LLM_PROVIDER } from "../../integrations/integrations.module.js";
-import type { LlmProvider, NormalizedInbound } from "@truvo/integrations";
-import { t } from "@truvo/i18n";
-import type { Channel, Language } from "@truvo/db";
+import type { LlmProvider, NormalizedInbound } from "@provira/integrations";
+import { t } from "@provira/i18n";
+import type { Channel, Language } from "@provira/db";
 
 /**
  * The single entry point for every non-web channel. A normalized inbound message

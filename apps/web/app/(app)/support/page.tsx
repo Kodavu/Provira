@@ -18,7 +18,7 @@ interface FaqMeta {
 
 const FAQ_META: FaqMeta[] = [
   { id: "getPaid", roles: ["WORKER"] },
-  { id: "truvoScore", roles: ["WORKER", "TRADER"] },
+  { id: "proviraScore", roles: ["WORKER", "TRADER"] },
   { id: "logSale", roles: ["TRADER"] },
   { id: "escrowProtect", roles: ["EMPLOYER"] },
   { id: "hireWorkers", roles: ["EMPLOYER"] },
@@ -102,7 +102,7 @@ export default function HelpPage() {
             </a>
           </StaggerItem>
           <StaggerItem>
-            <a href="mailto:support@truvo.com.ng">
+            <a href="mailto:support@provira.com.ng">
               <ContactCard icon={Mail} label={t("emailUs")} hint={t("emailHint")} />
             </a>
           </StaggerItem>

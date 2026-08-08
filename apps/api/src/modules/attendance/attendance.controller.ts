@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Post, UseGuards } from "@nestjs/common";
 import { AttendanceService } from "./attendance.service.js";
-import type { Channel } from "@truvo/db";
+import type { Channel } from "@provira/db";
 import { ResourceOwner, ResourceOwnerGuard } from "../auth/resource-owner.guard.js";
 
 @Controller("attendance")

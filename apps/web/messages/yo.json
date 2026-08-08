@@ -7,7 +7,7 @@
     "signIn": "Wọlé",
     "getStarted": "Bẹ̀rẹ̀",
     "language": "Èdè",
-    "ariaHome": "Ilé Truvo",
+    "ariaHome": "Ilé Provira",
     "openMenu": "Ṣí àtòjọ",
     "closeMenu": "Ti àtòjọ pa",
     "items": {
@@ -72,20 +72,20 @@
       "hero": {
         "lead": "Wá iṣẹ́ gidi.",
         "emphasis": "Gba owó rẹ lọ́jọ́ kan náà.",
-        "sub": "Ṣàwárí àwọn iṣẹ́ tí a fọwọ́sí nítòsí rẹ, fi kóòdù jẹ́rìí sí iṣẹ́ rẹ, kí o sì gba owó rẹ tààrà sí báńkì rẹ — bí iṣẹ́ kọ̀ọ̀kan ṣe ń kọ́ Truvo Score rẹ tí yóò ṣí ọ̀nà krẹdíìtì sílẹ̀.",
+        "sub": "Ṣàwárí àwọn iṣẹ́ tí a fọwọ́sí nítòsí rẹ, fi kóòdù jẹ́rìí sí iṣẹ́ rẹ, kí o sì gba owó rẹ tààrà sí báńkì rẹ — bí iṣẹ́ kọ̀ọ̀kan ṣe ń kọ́ Provira Score rẹ tí yóò ṣí ọ̀nà krẹdíìtì sílẹ̀.",
         "primaryCta": "Wá iṣẹ́",
         "secondaryCta": "Bí ó ṣe ń ṣiṣẹ́",
         "chips": [
           "Àwọn agbanisíṣẹ́ tí a fọwọ́sí",
           "Owó lọ́jọ́ kan náà",
-          "Kọ́ Truvo Score rẹ"
+          "Kọ́ Provira Score rẹ"
         ]
       },
       "features": [
         "Àwọn agbanisíṣẹ́ tí a fọwọ́sí, tí ẹsírò ń ṣètìlẹ́yìn",
         "Àkọ̀ọ́lẹ̀ ọ̀jọ̀gbọ́n pẹ̀lú ìdíwọ̀n àti àtúnyẹ̀wò",
         "Àwọn iṣẹ́ tó rọrùn tí ó bá agbègbè rẹ mu",
-        "Truvo Score tó ń ṣí krẹdíìtì gidi"
+        "Provira Score tó ń ṣí krẹdíìtì gidi"
       ],
       "steps": [
         {
@@ -104,18 +104,18 @@
       "faqs": [
         {
           "q": "Ìgbà wo ni màá gba owó?",
-          "a": "Lọ́jọ́ kan náà. Ní kété tí a bá jẹ́rìí wíwá pẹ̀lú kóòdù oní-nọ́mbà mẹ́rin ti agbanisíṣẹ́, owó ẹsírò rẹ yóò wọ àpamọ́wọ́ Truvo rẹ, o sì lè yọ ọ́ sí báńkì rẹ."
+          "a": "Lọ́jọ́ kan náà. Ní kété tí a bá jẹ́rìí wíwá pẹ̀lú kóòdù oní-nọ́mbà mẹ́rin ti agbanisíṣẹ́, owó ẹsírò rẹ yóò wọ àpamọ́wọ́ Provira rẹ, o sì lè yọ ọ́ sí báńkì rẹ."
         },
         {
           "q": "Ṣé mo nílò fóònù àlámọ̀?",
           "a": "Rárá. O lè forúkọsílẹ̀, béèrè, kí o sì jẹ́rìí iṣẹ́ lórí USSD (*347*82#) tàbí WhatsApp. Fóònù àlámọ̀ yóò ṣí áàpù ní kíkún, ṣùgbọ́n kì í ṣe dandan."
         },
         {
-          "q": "Kí ni Truvo Score mi?",
+          "q": "Kí ni Provira Score mi?",
           "a": "Àkọsílẹ̀ tí a lè jẹ́rìí tí ó wá láti àwọn iṣẹ́ tí o parí, wíwá lásìkò, àti àwọn awin tí o san padà. Ìdíwọ̀n gíga ń ṣí àwọn iṣẹ́ tó dára jù àti krẹdíìtì gidi tí kò wọ́n."
         },
         {
-          "q": "Ṣé mo lè lo Truvo ní èdè mi?",
+          "q": "Ṣé mo lè lo Provira ní èdè mi?",
           "a": "Bẹ́ẹ̀ ni — áàpù, USSD àti WhatsApp ń ṣiṣẹ́ ní Gẹ̀ẹ́sì, Pidgin, Yorùbá, Hausa àti Igbo. Yan èdè rẹ lẹ́ẹ̀kan, yóò sì fi pamọ́ fún ìgbà tó ń bọ̀, kọjá àwọn ẹ̀rọ rẹ."
         }
       ]
@@ -162,7 +162,7 @@
         },
         {
           "q": "Báwo ni màá ṣe rí àwọn òṣìṣẹ́ tó dára?",
-          "a": "Truvo ń dábàá àwọn òṣìṣẹ́ tí NIN fọwọ́sí tí wọ́n ní àkọsílẹ̀ gidi àti ìdíwọ̀n, tí ó bá iṣẹ́ àti ibùdó rẹ mu. O pe àwọn tí o fẹ́; wọ́n jẹ́rìí."
+          "a": "Provira ń dábàá àwọn òṣìṣẹ́ tí NIN fọwọ́sí tí wọ́n ní àkọsílẹ̀ gidi àti ìdíwọ̀n, tí ó bá iṣẹ́ àti ibùdó rẹ mu. O pe àwọn tí o fẹ́; wọ́n jẹ́rìí."
         },
         {
           "q": "Kí ni ó ná láti gbaniṣẹ́?",
@@ -202,7 +202,7 @@
         },
         {
           "title": "Kọ́ ìtàn rẹ",
-          "body": "Títà tí ó dúró ṣinṣin ń mú Truvo Score rẹ dàgbà, ó sì ń jẹ́rìí òwò rẹ fún àwọn báńkì àti awìnná."
+          "body": "Títà tí ó dúró ṣinṣin ń mú Provira Score rẹ dàgbà, ó sì ń jẹ́rìí òwò rẹ fún àwọn báńkì àti awìnná."
         },
         {
           "title": "Ṣí owó-ìṣòwò",
@@ -240,10 +240,10 @@
     "ecosystem": {
       "eyebrow": "Ẹ̀rọ ìṣọ̀kan kan",
       "title": "Ẹgbẹ́ mẹ́ta. Ìdánimọ̀ ọrọ̀-ajé kan tí wọ́n pín.",
-      "subtitle": "Òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò — ọ̀kọ̀ọ̀kan ní ọjà tí a kọ́ fún wọn, tí ìdánimọ̀ kan náà, ẹsírò, àti Truvo Score ń so pọ̀."
+      "subtitle": "Òṣìṣẹ́, agbanisíṣẹ́, àti oníṣòwò — ọ̀kọ̀ọ̀kan ní ọjà tí a kọ́ fún wọn, tí ìdánimọ̀ kan náà, ẹsírò, àti Provira Score ń so pọ̀."
     },
     "features": {
-      "eyebrow": "Kí ló dé Truvo",
+      "eyebrow": "Kí ló dé Provira",
       "title": "Àwọn ọ̀nà tó ń mú gbogbo rẹ̀ ṣiṣẹ́",
       "subtitle": "Ìsanwó, orúkọ rere, ìbámu, àti ìwọlé — amáyédẹrùn tí a pín tí ń ṣe ìránṣẹ́ fún gbogbo ẹ̀gbẹ́ pátákó náà.",
       "escrowTitle": "Owó tí ẹsírò ń ṣètìlẹ́yìn, tó ń jáde nígbà ìjẹ́rìí",
@@ -253,7 +253,7 @@
         "Ó ń jáde lẹ́sẹ̀kẹsẹ̀",
         "Ìsanwó báńkì"
       ],
-      "scoreTitle": "Truvo Score",
+      "scoreTitle": "Provira Score",
       "scoreBody": "Orúkọ rere tí a lè jẹ́rìí tí ó wá láti iṣẹ́ àti títà gidi — kọ́kọ́rọ́ tó ń ṣí krẹdíìtì.",
       "locationTitle": "Ìbámu nípa ibùdó",
       "locationBody": "Débi agbègbè rẹ. Àwọn iṣẹ́, òṣìṣẹ́, àti oníbàárà tó tọ́, tí ó súnmọ́ ilé.",
@@ -266,7 +266,7 @@
       "eyebrow": "A kọ́ ọ fún Nàìjíríà",
       "title1": "Ẹ̀rọ tó ń",
       "title2": "sọ èdè rẹ",
-      "sub": "Ṣiṣẹ́, gba òṣìṣẹ́, kí o sì ṣòwò ní èdè tó bá ọ mu jù. A ṣe Truvo fún bí àwọn ọmọ Nàìjíríà ṣe ń sọ̀rọ̀ gan-an — lórí áàpù, lórí USSD, àti lórí WhatsApp.",
+      "sub": "Ṣiṣẹ́, gba òṣìṣẹ́, kí o sì ṣòwò ní èdè tó bá ọ mu jù. A ṣe Provira fún bí àwọn ọmọ Nàìjíríà ṣe ń sọ̀rọ̀ gan-an — lórí áàpù, lórí USSD, àti lórí WhatsApp.",
       "bullets": [
         "Ìsopọ̀, àwọn bọ́tìnì, ìmẹ́ìlì àti ìfitónilétí — ní èdè rẹ.",
         "A ń fi èdè rẹ pamọ́, ó sì ń tẹ̀lé ọ kọjá àwọn ẹ̀rọ rẹ.",
@@ -283,8 +283,8 @@
       "badge": "Fún oníṣòwò · Ń bọ̀ láìpẹ́",
       "title1": "Ẹ̀rọ ìṣàkóso òwò",
       "title2": "gbogbo-nínú-ọ̀kan",
-      "body": "Bẹ̀rẹ̀ sí í kọ́ àkọsílẹ̀ títà rẹ lónìí. Láìpẹ́, Truvo yóò di ẹ̀rọ-owó, ilé-ìtọ́jú ọjà, àti akáǹtì náà pẹ̀lú — POS ní kíkún àti irinṣẹ́ òwò tí a kọ́ fún àwọn oníṣòwò Nàìjíríà, orí- layn àti láìsí ìtakùn.",
-      "primaryCta": "Bẹ̀rẹ̀ sí í tà lórí Truvo",
+      "body": "Bẹ̀rẹ̀ sí í kọ́ àkọsílẹ̀ títà rẹ lónìí. Láìpẹ́, Provira yóò di ẹ̀rọ-owó, ilé-ìtọ́jú ọjà, àti akáǹtì náà pẹ̀lú — POS ní kíkún àti irinṣẹ́ òwò tí a kọ́ fún àwọn oníṣòwò Nàìjíríà, orí- layn àti láìsí ìtakùn.",
+      "primaryCta": "Bẹ̀rẹ̀ sí í tà lórí Provira",
       "secondaryCta": "Wo ètò-ọ̀nà",
       "features": [
         "Títà & ìwé-ẹ̀rí",
@@ -301,7 +301,7 @@
     },
     "roadmap": {
       "eyebrow": "Ìran ọjà",
-      "title": "Ibi tí Truvo ń lọ tókàn",
+      "title": "Ibi tí Provira ń lọ tókàn",
       "subtitle": "A ń kọ́ sí ìtòsọ́nà pátákó kan tí yóò ṣàkóso iṣẹ́ àti òwò láti ìbẹ̀rẹ̀ dé òpin. Èyí ni ohun tó ń bọ̀ — a fi àmì sí i ní òtítọ́ kí o lè mọ ohun tó ń ṣiṣẹ́ lónìí nígbà gbogbo.",
       "status": {
         "inDev": "A ń kọ́ ọ",
@@ -323,7 +323,7 @@
         },
         {
           "title": "Digital Wallet",
-          "body": "Di, fi ránṣẹ́, kí o sì gba ìsanwó òwò nínú Truvo."
+          "body": "Di, fi ránṣẹ́, kí o sì gba ìsanwó òwò nínú Provira."
         },
         {
           "title": "Inventory Intelligence",
@@ -331,7 +331,7 @@
         },
         {
           "title": "Business Loans",
-          "body": "Owó-ìṣòwò tí ó bá àkọsílẹ̀ Truvo rẹ mu tí a lè jẹ́rìí."
+          "body": "Owó-ìṣòwò tí ó bá àkọsílẹ̀ Provira rẹ mu tí a lè jẹ́rìí."
         },
         {
           "title": "QR Payments",
@@ -370,7 +370,7 @@
     "integrations": {
       "eyebrow": "Ìsopọ̀",
       "title": "Ó ń ṣiṣẹ́ pẹ̀lú àwọn irinṣẹ́ tí o ti ń lo",
-      "subtitle": "Truvo ń darapọ̀ mọ́ àwọn ọ̀nà ìsanwó, fífiránṣẹ́, àti òwò tí ń mú kí Nàìjíríà máa lọ — pẹ̀lú púpọ̀ tó ń bọ̀.",
+      "subtitle": "Provira ń darapọ̀ mọ́ àwọn ọ̀nà ìsanwó, fífiránṣẹ́, àti òwò tí ń mú kí Nàìjíríà máa lọ — pẹ̀lú púpọ̀ tó ń bọ̀.",
       "items": [
         {
           "label": "Àwọn olùpèsè ìsanwó",
@@ -409,7 +409,7 @@
       "lovedBy": "Àwọn òṣìṣẹ́, agbanisíṣẹ́ àti oníṣòwò nífẹ̀ẹ́ rẹ̀",
       "items": [
         {
-          "quote": "Tẹ́lẹ̀, mo máa ń dúró fún ọjọ́ púpọ̀ kí n tó gba owó lẹ́yìn iṣẹ́. Pẹ̀lú Truvo owó náà ń wọ àkáǹtì mi ní ìrọ̀lẹ́ ọjọ́ kan náà — ìdíwọ̀n mi sì gba awin ọjà àkọ́kọ́ mi fún mi.",
+          "quote": "Tẹ́lẹ̀, mo máa ń dúró fún ọjọ́ púpọ̀ kí n tó gba owó lẹ́yìn iṣẹ́. Pẹ̀lú Provira owó náà ń wọ àkáǹtì mi ní ìrọ̀lẹ́ ọjọ́ kan náà — ìdíwọ̀n mi sì gba awin ọjà àkọ́kọ́ mi fún mi.",
           "name": "Amaka O.",
           "role": "Òṣìṣẹ́ ilé-ìtọ́jú ọjà · Èkó"
         },
@@ -424,7 +424,7 @@
           "role": "Oníṣòwò ọjà · Kánò"
         },
         {
-          "quote": "Kò sí fóònù àlámọ̀, kò sí wàhálà — mo ń jẹ́rìí iṣẹ́ lórí USSD. Truvo ń tọ́jú àwọn ènìyàn bí èmi gẹ́gẹ́ bí oníbàárà, kì í ṣe ohun ìkẹyìn.",
+          "quote": "Kò sí fóònù àlámọ̀, kò sí wàhálà — mo ń jẹ́rìí iṣẹ́ lórí USSD. Provira ń tọ́jú àwọn ènìyàn bí èmi gẹ́gẹ́ bí oníbàárà, kì í ṣe ohun ìkẹyìn.",
           "name": "Grace E.",
           "role": "Olùfọ̀mọ́ · Abuja"
         }
@@ -479,7 +479,7 @@
     "nameLabel": "Orúkọ kíkún",
     "namePlaceholder": "f.a. Amaka Okafor",
     "continue": "Tẹ̀síwájú",
-    "useTitle": "Báwo ni ìwọ yóò ṣe lo Truvo?",
+    "useTitle": "Báwo ni ìwọ yóò ṣe lo Provira?",
     "useSubtitle": "O lè fi ipò mìíràn kún nígbà tó bá yá láti pátákó rẹ.",
     "createAccountBtn": "Ṣẹ̀dá àkáǹtì",
     "back": "Padà",
@@ -488,7 +488,7 @@
     "redirecting": "À ń mú ọ lọ sí pátákó rẹ…",
     "alreadyHave": "Ṣé o ti ní àkáǹtì?",
     "signIn": "Wọlé",
-    "newToTally": "Tuntun sí Truvo?",
+    "newToTally": "Tuntun sí Provira?",
     "createAccountLink": "Ṣẹ̀dá àkáǹtì",
     "types": {
       "worker": {
@@ -760,7 +760,7 @@
     "title": "Owó tí a rí",
     "subtitle": "Ohun tí ó wọ àpamọ́wọ́ rẹ, àti ibi tí ó ń lọ nígbà tí o bá yọ ọ́.",
     "availableNow": "Ó wà ní báyìí",
-    "inWallet": "nínú àpamọ́wọ́ Truvo rẹ",
+    "inWallet": "nínú àpamọ́wọ́ Provira rẹ",
     "withdraw": "Yọ owó",
     "addPayoutInline": "Fi àkáǹtì ìsanwó kún láti gba owó tí o yọ.",
     "addAccount": "Fi àkáǹtì kún",
@@ -791,10 +791,10 @@
     "traderTitle": "Awin ọjà",
     "traderSubtitle": "Yẹ fún owó-ìṣòwò ní kété tí o bá ti kọ́ àkọsílẹ̀ títà tí a ṣàkọsílẹ̀.",
     "howTitle": "Bí yíyẹ ṣe ń ṣiṣẹ́:",
-    "howBody": "Truvo score rẹ ń pinnu àwọn ọjà tí o yẹ fún. Àwọn awin tí a fọwọ́sí ń wọ àkáǹtì ìsanwó rẹ tààrà, àti sísan padà lásìkò ń gbé ìdíwọ̀n rẹ ga — ń ṣí ààlà tó tóbi jù ní ìgbà tó ń bọ̀."
+    "howBody": "Provira score rẹ ń pinnu àwọn ọjà tí o yẹ fún. Àwọn awin tí a fọwọ́sí ń wọ àkáǹtì ìsanwó rẹ tààrà, àti sísan padà lásìkò ń gbé ìdíwọ̀n rẹ ga — ń ṣí ààlà tó tóbi jù ní ìgbà tó ń bọ̀."
   },
   "Standing": {
-    "title": "Truvo Score Rẹ",
+    "title": "Provira Score Rẹ",
     "subtitle": "Ohun gan-an tí ó mú ìdíwọ̀n rẹ yí — àkọsílẹ̀ tó wà lẹ́yìn nọ́mbà náà.",
     "ptsToNext": "{points} pts sí {tier}",
     "shiftsDone": "Iṣẹ́ tí a parí",
@@ -907,9 +907,9 @@
   },
   "Settings": {
     "title": "Ètò Gbogbogbò",
-    "subtitle": "Yan bí Truvo ṣe dé ọ̀dọ̀ rẹ àti èdè tí o fẹ́.",
+    "subtitle": "Yan bí Provira ṣe dé ọ̀dọ̀ rẹ àti èdè tí o fẹ́.",
     "language": "Èdè",
-    "languageSub": "Èdè tí Truvo ń lò ní gbogbo ẹ̀rọ ìṣàmúlò, ímeèlì àti ìfitọ́nilétí. A fi pamọ́ sí ẹ̀rọ yìí.",
+    "languageSub": "Èdè tí Provira ń lò ní gbogbo ẹ̀rọ ìṣàmúlò, ímeèlì àti ìfitọ́nilétí. A fi pamọ́ sí ẹ̀rọ yìí.",
     "notifications": "Ètò ìfitọ́nilétí",
     "notificationsSub": "Yan bí o fẹ́ máa dé ọ̀dọ̀ rẹ. A máa ń fi ìtanilólobó ààbò àti ìsanwó ránṣẹ́ nígbà gbogbo.",
     "jobFeed": "Àtòjọ iṣẹ́",
@@ -919,7 +919,7 @@
     "feeds": {
       "ALL": {
         "label": "Gbogbo iṣẹ́",
-        "hint": "Gbogbo iṣẹ́ tí ó ṣí sílẹ̀ lórí Truvo."
+        "hint": "Gbogbo iṣẹ́ tí ó ṣí sílẹ̀ lórí Provira."
       },
       "SKILLS": {
         "label": "Bá ọgbọ́n mi mu",
@@ -1105,17 +1105,17 @@
     "whatsapp": "WhatsApp",
     "whatsappHint": "Bá àtìlẹ́yìn sọ̀rọ̀",
     "emailUs": "Fi ímeèlì ránṣẹ́ sí wa",
-    "emailHint": "support@truvo.com.ng",
+    "emailHint": "support@provira.com.ng",
     "verifyIdentity": "Jẹ́rìí ìdánimọ̀",
     "verifyHint": "Ṣí àwọn ààlà tó ga sílẹ̀",
     "alertsNote": "A máa ń fi ìtanilólobó ààbò àti ìsanwó ránṣẹ́ nígbà gbogbo. Ṣàkóso gbogbo ìfitọ́nilétí mìíràn nínú <link>Ètò</link>.",
     "faqs": {
       "getPaid": {
         "q": "Báwo ni mo ṣe ń gba owó fún shift?",
-        "a": "Lẹ́yìn tí a bá bá ọ mu sí iṣẹ́, béèrè láti gba kóòdù ìjẹ́rìísí oní-nọ́mbà mẹ́rin. Ní ibi iṣẹ́, agbanisíṣẹ́ yóò jẹ́rìí wíwàníbẹ̀ rẹ — èyí yóò tú owó escrow sílẹ̀ tààrà sí àpamọ́wọ́ Truvo rẹ, tí o lè yọ sí báǹkì rẹ."
+        "a": "Lẹ́yìn tí a bá bá ọ mu sí iṣẹ́, béèrè láti gba kóòdù ìjẹ́rìísí oní-nọ́mbà mẹ́rin. Ní ibi iṣẹ́, agbanisíṣẹ́ yóò jẹ́rìí wíwàníbẹ̀ rẹ — èyí yóò tú owó escrow sílẹ̀ tààrà sí àpamọ́wọ́ Provira rẹ, tí o lè yọ sí báǹkì rẹ."
       },
-      "truvoScore": {
-        "q": "Kí ni Truvo Score mi?",
+      "proviraScore": {
+        "q": "Kí ni Provira Score mi?",
         "a": "Ó jẹ́ àmì ìgbẹ́kẹ̀lé tí a kọ́ láti inú iṣẹ́ gidi rẹ — shifts tí o parí, ìwọ̀n àkókò, sales tí o kọ sílẹ̀, àti awin tí o san padà. Àmì tó ga máa ń ṣí àwọn iṣẹ́ tó dára àti awin tó tóbi. A ṣàlàyé àmì kọ̀ọ̀kan ní ojú-ewé Ipò mi."
       },
       "logSale": {
@@ -1132,7 +1132,7 @@
       },
       "loans": {
         "q": "Báwo ni awin ṣe ń ṣiṣẹ́?",
-        "a": "Ẹ̀tọ́ awin dá lórí Truvo Score rẹ. Àwọn awin tí a fọwọ́sí máa ń wọ àkàǹtì ìsanwó rẹ, sísan padà ní àkókò máa ń gbé àmì rẹ ga — tí ó ń ṣí ààlà tó tóbi ní ìgbà tí ó kàn."
+        "a": "Ẹ̀tọ́ awin dá lórí Provira Score rẹ. Àwọn awin tí a fọwọ́sí máa ń wọ àkàǹtì ìsanwó rẹ, sísan padà ní àkókò máa ń gbé àmì rẹ ga — tí ó ń ṣí ààlà tó tóbi ní ìgbà tí ó kàn."
       },
       "verify": {
         "q": "Báwo ni mo ṣe ń jẹ́rìí ìdánimọ̀ mi?",
@@ -1177,7 +1177,7 @@
     "disclosureEyebrow": "Ìfihàn ojúṣe",
     "disclosureTitle": "Ṣé o rí àìlera kan?",
     "disclosureSubtitle": "A tẹ́wọ́gba àwọn ìròyìn láti ọ̀dọ̀ àwọn olùwádìí ààbò, a sì ń fi ọ̀wọ̀ pàtàkì mú wọn.",
-    "disclosureBody": "Jọ̀wọ́ fi ímeèlì ránṣẹ́ sí <email>security@truvo.com.ng</email> pẹ̀lú àwọn ẹ̀kúnrẹ́rẹ́ àti àwọn ìgbésẹ̀ láti tún un ṣe. Fún wa ní àkókò tó bọ́gbọ́n mu láti tún ìṣòro náà ṣe kí ó tó di ìfihàn àwùjọ — jọ̀wọ́ má sì ṣe wọ inú tàbí yí dátà tí kì í ṣe tìrẹ padà.",
+    "disclosureBody": "Jọ̀wọ́ fi ímeèlì ránṣẹ́ sí <email>security@provira.com.ng</email> pẹ̀lú àwọn ẹ̀kúnrẹ́rẹ́ àti àwọn ìgbésẹ̀ láti tún un ṣe. Fún wa ní àkókò tó bọ́gbọ́n mu láti tún ìṣòro náà ṣe kí ó tó di ìfihàn àwùjọ — jọ̀wọ́ má sì ṣe wọ inú tàbí yí dátà tí kì í ṣe tìrẹ padà.",
     "ctaTitle": "Ìdáàbòbò ìpele-báǹkì, tí a kọ́ sínú",
     "ctaBody": "Ìsanwó, ìdánimọ̀, àti àkọsílẹ̀ kọ̀ọ̀kan ni a ń mú pẹ̀lú ìtọ́jú tí ó tọ́ sí.",
     "ctaSecondary": "Ka Ìlànà Àṣírí wa"
@@ -1202,7 +1202,7 @@
     "pickLgaFirst": "Yan Ìjọba Ìbílẹ̀ kọ́kọ́"
   },
   "Footer": {
-    "tagline": "Truvo ń sọ iṣẹ́ àìlédèdè, sales, àti ìsanwó di ìdánimọ̀ ọrọ̀-ajé tí a lè jẹ́rìí — ó ń ṣí ìsanwó ọjọ́ kan náà, iṣẹ́ tó dára, àti kírẹdíìtì gidi fún àwọn òṣìṣẹ́ tó ń ṣiṣẹ́ jù ní Nàìjíríà.",
+    "tagline": "Provira ń sọ iṣẹ́ àìlédèdè, sales, àti ìsanwó di ìdánimọ̀ ọrọ̀-ajé tí a lè jẹ́rìí — ó ń ṣí ìsanwó ọjọ́ kan náà, iṣẹ́ tó dára, àti kírẹdíìtì gidi fún àwọn òṣìṣẹ́ tó ń ṣiṣẹ́ jù ní Nàìjíríà.",
     "launchUpdates": "Gba ìròyìn ìfilọ́lẹ̀",
     "noSpam": "Kò sí spam. Yọ̀ǹdà nígbàkúùgbà.",
     "newsletterPlaceholder": "you@email.com",
@@ -1210,12 +1210,12 @@
     "newsletterSubmit": "Sọ fún mi",
     "newsletterInvalid": "Tẹ ímeèlì tó tọ́",
     "newsletterDone": "O ti wà lórí àtòjọ.",
-    "socialX": "Truvo lórí X",
-    "socialLinkedIn": "Truvo lórí LinkedIn",
-    "socialInstagram": "Truvo lórí Instagram",
-    "socialWhatsApp": "Truvo lórí WhatsApp",
+    "socialX": "Provira lórí X",
+    "socialLinkedIn": "Provira lórí LinkedIn",
+    "socialInstagram": "Provira lórí Instagram",
+    "socialWhatsApp": "Provira lórí WhatsApp",
     "location": "Èkó, Nàìjíríà",
-    "copyright": "© {year} Truvo Technologies. Gbogbo ẹ̀tọ́ ni a fi pamọ́.",
+    "copyright": "© {year} Provira Technologies. Gbogbo ẹ̀tọ́ ni a fi pamọ́.",
     "systemsOperational": "Gbogbo ẹ̀rọ ń ṣiṣẹ́",
     "headings": {
       "product": "Ọjà",
@@ -1250,11 +1250,11 @@
   "About": {
     "heroEyebrow": "Ìdè wa",
     "heroTitle": "Sísọ iṣẹ́ ojoojúmọ́ di ìdánimọ̀ ọrọ̀-ajé",
-    "heroLede": "Àìlóye àwọn ọmọ Nàìjíríà ni wọ́n ń ṣiṣẹ́ kára lójoojúmọ́, síbẹ̀ ìsapá ìgbésí ayé kì í fi àkọsílẹ̀ kankan sílẹ̀ tí báǹkì lè gbẹ́kẹ̀lé. Truvo ń yí ìyẹn padà — iṣẹ́ kan, sale kan, shift tí a jẹ́rìí kan lẹ́ẹ̀kọ̀ọ̀kan.",
+    "heroLede": "Àìlóye àwọn ọmọ Nàìjíríà ni wọ́n ń ṣiṣẹ́ kára lójoojúmọ́, síbẹ̀ ìsapá ìgbésí ayé kì í fi àkọsílẹ̀ kankan sílẹ̀ tí báǹkì lè gbẹ́kẹ̀lé. Provira ń yí ìyẹn padà — iṣẹ́ kan, sale kan, shift tí a jẹ́rìí kan lẹ́ẹ̀kọ̀ọ̀kan.",
     "whyEyebrow": "Ìdí tí a fi wà",
     "whyTitle": "Ọrọ̀-ajé ń sáré lórí iṣẹ́ tí ó dúró ní àìríran",
     "storyP1": "Oníṣòwò ọjà tí ó ń tún ọjà kún ní àárọ̀ kùtù, àwọn òṣìṣẹ́ tí wọ́n ń kó ẹrù sí ilé-ìtọ́jú ní alẹ́, olùmọ́tótó tí kì í pàdánù shift — àwọn ni wọ́n ń jẹ́ kí orílẹ̀-èdè máa lọ. Ṣùgbọ́n nígbà tí wọ́n bá nílò owó, owó iṣẹ́ tó tọ́ ní àkókò, tàbí ẹ̀rí ohun tí wọ́n ti ṣe lásán, ètò náà kò ní ohunkóhun láti fihàn.",
-    "storyP2": "Truvo ń fún iṣẹ́ yẹn ní ìrántí. Gbogbo iṣẹ́ tí a parí, sale tí a kọ sílẹ̀, àti ìsanpadà ní àkókò ń di apá kan àkọsílẹ̀ tí a lè jẹ́rìí — <s>Truvo Score</s> — tí àwọn agbanisíṣẹ́, báǹkì, àti olùyáwó lè ṣàyẹ̀wò ní tòótọ́. Iṣẹ́ ń di orúkọ rere. Orúkọ rere ń di kírẹdíìtì.",
+    "storyP2": "Provira ń fún iṣẹ́ yẹn ní ìrántí. Gbogbo iṣẹ́ tí a parí, sale tí a kọ sílẹ̀, àti ìsanpadà ní àkókò ń di apá kan àkọsílẹ̀ tí a lè jẹ́rìí — <s>Provira Score</s> — tí àwọn agbanisíṣẹ́, báǹkì, àti olùyáwó lè ṣàyẹ̀wò ní tòótọ́. Iṣẹ́ ń di orúkọ rere. Orúkọ rere ń di kírẹdíìtì.",
     "cards": {
       "workers": {
         "k": "Fún àwọn òṣìṣẹ́",
@@ -1297,7 +1297,7 @@
       }
     },
     "ctaTitle": "Ràn wá lọ́wọ́ láti mú kí iṣẹ́ kà",
-    "ctaBody": "Yálà o wà níbí láti jẹ ẹrè, láti gbanisíṣẹ́, tàbí láti kọ́ pẹ̀lú wa — àyè wà fún ọ ní Truvo.",
+    "ctaBody": "Yálà o wà níbí láti jẹ ẹrè, láti gbanisíṣẹ́, tàbí láti kọ́ pẹ̀lú wa — àyè wà fún ọ ní Provira.",
     "ctaSecondary": "Wo àwọn ipò tó ṣí"
   },
   "Faq": {
@@ -1308,14 +1308,14 @@
     "items": {
       "speed": {
         "q": "Ìgbà wo ni àwọn òṣìṣẹ́ ṣe ń gba owó ní tòótọ́?",
-        "a": "Lọ́jọ́ kan náà. Ní kété tí a bá jẹ́rìí wíwàníbẹ̀ pẹ̀lú kóòdù oní-nọ́mbà mẹ́rin agbanisíṣẹ́, a ó tú owó escrow sílẹ̀ sí àpamọ́wọ́ Truvo òṣìṣẹ́ tí ó sì lè yọ ọ́ sí báǹkì rẹ̀ — láìsí dídúró fún ọjọ́ mélòó kan fún ìwé owó."
+        "a": "Lọ́jọ́ kan náà. Ní kété tí a bá jẹ́rìí wíwàníbẹ̀ pẹ̀lú kóòdù oní-nọ́mbà mẹ́rin agbanisíṣẹ́, a ó tú owó escrow sílẹ̀ sí àpamọ́wọ́ Provira òṣìṣẹ́ tí ó sì lè yọ ọ́ sí báǹkì rẹ̀ — láìsí dídúró fún ọjọ́ mélòó kan fún ìwé owó."
       },
       "smartphone": {
-        "q": "Ṣé mo nílò smartphone láti lo Truvo?",
-        "a": "Rárá. A kọ́ Truvo ní ọ̀nà-fóònù: o lè forúkọsílẹ̀, jẹ́rìí shift, kí o sì ṣàyẹ̀wò iye owó rẹ lórí USSD (*347*82#) tàbí WhatsApp. Smartphone ń ṣí gbogbo app, ṣùgbọ́n kì í ṣe dandan."
+        "q": "Ṣé mo nílò smartphone láti lo Provira?",
+        "a": "Rárá. A kọ́ Provira ní ọ̀nà-fóònù: o lè forúkọsílẹ̀, jẹ́rìí shift, kí o sì ṣàyẹ̀wò iye owó rẹ lórí USSD (*347*82#) tàbí WhatsApp. Smartphone ń ṣí gbogbo app, ṣùgbọ́n kì í ṣe dandan."
       },
       "score": {
-        "q": "Báwo ni Truvo Score ṣe ń ṣiṣẹ́?",
+        "q": "Báwo ni Provira Score ṣe ń ṣiṣẹ́?",
         "a": "Gbogbo iṣẹ́ tí a parí, dídé ní àkókò, sale tí a kọ sílẹ̀, àti awin tí a san padà ń fi kún àmì rẹ. Àìwáṣẹ́ àti àríyànjiyàn ń yọkúrò. Ó jẹ́ àkọsílẹ̀ olóòótọ́ tí a lè jẹ́rìí tí àwọn báǹkì àti olùyáwó lè ṣàyẹ̀wò — èyí ni ó ń sọ iṣẹ́ rẹ di kírẹdíìtì gidi."
       },
       "protection": {
@@ -1327,12 +1327,12 @@
         "a": "Forúkọsílẹ̀, gbígba owó, àti kíkọ́ àmì rẹ jẹ́ ọ̀fẹ́ fún àwọn òṣìṣẹ́ àti oníṣòwò. Àwọn agbanisíṣẹ́ ń sanwó owó kékeré, tí ó hàn kedere fún ìgbà kọ̀ọ̀kan tí a gbaniṣẹ́ — láìsí owó oṣù tó kéré jù."
       },
       "availability": {
-        "q": "Ṣé Truvo wà káàkiri Nàìjíríà?",
+        "q": "Ṣé Provira wà káàkiri Nàìjíríà?",
         "a": "A ń tú u jáde ìpínlẹ̀ ní ìpínlẹ̀, bẹ̀rẹ̀ ní Èkó. Àwọn òṣìṣẹ́ àti agbanisíṣẹ́ níbikíbi ní Nàìjíríà lè forúkọsílẹ̀ báyìí kí wọ́n sì ṣètò ipò wọn dé agbègbè, kí a lè bá ọ mu ní kété tí àwọn iṣẹ́ bá jáde nítòsí rẹ."
       },
       "languages": {
-        "q": "Ṣé mo lè lo Truvo ní Yorùbá, Hausa, Igbo tàbí Pidgin?",
-        "a": "Bẹ́ẹ̀ ni. A kọ́ interface, àwọn bọ́tìnnì, ímeèlì àti ìfitọ́nilétí Truvo láti ṣiṣẹ́ ní Gẹ̀ẹ́sì, Pidgin Nàìjíríà, Yorùbá, Hausa àti Igbo. Yan èdè rẹ láti inú àkójọ — a fi pamọ́ ó sì ń tẹ̀lé ọ káàkiri àwọn ẹ̀rọ."
+        "q": "Ṣé mo lè lo Provira ní Yorùbá, Hausa, Igbo tàbí Pidgin?",
+        "a": "Bẹ́ẹ̀ ni. A kọ́ interface, àwọn bọ́tìnnì, ímeèlì àti ìfitọ́nilétí Provira láti ṣiṣẹ́ ní Gẹ̀ẹ́sì, Pidgin Nàìjíríà, Yorùbá, Hausa àti Igbo. Yan èdè rẹ láti inú àkójọ — a fi pamọ́ ó sì ń tẹ̀lé ọ káàkiri àwọn ẹ̀rọ."
       },
       "changeLang": {
         "q": "Ṣé mo lè yí èdè mi padà nígbàkúùgbà?",

@@ -40,13 +40,13 @@ const TONE: Record<Tone, string> = {
 
 const META: Record<TrustBadgeKey, { label: string; tip: string; icon: LucideIcon; tone: Tone }> = {
   GOV_ID_VERIFIED: { label: "Government ID Verified", tip: "NIN/BVN verified with a government source.", icon: BadgeCheck, tone: "brand" },
-  IDENTITY_VERIFIED: { label: "Identity Verified", tip: "Identity confirmed by Truvo.", icon: ShieldCheck, tone: "brand" },
-  COMPANY_VERIFIED: { label: "Company Verified", tip: "Business details verified by Truvo.", icon: Building2, tone: "brand" },
+  IDENTITY_VERIFIED: { label: "Identity Verified", tip: "Identity confirmed by Provira.", icon: ShieldCheck, tone: "brand" },
+  COMPANY_VERIFIED: { label: "Company Verified", tip: "Business details verified by Provira.", icon: Building2, tone: "brand" },
   EMAIL_VERIFIED: { label: "Email Verified", tip: "Email address confirmed.", icon: Mail, tone: "neutral" },
   PHONE_VERIFIED: { label: "Phone Verified", tip: "Phone number confirmed.", icon: Phone, tone: "neutral" },
   PAYMENT_VERIFIED: { label: "Payment Verified", tip: "A verified payout account is on file.", icon: Banknote, tone: "green" },
   TOP_RATED: { label: "Top Rated", tip: "4.8★ or higher across 5+ reviews.", icon: Star, tone: "gold" },
-  RISING_TALENT: { label: "Rising Talent", tip: "New to Truvo and already highly rated.", icon: Sparkles, tone: "gold" },
+  RISING_TALENT: { label: "Rising Talent", tip: "New to Provira and already highly rated.", icon: Sparkles, tone: "gold" },
   FAST_RESPONDER: { label: "Fast Responder", tip: "Typically responds within an hour.", icon: Zap, tone: "gold" },
   TRUSTED_EMPLOYER: { label: "Trusted Employer", tip: "5+ completed hires with strong ratings.", icon: ShieldCheck, tone: "brand" },
   TRUSTED_TRADER: { label: "Trusted Trader", tip: "A consistent, verified sales record.", icon: Store, tone: "brand" },

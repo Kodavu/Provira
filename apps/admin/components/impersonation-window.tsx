@@ -40,7 +40,7 @@ const when = (iso: string) => new Date(iso).toLocaleString("en-NG", { dateStyle:
 const cap = (s: string) => s.charAt(0) + s.slice(1).toLowerCase();
 
 // A read-only, user-styled window an admin sees when impersonating. It mirrors
-// the look of the Truvo user app; every mutating control is disabled (except a
+// the look of the Provira user app; every mutating control is disabled (except a
 // small whitelist of audited actions for WRITE "act as" grants). Forces a light
 // user-app palette regardless of the admin theme.
 export function ImpersonationWindow({ data }: { data: ViewData }) {
@@ -116,7 +116,7 @@ export function ImpersonationWindow({ data }: { data: ViewData }) {
         >
           <div className="flex items-center gap-2">
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">T</span>
-            <span className="text-lg font-bold tracking-tight">truvo</span>
+            <span className="text-lg font-bold tracking-tight">provira</span>
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white py-1.5 pl-1.5 pr-3">
             <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-700 text-xs font-bold text-white">{initials}</span>

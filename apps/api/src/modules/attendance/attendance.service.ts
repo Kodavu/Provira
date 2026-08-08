@@ -4,7 +4,7 @@ import { PrismaService } from "../../prisma/prisma.service.js";
 import { EscrowService, platformFee } from "../escrow/escrow.service.js";
 import { ScoringService } from "../scoring/scoring.service.js";
 import { NotificationService } from "../notifications/notification.service.js";
-import type { Channel } from "@truvo/db";
+import type { Channel } from "@provira/db";
 
 function hash(code: string): string {
   return createHash("sha256").update(code).digest("hex");

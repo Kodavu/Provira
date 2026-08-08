@@ -4,8 +4,8 @@ import { RevealGroup, RevealItem } from "@/components/marketing/motion";
 import { PageHero, Prose } from "@/components/marketing/page-shell";
 
 export const metadata = {
-  title: "Accessibility — Truvo",
-  description: "Truvo is built to be usable by everyone — keyboard navigable, screen-reader friendly, high-contrast, phone-first, and respectful of reduced-motion preferences.",
+  title: "Accessibility — Provira",
+  description: "Provira is built to be usable by everyone — keyboard navigable, screen-reader friendly, high-contrast, phone-first, and respectful of reduced-motion preferences.",
 };
 
 const COMMITMENTS = [
@@ -23,7 +23,7 @@ export default function AccessibilityPage() {
       <PageHero
         eyebrow={<><AccessibilityIcon className="h-3.5 w-3.5" /> Accessibility</>}
         title="Built for everyone who works"
-        lede="The informal economy includes people on every kind of device and ability. Accessibility isn't a feature we add later — it's how Truvo is designed from the start."
+        lede="The informal economy includes people on every kind of device and ability. Accessibility isn't a feature we add later — it's how Provira is designed from the start."
       />
 
       <Section className="py-16 md:py-24">
@@ -52,8 +52,8 @@ export default function AccessibilityPage() {
             </p>
             <h2>Tell us what we missed</h2>
             <p>
-              If any part of Truvo is hard to use with your assistive technology, we want to know. Email{" "}
-              <a href="mailto:accessibility@truvo.com.ng">accessibility@truvo.com.ng</a> with the page and what went wrong, and we&apos;ll
+              If any part of Provira is hard to use with your assistive technology, we want to know. Email{" "}
+              <a href="mailto:accessibility@provira.com.ng">accessibility@provira.com.ng</a> with the page and what went wrong, and we&apos;ll
               work to fix it — and reply with an accessible alternative in the meantime.
             </p>
           </Prose>

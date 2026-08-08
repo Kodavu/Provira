@@ -7,7 +7,7 @@
     "signIn": "Sign in",
     "getStarted": "Get started",
     "language": "Language",
-    "ariaHome": "Truvo home",
+    "ariaHome": "Provira home",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "items": {
@@ -72,7 +72,7 @@
       "hero": {
         "lead": "Find better work.",
         "emphasis": "Collect your money that same day.",
-        "sub": "See verified jobs near you, confirm your shift with code, and collect your money straight to your bank — as every job dey build your Truvo Score wey go open credit for you.",
+        "sub": "See verified jobs near you, confirm your shift with code, and collect your money straight to your bank — as every job dey build your Provira Score wey go open credit for you.",
         "primaryCta": "Find work",
         "secondaryCta": "How e dey work",
         "chips": [
@@ -85,7 +85,7 @@
         "Employers wey verify, wey escrow dey back",
         "Professional profile with rating and review",
         "Flexible shift wey match your ward",
-        "Truvo Score wey dey open real credit"
+        "Provira Score wey dey open real credit"
       ],
       "steps": [
         {
@@ -104,18 +104,18 @@
       "faqs": [
         {
           "q": "How quick I go collect my money?",
-          "a": "That same day. Once attendance confirm with employer 4-digit code, your escrow money go enter your Truvo wallet, and you fit withdraw am go your bank."
+          "a": "That same day. Once attendance confirm with employer 4-digit code, your escrow money go enter your Provira wallet, and you fit withdraw am go your bank."
         },
         {
           "q": "I need smartphone?",
           "a": "No. You fit sign up, apply, and confirm shift for USSD (*347*82#) or WhatsApp. Smartphone go open the full app, but e no compulsory."
         },
         {
-          "q": "Wetin be my Truvo Score?",
+          "q": "Wetin be my Provira Score?",
           "a": "Na record wey you fit prove, wey come from jobs wey you complete, showing on time, and loans wey you pay back. Higher score dey open better jobs and real credit wey no cost too much."
         },
         {
-          "q": "I fit use Truvo for my language?",
+          "q": "I fit use Provira for my language?",
           "a": "Yes — the app, USSD and WhatsApp dey work for English, Pidgin, Yoruba, Hausa and Igbo. Pick your language once, e go save am for next time, for all your devices."
         }
       ]
@@ -162,7 +162,7 @@
         },
         {
           "q": "How I go find good workers?",
-          "a": "Truvo dey suggest NIN-verified workers wey get real track record and rating, wey match your job and location. You invite the ones wey you want; dem confirm."
+          "a": "Provira dey suggest NIN-verified workers wey get real track record and rating, wey match your job and location. You invite the ones wey you want; dem confirm."
         },
         {
           "q": "How much e cost to hire?",
@@ -202,7 +202,7 @@
         },
         {
           "title": "Build your history",
-          "body": "Steady sales dey grow your Truvo Score and dey prove your business to banks and lenders."
+          "body": "Steady sales dey grow your Provira Score and dey prove your business to banks and lenders."
         },
         {
           "title": "Open capital",
@@ -240,10 +240,10 @@
     "ecosystem": {
       "eyebrow": "One ecosystem wey connect",
       "title": "Three kind people. One economic identity wey una dey share.",
-      "subtitle": "Workers, employers, and traders — each one get product wey we build for dem, wey the same verified identity, escrow, and Truvo Score dey connect."
+      "subtitle": "Workers, employers, and traders — each one get product wey we build for dem, wey the same verified identity, escrow, and Provira Score dey connect."
     },
     "features": {
-      "eyebrow": "Why Truvo",
+      "eyebrow": "Why Provira",
       "title": "Na the rails wey dey make everything work",
       "subtitle": "Payments, reputation, matching, and access — shared infrastructure wey dey serve every side of the platform.",
       "escrowTitle": "Money wey escrow dey back, e dey comot when e confirm",
@@ -253,7 +253,7 @@
         "E dey comot sharp sharp",
         "Bank payout"
       ],
-      "scoreTitle": "The Truvo Score",
+      "scoreTitle": "The Provira Score",
       "scoreBody": "Reputation wey you fit prove, wey come from real work and sales — na the key wey dey open credit.",
       "locationTitle": "Match by location",
       "locationBody": "Reach your ward. The correct jobs, workers, and customers, wey near you.",
@@ -266,7 +266,7 @@
       "eyebrow": "We build am for Nigeria",
       "title1": "Technology wey",
       "title2": "dey speak your language",
-      "sub": "Work, hire, and trade for the language wey sweet you pass. We design Truvo for how Naija people dey actually talk — for the app, for USSD, and for WhatsApp.",
+      "sub": "Work, hire, and trade for the language wey sweet you pass. We design Provira for how Naija people dey actually talk — for the app, for USSD, and for WhatsApp.",
       "bullets": [
         "Interface, buttons, email and notification — all for your language.",
         "Your language dey save, e dey follow you for all your devices.",
@@ -283,8 +283,8 @@
       "badge": "For traders · E dey come",
       "title1": "One complete",
       "title2": "business operating system",
-      "body": "Start to build your sales record today. Soon, Truvo go be the till, the store, and the accountant too — complete POS and business toolkit wey we build for Naija traders, online and offline.",
-      "primaryCta": "Start to sell for Truvo",
+      "body": "Start to build your sales record today. Soon, Provira go be the till, the store, and the accountant too — complete POS and business toolkit wey we build for Naija traders, online and offline.",
+      "primaryCta": "Start to sell for Provira",
       "secondaryCta": "Check the roadmap",
       "features": [
         "Sales & receipt",
@@ -301,7 +301,7 @@
     },
     "roadmap": {
       "eyebrow": "Product vision",
-      "title": "Where Truvo dey go next",
+      "title": "Where Provira dey go next",
       "subtitle": "We dey build toward one platform wey go run work and business from start to finish. Na wetin dey come be this — we label am honest so you go always know wetin dey work today.",
       "status": {
         "inDev": "We dey build am",
@@ -323,7 +323,7 @@
         },
         {
           "title": "Digital Wallet",
-          "body": "Hold, send and receive business payment inside Truvo."
+          "body": "Hold, send and receive business payment inside Provira."
         },
         {
           "title": "Inventory Intelligence",
@@ -331,7 +331,7 @@
         },
         {
           "title": "Business Loans",
-          "body": "Working capital wey match your Truvo record wey you fit prove."
+          "body": "Working capital wey match your Provira record wey you fit prove."
         },
         {
           "title": "QR Payments",
@@ -370,7 +370,7 @@
     "integrations": {
       "eyebrow": "Integrations",
       "title": "E dey work with the tools wey you dey already use",
-      "subtitle": "Truvo dey connect to the payment, messaging, and business rails wey dey keep Naija moving — with plenty more dey come.",
+      "subtitle": "Provira dey connect to the payment, messaging, and business rails wey dey keep Naija moving — with plenty more dey come.",
       "items": [
         {
           "label": "Payment providers",
@@ -409,7 +409,7 @@
       "lovedBy": "Workers, employers & traders love am",
       "items": [
         {
-          "quote": "Before before, I go wait days make I collect money after shift. With Truvo the money dey enter my account that same evening — and my score come get me my first stock loan.",
+          "quote": "Before before, I go wait days make I collect money after shift. With Provira the money dey enter my account that same evening — and my score come get me my first stock loan.",
           "name": "Amaka O.",
           "role": "Warehouse worker · Lagos"
         },
@@ -424,7 +424,7 @@
           "role": "Market trader · Kano"
         },
         {
-          "quote": "No smartphone, no wahala — I dey confirm shift for USSD. Truvo dey treat people like me as customers, no be afterthought.",
+          "quote": "No smartphone, no wahala — I dey confirm shift for USSD. Provira dey treat people like me as customers, no be afterthought.",
           "name": "Grace E.",
           "role": "Cleaner · Abuja"
         }
@@ -479,7 +479,7 @@
     "nameLabel": "Full name",
     "namePlaceholder": "e.g. Amaka Okafor",
     "continue": "Continue",
-    "useTitle": "How you go use Truvo?",
+    "useTitle": "How you go use Provira?",
     "useSubtitle": "You fit add another role later from your dashboard.",
     "createAccountBtn": "Create account",
     "back": "Back",
@@ -488,7 +488,7 @@
     "redirecting": "We dey take you go your dashboard…",
     "alreadyHave": "You get account already?",
     "signIn": "Sign in",
-    "newToTally": "New to Truvo?",
+    "newToTally": "New to Provira?",
     "createAccountLink": "Create account",
     "types": {
       "worker": {
@@ -760,7 +760,7 @@
     "title": "Earnings",
     "subtitle": "Wetin enter your wallet, and where e dey go when you withdraw.",
     "availableNow": "Available now",
-    "inWallet": "for your Truvo wallet",
+    "inWallet": "for your Provira wallet",
     "withdraw": "Withdraw",
     "addPayoutInline": "Add payout account make you fit receive withdrawal.",
     "addAccount": "Add account",
@@ -791,10 +791,10 @@
     "traderTitle": "Stock loans",
     "traderSubtitle": "Qualify for working capital once you don build track record of sales wey you log.",
     "howTitle": "How eligibility dey work:",
-    "howBody": "your Truvo score dey decide which product you qualify for. Loan wey approve dey enter your payout account straight, and when you pay back on time e dey raise your score — dey open bigger limit next time."
+    "howBody": "your Provira score dey decide which product you qualify for. Loan wey approve dey enter your payout account straight, and when you pay back on time e dey raise your score — dey open bigger limit next time."
   },
   "Standing": {
-    "title": "Your Truvo Score",
+    "title": "Your Provira Score",
     "subtitle": "Exactly wetin move your score — the ledger behind the number.",
     "ptsToNext": "{points} pts to {tier}",
     "shiftsDone": "Shifts wey done",
@@ -907,9 +907,9 @@
   },
   "Settings": {
     "title": "General settings",
-    "subtitle": "Choose how Truvo go reach you and the language you want make we follow you yarn.",
+    "subtitle": "Choose how Provira go reach you and the language you want make we follow you yarn.",
     "language": "Language",
-    "languageSub": "The language wey Truvo dey use for the app, email and notification. We save am for this device.",
+    "languageSub": "The language wey Provira dey use for the app, email and notification. We save am for this device.",
     "notifications": "Notifications",
     "notificationsSub": "Choose how you want make we notify about updates wey dey important.",
     "jobFeed": "Job feed",
@@ -919,7 +919,7 @@
     "feeds": {
       "ALL": {
         "label": "All jobs",
-        "hint": "Every open job for Truvo."
+        "hint": "Every open job for Provira."
       },
       "SKILLS": {
         "label": "Match my skill",
@@ -1105,17 +1105,17 @@
     "whatsapp": "WhatsApp",
     "whatsappHint": "Chat with support",
     "emailUs": "Email us",
-    "emailHint": "support@truvo.com.ng",
+    "emailHint": "support@provira.com.ng",
     "verifyIdentity": "Verify identity",
     "verifyHint": "Unlock higher limit",
     "alertsNote": "We dey always deliver security and payment alert. Manage every other notification for <link>Settings</link>.",
     "faqs": {
       "getPaid": {
         "q": "How I go take collect pay for shift?",
-        "a": "After we match you to job, apply make you get 4-digit confirmation code. For site, the employer go confirm your attendance — that one go release the escrow pay straight into your Truvo wallet, wey you fit withdraw go your bank."
+        "a": "After we match you to job, apply make you get 4-digit confirmation code. For site, the employer go confirm your attendance — that one go release the escrow pay straight into your Provira wallet, wey you fit withdraw go your bank."
       },
-      "truvoScore": {
-        "q": "Wetin be my Truvo Score?",
+      "proviraScore": {
+        "q": "Wetin be my Provira Score?",
         "a": "Na reliability score wey we build from your real activity — shifts wey you complete, on-time rate, sales wey you log, and loans wey you pay back. Higher score go unlock better jobs and bigger loans. We explain every point for the My standing page."
       },
       "logSale": {
@@ -1132,7 +1132,7 @@
       },
       "loans": {
         "q": "How loans dey work?",
-        "a": "Loan eligibility base on your Truvo Score. Approved loans go disburse go your payout account, and if you pay back on time e go raise your score — and unlock bigger limit next time."
+        "a": "Loan eligibility base on your Provira Score. Approved loans go disburse go your payout account, and if you pay back on time e go raise your score — and unlock bigger limit next time."
       },
       "verify": {
         "q": "How I go take verify my identity?",
@@ -1177,7 +1177,7 @@
     "disclosureEyebrow": "Responsible disclosure",
     "disclosureTitle": "You find vulnerability?",
     "disclosureSubtitle": "We welcome report from security researchers and we dey treat dem with priority.",
-    "disclosureBody": "Abeg email <email>security@truvo.com.ng</email> with details and steps to reproduce. Give us reasonable window make we fix the issue before public disclosure — and abeg no access or modify data wey no be your own.",
+    "disclosureBody": "Abeg email <email>security@provira.com.ng</email> with details and steps to reproduce. Give us reasonable window make we fix the issue before public disclosure — and abeg no access or modify data wey no be your own.",
     "ctaTitle": "Bank-grade protection, built in",
     "ctaBody": "Every payout, identity, and record, we dey handle am with the care wey e deserve.",
     "ctaSecondary": "Read our Privacy Policy"
@@ -1202,7 +1202,7 @@
     "pickLgaFirst": "Pick LGA first"
   },
   "Footer": {
-    "tagline": "Truvo dey turn informal work, sales, and payments into verifiable economic identity — e dey unlock same-day pay, better jobs, and real credit for Nigeria hardest workers.",
+    "tagline": "Provira dey turn informal work, sales, and payments into verifiable economic identity — e dey unlock same-day pay, better jobs, and real credit for Nigeria hardest workers.",
     "launchUpdates": "Get launch updates",
     "noSpam": "No spam. Unsubscribe anytime.",
     "newsletterPlaceholder": "you@email.com",
@@ -1210,12 +1210,12 @@
     "newsletterSubmit": "Notify me",
     "newsletterInvalid": "Enter correct email",
     "newsletterDone": "You dey the list now.",
-    "socialX": "Truvo on X",
-    "socialLinkedIn": "Truvo on LinkedIn",
-    "socialInstagram": "Truvo on Instagram",
-    "socialWhatsApp": "Truvo on WhatsApp",
+    "socialX": "Provira on X",
+    "socialLinkedIn": "Provira on LinkedIn",
+    "socialInstagram": "Provira on Instagram",
+    "socialWhatsApp": "Provira on WhatsApp",
     "location": "Lagos, Nigeria",
-    "copyright": "© {year} Truvo Technologies. All rights reserved.",
+    "copyright": "© {year} Provira Technologies. All rights reserved.",
     "systemsOperational": "Everything dey work",
     "headings": {
       "product": "Product",
@@ -1250,11 +1250,11 @@
   "About": {
     "heroEyebrow": "Our mission",
     "heroTitle": "Turning everyday work into economic identity",
-    "heroLede": "Millions of Nigerians dey work hard every single day, but a lifetime of effort no dey leave any paper trail wey bank fit trust. Truvo dey change that — one job, one sale, one confirmed shift at a time.",
+    "heroLede": "Millions of Nigerians dey work hard every single day, but a lifetime of effort no dey leave any paper trail wey bank fit trust. Provira dey change that — one job, one sale, one confirmed shift at a time.",
     "whyEyebrow": "Why we exist",
     "whyTitle": "The economy dey run on work wey stay invisible",
     "storyP1": "The market trader wey dey restock for early morning, the crew wey dey load warehouse for night, the cleaner wey no dey miss shift — na dem dey keep the country moving. But when dem need capital, fair wage on time, or just proof of wetin dem don do, the system no get anything to show.",
-    "storyP2": "Truvo dey give that work memory. Every completed job, logged sale, and on-time repayment dey become part of verifiable record — the <s>Truvo Score</s> — wey employers, banks, and lenders fit actually check. Work dey become reputation. Reputation dey become credit.",
+    "storyP2": "Provira dey give that work memory. Every completed job, logged sale, and on-time repayment dey become part of verifiable record — the <s>Provira Score</s> — wey employers, banks, and lenders fit actually check. Work dey become reputation. Reputation dey become credit.",
     "cards": {
       "workers": {
         "k": "For workers",
@@ -1297,7 +1297,7 @@
       }
     },
     "ctaTitle": "Help us make work count",
-    "ctaBody": "Whether you dey here to earn, to hire, or to build with us — space dey for you for Truvo.",
+    "ctaBody": "Whether you dey here to earn, to hire, or to build with us — space dey for you for Provira.",
     "ctaSecondary": "See open roles"
   },
   "Faq": {
@@ -1308,14 +1308,14 @@
     "items": {
       "speed": {
         "q": "How fast workers dey actually collect pay?",
-        "a": "Same day. The moment dem confirm attendance with employer 4-digit code, dem go release the escrow pay to worker Truvo wallet and e fit withdraw am go im bank — no waiting days for invoice."
+        "a": "Same day. The moment dem confirm attendance with employer 4-digit code, dem go release the escrow pay to worker Provira wallet and e fit withdraw am go im bank — no waiting days for invoice."
       },
       "smartphone": {
-        "q": "I need smartphone to use Truvo?",
-        "a": "No. Truvo na phone-first: you fit sign up, confirm shifts, and check your balance for USSD (*347*82#) or WhatsApp. Smartphone dey unlock the full app, but e no dey compulsory."
+        "q": "I need smartphone to use Provira?",
+        "a": "No. Provira na phone-first: you fit sign up, confirm shifts, and check your balance for USSD (*347*82#) or WhatsApp. Smartphone dey unlock the full app, but e no dey compulsory."
       },
       "score": {
-        "q": "How the Truvo Score dey work?",
+        "q": "How the Provira Score dey work?",
         "a": "Every completed job, on-time arrival, logged sale, and repaid loan dey add to your score. No-shows and disputes dey subtract. Na honest, verifiable record wey banks and lenders fit check — na im dey turn your work into real credit."
       },
       "protection": {
@@ -1327,12 +1327,12 @@
         "a": "Sign up, collect pay, and build your score na free for workers and traders. Employers dey pay small, transparent fee per completed hire — with no monthly minimums."
       },
       "availability": {
-        "q": "Truvo dey available across Nigeria?",
+        "q": "Provira dey available across Nigeria?",
         "a": "We dey roll out state by state, starting for Lagos. Workers and employers anywhere for Nigeria fit sign up now and set dem location down to the ward, so we go match you the moment jobs go live near you."
       },
       "languages": {
-        "q": "I fit use Truvo for Yoruba, Hausa, Igbo or Pidgin?",
-        "a": "Yes. Truvo interface, buttons, emails and notifications dey built to work for English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — we dey save am and e dey follow you across devices."
+        "q": "I fit use Provira for Yoruba, Hausa, Igbo or Pidgin?",
+        "a": "Yes. Provira interface, buttons, emails and notifications dey built to work for English, Nigerian Pidgin, Yoruba, Hausa and Igbo. Choose your language from the menu — we dey save am and e dey follow you across devices."
       },
       "changeLang": {
         "q": "I fit change my language any time?",
