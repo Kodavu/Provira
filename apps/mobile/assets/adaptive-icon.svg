@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Android adaptive foreground: transparent; the indigo comes from
+       adaptiveIcon.backgroundColor (#3D3BF3). Glyph kept inside the ~66%
+       safe zone so no launcher mask can clip it. -->
+  <g transform="translate(181.25 198.8) scale(27)" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 12.6 L10 17.8 L14.8 11.7" stroke="#ffffff"/>
+    <path d="M14.8 11.7 L20 5.4" stroke="#f5b301"/>
+  </g>
+</svg>

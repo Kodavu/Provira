@@ -7,7 +7,9 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "primaryColor": "#3D3BF3",
+    "icon": "./assets/icon.png",
     "splash": {
+      "image": "./assets/splash.png",
       "backgroundColor": "#3D3BF3",
       "resizeMode": "contain"
     },
@@ -18,12 +20,14 @@
     "android": {
       "package": "ng.usetruvo.app",
       "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#3D3BF3"
       }
     },
     "web": {
       "bundler": "metro",
-      "output": "single"
+      "output": "single",
+      "favicon": "./assets/icon.png"
     },
     "plugins": ["expo-router", "expo-secure-store"],
     "experiments": {

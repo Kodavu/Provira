@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <!-- Splash art on a transparent canvas; splash.backgroundColor (#3D3BF3)
+       fills behind it, resizeMode "contain" centers it. White mark + gold
+       tip, with the wordmark below in white. -->
+  <g transform="translate(232.5 152) scale(30)" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 12.6 L10 17.8 L14.8 11.7" stroke="#ffffff"/>
+    <path d="M14.8 11.7 L20 5.4" stroke="#f5b301"/>
+  </g>
+  <text x="600" y="820" text-anchor="middle" font-family="'DejaVu Sans', Arial, Helvetica, sans-serif" font-size="150" font-weight="700" letter-spacing="-3" fill="#ffffff">Truvo</text>
+</svg>
