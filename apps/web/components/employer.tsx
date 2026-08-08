@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
-import { api, EmployerDashboard } from "@/lib/api";
+import { api, EmployerDashboard, type Skill } from "@/lib/api";
 import { LocationPicker, type LocationValue } from "@/components/location-picker";
 import { Button, Card, Pill, ProgressBar, formatNaira } from "@/components/ui";
 
-const CATEGORY_SLUGS = ["loading", "cleaning", "driving", "tailoring", "bricklaying"];
+const OTHER = "Other";
+const categoryOf = (s: Skill) => s.category ?? OTHER;
 
 const fieldCls =
   "w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink-muted focus:border-brand-500 focus:ring-2 focus:ring-brand-100";
@@ -34,9 +35,40 @@ export function PostJobCard({
   const [address, setAddress] = useState("");
   const [startAt, setStartAt] = useState("");
   const [endAt, setEndAt] = useState("");
-  const [slug, setSlug] = useState("loading");
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [category, setCategory] = useState("");
+  const [slug, setSlug] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Category + skill options come from the backend skill catalog.
+  useEffect(() => {
+    api
+      .skills()
+      .then((list) => {
+        setSkills(list);
+        const firstCat = list.length ? categoryOf(list[0]) : "";
+        setCategory(firstCat);
+        setSlug(list.find((s) => categoryOf(s) === firstCat)?.slug ?? "");
+      })
+      .catch(() => {
+        /* leave empty — submit is guarded */
+      });
+  }, []);
+
+  const categories = useMemo(
+    () => [...new Set(skills.map(categoryOf))].sort((a, b) => a.localeCompare(b)),
+    [skills],
+  );
+  const skillsInCategory = useMemo(
+    () => skills.filter((s) => categoryOf(s) === category),
+    [skills, category],
+  );
+
+  function pickCategory(next: string) {
+    setCategory(next);
+    setSlug(skills.find((s) => categoryOf(s) === next)?.slug ?? "");
+  }
 
   const count = Math.max(1, Number(headcount) || 1);
   const per = Number(perPerson) || 0;
@@ -45,6 +77,7 @@ export function PostJobCard({
   async function submit() {
     if (!title.trim()) return setError(t("errNoTitle"));
     if (!per) return setError(t("errNoAmount"));
+    if (!slug) return setError(t("skillNeeded"));
     if (startAt && endAt && new Date(endAt) <= new Date(startAt))
       return setError(t("errEndBeforeStart"));
     setLoading(true);
@@ -142,22 +175,39 @@ export function PostJobCard({
           </label>
         </div>
 
-        <div>
-          <Label>{t("category")}</Label>
-          <div className="flex flex-wrap gap-2">
-            {CATEGORY_SLUGS.map((s) => (
-              <button
-                key={s}
-                type="button"
-                onClick={() => setSlug(s)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                  slug === s ? "bg-brand-700 text-white" : "border border-line bg-surface text-ink-soft hover:bg-canvas"
-                }`}
-              >
-                {t(`categories.${s}`)}
-              </button>
-            ))}
-          </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="block">
+            <Label>{t("category")}</Label>
+            <select
+              className={fieldCls}
+              value={category}
+              onChange={(e) => pickCategory(e.target.value)}
+              disabled={!skills.length}
+            >
+              {!skills.length && <option value="">…</option>}
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c.charAt(0).toUpperCase() + c.slice(1)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <Label>{t("skillNeeded")}</Label>
+            <select
+              className={fieldCls}
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              disabled={!skillsInCategory.length}
+            >
+              {!skillsInCategory.length && <option value="">…</option>}
+              {skillsInCategory.map((s) => (
+                <option key={s.slug} value={s.slug}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
         {total > 0 && (

@@ -402,7 +402,7 @@ export const zPublicJobDetail = z.object({
 });
 export type PublicJobDetail = z.infer<typeof zPublicJobDetail>;
 
-export const zSkill = z.object({ slug: z.string(), name: z.string() });
+export const zSkill = z.object({ slug: z.string(), name: z.string(), category: z.string().nullable() });
 export type Skill = z.infer<typeof zSkill>;
 
 // --- Notifications ---

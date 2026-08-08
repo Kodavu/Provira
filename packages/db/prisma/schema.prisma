@@ -358,11 +358,12 @@ model EmployerProfile {
 // ---------------------------------------------------------------------------
 
 model Skill {
-  id      String        @id @default(cuid())
-  slug    String        @unique // e.g. "bricklaying", "tailoring"
-  name    String
-  workers WorkerSkill[]
-  jobs    JobSkill[]
+  id       String        @id @default(cuid())
+  slug     String        @unique // e.g. "bricklaying", "tailoring"
+  name     String
+  category String? // grouping, e.g. "construction", "food", "tech"
+  workers  WorkerSkill[]
+  jobs     JobSkill[]
 }
 
 model WorkerSkill {

@@ -8,7 +8,9 @@ export class SkillsController {
 
   @Get()
   async list() {
-    const skills = await this.prisma.skill.findMany({ orderBy: { name: "asc" } });
-    return skills.map((s) => ({ slug: s.slug, name: s.name }));
+    const skills = await this.prisma.skill.findMany({
+      orderBy: [{ category: "asc" }, { name: "asc" }],
+    });
+    return skills.map((s) => ({ slug: s.slug, name: s.name, category: s.category ?? null }));
   }
 }
