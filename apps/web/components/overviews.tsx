@@ -12,12 +12,14 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
-import { api, type EmployerDashboard, type TraderDashboard, type WorkerDashboard } from "@/lib/api";
+import { useEffect, useState } from "react";
+import { api, type EmployerDashboard, type EmployerReports, type TraderDashboard, type WorkerDashboard } from "@/lib/api";
 import { usePageData } from "@/lib/use-page-data";
 import { useSession } from "@/lib/session-context";
 import { Button, Card, Kpi, Pill, formatNaira } from "@/components/ui";
 import { PageHeader, PageError, PageSkeleton } from "@/components/page";
 import { CountUp, CountUpNaira, FadeIn, Stagger, StaggerItem } from "@/components/motion";
+import { AreaChart, Donut } from "@/components/charts";
 import { StandingCard, HustleStats, NextGoal } from "@/components/worker";
 import { TraderStanding } from "@/components/trader";
 
@@ -237,6 +239,8 @@ export function EmployerOverview() {
         <StaggerItem><Kpi icon={<Wallet className="h-4 w-4" />} label={t("employer.paidOut")} value={<CountUpNaira amount={data.stats.released} />} caption={t("employer.paidOutCap")} /></StaggerItem>
       </Stagger>
 
+      <EmployerCharts />
+
       <div>
         <SectionRow title={t("employer.recentJobs")} href="/jobs" cta={t("employer.manageJobs")} />
         {data.jobs.length === 0 ? (
@@ -270,6 +274,67 @@ export function EmployerOverview() {
         <StaggerItem><QuickLink href="/escrow" icon={Banknote} label={t("employer.escrow")} hint={t("employer.committed", { amount: formatNaira(data.stats.committed) })} /></StaggerItem>
         <StaggerItem><QuickLink href="/verify" icon={ShieldCheck} label={t("employer.verifyBusiness")} hint={t("common.unlockHigher")} /></StaggerItem>
       </Stagger>
+    </div>
+  );
+}
+
+function EmployerCharts() {
+  const t = useTranslations("Overview");
+  const { userId } = useSession();
+  const [data, setData] = useState<EmployerReports | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    if (!userId) return;
+    let alive = true;
+    api
+      .employerReports(userId, 14)
+      .then((r) => alive && setData(r))
+      .catch(() => alive && setFailed(true));
+    return () => {
+      alive = false;
+    };
+  }, [userId]);
+
+  if (failed) return null;
+
+  const payout = data
+    ? data.payoutSeries.map((p) => ({
+        label: new Date(p.date).toLocaleDateString("en-NG", { day: "numeric", month: "short" }),
+        value: Number(p.amount),
+      }))
+    : [];
+  const statuses = data
+    ? data.jobsByStatus
+        .filter((s) => s.count > 0)
+        .map((s) => ({ label: s.status.replace(/_/g, " ").toLowerCase(), value: s.count }))
+    : [];
+
+  return (
+    <div className="grid gap-3 lg:grid-cols-2">
+      <Card className="p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="font-semibold text-ink">{t("employer.payoutTrend")}</h3>
+          <Link href="/reports" className="text-sm font-medium text-brand-700 hover:text-brand-800">
+            {t("employer.viewReports")}
+          </Link>
+        </div>
+        {!data ? (
+          <div className="h-40 w-full animate-pulse rounded-xl bg-line/40" />
+        ) : (
+          <AreaChart data={payout} money />
+        )}
+      </Card>
+      <Card className="p-5">
+        <h3 className="mb-3 font-semibold text-ink">{t("employer.jobsByStatus")}</h3>
+        {!data ? (
+          <div className="h-40 w-full animate-pulse rounded-xl bg-line/40" />
+        ) : statuses.length ? (
+          <Donut segments={statuses} centerLabel={t("employer.jobsLabel")} centerValue={String(data.totals.jobsPosted)} />
+        ) : (
+          <p className="text-sm text-ink-muted">{t("employer.noJobs")}</p>
+        )}
+      </Card>
     </div>
   );
 }

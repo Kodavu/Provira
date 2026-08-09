@@ -1,5 +1,6 @@
 import type {
   EmployerDashboard,
+  EmployerReports,
   JobDetail,
   JobSearchResults,
   JobSuggestion,
@@ -185,6 +186,8 @@ export function createProviraClient(config: ProviraClientConfig) {
     // Employer
     employerDashboard: (userId: string) =>
       request<EmployerDashboard>(`/employers/${userId}/dashboard`),
+    employerReports: (userId: string, days?: number) =>
+      request<EmployerReports>(`/employers/${userId}/reports${days ? `?days=${days}` : ""}`),
     createJob: (input: {
       employerId: string;
       title: string;
