@@ -15,6 +15,7 @@ import type {
   OtpVerifyResponse,
   ScoreBreakdown,
   TraderDashboard,
+  TraderReports,
   UserRoles,
   VerificationStatus,
   WalletData,
@@ -180,6 +181,8 @@ export function createProviraClient(config: ProviraClientConfig) {
     // Trader
     traderDashboard: (userId: string) =>
       request<TraderDashboard>(`/traders/${userId}/dashboard`),
+    traderReports: (userId: string, days?: number) =>
+      request<TraderReports>(`/traders/${userId}/reports${days ? `?days=${days}` : ""}`),
     logSale: (userId: string, amount: string, method: string) =>
       post(`/traders/${userId}/sales`, { amount, method }) as Promise<{ id: string }>,
 

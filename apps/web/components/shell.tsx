@@ -73,12 +73,14 @@ const NAV_BY_ROLE: Record<Role, NavLink[]> = {
     { key: "overview", href: "/overview", icon: LayoutDashboard },
     { key: "jobs", href: "/jobs", icon: Briefcase },
     { key: "earnings", href: "/earnings", icon: Wallet },
+    { key: "reports", href: "/reports", icon: BarChart3 },
     { key: "loans", href: "/loans", icon: HandCoins },
     { key: "standing", href: "/standing", icon: TrendingUp }
   ],
   TRADER: [
     { key: "overview", href: "/overview", icon: LayoutDashboard },
     { key: "sales", href: "/sales", icon: Receipt },
+    { key: "reports", href: "/reports", icon: BarChart3 },
     { key: "loans", href: "/loans", icon: HandCoins },
     { key: "standing", href: "/standing", icon: TrendingUp },
   ],
