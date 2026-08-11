@@ -6,6 +6,7 @@ export type {
   LoanOffer,
   WorkerDashboard,
   TraderDashboard,
+  TraderReports,
   EmployerDashboard,
   EmployerReports,
   JobDetail,
