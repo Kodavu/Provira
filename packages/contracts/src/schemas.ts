@@ -181,6 +181,25 @@ export const zTraderDashboard = z.object({
 });
 export type TraderDashboard = z.infer<typeof zTraderDashboard>;
 
+// --- Trader reports / trading record ---
+export const zTraderReports = z.object({
+  rangeDays: z.number(),
+  memberSince: zDate.nullable(),
+  firstSaleAt: zDate.nullable(),
+  score: z.object({ value: z.number(), tier: zTier }),
+  totals: z.object({
+    allTime: zMoney,
+    inRange: zMoney,
+    salesCount: z.number(), // all-time
+    avgSale: zMoney,
+    activeDays: z.number(), // distinct days with a sale, in range
+    monthsActive: z.number(),
+  }),
+  series: z.array(z.object({ date: z.string(), amount: zMoney })), // daily, in range
+  byMethod: z.array(z.object({ method: z.string(), amount: zMoney, count: z.number() })),
+});
+export type TraderReports = z.infer<typeof zTraderReports>;
+
 // --- Employer dashboard ---
 
 export const zEmployerDashboard = z.object({

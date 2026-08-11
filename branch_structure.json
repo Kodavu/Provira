@@ -1,0 +1,33 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "claude/tally-fintech-architecture-2pveuo",
+    "codex/enhance-admin-ui-and-animations",
+    "feat/employer-reports",
+    "feat/job-categories-from-backend",
+    "feat/worker-trader-reports",
+    "fix/employer-profile-reviews",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "claude/tally-fintech-architecture-2pveuo": "main",
+    "codex/enhance-admin-ui-and-animations": "main",
+    "feat/employer-reports": "main",
+    "feat/job-categories-from-backend": "main",
+    "feat/worker-trader-reports": "main",
+    "fix/employer-profile-reviews": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "claude/tally-fintech-architecture-2pveuo",
+    "codex/enhance-admin-ui-and-animations",
+    "feat/employer-reports",
+    "feat/job-categories-from-backend",
+    "feat/worker-trader-reports",
+    "fix/employer-profile-reviews",
+    "origin"
+  ]
+}
