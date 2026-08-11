@@ -2,14 +2,14 @@
   "name": "provira",
   "private": true,
   "version": "0.1.0",
-  "description": "Provira — economic identity infrastructure for Nigeria's informal economy",
+  "description": "Provira \u2014 economic identity infrastructure for Nigeria's informal economy",
   "packageManager": "pnpm@9.12.0",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build": "node api.js && turbo run build",
+    "dev": "node api.js && turbo run dev",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
