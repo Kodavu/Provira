@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { TradersService } from "./traders.service.js";
 import { UserAuthGuard } from "../auth/user-auth.guard.js";
 
@@ -11,6 +11,11 @@ export class TradersController {
   @Get(":userId/dashboard")
   dashboard(@Param("userId") userId: string) {
     return this.traders.dashboard(userId);
+  }
+
+  @Get(":userId/reports")
+  reports(@Param("userId") userId: string, @Query("days") days?: string) {
+    return this.traders.reports(userId, days ? Number(days) : undefined);
   }
 
   @Post(":userId/sales")
